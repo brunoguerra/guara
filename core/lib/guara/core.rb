@@ -1,4 +1,6 @@
 
+require "active_extend"
+
 module Guara
 
   mattr_accessor :user_class
