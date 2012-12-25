@@ -1,4 +1,8 @@
 
+require "devise"
+require "cancan"
+require "inherited_resources"
+
 module Guara
   module Core
     class Engine < ::Rails::Engine

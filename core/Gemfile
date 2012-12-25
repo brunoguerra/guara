@@ -9,7 +9,6 @@ gem 'bootstrap-will_paginate', '0.0.6'
 
 # Forms
 gem 'will_paginate', '3.0.3'
-gem 'formtastic-bootstrap'
 gem 'rails3-jquery-autocomplete'
 
 #test support
