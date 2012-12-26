@@ -1,6 +1,6 @@
 class AddDeviseToUsers < ActiveRecord::Migration
   def self.up
-    change_table(:users) do |t|
+    change_table(:guara_users) do |t|
       ## Database authenticatable
       #already set
       #~t.string :email,              :null => false, :default => ""
@@ -42,7 +42,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
     #already set
     #add_index :users, :email,                :unique => true
     
-    add_index :users, :reset_password_token, :unique => true
+    add_index :guara_users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true

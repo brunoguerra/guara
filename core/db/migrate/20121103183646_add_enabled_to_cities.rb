@@ -1,5 +1,5 @@
 class AddEnabledToCities < ActiveRecord::Migration
   def change
-    add_column :cities, :enabled, :boolean
+    add_column :guara_cities, :enabled, :boolean
   end
 end

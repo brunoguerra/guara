@@ -1,0 +1,2 @@
+module Tests::AjaxesHelper
+end

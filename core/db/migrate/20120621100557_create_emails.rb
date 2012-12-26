@@ -1,6 +1,6 @@
 class CreateEmails < ActiveRecord::Migration
   def change
-    create_table :emails do |t|
+    create_table :guara_emails do |t|
       t.integer	:customer_id	
       t.string	:email	, :limit => 120
       t.boolean	:infos	, :default => true

@@ -1,11 +1,11 @@
 class CreateCities < ActiveRecord::Migration
   def change
-    create_table :cities do |t|
+    create_table :guara_cities do |t|
       t.string :name, :limit => 60
       t.integer :state_id
       t.timestamps
     end
     
-    add_index :cities, :state_id
+    add_index :guara_cities, :state_id
   end
 end

@@ -1,0 +1,6 @@
+
+class FeedbacksController < BaseController
+  
+  
+  
+end

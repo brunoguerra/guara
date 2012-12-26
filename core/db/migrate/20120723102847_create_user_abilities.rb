@@ -1,6 +1,6 @@
 class CreateUserAbilities < ActiveRecord::Migration
   def change
-    create_table :user_abilities do |t|
+    create_table :guara_user_abilities do |t|
       t.integer :module_id
       t.integer :ability_id
       t.references :skilled, :polymorphic => true

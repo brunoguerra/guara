@@ -1,6 +1,6 @@
 class AddGroupsToUsers < ActiveRecord::Migration
   def change
-    add_column :users, :primary_group_id, :integer
-    add_index :users, :primary_group_id
+    add_column :guara_users, :primary_group_id, :integer
+    add_index :guara_users, :primary_group_id
   end
 end

@@ -1,6 +1,6 @@
 class CreateAddresses < ActiveRecord::Migration
   def change
-    create_table :addresses do |t|
+    create_table :guara_addresses do |t|
       t.integer :country_id
       t.integer :state_id
       t.integer :city_id
@@ -14,6 +14,6 @@ class CreateAddresses < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :addresses, [:state_id, :city_id]
+    add_index :guara_addresses, [:state_id, :city_id]
   end
 end

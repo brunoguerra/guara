@@ -20,7 +20,7 @@ module Guara
 
       initializer "guara.load_preferences", :before => "guara.environment" do
         #TODO: make common models behaviours 
-        #::ActiveRecord::Base.send :include, 
+        #::ActionController::Base.send :include, Guara::SessionHelper
       end
         
     end
