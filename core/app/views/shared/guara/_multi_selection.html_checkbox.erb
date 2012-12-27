@@ -1,0 +1,11 @@
+
+<%= select_tag("#{form_field}_select[]", options_for_select(source.collect { |ff| [ff.send(field_show), ff.send(field_store)] }, selected.collect { |fs| fs.send(field_store) }),
+                   {:multiple=>true, :id => "#{form_field}_select"}) %>
+
+<%= hidden_field_tag form_field, selected.join(",") %>
+
+<script>
+$(<%= "#{form_field}_select" %>).multiselect({
+   //selectedList: 4
+}).multiselectfilter();
+</script>

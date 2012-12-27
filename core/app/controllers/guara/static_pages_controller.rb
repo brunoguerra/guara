@@ -10,6 +10,9 @@ module Guara
         @micropost  = current_user.microposts.build
         @feed_items = current_user.feed.paginate(page: params[:page])
       end
+      
+      @column_one = Rails.application.config.guara.partials.home[:collumn_one] || []
+      @column_two = Rails.application.config.guara.partials.home[:collumn_two] || []
     end
     
     def help

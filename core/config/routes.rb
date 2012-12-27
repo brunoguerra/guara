@@ -9,7 +9,7 @@ Guara::Core::Engine.routes.draw do
   resources :task_types
   resources :system_task_status
 
-  devise_for :users, :class_name => 'Guara::User' #, :controllers => { :sessions => "sessions" } do
+  devise_for :users, :class_name => 'Guara::User', :module => :devise #, :controllers => { :sessions => "sessions" } do
 #    #get "/signup" => "devise/registrations#new", :as => 'user_signup'
 #    #get '/logout' => 'devise/sessions#destroy', :as => 'user_logout'
 #    #get '/login' => "devise/sessions#new", :as => 'user_login'

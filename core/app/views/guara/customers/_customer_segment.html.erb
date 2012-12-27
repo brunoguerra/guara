@@ -1,0 +1,9 @@
+<% new_or_existing = customer_segment.new_record? ? 'new' : 'existing' %>
+<% prefix = "customer[#{new_or_existing}_customer_segment_attributes][]" %>
+<% fields_for prefix, customer_segment do |customer_segment_form| %>
+<p>
+  <%= 1 %>
+  <%= customer_segment_form.collection_select :segment_id, @segments, :id, :name %>
+  <%= link_to_function t("remove"), "$(this).up('.customer_segment').remove()" %>
+</p>
+<% end %>

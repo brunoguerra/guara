@@ -1,4 +1,3 @@
-require "guara/routes"
 
 module Guara
   module EnabledModules

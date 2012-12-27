@@ -1,0 +1,33 @@
+<h1>Listing business_activities</h1>
+
+<section id="buttons">
+  <div class="page-header wehll">
+	<%= t("search.results")%>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+	  <tr>
+	    <th>Name</th>
+	    <th>Disable</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	<% @business_activities.each do |business_activity| %>
+	  <tr>
+	    <td><%= business_activity.name %></td>
+	    <td><%= business_activity.enabled %></td>
+	    <td><%= link_to 'Show', business_activity %></td>
+	    <td><%= link_to 'Edit', edit_business_activity_path(business_activity) %></td>
+	    <td><%= link_to 'Destroy', business_activity, confirm: 'Are you sure?', method: :delete %></td>
+	  </tr>
+	<% end %>
+    </tbody>
+  </table>
+</section>
+
+<br />
+
+<%= link_to 'New Business activity', new_business_activity_path %>

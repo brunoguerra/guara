@@ -1,0 +1,5 @@
+<% for inc in values do %>
+	<%= autocomplete_field_tag "#{form_field}_select[]", '', autocomplete, :size => 75, :id_element => "##{form_field}_id#{inc}" %>
+	<%= hidden_field_tag "#{form_field}_id[]", :id => "##{form_field}_id#{inc}" %>
+
+<% end %>

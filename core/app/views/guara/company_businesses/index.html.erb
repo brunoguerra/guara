@@ -1,0 +1,25 @@
+<h1>Listing company_businesses</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Enabled</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @company_businesses.each do |company_business| %>
+  <tr>
+    <td><%= company_business.name %></td>
+    <td><%= company_business.enabled %></td>
+    <td><%= link_to 'Show', company_business %></td>
+    <td><%= link_to 'Edit', edit_company_business_path(company_business) %></td>
+    <td><%= link_to 'Destroy', company_business, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Company business', new_company_business_path %>

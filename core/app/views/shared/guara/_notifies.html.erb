@@ -1,0 +1,13 @@
+
+<div class="sidebar-nav">
+	<ul class="nav nav-list">
+		<li class="nav-header"><%= t("home.notifies") %></li>
+		<% if Rails.application.config.guara.partials.home[:notifies] %>
+			<% Rails.application.config.guara.partials.home[:notifies].each do |p| -%>
+				<% render p.to_s %>
+			<% end  %>
+		<% end %>
+	</ul>
+</div>
+
+

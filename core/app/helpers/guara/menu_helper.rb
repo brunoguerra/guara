@@ -2,10 +2,9 @@ module Guara
   module MenuHelper
   
     ##
-    # build menu to site
-    # 
+    # build menu to site 
     # @param menu title items
-    ##
+    #
     def build_menu(menu)
       raw %Q{
         <li id="fat-menu" class="dropdown">
@@ -18,7 +17,8 @@ module Guara
         </li>
           }
     end
-  
+    
+    
     def build_menu_items(menu)
       returns = ""
       menu[:items].each do |item|
@@ -36,7 +36,7 @@ module Guara
             menu_path << item
             menu_path << "path"
             path = eval(menu_path.join('_')+"()")
-    			end        
+    			end
   			
     			returns += %Q{ <li>#{ link_to t(item_title.to_s+".title"), path }</li> }
 

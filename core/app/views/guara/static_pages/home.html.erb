@@ -1,0 +1,36 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span3">
+      <section class="row well">
+				<div class="user_info">
+        	<%= render 'shared/guara/user_info' %>
+				</div>
+				<div class="user_info">
+			  	<%= render 'shared/guara/notifies' %>	
+				</div>
+			</section>
+    </aside>
+	  <div class="span5">
+			<% @column_one.each do |p| -%>
+				<% render p.to_s %>
+			<% end  %>
+	  </div>
+		<div class="span4">
+			<h3><%= t("home.feed") %></h3>
+		    <%= render 'shared/guara/feed' %>
+		</div>
+
+  </div>  
+<% else %>
+  <div class="center hero-unit">
+    <h1><%= title %></h1>
+
+    <h2>
+      Error
+    </h2>
+
+    <%= link_to "Sign in now!", signin_path, 
+                                class: "btn btn-large btn-primary" %>
+  </div>
+
+<% end %>

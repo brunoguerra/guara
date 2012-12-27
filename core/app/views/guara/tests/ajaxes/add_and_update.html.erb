@@ -1,0 +1,22 @@
+
+<section class="content">
+<div class="list">
+
+</div>
+
+<nav>
+	<li><%= link_to "Add new item",
+	  add_tests_ajaxes_path(),
+	  :update => '.list',
+	  :position => :bottom,
+	  :remote => true %></li>
+</nav>
+</section>
+
+<script>
+$(document).ready(function(){
+  $('.list').bind("ajax:success", function(evt, data, status, xhr){
+      alert('hello '+status);
+    })
+});
+</script>

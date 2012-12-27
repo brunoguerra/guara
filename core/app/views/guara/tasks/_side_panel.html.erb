@@ -1,0 +1,64 @@
+<div class="tasks side">
+
+	<div class="new">
+		
+		<div class="tasks-list">
+			<%= render :partial => 'tasks/list', :locals => { items: @tasks } %>
+		</div>
+		<% if can? :create, :task  %>
+		<a class="new-link btn btn-primary" href="#"><%= t("tasks.new.link") %></a>
+		<% end %>
+	 	
+		<div class="form modal hide fade" style="display:none">
+			<div class="modal-body">
+				<%= render :partial => 'tasks/form', :locals => { :title => t("tasks.new.title"), :remote => true } %>
+			</div>
+			<div class="modal-footer">
+				<a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>
+			</div>
+		</div>
+	
+	</div>
+</div>
+
+<script language="javascript">
+
+$(function() {
+	$(".tasks.side .new-link").click(function(e) {	
+		$(".tasks.side .new .form").modal({
+	      "backdrop"  : "static",
+	      "keyboard"  : true,
+	      "show"      : true,
+		  "scrollbars": true
+	    });
+	});
+	
+    $(".tasks.side .new .form").bind("show", function() {
+        $(".tasks.side .new .form #close").click(function(e) {
+            $(".tasks.side .new .form").modal('hide');
+        });
+    });
+
+    $(".tasks.side .new .form").bind("hide", function() {
+        $(".tasks.side .new .form #close").unbind();
+    });    
+});
+
+function record_created() {
+	$(".tasks.side .new .form form")[0].reset()
+	$(".tasks.side .new .form").modal('hide');
+	showMessage("<%= t("helpers.forms.new_sucess") %>");
+	update_tasks();
+}
+
+function update_tasks() {
+	$('.tasks.side .new .tasks-list').load("<%= customer_tasks_path(@customer) %>.json")
+}
+
+
+
+/*$(document).ready(function() {
+	update_tasks();
+});*/
+
+</script>

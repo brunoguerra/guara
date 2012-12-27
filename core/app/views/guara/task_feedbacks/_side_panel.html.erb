@@ -1,0 +1,64 @@
+<div class="feedbacks side">
+
+	<div class="new">
+		
+		<div class="feedbacks-list">
+			<%= render :partial => 'task_feedbacks/list', :locals => { items: @feedbacks } %>
+		</div>
+		<% if false and can? :create, :feedback  %>
+		<a class="new-link btn btn-primary" href="#"><%= t("feedbacks.new.link") %></a>
+		<% end %>
+	 	
+		<div class="form modal hide fade" style="display:none">
+			<div class="modal-body">
+				<%= render :partial => 'task_feedbacks/side_form', :locals => { :title => t("feedbacks.new.title"), :remote => true } %>
+			</div>
+			<div class="modal-footer">
+				<a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>
+			</div>
+		</div>
+	
+	</div>
+</div>
+
+<script language="javascript">
+
+$(function() {
+	$(".feedbacks.side .new-link").click(function(e) {	
+		$(".feedbacks.side .new .form").modal({
+	      "backdrop"  : "static",
+	      "keyboard"  : true,
+	      "show"      : true,
+		  "scrollbars": true
+	    });
+	});
+	
+    $(".feedbacks.side .new .form").bind("show", function() {
+        $(".feedbacks.side .new .form #close").click(function(e) {
+            $(".feedbacks.side .new .form").modal('hide');
+        });
+    });
+
+    $(".feedbacks.side .new .form").bind("hide", function() {
+        $(".feedbacks.side .new .form #close").unbind();
+    });    
+});
+
+function record_created() {
+	$(".feedbacks.side .new .form form")[0].reset()
+	$(".feedbacks.side .new .form").modal('hide');
+	showMessage("<%= t("helpers.forms.new_sucess") %>");
+	update_feedbacks();
+}
+
+function update_feedbacks() {
+	$('.feedbacks.side .new .feedbacks-list').load("<%= customer_task_feedbacks_path(@customer, @task) %>.json")
+}
+
+
+
+/*$(document).ready(function() {
+	update_feedbacks();
+});*/
+
+</script>

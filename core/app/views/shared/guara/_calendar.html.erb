@@ -1,0 +1,17 @@
+<p/>
+<div class="alert alert-block">
+	        <a class="close">×</a>
+			<div>
+				<ul>
+				<% current_user.assigned_tasks.paginate(page: 1, per_page: 5) do |task| %>
+					<li>
+						<div class="alert <%= task_alert_level(task) %>">
+							<h5><%= task.name %></h5>
+							<code><%= format_datetime(task.due_time) %></code>
+							<%= task.type.name %>
+						</div>
+					</li>
+				<% end %>
+				</ul>
+			</div>
+</div>

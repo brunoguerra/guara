@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @business_activity.name %>
+</p>
+
+<p>
+  <b>Disable:</b>
+  <%= @business_activity.enabled %>
+</p>
+
+
+<%= link_to 'Edit', edit_business_activity_path(@business_activity) %> |
+<%= link_to 'Back', business_activities_path %>

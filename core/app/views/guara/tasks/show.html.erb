@@ -1,0 +1,46 @@
+<% if not @no_layout %>
+<%= render :partial => "header" %>
+<% end %>
+
+<section class="show">
+
+<ul class="thumbnails">
+  <li class="span5">
+    <div class="thumbnail">
+      <div class="caption">
+		<legend><%= t("tasks.show.title", task: name_or_empty(@task) ) %></legend>
+		<h4><%= name_or_empty(@task.type) %></h4>
+	  </div>
+	  <div class="row">
+		<div class="span4">
+
+		  <div class="control-group">
+            <%= show_label_tag t('tasks.due_time') %>
+			<%= format_datetime(@task.due_time) %>
+          </div>
+
+		  <div class="control-group">
+            <%= show_label_tag t('tasks.status') %>
+			<%= name_or_empty(@task.status) %>
+          </div>
+
+		</div>
+	</div>
+  </li>
+  <li class="span5">
+    <div class="thumbnail">
+      <div class="caption">
+		<legend><%= t("feedbacks.side.title") %></legend>
+	  </div>
+	  <div class="row">
+		<div class="span4">
+			<%= render :partial => "task_feedbacks/side_panel" %>
+		</div>
+	  </div>
+	</div>
+  </li>
+</ul>
+</section>
+
+<%= link_to t('helpers.forms.edit'), edit_customer_task_path(@customer, @task) %> |
+<%= link_to t('helpers.forms.back'), customer_tasks_path(@customer) %>

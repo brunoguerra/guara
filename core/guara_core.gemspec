@@ -22,15 +22,40 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'jquery-rails', '~> 2.0'
   s.add_dependency 'select2-rails', '~> 3.2'
-
+  
+  s.add_dependency 'bootstrap-sass', '~> 2.1.1.0'
   s.add_dependency 'formtastic', '2.2.1'
   s.add_dependency 'formtastic-bootstrap', '2.0.0'
   
   s.add_development_dependency "pg"
-  s.add_dependency 'cancan', '1.6.8'
   s.add_dependency 'active_extend'
   s.add_dependency 'activeadmin', '0.5.0'
   s.add_dependency 'inherited_resources', '1.3.1'
   
+  s.add_dependency  'bootstrap-will_paginate', '0.0.6'
   
+  # Forms
+  s.add_dependency  'will_paginate', '3.0.3'
+  s.add_dependency  'rails3-jquery-autocomplete'
+
+  #test support
+  s.add_development_dependency  'faker', '1.0.1'
+
+  #login rules
+  s.add_dependency  'devise'
+  s.add_dependency  'cancan', '~> 1.6.8'
+
+  #model
+  s.add_dependency  "meta_search"
+  s.add_dependency  'activeadmin', '0.5.0'
+
+  #criptar
+  s.add_dependency  'bcrypt-ruby', '3.0.1'
+
+  #BR
+  s.add_dependency  'brazilian-rails'
+  s.add_dependency  'rails-i18n'
+  
+  #
+  s.add_development_dependency 'annotate', '~> 2.4.1.beta'  
 end

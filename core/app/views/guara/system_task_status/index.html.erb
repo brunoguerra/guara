@@ -1,0 +1,23 @@
+<h1>Listing system_task_status</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @system_task_status.each do |system_task_statu| %>
+  <tr>
+    <td><%= system_task_statu.name %></td>
+    <td><%= link_to 'Show', system_task_statu %></td>
+    <td><%= link_to 'Edit', edit_system_task_statu_path(system_task_statu) %></td>
+    <td><%= link_to 'Destroy', system_task_statu, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New System task statu', new_system_task_statu_path %>

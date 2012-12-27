@@ -1,0 +1,33 @@
+<h1>Listing business_departments</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Enabled</th>
+    <th></th>
+	<% if can? :update, BusinessDepartment %>
+    <th></th>
+	<% end  %>
+	<% if can? :destroy, BusinessDepartment %>
+    <th></th>
+	<% end %>
+  </tr>
+
+<% @business_departments.each do |business_department| %>
+  <tr>
+    <td><%= business_department.name %></td>
+    <td><%= business_department.enabled %></td>
+    <td><%= link_to 'Show', business_department %></td>
+	<% if can? :update, BusinessDepartment %>
+    <td><%= link_to 'Edit', edit_business_department_path(business_department) %></td>
+	<% end  %>
+	<% if can? :destroy, BusinessDepartment %>
+    <td><%= link_to 'Destroy', business_department, confirm: 'Are you sure?', method: :delete %></td>
+	<% end  %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Business department', new_business_department_path %>

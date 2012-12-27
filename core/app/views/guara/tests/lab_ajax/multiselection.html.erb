@@ -1,0 +1,84 @@
+
+<%= form_for @customer, :html => {:class => "well search"}  do |f| %>
+<%= f.fields_for @customer.person do |person_f| %>
+	<fieldset>
+	  <legend><%= t("customers.new.title") %></legend>
+	  <div class="row">
+		  
+		  <div class="control-group">
+            <%= person_f.label :segment, t("helpers.label.customers.segment"), :class => "control-label" %>
+            <div class="controls">
+	          <%= autocomplete_field_tag :segment, '', autocomplete_business_segment_name_customers_path, :size => 75, :id_element => '#segment_id' %>
+			  <%= person_f.hidden_field :segment_id %>
+            </div>
+          </div>
+		  
+		  <div class="control-group">
+			<%= person_f.label :segments, t("helpers.label.customers.segment"), :class => "control-label" %>
+            <div class="controls">
+				<%= render :partial => 'shared/guara/multi_selection', :locals => { :form => person_f, :values => @person.segments, :autocomplete => multiselect_business_segments_customers_path, :selected => @person.segments, :form_field => :segments, :field_show => :name, :field_store => :id } %>
+            </div>
+		  </div>
+		
+		</div>
+		
+		<div class="span8">
+			<div class="form-actions">
+			<%= f.submit :class => "btn btn-primary" %>
+            <button type="reset" class="btn"><%= t("helpers.forms.cancel") %></button>
+          </div>
+		</div>
+	  </div>
+	</fieldset>
+<% end %>
+<% end %>
+
+<input class="span5" data-items="10" 
+    data-mode="multiple" 
+    data-provide="typeahead" 
+    data-source="[&quot;Catsd&quot;,&quot;Dogs&quot;,&quot;Mass Hysteria&quot;]" 
+    id="post_tags" 
+    name="post[tags]" size="30" type="text" value="" />
+
+
+<script>
+$('.myinput').typeahead({ mode: 'multiple' });
+</script>
+
+
+<select id="seg_sel" name="seg_sel">
+                <option value="sleep" class="selected">sleep</option>
+                <option value="sport" class="selected">sport</option>
+                <option value="freestyle">freestyle</option>
+            </select>
+
+			<script type="text/javascript">
+			            $(document).ready(function(){                
+			                $("#seg_sel").fcbkcomplete({
+			                    json_url: "<%= autocomplete_business_segment_name_customers_path %>.json",
+			                    addontab: true,                   
+			                    maxitems: 4,
+			                    height: 5,
+			                    cache: true
+			                });
+			            });
+			        </script>
+			
+			
+					<select id="select4" name="select4">
+					                <option value="sleep" class="selected">ass</option>
+					                <option value="sport">sport</option>
+					                <option value="freestyle">freestyle</option>
+					            </select>
+
+								<script type="text/javascript">
+								            $(document).ready(function(){                
+								                $("#select4").fcbkcomplete({
+								                    json_url: "data.txt",
+								                    addontab: true,                   
+								                    maxitems: 2,
+								                    height: 2,
+								                    cache: true
+								                });
+								            });
+								        </script>

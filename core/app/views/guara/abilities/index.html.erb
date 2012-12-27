@@ -1,0 +1,25 @@
+<% provide(:title, t("users.abilities.title", :user => @user.name )) %>
+<h1><%=t("users.abilities.title", :user => @user.name ) %></h1>
+
+
+<%= form_tag  user_abilities_path(@user), :method => :post, :class => "well abilities"  do %>
+
+	<ul>
+	<% @modules.each do |mdl| %>
+		<li>
+		<h3><%=t("system.modules.%s" % mdl.name.downcase)%></h3>
+		<ul class="inline">
+			<% @abilities.each do |ab| %>
+			<li class="inline">
+			  <%= label_tag abilities_name_checkbox(mdl, ab), t("system.abilities.%s" % ab.name) %>
+			  <%= check_box_tag abilities_name_checkbox(mdl, ab), ab.id, @user.able?(mdl, ab)  %>
+			</li>
+			<% end %>
+		</ul>
+		</li>
+	<% end %>
+	</ul>
+	
+	<%= submit_tag t("helpers.forms.update"), class: "btn btn-large btn-primary" %>
+	
+<% end %>

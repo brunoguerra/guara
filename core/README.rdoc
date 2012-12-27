@@ -1,3 +1,23 @@
 = GuaraCore
 
+This module 
+  - Security System
+    - System Authentication
+    - Management Users
+  
+	- Network Users
+    - Microposts
+		- Follow system
+		
+	- Tiers
+		- Presentation Tier
+			- Navigation Structure
+			- Hierarchical Dependency Structure
+			
+	
+	- Architectural system patterns
+		- Configurable system
+		- Extensible system
+		- Integration system
+
 This project rocks and uses MIT-LICENSE.

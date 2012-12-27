@@ -1,0 +1,10 @@
+<% if @feed_items.any? %>
+  <ol class="microposts">
+    <%= render partial: 'shared/guara/feed_item', collection: @feed_items %>
+  </ol>
+  <%= will_paginate @feed_items %>
+<% else %>
+<div class="alert alert-block">
+	        <h4 class="alert-heading"><%= t("feeds.no_messages") %></h4>
+</div>
+<% end %>

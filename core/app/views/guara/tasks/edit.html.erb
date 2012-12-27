@@ -1,0 +1,6 @@
+<%= render :partial => "header" %>
+
+<%= render :partial => 'form', :locals => { :title => t("tasks.edit.title"), remote: false } %>
+
+<%= link_to t('helpers.forms.show'), [@task.interested, @task] %> |
+<%= link_to t('helpers.forms.back'), customer_tasks_path(@task.interested) %>
