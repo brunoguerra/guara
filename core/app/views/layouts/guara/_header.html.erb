@@ -1,10 +1,10 @@
 <header class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
-			<%= link_to image_tag("custom/nav_logo.png", alt: "Rails"), root_path, id: "logo" %>
+			<%= link_to image_tag("custom/nav_logo.png", alt: "Rails"), guara.root_path, id: "logo" %>
 			<nav>
 				<ul class="nav pull-right">
-					<li><%= link_to t("home.link"), root_path %></li>
+					<li><%= link_to t("home.link"), guara.root_path %></li>
 					<% if signed_in? %>
 
 						<li id="fat-menu" class="dropdown">
@@ -16,14 +16,14 @@
 							</ul>
 						</li>
 
-						<li><%= link_to t("activities.link"), root_path %></li>
+						<li><%= link_to t("activities.link"), guara.root_path %></li>
 
 						<%= build_menu_maintence() %>
 						
 						<%= build_menu_admin() %>
 
 						<% if signed_in? and current_user.admin? %>
-						<li><%= link_to t("administration.link"), main_app.users_path %></li>
+						<li><%= link_to t("administration.link"), users_path %></li>
 						<% end %>
 
 						<div class="btn-group pull-right">
@@ -32,15 +32,15 @@
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><%= link_to t("users.profile.link"), main_app.user_path(current_user) %></li>
-								<li><%= link_to t("users.settings.link"), main_app.edit_user_path(current_user) %></li>
+								<li><%= link_to t("users.profile.link"), user_path(current_user) %></li>
+								<li><%= link_to t("users.settings.link"), edit_user_path(current_user) %></li>
 								<li class="divider"></li>
-								<li><%= link_to t("sign.out.link"), main_app.destroy_user_session_path, method: "delete" %></li>
+								<li><%= link_to t("sign.out.link"), destroy_user_session_path, method: "delete" %></li>
 							</ul>
 						</div>
 
 					<% else %>
-					<li><%= link_to t("sign.in.link"), main_app.new_user_session_path %></li>
+					<li><%= link_to t("sign.in.link"), guara.new_user_session_path %></li>
 					<% end %>
 				</ul>
 			</nav>

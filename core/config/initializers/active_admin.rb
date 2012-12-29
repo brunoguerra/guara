@@ -1,16 +1,28 @@
 require "active_admin"
 
-ActiveAdmin.setup do |config|
+module Guara
+  module Admin
+    
+  end
+end
 
+module Guara
+  module Maintence
+    
+  end
+end
+
+
+ActiveAdmin.setup do |config|
   # == Site Title
   #
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Guaracrm"
-  
-  config.namespace :maintence do |maintence|
-    maintence.site_title = "Admin Site"
+  config.site_title = "Guara"
+
+  config.namespace :guara_maintence do |maintence|
+    maintence.site_title = "Guara"
   end
 
   # Set the link url for the title. For example, to take
@@ -72,10 +84,10 @@ ActiveAdmin.setup do |config|
   # This setting changes the method which Active Admin calls
   # to return the currently logged in user.
   config.current_user_method = :current_user  
-  
-  
+
+
   #config.before_filter :skip_authorization_check
-  
+
   ActiveAdmin::ResourceController.class_eval do
     authorize_resource
 
@@ -132,7 +144,7 @@ ActiveAdmin.setup do |config|
   # Enable and disable Batch Actions
   #
   config.batch_actions = true
-  
+
 
   # == Controller Filters
   #
@@ -151,7 +163,7 @@ ActiveAdmin.setup do |config|
   # To load a stylesheet:
   #
   #config.register_stylesheet 'custom.css.scss'
-  
+
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
   #
@@ -165,33 +177,33 @@ ActiveAdmin.setup do |config|
   # config.csv_column_separator = ','
 end
 
-#def authenticate_admin!
-# redirect_to new_user_session_path unless current_user.is_admin?
-#end
+  #def authenticate_admin!
+  # redirect_to new_user_session_path unless current_user.is_admin?
+  #end
 
 module ActiveAdmin
-  
+
   module Views
-    
+  
     module Pages
       class Base < Arbre::HTML::Document
-        
+      
         def build_header
           #insert_tag view_factory.header, active_admin_namespace, current_menu
           render "layouts/active_admin_header"
         end 
       end
     end
-    
+  
     class Header < Component
-      
+    
       def build_global_navigation
         #insert_tag view_factory.global_navigation, @menu, :class => 'header-item' 
         #render "layouts/active_admin_header"
       end
 
     end
-    
+  
     class Footer < Component
 
       def build
@@ -209,4 +221,3 @@ module ActiveAdmin
     end
   end
 end
-

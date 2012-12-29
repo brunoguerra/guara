@@ -1,0 +1,404 @@
+
+pt-BR:
+  commons: &commons
+    "yes": "Sim"
+    "no": "Não"
+    empty: "Vazio"
+    all: "Todos"
+    min: "Mínimo"
+    max: "Máximo"  
+    
+  crm:
+    title:
+      full: "Gestão do Relacionamento de Clientes"
+      small: "CMGB - CRM"
+  
+  #MODULES <=================================
+  home:
+    link: "Painel Pricipal"
+    feed: "Mensagens"
+    notifies: "Alertas"
+  
+  sign:
+    in:
+      title: "Autenticação do Sistema"
+      link: "Entrar"
+      error: 'Combinação e-mail/senha inválida'
+    out:
+      title: "Sair do sistema"
+      link: "Sair"
+
+  session: &attr_session
+    email: 'e-mail'
+    password: 'Senha'
+    erros:
+      restrict_redirected: "Por favor, autentique-se"
+  
+  customers: &attr_customer
+    title: "Cadastro de Clientes"
+    link: "Clientes"
+    general: "Geral"
+    not_valids: "Cadastros incompletos"
+    birthdays: "Aniversariantes"
+    new:
+      link: "Novo Cliente"
+      title: "Criação"
+    index:
+      title: "Pesquisa de Clientes"
+    show:
+      title: "Exibindo Cliente"
+    edit:
+      title: "Cadastro de Clientes"
+      link: "Edição"
+      
+    a_customer: "É Cliente"
+    
+    name: "Nome/Fantasia"
+    name_sec: "Apelido/Razão Social"
+    code: "Cod."
+    activity: "Atividade"
+    segment: "Segmento"
+    employes_count: "Qtd. Funcionários"
+    is_customer: "É Cliente?"
+    complete: "Cadastro Completo?"
+    address: "Endereço"
+    district: "Bairro"
+    city: "Cidade"
+    state: "Estado"
+    emails: "e-mails"
+    notes: "Notas"
+    phone: "Fone"
+    fax: fax
+    site: site
+    social_link: "Redes sociais" 
+    
+    city_id: "Cidade"
+    state_id: "Estado"
+    district_id: "Bairro"
+    doc: "CNPJ/CPF:"
+
+    enabled: "Ativo?"    
+    postal: "Cep"
+    
+    setor: "Setor"
+    cargo: "Cargo"
+    cnpj: "CNPJ"
+    inscricao_estadual: "Inscrição estadual"
+    
+    contact_name: "Com Contato de Nome"
+  
+    
+  contacts: &attr_contacts
+    name: "Nome"
+    #business_segment: "Segmento"
+    #business_activity: "Atividade"
+    business_function: "Cargo"
+    department: "Setor"
+    phone: "Fone"
+    cell: "Celular"
+    birthday: "Aniversário"
+    side:
+      title: "Contatos"
+    edit:
+      title: "Editar Contato"
+      link: "Editar Contato"
+    new:
+      title: "Novo Contato"
+      link:  "Novo Contato"
+    index: 
+      title: "%{customer}"
+      link: "Contatos"
+    show:
+      title: "Exibindo Contato"
+    search:
+        title: "Filtro Contatos"
+
+  searches:
+      advanced: "Avançado"
+
+  tasks: &attr_tasks
+    title: "Histórico do Cliente"
+    link: "Histórico"
+    side:
+      title: "Histórico"
+    show:
+      title: "Histórico: %{task}"
+      link: "Ver histórico"
+    errors:
+      not_valid_status_and_resolution: "Estado atual inválido %{status}, e resolvido como %{resolution}"                  
+    new:
+      title: "Nova Tarefa"
+      link: "Nova Tarefa"
+    form:
+        save_without_feedback:
+            title: "Sem Feedback"
+        save_with_feedback:
+            title: "Com Feedback"
+    search:
+        title: "Pesquisar"
+    #fields
+    name: "Assunto"
+    due_time: "Prazo"
+    contact: "Contato"
+    type: "Serviço/Atividade:"
+    notes: "Notas"
+    description: "Descrição"
+    assigned: "Atribuído para"
+    user: "Criado por"
+    finish_time: "Finalizado em"
+    resolution: "Resolução"
+    status: "Estado"
+    interested: "Interessado"
+    feedbacks: "Feedbacks"
+    
+    
+  task_resolutions:
+    RESOLVED:  "Concluído"
+    CANCELED:  "Cancelado"
+    BLOCKED:   "Pendente"
+    RESOLVED_WITH_BUSINESS: "Negócio Fechado"
+    
+  task_types: &attr_task_types
+      name: "Tipo de Tarefa"
+      company_business: "Área de Negócio"
+    
+  feedbacks: &attr_feedbacks
+    show:
+      title: "Feedback"
+        
+      #fields
+    notes: "Resposta"
+    resolution: "Resolução"
+    user: "Usuário da Resposta"
+    date: "Data da Resposta"
+    side:
+        title: "Feedbacks"
+  
+  customer_pjs: &attr_customer_pj
+    doc: "CNPJ"
+    doc_rg: "Inscrição Estadual"
+    name: "Fantasia"
+    name_sec: "Razão Social"
+    total_employes: "Total de Funcionários"
+    segments: "Segmentos"
+    activities: "Atividades"
+  activities:
+    title: "Atividades"
+    link: "Atividades"    
+
+  aministration:
+    link: "Atividades"
+
+  microposts:
+    title: "Mensagens"
+
+  users: &attr_users
+    name: "Nome do Usuário"
+    email: "e-mail"
+    password: "Senha"
+    password_confirmation: "Confirmação da Senha"
+    title: "Usuários"
+    link: "Usuários"
+    edit:
+      title: "Edição do Usuário"
+      link: "Editar"
+    profile:
+      title: "Perfil"
+      link: "Perfil"
+    settings:
+      title: "Preferencias do Usuário"
+      link: "Preferências"
+    abilities: &attr_user_abilities
+      module: "Módulo"
+      ability: "Permissão"
+      user: "Usuário"
+      link: "Permissões de Acesso"
+      title: "Permissões de Acesso para %{user}"
+  
+  company_businesses:
+    link: "Áreas de Negócio"
+    title: "Áreas de Negócio"
+  
+  business_segments:
+    link: "Segmentos"
+    title: "Segmentos"
+    
+  business_activities:
+    link: "Atividades"
+    title: "Atividades"
+
+  districts:
+    link: "Bairros"
+    title: "Bairros"
+  
+  cities:
+    link: "Cidades"
+    title: "Cidades"
+  
+  states:
+    link: "Estados"
+    title: "Estados"
+  
+  business_departments:
+    link: "Setores"
+    title: "Setores das Empresas"
+  
+  task_types:
+    link: "Atividades"
+    title: "Atividades"
+  
+  #SECTIONS <===================================
+  
+  account:
+    link: "%{user}"
+  
+  maintenances:
+    link: "Cadastros"
+  
+
+  reports:
+    link: "Relatórios"
+  
+
+  administration:
+    link: "Painel Administrativo"
+  
+
+  search:
+    results: "Resultados"
+    select: "Sel."
+    
+  
+  
+  #LINKS <===================================
+
+  more: "Veja mais"
+
+  about:
+    title: "Sobre o sistema"
+    link: "Sobre"
+    description: "Sistema de Gestão de Relacionamento com o Cliente"
+
+  support:
+    link: "Suporte"
+  
+  developer:
+    link: Woese
+  
+
+  contact:
+    title: Contato
+    link: Contato 
+
+  help:
+    link: Ajuda
+  
+  #Guara CRM System <========================
+  system:
+    modules: &system_modules
+      business_segment: "Segmento"
+      business_activity: "Atividade"
+      business_department: "Setor"
+      city: "Cidade"
+      state: "Estado"
+      district: "Bairro"
+      company_business: "Área de Negócio"
+      customer: "Cliente"
+      contact: "Contato"
+      user: "Usuário"
+      task: "Tarefa"
+      task_type: "Tipo de Tarefa"
+      
+    abilities:
+      READ: "Ler"
+      CREATE: "Criar"
+      UPDATE: "Atualizar"
+      DELETE: "Apagar"
+      DISABLE: "Desabilitar"
+  
+  #Rails <===================================
+  
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Registro Inválido'
+        
+    attributes:
+      user:
+        <<: *attr_users
+      customer:
+          <<: *attr_customer
+      
+      customer_pj:
+          <<: *attr_customer_pj
+      
+      contact:
+          <<: *attr_contacts
+      
+      task:
+          <<: *attr_tasks
+          
+      feedback:
+          <<: *attr_feedbacks
+          
+      task_type:
+          <<: *attr_task_types
+      
+    models: 
+      <<: *system_modules
+      
+  
+  helpers:
+    <<: *commons
+    
+    forms: &forms_commons
+      cancel: "Cancelar"
+      edit: "Editar"
+      update: "Atualizar"
+      add: "Adicionar"
+      create: "Criar"
+      new: "Novo"
+      save: "Salvar"
+      show: "Exibir"
+      back: "Voltar"
+      destroy: "Apagar"
+      disable: "Desabilitar"
+      new_sucess: "Cadastrado com Sucesso"
+      actions: "Ações"
+      errors: "O cadastro possui "
+      error: "erro"
+      search: "Pesquisar"
+      areyousure: "Tem certeza?"
+      
+    label:
+      customers:
+        search:
+          <<: *attr_customer
+          <<: *attr_customer_pj
+          names: "Nome: (Razão social, Nome Fantasia)"
+          type: "Tipo"
+          type_fisica: "Física"
+          type_juridica: "Jurídica"
+          submit: "Pesquisar"
+          cancel: "Cancelar"
+      session:
+        <<: *attr_session
+  # ====================== Rails >
+    
+    
+  # Components <======================
+    
+  will_paginate:
+    previous_label: "Anteriores"
+    next_label: "Próximos"
+        
+        
+  # [Formtastic]
+  
+  formtastic:
+      actions:
+          reset: "Desfazer"
+          update: "Salvar %{model}"
+          create: "Salvar %{model}"
+  
+  # ========================== Components >

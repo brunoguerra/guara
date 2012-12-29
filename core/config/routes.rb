@@ -1,5 +1,8 @@
 Guara::Core::Engine.routes.draw do
 
+  resources :system_extensions
+
+
   ActiveAdmin.routes(self)
 
   resources :company_businesses

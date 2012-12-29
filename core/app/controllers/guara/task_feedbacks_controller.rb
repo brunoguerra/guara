@@ -1,6 +1,7 @@
-
-class FeedbacksController < BaseController
+module Guara
+  class FeedbacksController < BaseController
   
   
   
+  end
 end

@@ -1,0 +1,159 @@
+
+@import "bootstrap/variables";
+
+$rowHeight: 24px;
+
+body .modal {
+  width: 880px;
+	margin: -298px 0 0 -440px;
+	form {
+		margin: 0;
+	}
+	
+	.actions {
+    bottom: 15px;
+    left: 10px;
+    position: absolute;
+	}
+}
+
+.divisor {
+	width: 1px;
+	min-height: 100px;
+	height: auto;
+	margin: 10px;
+	background-color: #DADADA;
+	float: left;
+}
+
+.column2 {
+	border-left: 1px #DADADA solid;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+
+
+.rows4 {
+	height: (4*$rowHeight);
+}
+
+.rows5 {
+	height: (5*$rowHeight);
+}
+
+.rows6 {
+	height: (6*$rowHeight);
+}
+
+.rows7 {
+	height: (7*$rowHeight);
+}
+
+.rows8 {
+	height: (8*$rowHeight);
+}
+
+/***** CUSTOMER *****/
+
+.customer {
+	
+	#emails {
+		
+		input {
+			width: 180px;
+		}
+	
+		legend small {
+			color: $grayDarker;				
+		}
+		
+		.remove_fields {
+			float: right;
+			margin-top: -36px;
+			margin-right: 2px;
+			height: 18px;
+		}
+	}
+}
+
+/****** customer contacts *****/
+
+.thumbnail.contacts {
+	overflow-y: scroll;
+	max-height: 240px;
+}
+
+.contacts.side { 
+
+	div#select_department {
+		float: right;
+		margin-top:-60px;
+		.dropdown-menu {
+			position: absolute;
+			margin-left: -150px;
+		}
+	}
+}
+
+.contacts-list {
+	li {
+		margin-bottom: 10px;
+		border-bottom: 1px solid #EAEAEA;
+		padding-bottom: 5px;
+	}
+}
+
+.form-actions {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/***** tasks *****/
+
+.tasks {
+	.disabled {
+		display: none;
+	}
+	
+	.enabled {
+		display: block;
+	}
+	.side {
+		.new {
+			background-color: #f1f1f1;
+		}
+	}
+}
+
+.tasks.side {
+	margin: -20px 0 0 0;
+	
+	.tasks-list {
+		margin: 0;
+		li {
+			border: 0;
+			border-bottom: 1px solid #EEE;
+		}
+	}
+	
+	.new-link {
+		margin: 10px 0 0 0;
+	}
+}
+
+.task-side.form {
+	.row {
+	  margin-left: -5px;
+	}
+	
+	[class*="span"] {
+	float: left;
+	margin-left: 5px;
+	}
+	
+	.column2 {
+		margin: 5px 5px 5px 15px;
+	}
+	
+}

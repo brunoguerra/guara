@@ -2,7 +2,6 @@
 require 'cancan'
 
 module Guara
-
   class Ability
     include CanCan::Ability
 
@@ -41,5 +40,3 @@ module Guara
     end
   end
 end
-
-class ::Ability < Guara::Ability; end

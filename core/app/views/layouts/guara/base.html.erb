@@ -3,9 +3,8 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag "autocomplete-rails.js" %>
+    <%= stylesheet_link_tag    "guara/guara", media: "all" %>
+    <%= javascript_include_tag "guara/guara" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/guara/shim' %>
   </head>
@@ -17,7 +16,7 @@
 	    <div class="alert alert-<%= key %>"><%= value %></div>
 	  <% end %>
 	  <%= yield %>
-	  <%= render 'layouts/footer' %>
+	  <%= render 'layouts/guara/footer' %>
 	  <%= debug(params) if Rails.env.development? %>
 	</div>
   </body>

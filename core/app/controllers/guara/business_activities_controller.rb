@@ -1,4 +1,4 @@
-
+module Guara
 class BusinessActivitiesController < BaseController
   load_and_authorize_resource
 =begin  
@@ -84,4 +84,5 @@ class BusinessActivitiesController < BaseController
       format.json { head :no_content }
     end
   end
+end
 end

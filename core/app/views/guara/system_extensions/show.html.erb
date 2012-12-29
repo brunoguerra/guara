@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @system_extension.name %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%= @system_extension.enabled %>
+</p>
+
+
+<%= link_to 'Edit', edit_system_extension_path(@system_extension) %> |
+<%= link_to 'Back', system_extensions_path %>

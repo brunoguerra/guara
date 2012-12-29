@@ -7,9 +7,9 @@ module Guara
     ADMINISTRATION =
             {
               :title => "administration",
-              :namespace => "main_app.admin",
+              :namespace => "admin_guara",
               :items => [
-                          [:users, "main_app.users_path()"],
+                          [:users, "users_path()"],
                           :user_groups,
                         ]
              }
@@ -17,16 +17,11 @@ module Guara
     MAINTENCE =
             {
               :title => "maintenances",
-              :namespace => "main_app.maintence",
+              :namespace => "maintence_guara",
               :items => [
                           :districts,
                           :cities,
                           :states,
-                          :business_activities,
-                          :business_segments,
-                          :business_departments,
-                          :company_businesses,
-                          :task_types,
                         ]
              }
   end
