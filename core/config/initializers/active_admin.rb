@@ -1,18 +1,5 @@
 require "active_admin"
 
-module Guara
-  module Admin
-    
-  end
-end
-
-module Guara
-  module Maintence
-    
-  end
-end
-
-
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -21,7 +8,7 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Guara"
 
-  config.namespace :guara_maintence do |maintence|
+  config.namespace :maintence do |maintence|
     maintence.site_title = "Guara"
   end
 
@@ -181,8 +168,18 @@ end
   # redirect_to new_user_session_path unless current_user.is_admin?
   #end
 
-module ActiveAdmin
+# Atention #####################################################################################
+#mokey patch activeadmin running on Guara infra
+=begin
+module Guara
+  module Admin
+  end
+  module Maintence
+  end
+end
 
+module ActiveAdmin
+  
   module Views
   
     module Pages
@@ -190,7 +187,7 @@ module ActiveAdmin
       
         def build_header
           #insert_tag view_factory.header, active_admin_namespace, current_menu
-          render "layouts/active_admin_header"
+          render "layouts/guara/active_admin_header"
         end 
       end
     end
@@ -209,7 +206,7 @@ module ActiveAdmin
       def build
         super :id => "footer"
         #powered_by_message
-        render "layouts/active_admin_footer"
+        render "layouts/guara/active_admin_footer"
       end
 
       private
@@ -220,4 +217,42 @@ module ActiveAdmin
 
     end
   end
+  
+  class Resource
+    module Controllers
+
+      # Returns a properly formatted controller name for this
+      # config within its namespace
+      def controller_name
+        ["Guara", namespace.module_name, resource_name.plural.camelize + "Controller"].compact.join('::')
+      end
+    end
+  end
+  
+  class Namespace
+    def x____register_page_controller(config)
+      puts "#{config.controller_name} #{__FILE__}"
+      eval "class ::#{config.controller_name} < ActiveAdmin::PageController; end"
+      config.controller.active_admin_config = config
+    end
+    
+    def register_resource_controller(config)
+      eval "class ::#{config.controller_name} < ActiveAdmin::ResourceController; end"
+      if config.resource_name.index("Guara") != nil
+        eval "class ::#{config.resource_name.gsub(/::/, '')} < #{config.resource_name}; end"
+      end
+      config.controller.active_admin_config = config
+    end
+    
+  end
 end
+
+class ::Ability < Guara::Ability; end
+
+Kaminari.configure do |config|
+  config.page_method_name = :per_page_kaminari
+end
+
+ActionView::Base.send :include, Guara::MenuHelper
+ActionView::Base.send :include, Guara::UsersHelper
+=end

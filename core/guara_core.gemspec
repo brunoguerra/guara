@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'formtastic', '2.2.1'
   s.add_dependency 'formtastic-bootstrap', '2.0.0'
   
-  s.add_development_dependency "pg"
+  s.add_dependency "pg"
   s.add_dependency 'active_extend'
   s.add_dependency 'activeadmin', '0.5.0'
   s.add_dependency 'inherited_resources', '1.3.1'

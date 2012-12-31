@@ -1,5 +1,8 @@
+
 if defined?(ActiveAdmin)
-  ActiveAdmin.register Guara::City, :namespace => :maintence do
-  
+  module Guara
+    ActiveAdmin.register City, :namespace => :maintence do
+
+    end
   end
 end

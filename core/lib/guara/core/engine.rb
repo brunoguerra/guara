@@ -4,6 +4,7 @@ require "inherited_resources"
 require "will_paginate"
 require "bootstrap-sass"
 require "jquery-rails"
+require "activeadmin"
 
 module Guara
   module Core
@@ -21,8 +22,6 @@ module Guara
       
       initializer "guara.load_preferences", :before => "guara.environment" do
         #TODO: make common models behaviours
-        #::ActionController::Base.send :include, Guara::SessionHelper
-        #::ActionController::Base.send :include, Guara::BaseHelper
       end
       
       initializer "guara.activeadmin" do |app|
