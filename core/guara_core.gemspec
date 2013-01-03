@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Guara Core."
   s.description = "Main features of Guara Application"
   
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   #s.test_files = Dir["spec/**/*"]
   
   s.require_path = 'lib'
@@ -52,9 +52,9 @@ Gem::Specification.new do |s|
   #criptar
   s.add_dependency  'bcrypt-ruby', '3.0.1'
 
-  #BR
-  s.add_dependency  'brazilian-rails'
+  #internationalization and locales
   s.add_dependency  'rails-i18n'
+  s.add_dependency  'brazilian-rails'
   
   #
   s.add_development_dependency 'annotate', '~> 2.4.1.beta'  

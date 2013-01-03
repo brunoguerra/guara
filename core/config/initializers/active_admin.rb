@@ -149,14 +149,13 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
   #
-  #config.register_stylesheet 'custom.css.scss'
+  #config.register_stylesheet 'guara/active_admin'
 
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
   #
   # To load a javascript file:
-  #   config.register_javascript 'my_javascript.js'
-
+  #config.register_javascript 'guara/active_admin'
 
   # == CSV options
   #
@@ -170,7 +169,7 @@ end
 
 # Atention #####################################################################################
 #mokey patch activeadmin running on Guara infra
-=begin
+
 module Guara
   module Admin
   end
@@ -230,20 +229,24 @@ module ActiveAdmin
   end
   
   class Namespace
-    def x____register_page_controller(config)
-      puts "#{config.controller_name} #{__FILE__}"
-      eval "class ::#{config.controller_name} < ActiveAdmin::PageController; end"
-      config.controller.active_admin_config = config
-    end
     
     def register_resource_controller(config)
       eval "class ::#{config.controller_name} < ActiveAdmin::ResourceController; end"
       if config.resource_name.index("Guara") != nil
+        #MyEngine::Resource => ::MyEngineResource #cancan will try to find MyEngineResource instead Guara::Resource on url my_guara_resource
         eval "class ::#{config.resource_name.gsub(/::/, '')} < #{config.resource_name}; end"
       end
       config.controller.active_admin_config = config
     end
     
+  end
+  
+  class Engine < Rails::Engine
+    if Rails.version > "3.1"
+      initializer "ActiveAdmin precompile hooked" do |app|
+        app.config.assets.precompile += %w(guara/active_admin.js guara/active_admin.css active_admin/print.css)
+      end
+    end
   end
 end
 
@@ -255,4 +258,3 @@ end
 
 ActionView::Base.send :include, Guara::MenuHelper
 ActionView::Base.send :include, Guara::UsersHelper
-=end

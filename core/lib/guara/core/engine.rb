@@ -1,10 +1,11 @@
-require "devise"
-require "cancan"
-require "inherited_resources"
-require "will_paginate"
-require "bootstrap-sass"
-require "jquery-rails"
-require "activeadmin"
+require 'devise'
+require 'cancan'
+require 'inherited_resources'
+require 'will_paginate'
+require 'bootstrap-sass'
+require 'jquery-rails'
+require 'rails-i18n'
+require 'activeadmin'
 
 module Guara
   module Core
@@ -35,7 +36,7 @@ module Guara
       
       # sets the manifests / assets to be precompiled, even when initialize_on_precompile is false
       initializer "guara.assets.precompile", :group => :all do |app|
-        app.config.assets.precompile += %w(guara.js guara.css)
+        app.config.assets.precompile += %w(guara.js guara.css)        
       end
       
       initializer "guara.devise" do
