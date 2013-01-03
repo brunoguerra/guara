@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :user do
+  factory :user, :class => Guara::User do
     sequence(:name)  { Faker::Name.name }
     sequence(:email) { |n| "person_#{n}@example.com"}   
     password "foobar"
@@ -11,85 +11,51 @@ FactoryGirl.define do
       admin true
     end
   end
-  
-  factory :customer do
-    sequence(:name) { |n|   "#{Faker::Name.name}#{n}" }
-    birthday 100.years.ago
-    doc '0'*14
-    complete false
-    
-    factory :interested do
-      #specialized
-    end
-  end
-  
-  
-  factory :customer_pj do
-    fax 9999
-    after_build do |pj|
-      FactoryGirl.create(:customer, :person => pj)
-    end
-  end
 
-  factory :micropost do
+  factory :micropost, :class => Guara::Micropost do
     content "Lorem ipsum"
     user
   end
   
-  factory :contact do
-    sequence(:name)  { |n| "Person #{n}" }
-    sequence(:birthday) { |n| (n+15).years.ago }
-    customer
-  end
-  
-  factory :email do
+  factory :email, :class => Guara::Email do
     email Faker::Internet.email
   end
   
-  factory :system_ability do
+  factory :system_ability, :class => Guara::SystemAbility do
     factory :read do
       name "READ"
     end
   end
   
-  factory :system_module do
-    factory :module_customer do
-      name "Customer"
+  factory :system_module, :class => Guara::SystemModule do
+    factory :module_user do
+      name "User"
     end
   end
   
-  factory :state do
+  factory :state, :class => Guara::State do
     name { Faker::Name.name }
   end
     
-  factory :city do
+  factory :city, :class => Guara::City do
     name { Faker::Name.name }
   end
   
-  factory :district do
+  factory :district, :class => Guara::District do
     name { Faker::Name.name }
   end
   
-  factory :business_segment do
-    name { Faker::Name.name }
-  end
-  
-  factory :business_activity do
-    name { Faker::Name.name }
-  end
-  
-  factory :user_ability do
+  factory :user_ability, :class => Guara::UserAbility do
     skilled_id
     skilled_type "User"
     ability_id
     module_id
   end
   
-  factory :user_group do
+  factory :user_group, :class => Guara::UserGroup do
     sequence(:name)  { |n| "Group #{n}" }
     factory :group_able_users do
       after_build do |g|
-      
       end
     end
   end
