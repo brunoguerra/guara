@@ -32,7 +32,7 @@ module Guara
           else
             item_title = item
             menu_path = []
-            menu_path << menu[:namespace] if !menu[:namespace].empty?
+            menu_path << menu[:prefix] if !menu[:prefix].nil? && !menu[:prefix].empty?
             menu_path << item
             menu_path << "path"
             path = eval(menu_path.join('_')+"()")
@@ -51,6 +51,14 @@ module Guara
   
     def build_menu_admin()
       build_menu(Guara::Menus::ADMINISTRATION)
+    end
+    
+    def build_menu_modules()
+      res = ""
+      Guara::Menus::MODULES.each do |menu_name, menu|
+        res += build_menu(menu)
+      end
+      raw res
     end
   
   end

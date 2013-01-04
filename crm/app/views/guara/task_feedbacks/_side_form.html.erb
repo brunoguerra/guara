@@ -1,0 +1,56 @@
+
+<%= semantic_form_for [@customer, @task], :remote => (remote || false), :html => { :class => "task-side form remote_form" }, :method => :post do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+<fieldset>
+  <legend><%= title %></legend>
+	<div class="span11">
+		<div class="row">
+			<div class="span5">
+				<div class="span3"> <%= f.input :name %></div>
+				<div class="span2">
+					<%= f.input :due_time, :as => :string, :input_html => { 'data-behaviour' => 'datetimepicker' } %>
+				</div>
+
+				<div class="span5">
+				<%= f.input :type  %>
+				</div> 
+				<div class="span5">
+					<%= f.input :contact, collection: @customer.contacts %>
+					<%= f.input :assigned, collection: User.all %>
+				</div>
+				<div class="span5">
+					<%= f.input :notes, :as => :text, :input_html => { rows: 4  } %>
+				</div>
+			</div>
+			<div class="span4 column2">
+				<div class="span5">
+
+					<div id="accordion">
+						<h3><a href="#"><%= t("tasks.form.save_without_feedback.title") %></a></h3>
+						<div>
+							<div class="span4 well-compact">
+								<%= f.actions %>
+							</div>
+						</div>
+						<h3><a href="#"><%= t("tasks.form.save_with_feedback.title") %></a></h3>
+						<div class="rows8">
+						    <%= f.semantic_fields_for :feedbacks do |feedback| %>
+								<div class="span4">							
+									<%= feedback.input :resolution_id, :label => t("feedbacks.resolution"), :collection => SystemTaskResolution.all %>
+									<%= feedback.input :notes, :as => :text, :label => t("feedbacks.notes"), :input_html => { rows: 3 } %>
+								</div>
+
+								<div class="span4 well-compact">
+									<%= f.actions %>
+								</div>
+							<% end %>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+
+<% end %>

@@ -1,0 +1,8 @@
+<% new_or_existing = business_segment.new_record? ? 'new' : 'existing' %>
+<% prefix = "source[#{new_or_existing}_business_segment_attributes][]" %>
+<% fields_for prefix, business_segment do |business_segment_form| %>
+<p>
+  <%= business_segment_form.collection_select :author_id, @authors, :id, :name %>
+  <%= link_to_function t("helpers.forms.remove"), "$(this).up('.business_segment').remove()" %>
+</p>
+<% end %>

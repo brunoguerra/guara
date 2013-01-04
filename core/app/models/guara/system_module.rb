@@ -3,8 +3,8 @@ module Guara
   class SystemModule < ActiveRecord::Base
     attr_accessible :name
   
-    def self.CUSTOMER
-      readonly.find_by_name("Customer")
+    def self.CITY
+      readonly.find_by_name("City")
     end
   
     def self.USER

@@ -1,23 +1,21 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "guara_crm/version"
+require "guara/crm/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "guara_crm"
-  s.version     = GuaraCrm::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of GuaraCrm."
-  s.description = "TODO: Description of GuaraCrm."
+  s.version     = Guara::Crm::VERSION.dup
+  s.authors     = ["Bruno Guerra"]
+  s.email       = ["bruno@woese.com"]
+  s.homepage    = "guara.woese.com"
+  s.summary     = "CRM Module for Guara"
+  s.description = "Customers, tasks and specific domains for provide good service"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.2.9"
-  # s.add_dependency "jquery-rails"
-
-  s.add_development_dependency "sqlite3"
+  s.add_dependency "guara_core"
+  
 end

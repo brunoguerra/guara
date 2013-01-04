@@ -1,0 +1,33 @@
+<h1><%= t("business_segments.title") %></h1>
+
+<section id="buttons">
+  <div class="page-header wehll">
+	<%= t("search.results")%>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+	  <tr>
+	    <th>Name</th>
+	    <th>Disable</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	<% @business_segments.each do |business_segment| %>
+	  <tr>
+	    <td><%= business_segment.name %></td>
+	    <td><%= business_segment.enabled %></td>
+	    <td><%= link_to 'Show', business_segment %></td>
+	    <td><%= link_to 'Edit', edit_business_segment_path(business_segment) %></td>
+	    <td><%= link_to 'Destroy', business_segment, confirm: 'Are you sure?', method: :delete %></td>
+	  </tr>
+	<% end %>
+    </tbody>
+  </table>
+</section>
+
+<br />
+
+<%= link_to 'New Business segment', new_business_segment_path %>

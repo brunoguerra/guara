@@ -3,27 +3,38 @@ module Guara
   module Menus
     groups = [:customers, :maintence, :help, :current_user]
 
+    
 
+    MODULES =
+      {
+      :modules => 
+        {
+          :title => "modules",
+          :items => []
+        }
+      }
+      
+    
     ADMINISTRATION =
-            {
-              :title => "administration",
-              :namespace => "admin_guara",
-              :items => [
-                          [:users, "users_path()"],
-                          :user_groups,
-                        ]
-             }
+      {
+        :title =>   "administration",
+        :prefix =>  "admin_guara",
+        :items =>   [
+                      [:users, "users_path()"],
+                      :user_groups,
+                    ]
+       }
     
     MAINTENCE =
-            {
-              :title => "maintenances",
-              :namespace => "maintence_guara",
-              :items => [
-                          :districts,
-                          :cities,
-                          :states,
-                        ]
-             }
+      {
+        :title => "maintenances",
+        :prefix => "maintence_guara",
+        :items => [
+                    :districts,
+                    :cities,
+                    :states,
+                  ]
+       }
   end
   
 end

@@ -1,9 +1,14 @@
 puts "Loading guara_core/spec/spec_helper..."
 require 'rubygems'
+require "rails"
+
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../spec/dummy/config/environment", __FILE__)
+
 require 'action_controller' #fixing inherited resources not load on engine mode
 require 'spork'
 require "capybara/rspec"
-require "rails"
 require "guara_core"
 require "database_cleaner"
 require File.dirname(__FILE__) + '/../app/helpers/guara/base_helper.rb'
@@ -17,11 +22,6 @@ include Guara::BaseHelper
     Dependencies.autoload_paths << File.join(File.dirname(__FILE__), dir)
   end
 end
-
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../spec/dummy/config/environment", __FILE__)
 
 require 'rspec/rails'
 require 'rspec/autorun'

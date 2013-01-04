@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-
-  mount GuaraCrm::Engine => "/guara_crm"
+  mount Guara::Core::Engine => "/"
 end

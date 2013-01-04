@@ -1,0 +1,51 @@
+
+<ul class="feedbacks-list">
+<% items.each do |item|  %>
+	<div class="alert disbaled" id="feedback<%= item.id %>" onClick="feedback_show(<%= item.id %>)">
+		<h5><%= item.resolution.name %></h5>
+		<code><%= format_datetime(item.created_at) %></code>
+		<%= item.notes[0..40] %>(...)
+	</div>
+<% end %>
+
+	<div class="modal-feedback modal hide fade" style="display:none">
+		<div class="modal-body">
+		</div>
+		<div class="modal-footer">
+			<a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>
+		</div>
+	</div>
+<ul>
+<script>
+
+var reg = new RegExp("\\999999", "gm");
+
+function feedback_show(id) {	
+	$(".modal-feedback").modal({
+      "backdrop"  : "static",
+      "keyboard"  : true,
+      "show"      : true,
+	  "scrollbars": true
+    });
+	/*.css({
+	    'margin-left': function () {
+	        return -($(this).width() / 2);
+	    }
+	});*/
+	
+	path = "<%= customer_task_feedback_path(@customer, @task, 0) %>"+id+".js"
+
+    //path = path.replace(reg, id);
+	
+	$('.modal-feedback .modal-body').html("<div></div>");
+	$('.modal-feedback .modal-body').load(path);
+}
+
+$(function() {	
+   $(".modal-feedback #close").click(function(e) {
+       $(".modal-feedback").modal('hide');
+   });   
+});
+
+
+</script>

@@ -1,0 +1,10 @@
+<div class="segments">
+<% new_or_existing = authorship.new_record? ? 'new' : 'existing' %>
+<% prefix = "source[#{new_or_existing}_authorship_attributes][]" %>
+<% fields_for prefix, custumer_segments do |custumer_segments_form| %>
+  <p>
+    <%= custumer_segments_form.collection_select(:segment_id, Author.find(:all), :id, :name, :include_blank => true)$
+    <%= link_to_function "remove", "$(this).up('.authorship').remove()" %>
+  </p>
+<% end %>
+</div>

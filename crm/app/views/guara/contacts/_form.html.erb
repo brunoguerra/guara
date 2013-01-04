@@ -1,0 +1,53 @@
+
+<%= semantic_form_for [@contact.customer, @contact], :html => {:class => "well"}  do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+<fieldset>
+  <legend><%= title %></legend>
+
+<div class="row">
+  <div class="span8 offset2">
+    <div class="control-group">
+    <%= f.label :name %>	  
+	  <div class="control">
+    <%= f.text_field :name %>		
+	  </div>
+	</div>
+
+    <div class="control-group">
+    <%= f.input :department %>	  
+	</div>
+
+    <div class="control-group">
+    <%= f.label :business_function %>
+	  <div class="control">
+      <%= f.text_field :business_function %>		
+	  </div>
+	</div>
+
+    <div class="control-group">
+    <%= f.label :phone %>	  
+	  <div class="control">
+      <%= f.text_field :phone %>		
+	  </div>
+	</div>
+
+    <div class="control-group">
+    <%= f.label :cell %>	  
+	  <div class="control">
+        <%= f.text_field :cell %>		
+	  </div>
+	</div>
+	
+    <div class="control-group">
+    <%= f.label :birthday %>	  
+	  <div class="control">
+      <%= f.text_field :birthday %>		
+	  </div>
+	</div>
+
+  <%= f.submit class: "btn btn-large btn-primary" %>
+	</div>
+</div>
+
+</fieldset>
+<% end %>

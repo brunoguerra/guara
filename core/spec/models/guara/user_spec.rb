@@ -241,14 +241,15 @@ module Guara
     end
   
     describe "have many groups" do
-      let(:group_primary) { UserGroup.first }
+      let!(:group_primary) { UserGroup.first }
       let(:group_secs) { [FactoryGirl.create(:user_group), FactoryGirl.create(:user_group)] }
       before do
+        @user.save
         @user.primary_group = group_primary
         @user.secundary_groups = group_secs
-        @user.save!
+        @user.save
       end
-    
+      it { should be_valid }
       its (:groups) { should include(group_secs[0]) }
       its (:groups) { should include(group_secs[1]) }
     
@@ -258,11 +259,11 @@ module Guara
   
     describe "user able?" do
       before do
-        able(@user, :create, :customer)
+        able(@user, :create, :city)
         able(@user, :read, :user)
       end
     
-      it { @user.able?(SystemModule.CUSTOMER, SystemAbility.CREATE).should be_true }
+      it { @user.able?(SystemModule.CITY, SystemAbility.CREATE).should be_true }
       it { @user.able?(SystemModule.USER, SystemAbility.READ).should be_true }
       it { @user.able?(SystemModule.USER, SystemAbility.CREATE).should_not be_true }
     end

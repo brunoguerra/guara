@@ -1,4 +1,1 @@
-require "guara_crm/engine"
-
-module GuaraCrm
-end
+require "guara/crm/engine"

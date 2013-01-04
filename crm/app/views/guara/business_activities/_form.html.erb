@@ -1,0 +1,25 @@
+<%= form_for(@business_activity) do |f| %>
+  <% if @business_activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@business_activity.errors.count, "error") %> prohibited this business_activity from being saved:</h2>
+
+      <ul>
+      <% @business_activity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

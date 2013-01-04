@@ -9,7 +9,7 @@ module Guara
     before do
       @user_ability = UserAbility.create!(:skilled => user, 
                                       :ability => SystemAbility.READ,
-                                      :module => SystemModule.CUSTOMER)
+                                      :module => SystemModule.USER)
                                     
       user.reload
     end
@@ -30,7 +30,7 @@ module Guara
   
     describe "list user abilities for module" do
       it "customer" do
-        UserAbility.for(user, SystemModule.CUSTOMER).should include SystemAbility.READ
+        UserAbility.for(user, SystemModule.USER).should include SystemAbility.READ
       end
     end
   

@@ -2,14 +2,8 @@
 
 module Guara
   begin
-    admin = User.create!(name: "Adm Sistema",
-                        email: "adm@adm.com",
-                        password: "admini",
-                        password_confirmation: "admini")
-    admin.toggle!(:admin)
-
     SystemAbility.create([{ id:1, name: 'CREATE' }, { id:2, name: 'READ' }, { id:3, name: 'UPDATE' }, { id:4, name: 'DELETE' }])
-  
+    
     SystemModule.create([
                          { name: 'All' },
                          { name: 'User' },
@@ -17,8 +11,28 @@ module Guara
                          { name: 'State' },
                          { name: 'City' },
                          { name: 'District' },
-                      ])                    
+                      ])                   
 
+    admin_group = UserGroup.create!(name: "Administrators", system: true)
+
+    admin = User.create!(name: "Adm Sistema",
+                        email: "adm@adm.com",
+                        password: "admini",
+                        password_confirmation: "admini")
+
+    admin.toggle!(:admin)
+
+    admin.primary_group = admin_group
+
+    admin.save
+
+    admin_group.abilities.build(:ability => SystemAbility.CREATE,  :module => SystemModule.ALL)
+    admin_group.abilities.build(:ability => SystemAbility.READ,    :module => SystemModule.ALL)
+    admin_group.abilities.build(:ability => SystemAbility.UPDATE,  :module => SystemModule.ALL)
+    admin_group.abilities.build(:ability => SystemAbility.DESTROY, :module => SystemModule.ALL)
+    
+    admin_group.save
+    
     ### States
 
     State.create  ([

@@ -1,9 +1,9 @@
-# encoding: uft-8
+# encoding: utf-8
 namespace :guara do
   namespace :crm do
     
     desc "Sample CRM Data"
-    task :sample :environment do
+    task sample: :environment do
       Customer.all.each { |u| u.destroy_fully }
       logger.info "Customers Destroyed"
   

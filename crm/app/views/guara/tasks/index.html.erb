@@ -1,0 +1,61 @@
+<% provide(:title, t("tasks.title", :customer => @customer.name)) %>
+
+<%= render :partial => "header" %>
+
+
+<div class="row">
+	<div class="span12">
+	  <%= form_tag customer_tasks_path, :class => "well form-search", :method => :get, :name => :search do  %>
+		<fieldset>
+		  <legend><%= t("tasks.search.title") %></legend>
+		  <div class="row">
+			<div class="span4">
+			
+			  <div class="control-group">
+	            <%= label_tag :name, t("tasks.name"), :class => "control-label" %>
+	            <div class="controls">
+		          <%= text_field_tag :name, params[:name] %>
+	            </div>
+	          </div>
+				
+			</div>
+			
+			<div class="span8">
+				<div class="form-actions">
+					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+				</div>
+			</div>
+			
+		  </div>
+		</fieldset>
+	  <% end %>
+	</div>
+</div>
+
+<% if @tasks %>
+<section id="buttons">
+  <div class="page-header wehll">
+	<%= t("search.results")%>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th><%= t("tasks.name") %></th>
+        <th><%= t("helpers.forms.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+	    <td><%= task.name %></td>
+	    <td><%= link_to t('helpers.forms.show'), [task.interested, task] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>
+<% end %>
+
+<br />
+
+<%= link_to t('tasks.new.link'), new_customer_task_path(params[:customer_id]), :class => "btn" %>
