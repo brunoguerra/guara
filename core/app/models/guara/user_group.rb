@@ -1,7 +1,7 @@
 module Guara
 
   class UserGroup < ActiveRecord::Base
-    attr_accessible :enabled, :name
+    attr_accessible :enabled, :name, :system
   
     #scope
     default_scope where("enabled = TRUE")

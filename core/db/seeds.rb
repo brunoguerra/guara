@@ -5,7 +5,7 @@ module Guara
     SystemAbility.create([{ id:1, name: 'CREATE' }, { id:2, name: 'READ' }, { id:3, name: 'UPDATE' }, { id:4, name: 'DELETE' }])
     
     SystemModule.create([
-                         { name: 'All' },
+                         { name: 'all' },
                          { name: 'User' },
                          { name: 'Micropost' },
                          { name: 'State' },
@@ -29,7 +29,7 @@ module Guara
     admin_group.abilities.build(:ability => SystemAbility.CREATE,  :module => SystemModule.ALL)
     admin_group.abilities.build(:ability => SystemAbility.READ,    :module => SystemModule.ALL)
     admin_group.abilities.build(:ability => SystemAbility.UPDATE,  :module => SystemModule.ALL)
-    admin_group.abilities.build(:ability => SystemAbility.DESTROY, :module => SystemModule.ALL)
+    admin_group.abilities.build(:ability => SystemAbility.DELETE,  :module => SystemModule.ALL)
     
     admin_group.save
     
@@ -73,7 +73,11 @@ module Guara
   
   rescue Exception => exception
     logger =  Logger.new(STDOUT)
-    logger.error("Error running task db:seed - #{exception.message} #{exception.class} #{exception.record.to_yaml}\n#{exception.record.errors.to_yaml}\n\n")
+    if exception.respond_to?(:record) && !exception.record.nil?
+      logger.error("Error running task db:seed - #{exception.message} #{exception.class} #{exception.record.to_yaml}\n#{exception.record.errors.to_yaml}\n\n")
+    else
+      logger.error("Error running task db:seed - #{exception.message} #{exception.class}\n\n")
+    end
     logger.info exception.backtrace.to_yaml
   end
 end

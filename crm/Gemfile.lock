@@ -3,6 +3,7 @@ PATH
   specs:
     guara_crm (0.0.1)
       guara_core
+      rails3-jquery-autocomplete
 
 PATH
   remote: ../core/
@@ -315,6 +316,7 @@ DEPENDENCIES
   launchy
   multi_json (= 1.2.0)
   pg
+  rails3-jquery-autocomplete
   rspec-rails (~> 2.11.0)
   sass-rails (~> 3.2)
   shoulda-matchers (~> 1.0.0)

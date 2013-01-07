@@ -2,4 +2,5 @@ source 'https://rubygems.org'
 
 eval(File.read(File.dirname(__FILE__) + '/../common_dependencies.rb'))
 
+gem 'rails3-jquery-autocomplete'
 gem 'guara_core', :path => "../core/"

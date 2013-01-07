@@ -1,6 +1,6 @@
 module Guara
   class CustomersController < BaseController
-    load_and_authorize_resource :except => [:create]
+    load_and_authorize_resource :class => Guara::Customer, :except => [:create]
     before_filter :custom_load_creator, :only => :create
     before_filter :filter_before_changes, :only => [:create,:update]
   

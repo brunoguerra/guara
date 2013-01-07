@@ -1,1 +1,1 @@
-require "guara/crm/engine"
+require "guara/crm"

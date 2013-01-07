@@ -14640,3 +14640,188 @@ Starting groups
   [1m[35mGuara::UserGroup Load (0.3ms)[0m  SELECT "guara_user_groups".* FROM "guara_user_groups" WHERE (enabled = TRUE) LIMIT 1
   [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120610142404)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.2ms)[0m  [1mCREATE TABLE "guara_users" ("id" serial primary key, "name" character varying(25), "email" character varying(100), "enabled" boolean DEFAULT 't', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120610142404')
+  [1m[36m (20.9ms)[0m  [1mCOMMIT[0m
+Migrating to AddIndexToUsersEmail (20120610183820)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "index_guara_users_on_email" ON "guara_users" ("email")[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120610183820')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddPasswordDigestToUsers (20120610185217)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120610185217')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to AddRememberTokenToUsers (20120612000411)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "guara_users" ADD COLUMN "remember_token" character varying(255)
+  [1m[36m (0.9ms)[0m  [1mCREATE INDEX "index_guara_users_on_remember_token" ON "guara_users" ("remember_token")[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120612000411')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to AddAdminToUsers (20120616162515)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.2ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "admin" boolean DEFAULT 'f'[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120616162515')
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+Migrating to CreateMicroposts (20120616215835)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "guara_microposts" ("id" serial primary key, "content" character varying(255), "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_guara_microposts_on_user_id_and_created_at" ON "guara_microposts" ("user_id", "created_at")
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120616215835')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateRelationships (20120617224530)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "guara_relationships" ("id" serial primary key, "follower_id" integer, "followed_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.0ms)[0m  [1mCREATE INDEX "index_guara_relationships_on_follower_id" ON "guara_relationships" ("follower_id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_guara_relationships_on_followed_id" ON "guara_relationships" ("followed_id")
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "index_guara_relationships_on_follower_id_and_followed_id" ON "guara_relationships" ("follower_id", "followed_id")[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120617224530')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateEmails (20120621100557)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (6.3ms)[0m  [1mCREATE TABLE "guara_emails" ("id" serial primary key, "customer_id" integer, "email" character varying(120), "infos" boolean DEFAULT 't', "private" boolean DEFAULT 't', "emailable_id" integer, "emailable_type" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120621100557')
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDistricts (20120621100705)
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "guara_districts" ("id" serial primary key, "name" character varying(60), "city_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_guara_districts_on_city_id" ON "guara_districts" ("city_id")
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120621100705')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateCities (20120621100720)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "guara_cities" ("id" serial primary key, "name" character varying(60), "state_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.0ms)[0m  [1mCREATE INDEX "index_guara_cities_on_state_id" ON "guara_cities" ("state_id")[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120621100720')
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateStates (20120703102859)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "guara_states" ("id" serial primary key, "name" character varying(30), "acronym" character varying(2), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120703102859')
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddDeviseToUsers (20120711233943)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (5.5ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "encrypted_password" character varying(255) DEFAULT '' NOT NULL[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "guara_users" ADD COLUMN "reset_password_token" character varying(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "reset_password_sent_at" timestamp[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "guara_users" ADD COLUMN "remember_created_at" timestamp
+  [1m[36m (4.6ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "sign_in_count" integer DEFAULT 0[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "guara_users" ADD COLUMN "current_sign_in_at" timestamp
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "last_sign_in_at" timestamp[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "guara_users" ADD COLUMN "current_sign_in_ip" character varying(255)
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "last_sign_in_ip" character varying(255)[0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX "index_guara_users_on_reset_password_token" ON "guara_users" ("reset_password_token")
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120711233943')[0m
+  [1m[35m (1.5ms)[0m  COMMIT
+Migrating to CreateUserAbilities (20120723102847)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "guara_user_abilities" ("id" serial primary key, "module_id" integer, "ability_id" integer, "skilled_id" integer, "skilled_type" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120723102847')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateSystemModules (20120723104500)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "guara_system_modules" ("id" serial primary key, "name" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120723104500')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateSystemAbilities (20120723104639)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "guara_system_abilities" ("id" serial primary key, "name" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120723104639')[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+Migrating to CreateUserGroups (20120728181903)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "guara_user_groups" ("id" serial primary key, "name" character varying(255), "enabled" boolean DEFAULT 't', "system" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120728181903')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateUsersHasGroups (20120729112600)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (8.3ms)[0m  CREATE TABLE "guara_users_has_groups" ("id" serial primary key, "user_id" integer, "user_group_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_guara_users_has_groups_on_user_id" ON "guara_users_has_groups" ("user_id")[0m
+  [1m[35m (1.2ms)[0m  CREATE INDEX "index_guara_users_has_groups_on_user_group_id" ON "guara_users_has_groups" ("user_group_id")
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX "index_guara_users_has_groups_on_user_id_and_user_group_id" ON "guara_users_has_groups" ("user_id", "user_group_id")[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120729112600')
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to AddGroupsToUsers (20120729121922)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "primary_group_id" integer[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_guara_users_on_primary_group_id" ON "guara_users" ("primary_group_id")
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20120729121922')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateAdminNotes (20121029094047)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.6ms)[0m  CREATE TABLE "admin_notes" ("id" serial primary key, "resource_id" character varying(255) NOT NULL, "resource_type" character varying(255) NOT NULL, "admin_user_id" integer, "admin_user_type" character varying(255), "body" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.1ms)[0m  [1mCREATE INDEX "index_admin_notes_on_resource_type_and_resource_id" ON "admin_notes" ("resource_type", "resource_id")[0m
+  [1m[35m (1.0ms)[0m  CREATE INDEX "index_admin_notes_on_admin_user_type_and_admin_user_id" ON "admin_notes" ("admin_user_type", "admin_user_id")
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121029094047')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to MoveAdminNotesToComments (20121029094048)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (32.1ms)[0m  DROP INDEX "index_admin_notes_on_admin_user_type_and_admin_user_id"
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "admin_notes" RENAME TO "active_admin_comments"[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "admin_notes_id_seq" RENAME TO "active_admin_comments_id_seq"
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "active_admin_comments" RENAME COLUMN "admin_user_type" TO "author_type"[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "active_admin_comments" RENAME COLUMN "admin_user_id" TO "author_id"
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "active_admin_comments" ADD COLUMN "namespace" character varying(255)[0m
+  [1m[35m (22.1ms)[0m  CREATE INDEX "index_active_admin_comments_on_namespace" ON "active_admin_comments" ("namespace")
+  [1m[36m (0.9ms)[0m  [1mCREATE INDEX "index_active_admin_comments_on_author_type_and_author_id" ON "active_admin_comments" ("author_type", "author_id")[0m
+  [1m[35m (0.3ms)[0m  UPDATE active_admin_comments SET namespace='admin'
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121029094048')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to AddEnabledToCities (20121103183646)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "guara_cities" ADD COLUMN "enabled" boolean
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121103183646')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateAddresses (20121104141751)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.1ms)[0m  CREATE TABLE "guara_addresses" ("id" serial primary key, "country_id" integer, "state_id" integer, "city_id" integer, "district_id" integer, "address" character varying(120), "complement" character varying(30), "postal_code" character varying(20), "addressable_id" integer, "addressable_type" character varying(255), "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_guara_addresses_on_state_id_and_city_id" ON "guara_addresses" ("state_id", "city_id")[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121104141751')
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddTypeIdToUsers (20121205150619)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (6.0ms)[0m  [1mALTER TABLE "guara_users" ADD COLUMN "type_id" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121205150619')
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateGuaraSystemExtensions (20121228190807)
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "guara_system_extensions" ("id" serial primary key, "name" character varying(255), "enabled" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20121228190807')
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Connecting to database specified by database.yml
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20120610142404)
+Migrating to AddIndexToUsersEmail (20120610183820)
+Migrating to AddPasswordDigestToUsers (20120610185217)
+Migrating to AddRememberTokenToUsers (20120612000411)
+Migrating to AddAdminToUsers (20120616162515)
+Migrating to CreateMicroposts (20120616215835)
+Migrating to CreateRelationships (20120617224530)
+Migrating to CreateEmails (20120621100557)
+Migrating to CreateDistricts (20120621100705)
+Migrating to CreateCities (20120621100720)
+Migrating to CreateStates (20120703102859)
+Migrating to AddDeviseToUsers (20120711233943)
+Migrating to CreateUserAbilities (20120723102847)
+Migrating to CreateSystemModules (20120723104500)
+Migrating to CreateSystemAbilities (20120723104639)
+Migrating to CreateUserGroups (20120728181903)
+Migrating to CreateUsersHasGroups (20120729112600)
+Migrating to AddGroupsToUsers (20120729121922)
+Migrating to CreateAdminNotes (20121029094047)
+Migrating to MoveAdminNotesToComments (20121029094048)
+Migrating to AddEnabledToCities (20121103183646)
+Migrating to CreateAddresses (20121104141751)
+Migrating to AddTypeIdToUsers (20121205150619)
+Migrating to CreateGuaraSystemExtensions (20121228190807)
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 

@@ -2,6 +2,10 @@
 namespace :guara do
   namespace :crm do
     
+    task seeds: :environment do
+      Guara::Crm::Engine.load_seed
+    end
+    
     desc "Sample CRM Data"
     task sample: :environment do
       Customer.all.each { |u| u.destroy_fully }

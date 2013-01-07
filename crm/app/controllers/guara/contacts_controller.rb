@@ -35,7 +35,7 @@ module Guara
       end
     end
 
-  =begin
+=begin
     # GET customers/1/contacts/new
     # GET customers/1/contacts/new.json
     def new
@@ -54,7 +54,7 @@ module Guara
       @contact = @customers.contacts.find(params[:id])
     end
   
-  =end
+=end
 
     # POST customers/1/contacts
     # POST customers/1/contacts.json

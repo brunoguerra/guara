@@ -2,7 +2,7 @@ module Guara
   class TaskType < ActiveRecord::Base
     attr_accessible :enabled, :name, :company_business, :company_business_id
   
-    include ActiveDisablable
+    include ActiveExtend::ActiveDisablable
   
     belongs_to :company_business
   

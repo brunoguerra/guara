@@ -1,0 +1,21 @@
+<fieldset>
+<% inputs.each do |input,options| %>
+    <% if options.include? :glyph %>
+	<div class="controls">
+		<div class="input-prepend">
+	    	<span class="add-on"><i class="<%= options[:glyph] %>"></i></span>
+	<% end %>
+	
+	<%= f.input input, options %>
+	
+	<% if options.include? :glyph %>
+		</div>
+	</div>
+	<% end %>
+<% end %>
+<%= f.hidden_field :_destroy %>
+
+<%= link_to '#', class: "remove_fields btn btn-small" do %>
+	<i class="icon-remove"></i>
+<% end  %></span>
+</fieldset>

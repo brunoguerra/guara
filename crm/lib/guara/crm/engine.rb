@@ -1,4 +1,5 @@
 require 'guara_core'
+require 'rails3-jquery-autocomplete'
 
 module Guara
   module Crm

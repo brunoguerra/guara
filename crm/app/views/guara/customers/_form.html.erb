@@ -1,6 +1,6 @@
 <%= semantic_form_for @customer, :html => {:class => "well"}  do |f| %>
 <%= f.semantic_fields_for @customer.person do |person_f| %>
-<%= render 'shared/error_messages', object: f.object %>
+<%= render 'shared/guara/error_messages', object: f.object %>
 	<fieldset>
 	  <legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
 	  <div class="row">
@@ -15,21 +15,21 @@
 		  <div class="control-group">
             <%= f.label :state_id, :class => "control-label" %>
             <div class="controls">
-	          <%= f.collection_select(:state_id, State.all, :id, :acronym, :include_blank => true) %>
+	          <%= f.collection_select(:state_id, Guara::State.all, :id, :acronym, :include_blank => true) %>
             </div>
           </div>
 
 		  <div class="control-group">
             <%= f.label :city_id, :class => "control-label" %>
             <div class="controls">
-	          <%= f.collection_select(:city_id, City.all, :id, :name, :include_blank => true) %>
+	          <%= f.collection_select(:city_id, Guara::City.all, :id, :name, :include_blank => true) %>
             </div>
           </div>
 
 		  <div class="control-group">
             <%= f.label :district_id, :class => "control-label" %>
             <div class="controls">
-	          <%= f.collection_select(:district_id, District.all, :id, :name, :include_blank => true) %>
+	          <%= f.collection_select(:district_id, Guara::District.all, :id, :name, :include_blank => true) %>
             </div>
           </div>
 
@@ -63,7 +63,7 @@
 	            <%= person_f.label :segments, :class => "control-label" %>
 	            <div class="controls">
 		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
-					<%= render :partial => 'shared/multi_selection', 
+					<%= render :partial => 'shared/guara/multi_selection', 
 					:locals => { 
 						:form => person_f, 
 						:values => @person.segments, 
@@ -81,7 +81,7 @@
 	            <%= person_f.label :activities, :class => "control-label" %>
 	            <div class="controls">
 		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
-					<%= render :partial => 'shared/multi_selection', 
+					<%= render :partial => 'shared/guara/multi_selection', 
 					:locals => { 
 						:form => person_f, 
 						:values => @person.activities, 
@@ -97,7 +97,7 @@
 			  <div class="control-group">
 	            <%= person_f.label :associateds, :class => "control-label" %>
 	            <div class="controls">
-					<%= render :partial => 'shared/multi_selection', 
+					<%= render :partial => 'shared/guara/multi_selection', 
 					:locals => {
 						:form => person_f,
 						:values => @person.associateds, 

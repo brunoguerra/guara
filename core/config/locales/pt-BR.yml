@@ -53,8 +53,8 @@ pt-BR:
       
     a_customer: "É Cliente"
     
-    name: "Nome/Fantasia"
-    name_sec: "Apelido/Razão Social"
+    name: "Nome/Razão Social"
+    name_sec: "Apelido/Fantasia"
     code: "Cod."
     activity: "Atividade"
     segment: "Segmento"
@@ -188,6 +188,9 @@ pt-BR:
 
   aministration:
     link: "Atividades"
+
+  modules:
+    link: "Módulos"
 
   microposts:
     title: "Mensagens"
@@ -326,13 +329,13 @@ pt-BR:
     attributes:
       user:
         <<: *attr_users
-      customer:
+      "guara/customer":
           <<: *attr_customer
       
-      customer_pj:
+      "guara/customer_pj":
           <<: *attr_customer_pj
       
-      contact:
+      "guara/contact":
           <<: *attr_contacts
       
       task:

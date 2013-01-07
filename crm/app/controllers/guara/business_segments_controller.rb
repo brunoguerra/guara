@@ -1,4 +1,4 @@
-module guara
+module Guara
   class BusinessSegmentsController < BaseController
   
     load_and_authorize_resource

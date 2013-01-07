@@ -15,10 +15,14 @@ module Guara
         abilities = user.all_abilities
       
         abilities.each do |ab|
-          if (ab.module=="all")
+          if (ab.module.name.downcase == "all")
             resource = :all
           else
-            resource = eval(ab.module.name)
+            begin
+              resource = eval(ab.module.name)
+            rescue
+              Rails.logger.debug "FALHA EM: %s:%d"% [__FILE__,__LINE__]
+            end
           end
       
           t_ability = ab.ability.name.downcase.to_sym
@@ -27,16 +31,24 @@ module Guara
         
           if (t_ability.to_sym == :read)
             can [:index, :show], resource
+          elsif (t_ability.to_sym == :create)
+            can [:new], resource
           end
         end 
       end
+    end
     
-      def can?(action, subject, *extra_args)
-          Rails.logger.debug ("cancan::Ability.can? action: :%s, subject: %s" % [action.to_s, subject.to_s])      
-          ret = super 
-          Rails.logger.debug ("***-CAN'T action: :%s, subject: %s" % [action.to_s, subject.to_s]) if !ret
-          ret
-      end
+    def can?(action, subject, *extra_args)
+        Rails.logger.debug ("cancan::Ability.can? action: :%s, subject: %s" % [action.to_s, subject.to_s])      
+        ret = super 
+        if (!ret)
+          old_subject = subject
+          subject = subject.superclass
+          ret = super
+          subject = old_subject 
+        end
+        Rails.logger.debug ("***-CAN'T action: :%s, subject: %s" % [action.to_s, subject.to_s]) if !ret
+        ret
     end
   end
 end

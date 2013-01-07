@@ -17,5 +17,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "guara_core"
+  s.add_dependency 'rails3-jquery-autocomplete'
   
 end
