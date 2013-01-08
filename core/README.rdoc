@@ -2,23 +2,19 @@
 
 This modules
   - Security System
-    - System Authentication
-    - Management Users
-		- Tracking Users Moves
+    - Authentication System
+    - Users Management
+    - Tracking System
   
-	- Network System
+  - Social System
     - Micropost's
-		- Follow system
-		
-Tiers
-		Presentation Tier
-			Navigation Structure
-			Hierarchical Dependency Structure
+    - Follow system
 			
 	
-Architectural system patterns
-		Configurable system
-		Extensible system
-		Integration system
+   - Architectural system patterns
+     - Configurable system
+     - Extensible system
+     - Integrate system
+     - Extensible system
 
 This project rocks and uses MIT-LICENSE.
