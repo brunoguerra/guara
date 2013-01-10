@@ -1,6 +1,6 @@
 
 <%= semantic_form_for [@customer, @task], :remote => (remote || false), :html => { :class => "task-side form remote_form" }, :method => :post do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+  <%= render 'shared/guara/error_messages', object: f.object %>
 <fieldset>
   <legend><%= title %></legend>
 	<div class="span11">
@@ -16,7 +16,7 @@
 				</div> 
 				<div class="span5">
 					<%= f.input :contact, collection: @customer.contacts %>
-					<%= f.input :assigned, collection: User.all %>
+					<%= f.input :assigned, collection: Guara::User.all %>
 				</div>
 				<div class="span5">
 					<%= f.input :notes, :as => :text, :input_html => { rows: 4  } %>
@@ -36,7 +36,7 @@
 						<div class="rows8">
 						    <%= f.semantic_fields_for :feedbacks do |feedback| %>
 								<div class="span4">							
-									<%= feedback.input :resolution_id, :label => t("feedbacks.resolution"), :collection => SystemTaskResolution.all %>
+									<%= feedback.input :resolution_id, :label => t("feedbacks.resolution"), :collection => Guara::SystemTaskResolution.all %>
 									<%= feedback.input :notes, :as => :text, :label => t("feedbacks.notes"), :input_html => { rows: 3 } %>
 								</div>
 

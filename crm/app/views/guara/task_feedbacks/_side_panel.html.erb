@@ -3,7 +3,7 @@
 	<div class="new">
 		
 		<div class="feedbacks-list">
-			<%= render :partial => 'task_feedbacks/list', :locals => { items: @feedbacks } %>
+			<%= render :partial => 'guara/task_feedbacks/list', :locals => { items: @feedbacks } %>
 		</div>
 		<% if false and can? :create, :feedback  %>
 		<a class="new-link btn btn-primary" href="#"><%= t("feedbacks.new.link") %></a>
@@ -11,7 +11,7 @@
 	 	
 		<div class="form modal hide fade" style="display:none">
 			<div class="modal-body">
-				<%= render :partial => 'task_feedbacks/side_form', :locals => { :title => t("feedbacks.new.title"), :remote => true } %>
+				<%= render :partial => 'guara/task_feedbacks/side_form', :locals => { :title => t("feedbacks.new.title"), :remote => true } %>
 			</div>
 			<div class="modal-footer">
 				<a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>

@@ -1,7 +1,7 @@
 module Guara
   class ContactsController < BaseController
-    load_and_authorize_resource :customer
-    load_and_authorize_resource :through => :customer
+    load_and_authorize_resource :customer, :class => Guara::Customer
+    load_and_authorize_resource :through => :customer, :class => Guara::Contact
   
     # GET customers/1/contacts
     # GET customers/1/contacts.json

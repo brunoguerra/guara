@@ -40,7 +40,7 @@ module Guara
         return 0 if done? || due_time.nil?
       
         if (due_time>Time.now)
-          if (((due_time-Time.now)/1.day).round>Guara::Application::TASKS_DUE_CRITICAL_DAYS_REMAINING)
+          if (((due_time-Time.now)/1.day).round>Guara::Crm::TASKS_DUE_CRITICAL_DAYS_REMAINING)
             1
           else
             2

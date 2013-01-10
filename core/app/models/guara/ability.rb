@@ -41,12 +41,12 @@ module Guara
     def can?(action, subject, *extra_args)
         Rails.logger.debug ("cancan::Ability.can? action: :%s, subject: %s" % [action.to_s, subject.to_s])      
         ret = super 
-        if (!ret)
-          old_subject = subject
-          subject = subject.superclass
-          ret = super
-          subject = old_subject 
-        end
+        #if (!ret && !subject.nil?)
+        #  old_subject = subject
+        #  subject = subject.superclass
+        #  ret = super
+        #  subject = old_subject 
+        #end
         Rails.logger.debug ("***-CAN'T action: :%s, subject: %s" % [action.to_s, subject.to_s]) if !ret
         ret
     end

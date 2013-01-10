@@ -16,7 +16,7 @@
 	            <%= label_tag :segment, t("helpers.label.customers.search.segment"), :class => "control-label" %>
 	            <div class="controls">
 		          <%= autocomplete_field_tag :segment_autocomplete,
-		name_or_nothing(BusinessSegment.find_by_id(params[:search][:person_customer_pj_type_segments_id_eq])),
+		name_or_nothing(Guara::BusinessSegment.find_by_id(params[:search][:person_customer_pj_type_segments_id_eq])),
 		autocomplete_business_segment_name_customers_path,
 		:size => 75,
 		:id_element => '#search_person_customer_pj_type_segments_id_eq'
@@ -28,7 +28,7 @@
 			  <div class="control-group">
 	            <%= label_tag :activity, t("helpers.label.customers.search.activity"), :class => "control-label" %>
 	            <div class="controls">
-		          <%= autocomplete_field_tag :activity_autocomplete, name_or_nothing(BusinessActivity.find_by_id(params[:search][:person_customer_pj_type_activities_id_eq])), 
+		          <%= autocomplete_field_tag :activity_autocomplete, name_or_nothing(Guara::BusinessActivity.find_by_id(params[:search][:person_customer_pj_type_activities_id_eq])), 
 		autocomplete_business_activity_name_customers_path,
 		:size => 75,
 		:id_element => '#search_person_customer_pj_type_activities_id_eq' %>

@@ -1,7 +1,7 @@
 module Guara
   class TasksController < BaseController
-    load_and_authorize_resource :customer
-    load_and_authorize_resource :through => :customer , :except => [:create, :update]
+    load_and_authorize_resource :customer, :class => Guara::Customer
+    load_and_authorize_resource :through => :customer, :class => Guara::Task, :except => [:create, :update]
     
     include FormAjaxHelper
     
@@ -14,10 +14,7 @@ module Guara
       respond_to do |format|
         format.html { render "index", :layout => "application.html.erb" }
         format.json do
-           #@content = render_to_string( :template => "tasks/_list", :locals => { items: @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 3) }, :formats => :html, :layout => false)
-           #render :json => { html: @content }, :content_type => "application/json"
-           #render :json => @content, :content_type => "application/json"
-           render :template => "tasks/_list", :locals => { items: @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 3) }, :formats => :html, :layout => false
+           render :template => "guara/tasks/_list", :locals => { items: @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 3) }, :formats => :html, :layout => false
         end
         format.js { head :no_content }
       end

@@ -327,7 +327,7 @@ pt-BR:
         record_invalid: 'Registro Inválido'
         
     attributes:
-      user:
+      "guara/user":
         <<: *attr_users
       "guara/customer":
           <<: *attr_customer
@@ -338,13 +338,13 @@ pt-BR:
       "guara/contact":
           <<: *attr_contacts
       
-      task:
+      "guara/task":
           <<: *attr_tasks
           
-      feedback:
+      "guara/feedback":
           <<: *attr_feedbacks
           
-      task_type:
+      "guara/task_type":
           <<: *attr_task_types
       
     models: 

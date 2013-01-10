@@ -95,6 +95,7 @@ module Guara
     
       params[:customer][:doc].gsub! /[\.\/-]/, "" if params[:customer][:doc]
       params[:customer][:doc_rg].gsub! /[\.\/-]/, "" if params[:customer][:doc_rg] 
+      params[:customer][:postal].gsub! /[\.\/-]/, "" if params[:customer][:postal]
     end
   
   
@@ -112,7 +113,7 @@ module Guara
     end
   
     def multiselect_customers_pj
-      render :json => CustomerPj.includes(:customer).where(["(customers.name ilike ?  or customers.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.customer.name } }
+      render :json => CustomerPj.includes(:customer).where(["(guara_customers.name ilike ?  or guara_customers.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.customer.name } }
     end
   end
 end
