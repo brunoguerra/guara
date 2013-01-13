@@ -8,7 +8,7 @@ module Guara
     before do
       @financial_data = CustomerFinancial.new(
                           :customer => customer,
-                          :contact_leader_id => Factory(:contact, :customer => customer),
+                          :contact_leader_id => Factory(:contact, :customer => customer).id,
                           :notes => Faker::Lorem.sentence(100)[1..1000]       
                         )
     

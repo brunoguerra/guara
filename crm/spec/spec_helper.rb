@@ -1,4 +1,4 @@
-puts "Loading guara_core/spec/spec_helper..."
+puts "Loading guara_crm/spec/spec_helper..."
 require 'rubygems'
 require "rails"
 
@@ -26,10 +26,7 @@ end
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'factory_girl'
-
-# factories
-require "factories"
-Dir[Rails.root.join("spec/factories/**/*.rb")].each {|f| require f}
+require 'ffaker'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

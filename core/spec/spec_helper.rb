@@ -29,7 +29,6 @@ require 'factory_girl'
 
 # factories
 require "factories"
-Dir[Rails.root.join("spec/factories/**/*.rb")].each {|f| require f}
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

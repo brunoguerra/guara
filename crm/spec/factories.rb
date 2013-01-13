@@ -1,3 +1,8 @@
+puts "loading crm/factories..."
+
+#core factories
+load Rails.root.join('../../../core/spec/factories.rb')
+
 FactoryGirl.define do
 
   factory :customer, :class => Guara::Customer do
@@ -24,7 +29,7 @@ FactoryGirl.define do
     sequence(:birthday) { |n| (n+15).years.ago }
     customer
   end
-    
+  
   factory :business_segment, :class => Guara::BusinessSegment do
     name { Faker::Name.name }
   end
@@ -34,3 +39,4 @@ FactoryGirl.define do
   end
   
 end
+puts "crm/factories loaded!"

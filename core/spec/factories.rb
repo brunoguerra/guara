@@ -1,3 +1,7 @@
+puts "loading core/factories..."
+
+Dir[File.expand_path("../factories/*.rb", __FILE__)].each {|f| require f}
+
 FactoryGirl.define do
 
   factory :user, :class => Guara::User do
@@ -65,3 +69,5 @@ FactoryGirl.define do
   end
 
 end
+
+puts "core/factories loaded!"

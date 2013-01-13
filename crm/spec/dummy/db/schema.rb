@@ -272,6 +272,10 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
     t.integer "parent_id"
   end
 
+  create_table "guara_system_task_status", :force => true do |t|
+    t.string "name"
+  end
+
   create_table "guara_task_feedbacks", :force => true do |t|
     t.integer  "task_id"
     t.datetime "date"

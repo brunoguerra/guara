@@ -19,4 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency "guara_core"
   s.add_dependency 'rails3-jquery-autocomplete'
   
+  s.add_dependency 'brazilian-rails'
+  
+  s.add_development_dependency 'ffaker', '> 1.1'
+  
 end
