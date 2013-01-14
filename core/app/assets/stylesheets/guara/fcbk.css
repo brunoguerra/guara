@@ -3,7 +3,10 @@
 /* TextboxList sample CSS */
 ul.holder {
 margin: 0;
-border: 1px solid #999;
+border: 1px solid #DDD;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
 overflow: hidden;
 height: auto !important;
 height: 1%;
@@ -39,7 +42,7 @@ background: #598BEC;
 color: #fff;
 }
 ul.holder li.bit-input input {
-width: auto;
+min-width: 220px;
 overflow: visible;
 margin: 0;
 border: 0px;

@@ -12,7 +12,7 @@ module Guara
   
     def index
       respond_to do |format|
-        format.html { render "index", :layout => "application.html.erb" }
+        format.html { render "index", :layout => "guara/base.html.erb" }
         format.json do
            render :template => "guara/tasks/_list", :locals => { items: @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 3) }, :formats => :html, :layout => false
         end
