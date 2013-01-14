@@ -42,13 +42,13 @@ pt-BR:
     birthdays: "Aniversariantes"
     new:
       link: "Novo Cliente"
-      title: "Criação"
+      title: "Cadastro Cliente"
     index:
       title: "Pesquisa de Clientes"
     show:
       title: "Exibindo Cliente"
     edit:
-      title: "Cadastro de Clientes"
+      title: "Edição de Cliente"
       link: "Edição"
       
     a_customer: "É Cliente"
@@ -124,6 +124,8 @@ pt-BR:
     show:
       title: "Histórico: %{task}"
       link: "Ver histórico"
+    index:
+      link: "Todas as Tarefas"
     errors:
       not_valid_status_and_resolution: "Estado atual inválido %{status}, e resolvido como %{resolution}"                  
     new:

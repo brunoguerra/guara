@@ -11,20 +11,15 @@
 		  <div class="row">
 			<div class="span4">
 			
-			  <div class="control-group">
-	            <%= label_tag :name, t("tasks.name"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= text_field_tag :name, params[:name] %>
+			  <div class="form-search">
+	            <div class="input-append">
+		          <%= text_field_tag :name, params[:name], :class => "span2 search-query" %>
+		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
 	            </div>
 	          </div>
 				
 			</div>
 			
-			<div class="span8">
-				<div class="form-actions">
-					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
-				</div>
-			</div>
 			
 		  </div>
 		</fieldset>
@@ -55,7 +50,7 @@
   </table>
 </section>
 <% end %>
-
 <br />
 
 <%= link_to t('tasks.new.link'), new_customer_task_path(params[:customer_id]), :class => "btn" %>
+
