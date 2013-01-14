@@ -49,14 +49,22 @@ module Guara
         return
       end
     
-      @customer = Customer.new(params[:customer])
-      @person = CustomerPj.new(params[:customer_pj])
+      @customer = Guara::Customer.new(params[:customer])
+      @person = Guara::CustomerPj.new(params[:customer_pj])
+
+      update_advanced_fields
 
       @customer.person = @person
     
-      update_advanced_fields
-    
-      if @customer.save
+      if @customer.save && @person.save
+        raise "Error, person is nil" if (@customer.person==nil)
+        @customer.person = @person
+        @customer.person_id = @person.id
+        @customer.save
+        @person.save
+
+        puts " inspect #{@customer.inspect}"
+        Rails.logger.debug "inspect #{@customer.inspect}"
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
       else
