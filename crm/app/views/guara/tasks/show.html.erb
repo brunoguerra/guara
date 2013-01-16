@@ -19,6 +19,26 @@
 			<%= format_datetime(@task.due_time) %>
           </div>
 
+          <div class="control-group">
+          	<%= show_label_tag t('tasks.type') %>
+          	<%= name_or_empty@task.type %>
+          </div>
+
+          <div class="control-group">
+          	<%= show_label_tag t('task.contact') %>
+          	<%= name_or_empty@task.contact %>
+          </div>
+
+          <div cladd="control-group">
+          	<%= show_label_tag t('task.assigned') %>
+          	<%= name_or_empty@task.assigned %>
+          </div>
+
+          <div cladd="control-group">
+            <%= show_label_tag t('task.notes') %>
+            <%= simple_format@task.notes %>
+          </div>
+
 		  <div class="control-group">
             <%= show_label_tag t('tasks.status') %>
 			<%= name_or_empty(@task.status) %>

@@ -1,6 +1,6 @@
 <% if signed_in? %>
-  <div class="row">
-    <aside class="span3">
+  <div class="row admin">
+    <aside class="span3 span3_admin">
       <section class="row well">
 				<div class="user_info">
         	<%= render 'shared/guara/user_info' %>
@@ -15,7 +15,7 @@
 				<% render p.to_s %>
 			<% end  %>
 	  </div>
-		<div class="span4">
+		<div class="span4 span4_admin">
 			<h3><%= t("home.feed") %></h3>
 		    <%= render 'shared/guara/feed' %>
 		</div>

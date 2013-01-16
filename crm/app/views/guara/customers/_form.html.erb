@@ -4,8 +4,10 @@
 	<fieldset>
 	  <legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
 	  <div class="row">
-		<div class="span4">
+	  	
+	  	<%= f.input :complete, :label => false %>
 
+		<div class="span4">
 			<%= f.input :doc, :label => t("customers.cnpj") , :input_html => { :class => "cnpj" } %>
             <%= f.input :doc_rg, :label => t('customers.inscricao_estadual') %>
 	        <%= f.input :name_sec %>
@@ -39,9 +41,7 @@
 		   
 		</div>
 		<div class="span4 column2">
-		  
-	          <%= f.input :complete, :label => false %>
-			
+						
 	          <%= f.input :phone, :class => "phone" %>
 
 	          <%= person_f.input :fax, :class => "phone" %>
@@ -113,19 +113,19 @@
 				<div class="thumbnail" id="emails">
 					<legend><small><%= t("customers.emails").titleize %></small></legend>
 			  <%= render :partial => 'active_extend/one_to_many_inputs', 
-			:locals => { 
-				:values => @customer.emails, 
-				:form => f, 
-				:target => :emails, 
-				:inputs => { 
-					:email => { 
-						:as => :string, 
-						:class => "span2", 
-						:label => false, 
-						:placeholder => "e-mail", 
-						:glyph => "icon-envelope" 
-					} 
-				} 
+					:locals => { 
+						:values => @customer.emails, 
+						:form => f, 
+						:target => :emails, 
+						:inputs => { 
+							:email => { 
+								:as => :string, 
+								:class => "span2", 
+								:label => false, 
+								:placeholder => "e-mail", 
+								:glyph => "icon-envelope" 
+							} 
+						} 
 			} %>
 				</div>
 

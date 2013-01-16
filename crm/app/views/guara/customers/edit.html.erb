@@ -1,8 +1,9 @@
 <% provide(:title, t("customers.edit.title")) %>
 
-<%= render :partial => "navbar", :locals => { :active => :edit, :navbar_title => @customer.name } %>
 
-<%= render :partial => "modules", :locals => { :active => :customer} %>
+<%= render :partial => "navbar", :locals => { :active => :edit } %>
+
+<%= render :partial => "modules", :locals => { :active => :edit} %>
 
 <%= render "form"%>
 
