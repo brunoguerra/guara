@@ -1,9 +1,8 @@
 require 'spec_helper'
 
+include Guara::LocaleHelper
+
 module Guara
-
-  include LocaleHelper
-
   describe Customer do
     before do
     

@@ -27,10 +27,10 @@ module Guara
   
     describe "Billing Address Different" do
       let!(:address) do
-        Factory(:address,
-          :state_id => State.first,
-          :city_id => City.first,
-          :district_id => Factory(:district),
+        Address.new(
+          :state => State.first,
+          :city => City.first,
+          :district => Factory(:district),
           :address => Faker::Lorem.sentence(2)[1..120],
           :postal_code => "60000100",
           :addressable => @financial_data

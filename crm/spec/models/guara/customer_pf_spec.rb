@@ -9,7 +9,6 @@ module Guara
   
     subject { @customerPf }
   
-    it { should respond_to(:emails) }
     it { should respond_to(:department) }
     it { should respond_to(:corporate_function) }
   
