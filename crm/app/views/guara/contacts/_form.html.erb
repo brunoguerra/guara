@@ -7,19 +7,27 @@
 <div class="row">
   <div class="span8 offset2">
     <div class="control-group">
-    <%= f.label :name %>	  
+    	<%= f.label :name %>	  
 	  <div class="control">
-    <%= f.text_field :name %>		
+    	<%= f.text_field :name %>		
 	  </div>
 	</div>
-
-    <div class="control-group">
+	
+	<div class="control-group">
+		<%= f.label :emails %>
+	</div>
+	
+	<div class="control">
+		<%= f.text_field :emails %>
+	</div>
+  
+  <div class="control-group">
     <%= f.input :department %>	  
 	</div>
 
     <div class="control-group">
     <%= f.label :business_function %>
-	  <div class="control">
+	  <div class="control-group">
       <%= f.text_field :business_function %>		
 	  </div>
 	</div>

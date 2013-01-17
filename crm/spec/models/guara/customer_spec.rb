@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-include Guara::LocaleHelper
+include Guara::LocaleHelparams[:id]per
 
 module Guara
   describe Customer do

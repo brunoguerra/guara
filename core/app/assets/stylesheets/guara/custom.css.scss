@@ -217,7 +217,7 @@ ul {
 .show {
 	.control-group {
 		background: #f1f1f1;
-		margin-top: 20px;
+		margin-top: 5px;
 		padding-bottom: 10px;
 		label {
 			background: #ffffff;
@@ -324,8 +324,8 @@ fieldset.actions {
 /*NOVAS FORMATAÇÕES*/
 
 
- .controls input {
-  padding: 12px 8px !important;
+.controls input {
+  height:30px;
 }
 
 #emails {
@@ -353,3 +353,13 @@ fieldset.actions {
     margin-left: 20px;
   }
 
+	.contacts .side .btn-group:first-child {
+		float: left;
+		margin-right: 10px;
+	}
+	
+	.all-tasks .form-search .input-append .search-query {
+
+	height: 30px;
+	width: 300px;
+	}
