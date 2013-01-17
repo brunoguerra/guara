@@ -28,7 +28,6 @@ PATH
   specs:
     active_extend (0.0.1)
       rails (~> 3.2.9)
-      ruby-rtf (= 0.0.1)
       spreadsheet
 
 GEM

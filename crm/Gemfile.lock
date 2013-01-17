@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     guara_crm (0.0.1)
+      brazilian-rails
       guara_core
       rails3-jquery-autocomplete
 

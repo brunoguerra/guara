@@ -17,13 +17,11 @@ module Guara
                                 district: FactoryGirl.create(:district))
                               
        @customer.person = CustomerPj.new(fax: "859998887", total_employes: 230)
-     
-       @customer.person.segments = [FactoryGirl.create(:business_segment),
-                                    FactoryGirl.create(:business_segment),
-                                    FactoryGirl.create(:business_segment)]
+       @customer.save
+       
+       3.times { @customer.person.customer_segments.build(segment: FactoryGirl.create(:business_segment)) }
                                   
-       @customer.person.activities = [FactoryGirl.create(:business_activity),
-                                      FactoryGirl.create(:business_activity)]
+       3.times { @customer.person.customer_activities.build(activity: FactoryGirl.create(:business_activity)) }
      end
   
     subject { @customer.person }
@@ -35,8 +33,9 @@ module Guara
     it { should respond_to(:associateds) }
     it { should respond_to(:associates) }
     it { should respond_to(:associate_to!) }
-  
+    
     it { should be_valid }
+
   
     describe "validate on default attributes" do
       describe "should be valid on CNPJ zeros" do
@@ -52,7 +51,7 @@ module Guara
         it { @customer.should_not be_valid }
       end
     end
-  
+    
     describe "accessible attributes" do
       it "should allow access to basics fields" do
         expect do

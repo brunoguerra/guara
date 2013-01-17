@@ -13,7 +13,7 @@ module Guara
   
     #não funcionou
     #has_many :segments, :class_name => 'customer_segment'
-    has_many :segments, :through => :customer_segments, source: :business_segment
+    has_many :segments, :through => :customer_segments, source: :segment
   
     #activities
     has_many :customer_activities
