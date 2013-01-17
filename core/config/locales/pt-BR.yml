@@ -112,6 +112,7 @@ pt-BR:
       title: "Exibindo Contato"
     search:
         title: "Filtro Contatos"
+    emails: "Emails"    
 
   searches:
       advanced: "Avançado"

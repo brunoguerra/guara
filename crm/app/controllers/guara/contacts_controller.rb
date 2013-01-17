@@ -7,7 +7,7 @@ module Guara
     # GET customers/1/contacts.json
     def index  
       @sels = params["sels"] || []
-      @contacts = @customer.contacts.search_by_params(@contacts, params).paginate(page: params[:page], :per_page => 5)
+      @contacts = @customer.contacts.search_by_params(@contacts, params).paginate(page: params[:page], :per_page => 20)
 
       respond_to do |format|
         format.html # index.html.erb
