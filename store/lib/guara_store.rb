@@ -1,5 +1,2 @@
-require "guara_store/engine"
+require "guara/store/engine"
 
-module GuaraStore
-    
-end
