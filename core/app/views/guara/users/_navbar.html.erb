@@ -1,0 +1,10 @@
+<div class="navbar">
+  <div class="navbar-inner">
+  	
+  	<%= link_to navbar_title==nil ? t("users.title") : navbar_title, "#", :class => "brand" %>
+    <ul class="nav">
+      <li <%= 'class=active' if active == :index %> ><%= link_to t("users.link"), users_path %></li>
+      <li <%= 'class=active' if active == :new %> ><%= link_to t("users.new.link"), new_user_path %></li>
+    </ul>
+  </div>
+</div>

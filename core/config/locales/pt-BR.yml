@@ -199,11 +199,11 @@ pt-BR:
 
   users: &attr_users
     name: "Nome do Usuário"
-    email: "e-mail"
+    email: "E-mail"
     password: "Senha"
     password_confirmation: "Confirmação da Senha"
     title: "Usuários"
-    link: "Usuários"
+    link: "Usuários Cadastrados"
     edit:
       title: "Edição do Usuário"
       link: "Editar"
@@ -219,6 +219,9 @@ pt-BR:
       user: "Usuário"
       link: "Permissões de Acesso"
       title: "Permissões de Acesso para %{user}"
+    new:
+      link: "Novo Usuário"
+
   
   company_businesses:
     link: "Áreas de Negócio"
