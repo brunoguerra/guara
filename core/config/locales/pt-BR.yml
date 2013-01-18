@@ -246,11 +246,11 @@ pt-BR:
   
   business_departments:
     link: "Setores"
-    title: "Setores das Empresas"
+    title: "Setor/Departamento"
   
   task_types:
-    link: "Atividades"
-    title: "Atividades"
+    link: "Tipos de Tarefas"
+    title: "Tipos de Tarefas"
   
   #SECTIONS <===================================
   

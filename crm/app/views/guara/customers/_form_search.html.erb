@@ -19,9 +19,9 @@
 		name_or_nothing(Guara::BusinessSegment.find_by_id(params[:search][:person_customer_pj_type_segments_id_eq])),
 		autocomplete_business_segment_name_customers_path,
 		:size => 75,
-		:id_element => '#search_person_customer_pj_type_segments_id_eq'
+		:id_element => '#search_person_guara_customer_pj_type_segments_id_eq'
 		%>
-				  <%= f.hidden_field :person_customer_pj_type_segments_id_eq %>
+				  <%= f.hidden_field :person_guara_customer_pj_type_segments_id_eq %>
 	            </div>
 	          </div>
 
@@ -31,8 +31,8 @@
 		          <%= autocomplete_field_tag :activity_autocomplete, name_or_nothing(Guara::BusinessActivity.find_by_id(params[:search][:person_customer_pj_type_activities_id_eq])), 
 		autocomplete_business_activity_name_customers_path,
 		:size => 75,
-		:id_element => '#search_person_customer_pj_type_activities_id_eq' %>
-				  <%= f.hidden_field :person_customer_pj_type_activities_id_eq %>
+		:id_element => '#search_person_guara_customer_pj_type_activities_id_eq' %>
+				  <%= f.hidden_field :person_guara_customer_pj_type_activities_id_eq %>
 	            </div>
 	          </div>
 	
@@ -46,7 +46,7 @@
 				  <div class="control-group">
 		            <%= label_tag :total_employes, t("helpers.label.customers.search.employes_count"), :class => "control-label" %>
 		            <div class="controls">
-			          <%= f.multiparameter_field :person_customer_pj_type_total_employes_btw, {:field_type => :number_field, :placeholder => t("commons.min"), :style => "width: 120px" }, {:field_type => :number_field, :placeholder => t("commons.max"), :style => "width: 120px"  }, :size => 5 %>
+			          <%= f.multiparameter_field :person_guara_customer_pj_type_total_employes_btw, {:field_type => :number_field, :placeholder => t("commons.min"), :style => "width: 120px" }, {:field_type => :number_field, :placeholder => t("commons.max"), :style => "width: 120px"  }, :size => 5 %>
 		            </div>
 		          </div>
 			   <% end %>

@@ -45,7 +45,7 @@
         <th><%= t("contacts.business_function") %></th>
         <th><%= t("contacts.phone") %></th>
         <th><%= t("contacts.cell") %></th>
-        <th><%= t("contacts.birthday") %></th>
+        <th><%= t("contacts.emails") %></th>
         <th><%= t("helpers.forms.actions") %></th>
       </tr>
     </thead>
@@ -57,7 +57,7 @@
 	    <td><%= contact.business_function %></td>
 	    <td><%= contact.phone %></td>
 	    <td><%= contact.cell %></td>
-	    <td><%= format_date contact.birthday %></td>
+	    <td><%= concat_emails(contact.emails) %></td>
 	    <td></td>
 	    <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
       </tr>
@@ -65,6 +65,9 @@
     </tbody>
   </table>
 </section>
+
+<%= will_paginate @contacts %>
+
 <% end %>
 
 <br />
