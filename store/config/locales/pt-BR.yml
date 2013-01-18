@@ -1,0 +1,10 @@
+# encoding: UTF-8
+
+pt-BR:
+  
+  stock:
+    title: "Estoque"
+    link: "Estoque"
+    dashboard:
+      title: "Controle de Estoque"
+      description: "Controle da movimentação dos produtos no sistema"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118005888) do
+ActiveRecord::Schema.define(:version => 20130118170857) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -230,6 +230,13 @@ ActiveRecord::Schema.define(:version => 20130118005888) do
 
   add_index "guara_microposts", ["user_id", "created_at"], :name => "index_guara_microposts_on_user_id_and_created_at"
 
+  create_table "guara_product_categories", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "guara_relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -246,6 +253,14 @@ ActiveRecord::Schema.define(:version => 20130118005888) do
     t.string   "acronym",    :limit => 2
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+  end
+
+  create_table "guara_store_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "enabled"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "guara_store_products", :force => true do |t|
@@ -677,6 +692,8 @@ ActiveRecord::Schema.define(:version => 20130118005888) do
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
     t.boolean  "on_demand",            :default => false
+    t.boolean  "enabled"
+    t.integer  "primary_category_id"
   end
 
   add_index "spree_products", ["available_on"], :name => "index_spree_products_on_available_on"

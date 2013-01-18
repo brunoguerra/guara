@@ -32,6 +32,9 @@ require 'ffaker'
 # in spec/support/ and its subdirectories.
 Dir[File.expand_path("../support/*.rb", __FILE__)].each {|f| require f}
 
+#no cache spork
+Dir[File.expand_path("../../app/models/**/*.rb", __FILE__)].each {|f| load f}
+
 
 def config_transactional(config)
   

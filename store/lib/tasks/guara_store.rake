@@ -17,8 +17,8 @@ namespace :guara do
       execute_task "db:create"
       execute_task "guara:install:migrations"
       execute_task "guara_crm:install:migrations"
-      execute_task "guara_store:install:migrations"
       execute_task "spree:install:migrations"
+      execute_task "guara_store:install:migrations"
       execute_task "db:migrate"
       execute_task "guara:seeds"
     end
