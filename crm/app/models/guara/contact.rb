@@ -4,7 +4,7 @@ module Guara
                     :phone, :cell, :customer, :emails
   
     #=========================== associations <--------------------------------------------
-    belongs_to :customer
+    belongs_to :customer, :foreign_key => "person_id"
     belongs_to :department, class_name: "BusinessDepartment"
     has_many :emails, :as => :emailable, dependent: :destroy
 
@@ -14,9 +14,12 @@ module Guara
 
     #=========================== validations <--------------------------------------------
     validates :name, :presence => true, length: { maximum: 150 }
-    validates :customer_id, :presence => true
-    validates_uniqueness_of :name, :scope => [:customer_id, :business_function]
+    validates :person_id, :presence => true
+    validates_uniqueness_of :name, :scope => [:person_id, :business_function]
 
+    #=========================== scopes <--------------------------------------------
+    default_scope :order => :name
+    
     #=========================== search <--------------------------------------------  
   
     def self.search_by_params(results=nil, query)

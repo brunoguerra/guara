@@ -1,61 +1,7 @@
-source "http://rubygems.org"
 
-# Declare your gem's dependencies in guara_store.gemspec.
-# Bundler will treat runtime dependencies like base dependencies, and
-# development dependencies will be added by default to the :development group.
+eval(File.read(File.dirname(__FILE__) + '/../common_dependencies.rb'))
+
+gem 'guara_core', :path => "../core/"
+gem 'guara_crm', :path => "../crm/"
+
 gemspec
-
-gem 'pg', '0.12.2'
-
-# jquery-rails is used by the dummy application
-gem "jquery-rails"
-
-# Declare any dependencies that are still in development here instead of in
-# your gemspec. These might include edge Rails or gems from your path or
-# Git. Remember to move these dependencies to your gemspec before releasing
-# your gem to rubygems.org.
-
-group :development, :test do
-  gem 'rspec-rails', '2.12.0', :require => 'spec'
-  gem 'guard-rspec', '0.5.5'
-  gem 'guard-spork', '0.3.2'
-  gem 'spork', '0.9.0'
-  gem 'factory_girl_rails', '1.4.0'
-end
-
-group :development do
-  gem 'annotate', '~> 2.4.1.beta'
-  gem 'nested_scaffold'
-  unless ENV["CI"]
-	  gem 'ruby-debug19'	
-	  gem 'linecache19'
-  end
-
-
-	#gems
-	gem 'activeadmin'
-  gem 'devise'
-  gem 'cancan'
-	gem 'sqlite3'
-end
-
-group :assets do
-  gem 'sass-rails',   '3.2.4'
-  gem 'coffee-rails', '3.2.2'
-  gem 'uglifier', '1.2.3'
-end
-
-group :test do
-  gem 'capybara', '1.1.2'
-  gem 'capybara-webkit', '0.12.1'
-  gem "launchy"
-  gem 'ZenTest'
-
-  #MAC OS Especific
-  gem 'rb-fsevent', '0.9.1', :require => false
-  gem 'growl', '1.0.3'
-
-  #Cucumber
-  gem 'cucumber-rails', '1.2.1', :require => false
-  gem 'database_cleaner', '0.7.0'
-end
