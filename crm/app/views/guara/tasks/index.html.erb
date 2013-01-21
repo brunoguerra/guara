@@ -8,7 +8,7 @@
 	  <%= form_tag customer_tasks_path, :class => "well form-search", :method => :get, :name => :search do  %>
 		<fieldset>
 		  <legend><%= t("tasks.search.title") %></legend>
-		  <div class="row all-tasks">
+		  <div class="row all-search">
 			<div class="span4">
 			
 			  <div class="form-search">
@@ -17,7 +17,6 @@
 		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
 	            </div>
 	          </div>
-				
 			</div>
 			
 			

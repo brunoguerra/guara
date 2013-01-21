@@ -1,7 +1,11 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
+<%= render :partial => "navbar", :locals => { :active => :new } %>
+
 <%= will_paginate %>
+
+
 
 <ul class="users">
   <%= render @users %>
