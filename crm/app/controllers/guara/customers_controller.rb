@@ -64,6 +64,7 @@ module Guara
         @person.save
 
         puts " inspect #{@customer.inspect}"
+        
         Rails.logger.debug "inspect #{@customer.inspect}"
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
