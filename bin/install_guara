@@ -1,0 +1,6 @@
+rake db:create RAILS_ENV=production
+rake guara:install:migrations
+rake guara_crm:install:migrations
+rake db:migrate RAILS_ENV=production
+rake guara:db:seeds RAILS_ENV=production
+rake guara:crm:seeds RAILS_ENV=production

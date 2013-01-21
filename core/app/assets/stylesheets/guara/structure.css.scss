@@ -3,6 +3,14 @@
 
 $rowHeight: 24px;
 
+body section.container {
+	margin-top: -26px;
+}
+
+body .navbar .navbar-inner .brand {
+	font-weight: bold;
+}
+
 body .modal {
   width: 880px;
 	margin: -298px 0 0 -440px;
@@ -79,12 +87,10 @@ body .modal {
 /****** customer contacts *****/
 
 .thumbnail.contacts {
-	overflow-y: scroll;
-	max-height: 240px;
+
 }
 
-.guara_contacts.side { 
-
+.contacts.side {
 	div#select_department {
 		float: right;
 		margin-top:-60px;
@@ -96,6 +102,10 @@ body .modal {
 }
 
 .contacts-list {
+
+	overflow-y: scroll;
+	max-height: 240px;	
+
 	li {
 		margin-bottom: 10px;
 		border-bottom: 1px solid #EAEAEA;

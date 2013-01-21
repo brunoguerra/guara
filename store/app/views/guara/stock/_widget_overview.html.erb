@@ -1,0 +1,4 @@
+<h3><%= t("stock.widget.overview.title") %></h3>
+<p><%= t("stock.widget.overview.added_products.title") %>: <%= Guara::Product.count() %></p>
+<p><%= t("stock.widget.overview.orders_in.title") %>: <%= Guara::Order.where(type: Guara::OrderType.IN).count() %></p>
+<p><%= t("stock.widget.overview.orders_out.title") %>: <%= Guara::Order.where(type: Guara::OrderType.OUT).count() %></p>
