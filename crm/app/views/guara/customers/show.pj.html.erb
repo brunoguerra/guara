@@ -1,206 +1,190 @@
 <section class="show">
+    <%= render :partial=>"navbar", :locals => { :active => :view } %>
+        <%= render :partial=>"modules", :locals => { :active => :general} %>
+            <ul class="thumbnails">
+                <li class="span7">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <%= render partial: "businesses_done" %>
+                                <div class="row">
+                                    <div class="span4">
+                                        <dl class='dl-horizontal'>	<dt><%= t('custumer.id') %></dt>
 
-	<%= render :partial => "navbar", :locals => { :active => :view } %>
-	<%= render :partial => "modules", :locals => { :active => :general} %>
-	<ul class="thumbnails">
-      <li class="span7">
-        <div class="thumbnail">
-          <div class="caption">
-			  
-			<%= render partial: "businesses_done" %>
-			
-			  <div class="row">
-				<div class="span4">
+                                            <dd>
+                                                <%= @customer.id %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t('customers.cnpj') %></dt>
 
-					<dl class='dl-horizontal'>
-						<dt><%= t('custumer.id') %></dt>
-						<dd><%= @customer.id %></dd>
-					</dl>
+                                            <dd>
+                                                <%= @customer.doc %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customer_#{@customer.person.prefix}s.doc_rg") %></dt>
 
-				  <dl class="dl-horizontal">					
-            <dt><%=  t('customers.cnpj') %></dt>
-				    <dd><%= @customer.doc %></dd>
-          </dl>
+                                            <dd>
+                                                <%= nbsp @customer.doc_rg %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customers.social_link") %></dt>
 
-				  <dl class="dl-horizontal">
-            <dt><%=  t("customer_#{@customer.person.prefix}s.doc_rg") %></dt>
-            <dd><%= nbsp @customer.doc_rg %></dd>	
-          </dl>
- 
-				  <dl class="dl-horizontal">
-            <dt><%=  t("customers.social_link") %></dt>
-		        <dd><%= nbsp @customer.social_link %></dd>
-          </dl>
-		
-					<dl class="dl-horizontal">
-            <dt><%=  t("customers.emails") %></dt>
-	          <dd>
-		        <%= nbsp inline_list @customer.emails, :email %>
-	          </dd>
-	        </dl>
-				</div>
-				
-				<div class="span2 column2">
-					<dl>
-            <dt><%=  t("customers.complete") %></dt>
-		        <dd><span class="badge <%= @customer.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean @customer.complete %></span></dd>
-	        </dl>
-	
-					<dl>
-           	<dt><%=  t("customers.phone") %></dt>
-            <dd>
-	          <%= nbsp @customer.phone %>
-            </dd>
-	        </dl>
-				</div>
-				
-				<div class="span6">
-					<dl class="dl-horizontal">
-			            <dt><%=  t("customer.site") %></dt>
-			            <dd>
-				          <%= nbsp @customer.site %>
-			            </dd>
-			        </dl>
-					
-					<dl class="dl-horizontal">
-			            <dt><%=  t("customers.address") %></dt>
-						<dd>
-				          <%= nbsp @customer.format_address %>
-						</dd>
-			          </dl>
+                                            <dd>
+                                                <%= nbsp @customer.social_link %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customers.emails") %></dt>
 
-					  <dl class="dl-horizontal" id="notes">
-			            <dt><%=  t("customer.notes") %></dt>
-						<dd>
-							<div id="complete">
-								<%= simple_format(@customer.notes) %>
-							</div>
-		        	<%= nbsp simple_format(index_notes(@customer.notes)) %>
-							
-						</dd>
-			          </dl>
+                                            <dd>
+                                                <%= nbsp inline_list @customer.emails, :email %>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="span2 column2">
+                                        <dl> <dt><%=  t("customers.complete") %></dt>
 
-					  <dl class="dl-horizontal">
-			            <dt><%=  t("customer_pjs.total_employes") %></dt>
-			            <dd>
-				          <%= nbsp @customer.person.total_employes %>
-			            </dd>
-			          </dl>
+                                            <dd><span class="badge <%= @customer.complete? ? " badge-success " : "badge-important
+                                                " %>"><%= format_boolean @customer.complete %></span>
+                                            </dd>
+                                        </dl>
+                                        <dl>	<dt><%=  t("customers.phone") %></dt>
 
-						<dl class="dl-horizontal">
-				            <dt><%=  t("customer_pjs.segments") %></dt>
-				            <dd>
-					          <%= nbsp inline_list @customer.person.segments, :name %>
-				            </dd>
-				        </dl>
+                                            <dd>
+                                                <%= nbsp @customer.phone %>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="span6">
+                                        <dl class="dl-horizontal"> <dt><%=  t("customer.site") %></dt>
 
-						<dl class="dl-horizontal">
-				            <dt><%=  t("customer_pjs.activities") %></dt>
-				            <dd>
-					          <%= nbsp inline_list @customer.person.activities, :name %>
-				            </dd>
-				        </dl>
+                                            <dd>
+                                                <%= nbsp @customer.site %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customers.address") %></dt>
 
-						<dl class="dl-horizontal">
-				            <dt><%=  t("customer_pjs.associateds") %></dt>
-				            <dd>
-							  <ul>
-					          <% @customer.person.associateds.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
-							 <% end %>
+                                            <dd>
+                                                <%= nbsp @customer.format_address %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal" id="notes"> <dt><%=  t("customer.notes") %></dt>
 
-					          <% @customer.person.associates.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
-							 <% end %>
-							  </ul>
+                                            <dd>
+                                                <div id="complete">
+                                                    <%= simple_format(@customer.notes) %>
+                                                </div>
+                                                <%= nbsp simple_format(index_notes(@customer.notes)) %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customer_pjs.total_employes") %></dt>
 
-				            </dd>
-				        </dl>	
-				</div>
-				
-				  
+                                            <dd>
+                                                <%= nbsp @customer.person.total_employes %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customer_pjs.segments") %></dt>
 
-				<div class="span6">
-				  <div class="form-actions">
-					<% if can? :update, @customer  %>
-					<%= link_to t("helpers.forms.edit"), edit_customer_path(@customer), :class => "btn btn-primary" %>
-					<% end %>
-		          </div>
-				</div>
+                                            <dd>
+                                                <%= nbsp inline_list @customer.person.segments, :name %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customer_pjs.activities") %></dt>
 
-			  </div>
+                                            <dd>
+                                                <%= nbsp inline_list @customer.person.activities, :name %>
+                                            </dd>
+                                        </dl>
+                                        <dl class="dl-horizontal"> <dt><%=  t("customer_pjs.associateds") %></dt>
 
-	      </div>
-	    </div>
-	  </li>
-      <li class="span5">
-        <div class="thumbnail contacts">
-          <div class="caption">
-			  <legend><%=t("contacts.side.title") %></legend>
-				<%= render :partial => "guara/contacts/side_panel" %>
-		  </div>
-		</div>
-	  </li>
-
-      <li class="span5">
-        <div class="thumbnail tasks">
-          <div class="caption">
-			  <legend><%=t("tasks.side.title") %></legend>
-			  <%= render :partial => "guara/tasks/side_panel" %>
-		  </div>
-		</div>
-	  </li>
-	
-	</ul>
-
+                                            <dd>
+                                                <ul>
+                                                    <% @customer.person.associateds.each do |pj_assoc| %>
+                                                        <li>
+                                                            <%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target=>'_blank' %></li>
+                                                        <% end %>
+                                                            <% @customer.person.associates.each do |pj_assoc| %>
+                                                                <li>
+                                                                    <%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target=>'_blank' %></li>
+                                                                <% end %>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="form-actions">
+                                            <% if can? :update, @customer %>
+                                                <%= link_to t( "helpers.forms.edit"), edit_customer_path(@customer), :class=>"btn btn-primary" %>
+                                                    <% end %>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="span5">
+                    <div class="thumbnail contacts">
+                        <div class="caption">
+                            <legend>
+                                <%=t( "contacts.side.title") %>
+                            </legend>
+                            <%= render :partial=>"guara/contacts/side_panel" %></div>
+                    </div>
+                </li>
+                <li class="span5">
+                    <div class="thumbnail tasks">
+                        <div class="caption">
+                            <legend>
+                                <%= t( "tasks.side.title") %>
+                            </legend>
+                            <%= render :partial=>"guara/tasks/side_panel" %></div>
+                    </div>
+                </li>
+            </ul>
 </section>
 <script>
+    $(function () {
 
-$(function(){
-	
-	$("input.cnpj").mask("99.999.999/9999-99");
-	$("input.cpf").mask("999.999.999-99");
-	
-	$('#state').change(function(){
-		if( $(this).val() ) {
-			$('#cod_cidades').hide();
-			$('.carregando').show();
-			$.getJSON('<%= districts_path() %>.json?search=',{cod_estados: $(this).val(), ajax: 'true'}, function(j){
-				var options = '<option value="">[Escolha um estado]</option>';	
-				for (var i = 0; i < j.length; i++) {
-					options += '<option value="' + j[i].cod_cidades + '">' + j[i].nome + '</option>';
-				}	
-				$('#cod_cidades').html(options).show();
-				$('.carregando').hide();
-			});
-		} else {
-			$('#cod_cidades').html('<option value="">[Escolha um estado]</option>');
-		}
-	});
-	
-	
-	$('#notes').mouseenter(function(){
-		$('#notes #complete').fadeIn();
-	}).mouseleave(function(){
-		$('#notes #complete').fadeOut();		
-	})
-});
+        $("input.cnpj").mask("99.999.999/9999-99");
+        $("input.cpf").mask("999.999.999-99");
 
+        $('#state').change(function () {
+            if ($(this).val()) {
+                $('#cod_cidades').hide();
+                $('.carregando').show();
+                $.getJSON('<%= districts_path() %>.json?search=', {
+                    cod_estados: $(this).val(),
+                    ajax: 'true'
+                }, function (j) {
+                    var options = '<option value="">[Escolha um estado]</option>';
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].cod_cidades + '">' + j[i].nome + '</option>';
+                    }
+                    $('#cod_cidades').html(options).show();
+                    $('.carregando').hide();
+                });
+            } else {
+                $('#cod_cidades').html('<option value="">[Escolha um estado]</option>');
+            }
+        });
+
+
+        $('#notes').mouseenter(function () {
+            $('#notes #complete').fadeIn();
+        }).mouseleave(function () {
+            $('#notes #complete').fadeOut();
+        })
+    });
 </script>
-
 <style>
-
-#notes #complete {
-	background: #ffffff;
-	border: 1px solid #f1f1f1;
-	padding: 5px;
-	position: absolute;
-	float: left;
-	width: 380px;
-	height: 300px;
-	overflow: scroll;
-	display: none;
-}
+    #notes #complete {
+        background: #ffffff;
+        border: 1px solid #f1f1f1;
+        padding: 5px;
+        position: absolute;
+        float: left;
+        width: 380px;
+        height: 300px;
+        overflow: scroll;
+        display: none;
+    }
 </style>
-
 </section>
