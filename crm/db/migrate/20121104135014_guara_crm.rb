@@ -1,6 +1,6 @@
 class GuaraCrm < ActiveRecord::Migration
   def up
-    create_table :guara_customers do |t|
+    create_table :guara_people do |t|
       t.string	:name	, :limit => 120, :null => false
       t.string	:doc	, :limit => 14
       t.string	:doc_rg	, :limit => 22
@@ -123,7 +123,7 @@ class GuaraCrm < ActiveRecord::Migration
     end
     
     create_table :guara_contacts do |t|
-      t.references :customer
+      t.references :person
       t.string :name, limit: 150
       t.integer :department_id
       t.string :business_function
@@ -134,7 +134,7 @@ class GuaraCrm < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :guara_contacts, :customer_id
+    add_index :guara_contacts, :person_id
     add_index :guara_contacts, :department_id
     
     create_table :guara_system_task_status do |t|
@@ -212,7 +212,7 @@ class GuaraCrm < ActiveRecord::Migration
     end
     
     create_table :guara_customer_financials do |t|
-      t.references :customer
+      t.references :person
       t.boolean  :billing_address_different
       t.integer  :contact_leader_id
       t.boolean :payment_pending

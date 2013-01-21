@@ -1,22 +1,21 @@
 <div class="contacts side">
 	<div class="btn-group" id="select_department">
-       <button class="btn btn-small dropdown-toggle" id="select_department_button" data-toggle="dropdown"><%= t("contacts.department") %> <span class="caret"> </span> </button>
-       <ul class="dropdown-menu" id="select_department_dropdown">
-		<% ContactsController.select_departments.each do |department| %>
-         <li><a href="#" id="<%= department.id %>"><%= department.name %></a></li>
-		<% end %>
-         <li class="divider"></li>
-         <li><a href="#" id="all"><%= t("commons.all") %></a></li>
-       </ul>
-     </div>
+     <button class="btn btn-small dropdown-toggle" id="select_department_button" data-toggle="dropdown"><%= t("contacts.department") %> <span class="caret"> </span> </button>
+     <ul class="dropdown-menu" id="select_department_dropdown">
+<% ContactsController.select_departments.each do |department| %>
+       <li><a href="#" id="<%= department.id %>"><%= department.name %></a></li>
+<% end %>
+       <li class="divider"></li>
+       <li><a href="#" id="all"><%= t("commons.all") %></a></li>
+     </ul>
+   </div>
+	<div class="contacts-list">
+	<%= render :partial => 'contacts/list', :locals => { items: @contacts } %>
+	</div>
 	<div class="new">
-		<div class="contacts-list">
-		<%= render :partial => 'contacts/list', :locals => { items: @contacts } %>
-		</div>
 		<% if can? :create, :contact  %>
 		<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
 		<% end %>
-	
 	</div>
 </div>
 

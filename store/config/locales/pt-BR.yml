@@ -8,3 +8,38 @@ pt-BR:
     dashboard:
       title: "Controle de Estoque"
       description: "Controle da movimentação dos produtos no sistema"
+      
+    widget:
+      overview:
+        title: "Estatística para os últimos 30 dias"
+        added_products:
+          title: "Produtos Cadastrados"
+        orders_in:
+          title: "Movimentações de Entrada"
+        orders_out:
+          title: "Movimentações de Saída"
+        chart:
+          in:
+            title: "Entradas"
+          out:
+            title: "Saídas"
+            
+  store_categories:
+    index:
+      title: "Categorias dos Produtos"
+      link: "Categorias"
+  
+  products:
+    index:
+      title: "Produtos"
+      link: "Produtos"
+  
+  orders:
+    in:
+      index:
+        title: "Compras"
+        link: "Compras"
+    out:
+      index:
+        title: "Vendas"
+        link: "Vendas"

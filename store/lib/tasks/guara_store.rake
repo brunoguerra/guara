@@ -15,11 +15,7 @@ namespace :guara do
     
     task install: :environment do
       execute_task "db:create"
-      execute_task "guara:install:migrations"
-      execute_task "guara_crm:install:migrations"
-      execute_task "spree:install:migrations"
-      execute_task "guara_store:install:migrations"
-      execute_task "db:migrate"
+      execute_task "guara:db:migrate"
       execute_task "guara:seeds"
     end
     
@@ -35,6 +31,18 @@ namespace :guara do
       FileTest.exist? File.dirname(__FILE__) + '/../../spec/factories.rb'
       require File.dirname(__FILE__) + '/../../spec/factories.rb'
       5.times { Factory(:customer_pj) }
+    end
+    
+    namespace :db do
+      
+      task migrate: :environment do
+        execute_task "db:create"
+        execute_task "guara:install:migrations"
+        execute_task "guara_crm:install:migrations"
+        execute_task "spree:install:migrations"
+        execute_task "guara_store:install:migrations"
+        execute_task "db:migrate"
+      end
     end
     
 end

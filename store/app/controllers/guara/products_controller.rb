@@ -1,8 +1,7 @@
-require_dependency "guara/store/store_controller"
 
 module Guara
   class ProductsController < Guara::StoreBaseController
-    load_and_authorize_resource :class => "GuaraStore::Product"
+    load_and_authorize_resource :class => "Guara::Product"
     def index
     end
   end
