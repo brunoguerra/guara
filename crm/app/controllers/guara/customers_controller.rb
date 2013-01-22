@@ -10,8 +10,10 @@ module Guara
     def index
       @sels = params["sels"] || []
       
-      @query = Customer.search(params[:search])
-      @search = @query.result
+      #@query = Customer.search(params[:search])
+      #@search = @query.result
+      
+      @search = Customer.search(params[:search])
       
       #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
       @customers = @search.paginate(page: params[:page], :per_page => 10)
