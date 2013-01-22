@@ -1,5 +1,7 @@
 <h1>Listing system_extensions</h1>
 
+
+  
 <table>
   <tr>
     <th>Name</th>
@@ -13,9 +15,11 @@
   <tr>
     <td><%= system_extension.name %></td>
     <td><%= system_extension.enabled %></td>
-    <td><%= link_to 'Show', system_extension %></td>
-    <td><%= link_to 'Edit', edit_system_extension_path(system_extension) %></td>
-    <td><%= link_to 'Destroy', system_extension, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <div class="btn-group">
+      <td><button class="btn"><%= link_to 'Show', system_extension %></button></td>
+      <td><button class="btn"><%= link_to 'Edit', edit_system_extension_path(system_extension) %></button></td>
+      <td><button class="btn"><%= link_to 'Destroy', system_extension, method: :delete, data: { confirm: 'Are you sure?' } %></button></td>
+    </div>
   </tr>
 <% end %>
 </table>

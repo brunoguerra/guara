@@ -89,7 +89,7 @@ table.index_table {
     @include no-shadow;
     @include no-gradient;
     width: 150px;
-    font-size: 0.9em;
+    font-size: em;
     padding-left: 0;
     text-transform: uppercase;
     color: $primary-color;

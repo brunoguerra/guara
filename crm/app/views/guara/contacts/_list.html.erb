@@ -1,8 +1,8 @@
-
 <ul>
 <% items.each do |item|  %>
 	<li id="contact<%= item.id %>" onClick="contact_show(<%= item.id %>)">
 		<h5><%= item.name %> <small>Fone: <%= item.phone %></small></h5>
+		<!-- BUG? concat_emails -->
 		<span class="email"><%= concat_emails(item.emails) %></span>
 		<%= item.business_function %> - <%= name_or_empty(item.department) %>
 	</li>

@@ -65,7 +65,7 @@ pt-BR:
     district: "Bairro"
     city: "Cidade"
     state: "Estado"
-    emails: "e-mails"
+    emails: "E-mails"
     notes: "Notas"
     phone: "Fone"
     fax: fax
@@ -112,6 +112,8 @@ pt-BR:
       title: "Exibindo Contato"
     search:
         title: "Filtro Contatos"
+    all: "Todos os Contatos"
+    emails: "E-mails"
 
   searches:
       advanced: "Avançado"
@@ -219,6 +221,8 @@ pt-BR:
       user: "Usuário"
       link: "Permissões de Acesso"
       title: "Permissões de Acesso para %{user}"
+    new: "Novo Usuário"
+    all: "Todos os Usuários"
   
   company_businesses:
     link: "Áreas de Negócio"
@@ -246,11 +250,11 @@ pt-BR:
   
   business_departments:
     link: "Setores"
-    title: "Setor/Departamento"
+    title: "Setores das Empresas"
   
   task_types:
-    link: "Tipos de Tarefas"
-    title: "Tipos de Tarefas"
+    link: "Atividades"
+    title: "Atividades"
   
   #SECTIONS <===================================
   
