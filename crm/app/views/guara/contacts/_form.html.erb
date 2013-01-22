@@ -5,7 +5,7 @@
   <legend><%= title %></legend>
 
 <div class="row">
-  <div class="span8 offset2">
+  <div class="span6 offset1">
     <div class="control-group">
       <%= f.label :name %>	  
       <div class="control">
@@ -14,17 +14,28 @@
     </div>
 
     <div class="control-group">
+    <%= f.label :business_function %>
+	  <div class="control-group">
+      <%= f.text_field :business_function %>		
+	  </div>
+	</div>
+
+    <div class="control-group">
       <div class="control-group">
         <%= f.input :department %>	  
       </div>
+		</div>
+		
 
-      <div class="control-group">
-        <%= f.label :business_function %>
-        <div class="control">
-          <%= f.text_field :business_function %>		
-        </div>
-      </div>
 
+	
+    <div class="control-group">
+      <%= f.label :birthday %>	  
+	    <div class="control">
+        <%= f.text_field :birthday %>		
+	    </div>
+	  </div>
+	
       <div class="control-group">
         <%= f.label :phone %>	  
         <div class="control">
@@ -45,10 +56,33 @@
           <%= f.text_field :birthday %>		
         </div>
       </div>
-
-      <%= f.submit class: "btn btn-large btn-primary" %>
     </div>
+		<div class="span2">
+			<div class="thumbnail" id="emails">
+				<legend><small><%= t("contacts.emails").titleize %></small></legend>
+			  <%= render :partial => 'active_extend/one_to_many_inputs', 
+					:locals => { 
+						:values => @contact.emails, 
+						:form => f, 
+						:target => :emails,
+						:inputs => { 
+							:email => { 
+								:as => :string, 
+								:class => "span2", 
+								:label => false, 
+								:placeholder => "e-mail", 
+								:glyph => "icon-envelope" 
+							} 
+						} 
+			} %>
+				</div>
+		</div>
+
   </div>
+
+  <%= f.submit class: "btn btn-large btn-primary" %>
+	</div>
+
 </div>
 
 </fieldset>

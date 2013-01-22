@@ -1,0 +1,177 @@
+<%= semantic_form_for @customer, :html => {:class => "well"}  do |f| %>
+<%= f.semantic_fields_for @customer.person do |person_f| %>
+<%= render 'shared/guara/error_messages', object: f.object %>
+	<fieldset>
+	  <legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
+	  <div class="row">
+		<div class="span4">
+
+			<%= f.input :doc, :label => t("customers.cnpj") , :input_html => { :class => "cnpj" } %>
+            <%= f.input :doc_rg, :label => t('customers.inscricao_estadual') %>
+	        <%= f.input :name_sec %>
+	        <%= f.input :name %>
+	        <%= f.input :address %>
+		
+		  <div class="control-group">
+            <%= f.label :state_id, :class => "control-label" %>
+            <div class="controls">
+	          <%= f.collection_select(:state_id, State.all, :id, :acronym, :include_blank => true) %>
+            </div>
+          </div>
+
+		  <div class="control-group">
+            <%= f.label :city_id, :class => "control-label" %>
+            <div class="controls">
+	          <%= f.collection_select(:city_id, City.all, :id, :name, :include_blank => true) %>
+            </div>
+          </div>
+
+		  <div class="control-group">
+            <%= f.label :district_id, :class => "control-label" %>
+            <div class="controls">
+	          <%= f.collection_select(:district_id, District.all, :id, :name, :include_blank => true) %>
+            </div>
+          </div>
+
+
+	          <%= f.input :postal, :input_html => { :class => "postal" } %>
+
+		   
+		</div>
+		<div class="span4 column2">
+		  
+	          <%= f.input :complete, :label => false %>
+			
+	          <%= f.input :phone, :class => "phone" %>
+
+	          <%= person_f.input :fax, :class => "phone" %>
+
+	          <%= f.input :site %>
+
+	          <%= f.input :social_link %>
+	
+	          <%= f.input :other_contacts %>
+
+	          <%= person_f.input :total_employes %>
+
+	          <%= f.input :notes, :as => :text, :input_html => { rows: 2  } %>
+
+		</div>
+		
+		<div class="span3 column2">
+			  <div class="control-group">
+	            <%= person_f.label :segments, :class => "control-label" %>
+	            <div class="controls">
+		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
+					<%= render :partial => 'shared/guara/multi_selection', 
+					:locals => { 
+						:form => person_f, 
+						:values => @person.segments, 
+						:autocomplete => multiselect_business_segments_customers_path, 
+						:form_field => :segments, 
+						:field_show => :name, 
+						:field_store => :id, 
+						:width => 220
+					} %>
+	            </div>
+	          </div>
+	
+	
+			  <div class="control-group">
+	            <%= person_f.label :activities, :class => "control-label" %>
+	            <div class="controls">
+		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
+					<%= render :partial => 'shared/guara/multi_selection', 
+					:locals => { 
+						:form => person_f, 
+						:values => @person.activities, 
+						:autocomplete => multiselect_business_activities_customers_path,
+						:form_field => :activities, 
+						:field_show => :name, 
+						:field_store => :id, 
+						:width => 220 
+					} %>
+	            </div>
+	          </div>
+					
+			  <div class="control-group">
+	            <%= person_f.label :associateds, :class => "control-label" %>
+	            <div class="controls">
+					<%= render :partial => 'shared/guara/multi_selection', 
+					:locals => {
+						:form => person_f,
+						:values => @person.associateds, 
+						:autocomplete => multiselect_customers_pj_customers_path,
+						:form_field => :associateds, 
+						:field_show => :name, 
+						:field_store => :id,
+						:width => 220
+					} %>
+	            </div>
+	          </div>
+	
+				<div class="thumbnail" id="emails">
+					<legend><small><%= t("customers.emails").titleize %></small></legend>
+			  <%= render :partial => 'active_extend/one_to_many_inputs', 
+			:locals => { 
+				:values => @customer.emails, 
+				:form => f, 
+				:target => :emails, 
+				:inputs => { 
+					:email => { 
+						:as => :string, 
+						:class => "span2", 
+						:label => false, 
+						:placeholder => "e-mail", 
+						:glyph => "icon-envelope" 
+					} 
+				} 
+			} %>
+				</div>
+
+	
+			</div>
+		
+		<div class="span8">
+			<div class="form-actions">
+			<%= f.submit :class => "btn btn-primary" %>
+            <button type="reset" class="btn"><%= t("helpers.forms.cancel") %></button>
+          </div>
+		</div>
+	  </div>
+	</fieldset>
+<% end %>
+<% end %>
+
+<script>
+
+$(function(){
+	
+	$("input.cnpj").mask("99.999.999/9999-99");
+	$("input.cpf").mask("999.999.999-99");
+	$("input.phone").mask("99.9999-9999");
+	$("input.postal").mask("99.999-999");
+	
+	$('#state').change(function(){
+		if( $(this).val() ) {
+			$('#cod_cidades').hide();
+			$('.carregando').show();
+			$.getJSON('cidades.ajax.php?search=',{cod_estados: $(this).val(), ajax: 'true'}, function(j){
+				var options = '<option value=""></option>';	
+				for (var i = 0; i < j.length; i++) {
+					options += '<option value="' + j[i].cod_cidades + '">' + j[i].nome + '</option>';
+				}	
+				$('#cod_cidades').html(options).show();
+				$('.carregando').hide();
+			});
+		} else {
+			$('#cod_cidades').html('<option value="">-- Escolha um estado --</option>');
+		}
+	});
+	
+	$("form.customer").submit(function() {
+	  $("input.postal").val($("input.postal").val().replace(/\D/g, "")).unmask();
+	})
+});
+
+</script>
