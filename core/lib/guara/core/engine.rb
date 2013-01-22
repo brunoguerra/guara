@@ -6,6 +6,7 @@ require 'bootstrap-sass'
 require 'jquery-rails'
 require 'rails-i18n'
 require 'activeadmin'
+require 'ransack'
 
 module Guara
   module Core
