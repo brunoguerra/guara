@@ -1,6 +1,6 @@
 <div class="page-header"><%= t("customers.index.title") %></div>
 
-<%= form_for customers_path, :html => { :class => "well form-search", :method => :get } do |f|  %>
+<%= form_for @search, :html => { :class => "well form-search", :method => :get } do |f|  %>
 <% f.fields_for :person do |person_f| %>
 		<fieldset>
 		  <div class="row">

@@ -46,8 +46,8 @@ Gem::Specification.new do |s|
   s.add_dependency  'cancan', '~> 1.6.8'
 
   #model
-  #s.add_dependency  "meta_search"
-  s.add_dependency "ransack", '~> 0.7.2'
+  s.add_dependency  "meta_search", "1.1.3"
+  #s.add_dependency "ransack", '~> 0.7.2'
   s.add_dependency  'activeadmin', '0.5.0'
 
   #criptar
