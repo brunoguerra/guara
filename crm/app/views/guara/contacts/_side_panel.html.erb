@@ -17,7 +17,7 @@
 		<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
 		<% end %>
 
-		<%= link_to t("contacts.all"), customer_contacts_path(@customer), :class => "new-link btn"  %>
+		<%= link_to t("contacts.all"), customer_contacts_path(@customer), :class => "new-link btn", :id => "contactsListModal"  %>
 		
 	
 	</div>
@@ -60,5 +60,7 @@ $(document).ready(function() {
 });
 
 select_department_callback = update_contacts;
+
+$('#contactsListModal').modal('toggle')
 
 </script>
