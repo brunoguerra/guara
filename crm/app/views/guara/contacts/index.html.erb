@@ -32,45 +32,7 @@
 	</div>
 </div>
 
-<<<<<<< HEAD
 <%= render :partial => "list_contacts" %>
-=======
-<% if @contacts %>
-<section id="buttons">
-  <div class="page-header wehll">
-	<%= t("search.results")%>
-  </div>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th><%= t("contacts.name") %></th>
-        <th><%= t("contacts.departament") %></th>
-        <th><%= t("contacts.business_function") %></th>
-        <th><%= t("contacts.phone") %></th>
-        <th><%= t("contacts.cell") %></th>
-        <th><%= t("contacts.birthday") %></th>
-        <th><%= t("helpers.forms.actions") %></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-	    <td><%= contact.name %></td>
-	    <td><%= name_or_empty contact.department %></td>
-	    <td><%= contact.business_function %></td>
-	    <td><%= contact.phone %></td>
-	    <td><%= contact.cell %></td>
-	    <td><%= format_date contact.birthday %></td>
-	    <td></td>
-	    <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-</section>
-<% end %>
-
-<br />
 
 <%= link_to t('helpers.forms.new')+' '+t('activerecord.models.contact'), new_customer_contact_path(params[:customer_id]), :class => "btn" %>
->>>>>>> parent of 51c1833... fixing metasearch
+

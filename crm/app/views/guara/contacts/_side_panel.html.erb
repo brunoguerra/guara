@@ -1,26 +1,47 @@
 <div class="contacts side">
+	
 	<div class="btn-group" id="select_department">
-       <button class="btn btn-small dropdown-toggle" id="select_department_button" data-toggle="dropdown"><%= t("contacts.department") %> <span class="caret"> </span> </button>
-       <ul class="dropdown-menu" id="select_department_dropdown">
-		<% Guara::ContactsController.select_departments.each do |department| %>
-         <li><a href="#" id="<%= department.id %>"><%= department.name %></a></li>
-		<% end %>
-         <li class="divider"></li>
-         <li><a href="#" id="all"><%= t("commons.all") %></a></li>
-       </ul>
-     </div>
+		
+		<button class="btn btn-small dropdown-toggle" id="select_department_button" data-toggle="dropdown"><%= t("contacts.department") %> <span class="caret"> </span> </button>
+
+		<ul class="dropdown-menu" id="select_department_dropdown">
+			<% Guara::ContactsController.select_departments.each do |department| %>
+				<li>
+					<a href="#" id="<%= department.id %>"><%= department.name %></a>
+				</li>
+			<% end %>
+			<li class="divider"></li>
+			<li>
+				<a href="#" id="all"><%= t("commons.all") %></a>
+			</li>
+		</ul>
+
+	</div>
+
 	<div class="new">
 		<div class="contacts-list">
 		<%= render :partial => 'guara/contacts/list', :locals => { items: @contacts } %>
 		</div>
-		<% if can? :create, :contact  %>
-		<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
-		<% end %>
 
-		<%= link_to t("contacts.all"), customer_contacts_path(@customer), :class => "new-link btn", :id => "contactsListModal"  %>
+		<% if can? :create, :contact  %>
+			<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
+		<% end %>
 		
-	
+		<a class="new-link btn" id="modalListContacts" href="#"><%= t("contacts.all") %></a>		
+		
 	</div>
+
+	<div id="contactsListModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
+
+		<div class="modal-body">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <%= render :partial => "guara/contacts/list_contacts", :locals => { items: @contacts } %>
+		</div>
+		<div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+
 </div>
 
 <script>
@@ -61,6 +82,10 @@ $(document).ready(function() {
 
 select_department_callback = update_contacts;
 
-$('#contactsListModal').modal('toggle')
+
+$("#modalListContacts").click(function(){
+	$('#contactsListModal').modal('toggle')	
+});
+
 
 </script>
