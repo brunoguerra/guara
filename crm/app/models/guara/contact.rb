@@ -1,7 +1,7 @@
 module Guara
   class Contact < ActiveRecord::Base
     attr_accessible :name, :birthday, :business_function, :department, :department_id,
-                    :phone, :cell, :customer, :emails
+                    :phone, :cell, :customer, :emails, :emails_attributes
   
     #=========================== associations <--------------------------------------------
     belongs_to :customer, :foreign_key => "person_id"

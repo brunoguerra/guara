@@ -11,13 +11,16 @@ pt-BR:
       
     widget:
       overview:
-        title: "Estatística para os últimos 30 dias"
+
+        title: "Últimos 30 dias"
         added_products:
           title: "Produtos Cadastrados"
-        orders_in:
-          title: "Movimentações de Entrada"
-        orders_out:
-          title: "Movimentações de Saída"
+        orders:
+          in:
+            title: "Movimentações de Entrada"
+          out:
+            title: "Movimentações de Saída"
+
         chart:
           in:
             title: "Entradas"

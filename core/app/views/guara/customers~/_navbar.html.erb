@@ -1,0 +1,23 @@
+<section id="navbar">
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto;">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+		<%= link_to navbar_title==nil ? t("customers.title") : navbar_title, "#", :class => "brand" %>
+        <div class="nav-collapse">
+          <ul class="nav">
+			    <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
+			    <li <%= 'class=active' if active == :new %> ><%= link_to t("customers.new.link"), new_customer_path %></li>
+				<li <%= 'class=active' if active == :edit %> ><%= link_to t("customers.edit.link"), "#" %></li>
+          </ul>
+          
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /navbar-inner -->
+  </div><!-- /navbar -->
+</section >

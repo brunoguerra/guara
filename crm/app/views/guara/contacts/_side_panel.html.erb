@@ -16,9 +16,80 @@
 		<% if can? :create, :contact  %>
 		<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
 		<% end %>
+
+		<a class="new-link btn" id="modalListContacts" href="#"><%= t("commons.all") %></a>		
+	</div>
 	
+	<div id="contactsListModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
+
+		<div class="modal-body">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <%= render :partial => "guara/contacts/list_contacts", :locals => { items: @contacts } %>
+		</div>
+		<div class="modal-footer">
+		    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
 	</div>
 </div>
+
+<script>
+//component bt menu selector
+var current_department = -1;
+var select_department_callback;
+
+$("#select_department li a").on("click", function(e) {
+	if ($(this).attr("id")=="all") {
+		current_department = -1;
+	} else {
+		current_department = $(this).attr("id");
+	}
+	$("#select_department_button").text($(this).html());
+
+	select_department_callback(current_department);
+
+})
+
+//page flow
+function record_created() {
+	showMessage("<%= t("helpers.forms.new_sucess") %>");
+	update_contacts();
+}
+
+function update_contacts(id) {
+	element = $('.contacts.side .new .contacts-list');
+	if (id>0) {
+		element.load("<%= customer_contacts_path(@customer) %>.json?department="+id);
+	} else {
+		element.load("<%= customer_contacts_path(@customer) %>.json");
+	}
+}
+
+$(document).ready(function() {
+	//update_contacts();
+});
+
+select_department_callback = update_contacts;
+
+$("#modalListContacts").click(function(){
+	$('#contactsListModal').modal('toggle')	
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 //component bt menu selector
@@ -57,5 +128,9 @@ $(document).ready(function() {
 });
 
 select_department_callback = update_contacts;
+
+
+
+
 
 </script>

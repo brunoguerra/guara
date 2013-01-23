@@ -176,7 +176,7 @@ class GuaraCrm < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_column :guara_customers, :other_contacts, :string, :limit => 70
+    add_column :guara_people, :other_contacts, :string, :limit => 70
     
     create_table :guara_company_businesses do |t|
       t.string :name

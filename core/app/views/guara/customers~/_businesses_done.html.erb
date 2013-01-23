@@ -1,0 +1,18 @@
+
+<% if @customer.businesses.count>0 then  %>
+	<div class="btn-group" id="businesses">
+       <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="icon-ok icon-white"></i><%= t("customers.a_customer") %>
+		<span class="caret"></span>
+		</button>
+       <ul class="dropdown-menu">
+		<% @customer.businesses.each do |b_d| %>
+         <li><a href="#"><%= b_d.business.name %> <em><%= format_date b_d.business_at %></em></a></li>
+		<% end %>
+       </ul>
+ 	</div>
+
+<% else  %>
+	<% if @customer.is_customer then  %>
+	<span class="badge badge-info"><i class="icon-ok icon-white"></i> <%= t("customers.a_customer") %></span>
+	<% end %>
+<% end %>

@@ -1,0 +1,202 @@
+
+pt-BR:
+  customers: &attr_customer
+    title: "Cadastro de Clientes"
+    link: "Clientes"
+    general: "Geral"
+    not_valids: "Cadastros incompletos"
+    birthdays: "Aniversariantes"
+    new:
+      link: "Novo Cliente"
+      title: "Cadastro Cliente"
+    index:
+      title: "Pesquisa de Clientes"
+    show:
+      title: "Exibindo Cliente"
+    edit:
+      title: "Edição de Cliente"
+      link: "Edição"
+    
+    a_customer: "É Cliente"
+  
+    name: "Nome/Razão Social"
+    name_sec: "Apelido/Fantasia"
+    code: "Cod."
+    activity: "Atividade"
+    segment: "Segmento"
+    employes_count: "Qtd. Funcionários"
+    is_customer: "É Cliente?"
+    complete: "Cadastro Completo?"
+    address: "Endereço"
+    district: "Bairro"
+    city: "Cidade"
+    state: "Estado"
+    emails: "e-mails"
+    notes: "Notas"
+    phone: "Fone"
+    fax: fax
+    site: site
+    social_link: "Redes sociais" 
+  
+    city_id: "Cidade"
+    state_id: "Estado"
+    district_id: "Bairro"
+    doc: "CNPJ/CPF:"
+
+    enabled: "Ativo?"    
+    postal: "Cep"
+  
+    setor: "Setor"
+    cargo: "Cargo"
+    cnpj: "CNPJ"
+    inscricao_estadual: "Inscrição estadual"
+  
+    contact_name: "Com Contato de Nome"
+
+  
+  contacts: &attr_contacts
+    name: "Nome"
+    #business_segment: "Segmento"
+    #business_activity: "Atividade"
+    business_function: "Cargo"
+    department: "Setor"
+    phone: "Fone"
+    cell: "Celular"
+    birthday: "Aniversário"
+    emails: "e-mails"
+    side:
+      title: "Contatos"
+    edit:
+      title: "Editar Contato"
+      link: "Editar Contato"
+    new:
+      title: "Novo Contato"
+      link:  "Novo Contato"
+    index: 
+      title: "%{customer}"
+      link: "Contatos"
+    show:
+      title: "Exibindo Contato"
+    search:
+        title: "Filtro Contatos"
+
+  searches:
+      advanced: "Avançado"
+
+  customer_pjs: &attr_customer_pj
+    doc: "CNPJ"
+    doc_rg: "Inscrição Estadual"
+    name: "Fantasia"
+    name_sec: "Razão Social"
+    total_employes: "Total de Funcionários"
+    segments: "Segmentos"
+    activities: "Atividades"
+  activities:
+    title: "Atividades"
+    link: "Atividades" 
+    
+    
+  tasks: &attr_tasks
+    title: "Histórico do Cliente"
+    link: "Histórico"
+    side:
+      title: "Histórico"
+    show:
+      title: "Histórico: %{task}"
+      link: "Ver histórico"
+    index:
+      link: "Todas as Tarefas"
+    errors:
+      not_valid_status_and_resolution: "Estado atual inválido %{status}, e resolvido como %{resolution}"                  
+    new:
+      title: "Nova Tarefa"
+      link: "Nova Tarefa"
+    form:
+        save_without_feedback:
+            title: "Sem Feedback"
+        save_with_feedback:
+            title: "Com Feedback"
+    search:
+        title: "Pesquisar"
+    #fields
+    name: "Assunto"
+    due_time: "Prazo"
+    contact: "Contato"
+    type: "Serviço/Atividade:"
+    notes: "Notas"
+    description: "Descrição"
+    assigned: "Atribuído para"
+    user: "Criado por"
+    finish_time: "Finalizado em"
+    resolution: "Resolução"
+    status: "Estado"
+    interested: "Interessado"
+    feedbacks: "Feedbacks"
+
+
+  task_resolutions:
+    RESOLVED:  "Concluído"
+    CANCELED:  "Cancelado"
+    BLOCKED:   "Pendente"
+    RESOLVED_WITH_BUSINESS: "Negócio Fechado"
+
+  task_types: &attr_task_types
+      name: "Tipo de Tarefa"
+      company_business: "Área de Negócio"
+
+  feedbacks: &attr_feedbacks
+    show:
+      title: "Feedback"
+
+      #fields
+    notes: "Resposta"
+    resolution: "Resolução"
+    user: "Usuário da Resposta"
+    date: "Data da Resposta"
+    side:
+        title: "Feedbacks"
+          
+#Global <==================================
+
+  system:
+    modules: &crm_modules
+      "guara/business_segment": "Segmento"
+      "guara/business_activity": "Atividade"
+      "guara/business_department": "Setor"
+      "guara/company_business": "Área de Negócio"
+      "guara/customer": "Cliente"
+      "guara/contact": "Contato"
+      "guara/task": "Tarefa"
+      "guara/task_type": "Tipo de Tarefa"
+    
+#Rails <===================================
+
+  activerecord:
+    attributes:
+      "guara/customer":
+          <<: *attr_customer
+      "guara/customer_pj":
+          <<: *attr_customer_pj
+      "guara/contact":
+          <<: *attr_contacts
+      "guara/task":
+          <<: *attr_tasks
+      "guara/feedback":
+          <<: *attr_feedbacks
+      "guara/task_type":
+          <<: *attr_task_types
+
+    models:
+      <<: *crm_modules
+  helpers:
+    label:
+      customers:
+        search:
+          <<: *attr_customer
+          <<: *attr_customer_pj
+          names: "Nome: (Razão social, Nome Fantasia)"
+          type: "Tipo"
+          type_fisica: "Física"
+          type_juridica: "Jurídica"
+          submit: "Pesquisar"
+          cancel: "Cancelar"
