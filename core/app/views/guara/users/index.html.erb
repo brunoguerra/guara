@@ -1,13 +1,34 @@
-<% provide(:title, 'All users') %>
-<h1>All users</h1>
+<%= render :partial => "navbar", :locals => { :active => :index } %>
+
+<% provide(:title, 'All users') %>		
 
 <%= render :partial => "navbar", :locals => { :active => :new } %>
 
-<%= will_paginate %>
 
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+  	
+    <th><%= t("users.title") %></th>
+    <th><%= t("users.email") %></th>
+    <th>Último Acesso</th>
+    <th>Administrador</th>
+  </tr>
+</thead>
+<tbody>
+	<% @users.each do |c| %>
+	<tr>
+	    <td><%= gravatar_for c %><%= link_to c.name, user_path(c)  %></td>
+	    <td><%= c.email %></td>
+	    <td><%= c.last_sign_in_at %></td>
+	    <td>
+	    	<span class="label <%= c.admin == true ? 'label-success' : 'label-important'%>" >
+	    		<%= c.admin == true ? "Sim" : "Não"%>
+	    	</span>
+	    </td>
+	</tr>  
+	<% end %>
+</table>
+</tbody>
 
-
-<ul class="users">
-  <%= render @users %>
-</ul>
 <%= will_paginate %>

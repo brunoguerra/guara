@@ -1,4 +1,3 @@
-
 GuaraCustomerPj = Guara::CustomerPj
 GuaraCustomerPf = Guara::CustomerPf
 

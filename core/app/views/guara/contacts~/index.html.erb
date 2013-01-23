@@ -1,0 +1,72 @@
+<% provide(:title, t("contacts.title", :customer => @customer.name)) %>
+
+<%= render :partial => "header" %>
+
+
+<div class="row">
+	<div class="span12">
+	  <%= form_tag customer_contacts_path, :class => "well form-search", :method => :get, :name => :search do  %>
+		<fieldset>
+		  <legend><%= t("contacts.search.title") %></legend>
+		  <div class="row">
+			<div class="span4">
+			
+			  <div class="control-group">
+	            <%= label_tag :name, t("contacts.name"), :class => "control-label" %>
+	            <div class="controls">
+		          <%= text_field_tag :name, params[:name] %>
+	            </div>
+	          </div>
+				
+			</div>
+			
+			<div class="span8">
+				<div class="form-actions">
+					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+				</div>
+			</div>
+			
+		  </div>
+		</fieldset>
+	  <% end %>
+	</div>
+</div>
+
+<% if @contacts %>
+<section id="buttons">
+  <div class="page-header wehll">
+	<%= t("search.results")%>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th><%= t("contacts.name") %></th>
+        <th><%= t("contacts.departament") %></th>
+        <th><%= t("contacts.business_function") %></th>
+        <th><%= t("contacts.phone") %></th>
+        <th><%= t("contacts.cell") %></th>
+        <th><%= t("contacts.birthday") %></th>
+        <th><%= t("helpers.forms.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+	    <td><%= contact.name %></td>
+	    <td><%= name_or_empty contact.department %></td>
+	    <td><%= contact.business_function %></td>
+	    <td><%= contact.phone %></td>
+	    <td><%= contact.cell %></td>
+	    <td><%= format_date contact.birthday %></td>
+	    <td></td>
+	    <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>
+<% end %>
+
+<br />
+
+<%= link_to t('helpers.forms.new')+' '+t('activerecord.models.contact'), new_customer_contact_path(params[:customer_id]), :class => "btn" %>
