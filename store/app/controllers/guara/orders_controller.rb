@@ -1,14 +1,44 @@
-
 module Guara
   class OrdersController < Guara::StoreBaseController
     load_and_authorize_resource :class => "Guara::Order"
-    
-    def show
-      
-    end
-    
+
     def index
+    	@search = Order.search(params[:search])
+    	@order = @search.result().paginate(page: params[:page], :per_page => 10)
     end
+
+    def new
+    	@order = Order.new
+    	puts '------'
+    end
+=begin   
+	
+	 def edit
+    	@order = Order.find params[:id]
+    end
+
+    def create
+    	@order = Order.new(params[:product])
+    	if @order.save
+    		flash[:success] = t("helpers.forms.new_sucess")
+    		redirect_to order_path(@order.id)
+    	else
+    		redirect_to new_order_path
+    	end
+    end
+
+    def update
+    	@order = Order.find params[:id]
+    	if @order.update_attributes(params[:order])
+    		flash[:success] = t(helpers.forms.new_sucess)
+    		redirect_to order_path(@order.id)
+    	else
+    		redirect_to new_order_path
+    	end
+
+    end
+
+=end
     
   end
 end

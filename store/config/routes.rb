@@ -1,4 +1,4 @@
-Guara::Core::Engine.routes.prepend do
+	Guara::Core::Engine.routes.prepend do
   resources :products
   
   match "/stock",    to: "stock#dashboard"

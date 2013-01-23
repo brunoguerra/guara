@@ -8,7 +8,7 @@ pt-BR:
     dashboard:
       title: "Controle de Estoque"
       description: "Controle da movimentação dos produtos no sistema"
-      
+
     widget:
       overview:
         title: "Últimos 30 dias"
@@ -24,23 +24,34 @@ pt-BR:
             title: "Entradas"
           out:
             title: "Saídas"
-            
+
   store_categories:
     index:
       title: "Categorias dos Produtos"
       link: "Categorias"
-  
+
   products:
     index:
       title: "Produtos"
       link: "Produtos"
-  
+
   orders:
     in:
       index:
         title: "Compras"
         link: "Compras"
+      new:
+        title: "Nova Compra"
+        link: "Nova Compra"  
+      edit:
+        title: "Editar Compra"
+        link: "Editar Compra"
+
+
     out:
       index:
         title: "Vendas"
         link: "Vendas"
+      new:
+        title: "Nova Venda"
+        link: "Nova Venda"

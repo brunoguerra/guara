@@ -21,5 +21,6 @@ module Guara
       def self.total_out_on(date)
         where(date_init: date).joins(:order_items).sum("value*total")
       end
+      
   end
 end
