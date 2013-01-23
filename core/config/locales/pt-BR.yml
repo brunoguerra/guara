@@ -369,6 +369,7 @@ pt-BR:
       destroy: "Apagar"
       disable: "Desabilitar"
       new_sucess: "Cadastrado com Sucesso"
+      edit_sucess: "Atualizado com Sucesso"
       actions: "Ações"
       errors: "O cadastro possui "
       error: "erro"

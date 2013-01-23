@@ -8,6 +8,8 @@ module Guara
     
     attr_accessor :primary_category
     
+    attr_accessible :stock
+
     alias_method :stock, :on_hand
     alias_method :current_stock, :on_hand
     alias_method :stock=, :on_hand=

@@ -1,0 +1,50 @@
+<% provide(:title, t("products.index.title")) %>
+
+<%= render :partial => "navbar", :locals => { :active => :search } %>
+
+<div class="row">
+	<div class="span9">
+		<section id="index">
+		  <div class="page-header">
+			<%= t("search.results")%>
+		  </div>
+
+		  <table class="table table-bordered table-striped">
+		    <thead>
+		      <tr>
+		      	<th><%= t("products.code") %></th>
+		        <th><%= t("products.name") %></th>
+		        <th><%= t("products.description") %></th>
+		        <th><%= t("products.available_on") %></th>
+		        <th><%= t("products.price") %></th>
+		        <th><%= t("products.stock") %></th>
+		        <th><%= t("helpers.forms.actions") %></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+			<% @products.each do |p| %>
+		      <tr>
+		        <td><%= p.id %></td>
+		        <td><%= link_to p.name, product_path(p.id)  %></td>
+		        <td><%= p.description  %></td>
+		        <td>
+		        	<%= p.available_on != nil ? p.available_on.strftime("%d/%m/%Y") : p.available_on %>
+		        </td>
+		        <td><%= number_to_currency(p.price, :locale => :br)  %></td>
+		        <td><%= p.stock  %></td>
+		        <td>
+		        	<%= link_to t("helpers.forms.show"), product_path(p.id), :class => "btn" %>
+		        	<%= link_to t("helpers.forms.edit"), edit_product_path(p.id), :class => "btn" %>
+		        </td>
+		      </tr>
+		    <% end %>
+
+		    </tbody>
+		  </table>
+		</section>
+	</div>
+	<div class="span3">
+		
+	</div>
+	
+</div>

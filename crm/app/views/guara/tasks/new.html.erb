@@ -1,5 +1,5 @@
 <%= render :partial => "header" %>
 
-<%= render :partial => 'form', :locals => { :title => t("contacts.new.title") } %>
+<%= render :partial => 'form', :locals => { :title => t("contacts.new.title"), :remote => false } %>
 
-<%= link_to t('helpers.forms.back'), customer_contacts_path(@contact.customer) %>
+<%= link_to t('helpers.forms.back'), customer_contacts_path(@customer) %>

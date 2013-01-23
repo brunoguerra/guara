@@ -4,6 +4,7 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    "guara/guara", media: "all" %>
+    <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "guara/guara" %>
     <%= stylesheet_link_tag "guara/home_admin.css" %>
     <%= stylesheet_link_tag "guara/custumer_search.css.scss" %>
@@ -12,7 +13,7 @@
   </head>
   <body>
     <%= render 'layouts/guara/header' %>
-    <div class="container">
+    <section class="container">
 	  <div class="alert alert-ajax" style="display: none;"></div>
       <% flash.each do |key, value| %>
 	    <div class="alert alert-<%= key %>"><%= value %></div>
@@ -20,6 +21,6 @@
 	  <%= yield %>
 	  <%= render 'layouts/guara/footer' %>
 	  <%= debug(params) if Rails.env.development? %>
-	</div>
+		</section>
   </body>
 </html>

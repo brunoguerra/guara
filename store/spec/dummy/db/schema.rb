@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118170857) do
+ActiveRecord::Schema.define(:version => 20130121160843) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -229,6 +229,36 @@ ActiveRecord::Schema.define(:version => 20130118170857) do
   end
 
   add_index "guara_microposts", ["user_id", "created_at"], :name => "index_guara_microposts_on_user_id_and_created_at"
+
+  create_table "guara_order_items", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "total"
+    t.float    "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "guara_order_items", ["order_id"], :name => "index_guara_order_items_on_order_id"
+  add_index "guara_order_items", ["product_id"], :name => "index_guara_order_items_on_product_id"
+
+  create_table "guara_orders", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "type"
+    t.integer  "state"
+    t.datetime "date_init"
+    t.datetime "date_finish"
+    t.date     "state_date"
+    t.integer  "payment_type"
+    t.datetime "payment_date"
+    t.integer  "payment_state"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "guara_orders", ["state", "type"], :name => "index_guara_orders_on_state_and_type"
+  add_index "guara_orders", ["state"], :name => "index_guara_orders_on_state"
+  add_index "guara_orders", ["type"], :name => "index_guara_orders_on_type"
 
   create_table "guara_product_categories", :force => true do |t|
     t.integer  "product_id"
