@@ -25,18 +25,20 @@ module Guara
     def self.search_by_params(results=nil, query)
     
       results = self.send(:relation) if results.nil?
-      where = {}
+      where = [""]
     
       query.each do |k,v|
       
         next if v.nil?
-      
         if k=="name"
-          where.merge! 'upper(name) LIKE ?', "%#{name}%"
+          where. << "%#{v}%"
+          where[0] += "name LIKE ?"
         elsif self.instance_methods.include?("#{k}_id".to_sym)
-          where.merge! :"#{k}_id" => v
+          where. << v
+          where[0] += " AND #{k}_id"
         elsif self.instance_methods.include?(k.to_sym)
-          where.merge! k.to_sym => v
+          where. << v
+          where[0] += " AND #{k.to_sym}"
         end
       end
     
