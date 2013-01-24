@@ -77,7 +77,7 @@ module Guara
       respond_to do |format|
         if @task.save
           format.js { render :locals => { :task => @task }, :layout => false, :content_type => "application/javascript", :status => :created }
-          format.html { redirect_to [@task.interested, @task] }
+          format.html { redirect_to customer_task_path(@task.interested, @task) }
         else
           format.js { render :json => format_errors("tasks", @task.errors), :content_type => "application/json", :status => :unprocessable_entity }
           format.html { render :action => :new, :status => :unprocessable_entity }
@@ -92,7 +92,7 @@ module Guara
       respond_to do |format|
       
         if @task.update_attributes(params[:task])
-          format.html { redirect_to([@task.interested, @task], :notice => I18n.t('forms.update.sucess')) }
+          format.html { redirect_to( customer_task_path(@task.interested, @task), :notice => I18n.t('forms.update.sucess')) }
           format.json { head :ok }
         else
           format.html { render :action => "edit" }
