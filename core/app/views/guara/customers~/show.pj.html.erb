@@ -1,22 +1,16 @@
 <section class="show">
 
-	<%= render :partial => "navbar", :locals => { :active => :view } %>
-	<%= render :partial => "modules", :locals => { :active => :general} %>
+	<%= render :partial => "navbar", :locals => { :active => :edit } %>
 	<ul class="thumbnails">
       <li class="span7">
         <div class="thumbnail">
           <div class="caption">
-
+			  <legend><%=@customer.name %> <small><%= @customer.name_sec || t("customers.show.title") %></small></legend>
+			
 			<%= render partial: "businesses_done" %>
-
+			
 			  <div class="row">
 				<div class="span4">
-
-					<dl class='dl-horizontal'>
-						<dt><%= t('custumer.id') %></dt>
-						<dd><%= @customer.id %></dd>
-					</dl>
-
 				  <dl class="dl-horizontal">					
             <dt><%=  t('customers.cnpj') %></dt>
 				    <dd><%= @customer.doc %></dd>
@@ -31,7 +25,7 @@
             <dt><%=  t("customers.social_link") %></dt>
 		        <dd><%= nbsp @customer.social_link %></dd>
           </dl>
-
+		
 					<dl class="dl-horizontal">
             <dt><%=  t("customers.emails") %></dt>
 	          <dd>
@@ -39,13 +33,13 @@
 	          </dd>
 	        </dl>
 				</div>
-
+				
 				<div class="span2 column2">
 					<dl>
             <dt><%=  t("customers.complete") %></dt>
 		        <dd><span class="badge <%= @customer.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean @customer.complete %></span></dd>
 	        </dl>
-
+	
 					<dl>
            	<dt><%=  t("customers.phone") %></dt>
             <dd>
@@ -53,7 +47,7 @@
             </dd>
 	        </dl>
 				</div>
-
+				
 				<div class="span6">
 					<dl class="dl-horizontal">
 			            <dt><%=  t("customer.site") %></dt>
@@ -61,7 +55,7 @@
 				          <%= nbsp @customer.site %>
 			            </dd>
 			        </dl>
-
+					
 					<dl class="dl-horizontal">
 			            <dt><%=  t("customers.address") %></dt>
 						<dd>
@@ -76,7 +70,7 @@
 								<%= simple_format(@customer.notes) %>
 							</div>
 		        	<%= nbsp simple_format(index_notes(@customer.notes)) %>
-
+							
 						</dd>
 			          </dl>
 
@@ -117,8 +111,8 @@
 				            </dd>
 				        </dl>	
 				</div>
-
-
+				
+				  
 
 				<div class="span6">
 				  <div class="form-actions">
@@ -137,7 +131,7 @@
         <div class="thumbnail contacts">
           <div class="caption">
 			  <legend><%=t("contacts.side.title") %></legend>
-				<%= render :partial => "guara/contacts/side_panel" %>
+				<%= render :partial => "contacts/side_panel" %>
 		  </div>
 		</div>
 	  </li>
@@ -146,21 +140,21 @@
         <div class="thumbnail tasks">
           <div class="caption">
 			  <legend><%=t("tasks.side.title") %></legend>
-			  <%= render :partial => "guara/tasks/side_panel" %>
+			  <%= render :partial => "tasks/side_panel" %>
 		  </div>
 		</div>
 	  </li>
-
+	
 	</ul>
 
 </section>
 <script>
 
 $(function(){
-
+	
 	$("input.cnpj").mask("99.999.999/9999-99");
 	$("input.cpf").mask("999.999.999-99");
-
+	
 	$('#state').change(function(){
 		if( $(this).val() ) {
 			$('#cod_cidades').hide();
@@ -177,8 +171,8 @@ $(function(){
 			$('#cod_cidades').html('<option value="">[Escolha um estado]</option>');
 		}
 	});
-
-
+	
+	
 	$('#notes').mouseenter(function(){
 		$('#notes #complete').fadeIn();
 	}).mouseleave(function(){

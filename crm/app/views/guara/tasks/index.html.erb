@@ -10,17 +10,17 @@
 		  <legend><%= t("tasks.search.title") %></legend>
 		  <div class="row">
 			<div class="span4">
-			
+
 			  <div class="form-search">
 	            <div class="input-append">
 		          <%= text_field_tag :name, params[:name], :class => "span2 search-query" %>
 		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
 	            </div>
 	          </div>
-				
+
 			</div>
-			
-			
+
+
 		  </div>
 		</fieldset>
 	  <% end %>
@@ -53,4 +53,3 @@
 <br />
 
 <%= link_to t('tasks.new.link'), new_customer_task_path(params[:customer_id]), :class => "btn" %>
-
