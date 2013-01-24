@@ -28,6 +28,7 @@ pt-BR:
             title: "Saídas"
             
   store_categories:
+    title: "Categorias"
     index:
       title: "Categorias dos Produtos"
       link: "Categorias"
