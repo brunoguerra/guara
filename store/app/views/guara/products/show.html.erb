@@ -1,0 +1,90 @@
+<% provide(:title, t("products.index.title")) %>
+
+<%= render :partial => "navbar", :locals => { :active => :show } %>
+<section class="show">
+
+<ul class="thumbnails">
+  <li class="span9">
+    <div class="thumbnail">
+      <div class="caption">
+		<legend><%= t('products.show.title') %></legend>
+		<div class="row">
+			<div class="span4">
+
+			  <div class="control-group">
+	            <%= show_label_tag t('products.code') %>
+				<%= @product.id %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.name') %>
+				<%= @product.name %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.description') %>
+				<%= @product.description %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.available_on') %>
+				<%= @product.available_on != nil ? @product.available_on.strftime("%d/%m/%Y") : @product.available_on %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.price') %>
+				<%= number_to_currency(@product.price, :locale => :br) %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.sku') %>
+				<%= @product.sku %>
+	          </div>
+			</div>
+
+			<div class="span4">
+			  <div class="control-group">
+	            <%= show_label_tag t('products.stock') %>
+				<%= @product.stock %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.weight') %>
+				<%= @product.weight %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.height') %>
+				<%= @product.height %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.width') %>
+				<%= @product.width %>
+	          </div>
+
+	          <div class="control-group">
+	            <%= show_label_tag t('products.depth') %>
+				<%= @product.depth %>
+	          </div>          
+			</div>
+
+		  </div>
+	  </div>
+	</div>
+  </li>
+
+  <li class="span3">
+  	<div class="thumbnail">
+  		<div class="caption">
+  			<legend><%= t('products.categories') %></legend>
+  			<%@product.categories.each do |f| %>
+  			<div class="control-group"><%=f.name%></div>	
+  			<%end%>
+  		</div>	
+  	</div>
+  </li>
+</ul>
+</section>
+<%= link_to t('helpers.forms.edit'), edit_product_path(@product.id), :class => "btn" %>
+<%= link_to t('helpers.forms.back'), products_path, :class => "btn" %>

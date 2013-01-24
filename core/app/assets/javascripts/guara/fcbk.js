@@ -139,6 +139,7 @@
                 var input = $('<input type="text" class="maininput" size="' + options.input_min_size + '" autocomplete="off">');
                 if (options.input_tabindex > 0) input.attr("tabindex", options.input_tabindex);
                 if (options.input_name != "") input.attr("name", options.input_name);
+                if (options.input_style != "") input.css(options.input_style);
                 holder.append(li.append(input));
                 input.focus(function() {
                     isactive = true;
@@ -171,7 +172,7 @@
                         return false
                     }
                     var newsize = (options.input_min_size > input.val().length) ? options.input_min_size: (input.val().length + 1);
-                    input.attr("size", newsize).width(parseInt(input.css('font-size')) * newsize)
+                    //input.attr("size", newsize).width(parseInt(input.css('font-size')) * newsize)
                 });
                 input.keyup(function(event) {
                     var etext = xssPrevent(input.val(), 1);
