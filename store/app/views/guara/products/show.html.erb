@@ -73,6 +73,17 @@
 	  </div>
 	</div>
   </li>
+
+  <li class="span3">
+  	<div class="thumbnail">
+  		<div class="caption">
+  			<legend><%= t('products.categories') %></legend>
+  			<%@product.categories.each do |f| %>
+  			<div class="control-group"><%=f.name%></div>	
+  			<%end%>
+  		</div>	
+  	</div>
+  </li>
 </ul>
 </section>
 <%= link_to t('helpers.forms.edit'), edit_product_path(@product.id), :class => "btn" %>

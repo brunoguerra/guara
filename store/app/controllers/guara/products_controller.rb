@@ -11,7 +11,7 @@ module Guara
 
 	def new 
 		@product    = Product.new
-		@categories = StoreCategory.find(:all)
+		@categories = StoreCategory.all
 	end
 
 	def edit
@@ -20,14 +20,15 @@ module Guara
 	end
 
 	def create
-	    @product = Product.new(params[:product])
+	    @product = Product.new
+	    @product.attributes = params[:product]
 
 	    if @product.save
 	      flash[:success] = t("helpers.forms.new_sucess")
-	      #redirect_to products_path(@product.id)
-	      redirect_to :controller=>'products',:action=>'show'
+	      redirect_to product_path(@product.id)
+	      #redirect_to :action=>'show'
 	    else
-	      redirect_to new_product_path
+	      render :new
 	    end
 	end
 

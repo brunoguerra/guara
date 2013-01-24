@@ -1,5 +1,5 @@
 <%= semantic_form_for @product, 
-:url => @product.new_record? ? new_product_path : product_path(@product.id), 
+:url => @product.new_record? ? products_path : product_path(@product.id), 
 :html => {:class => "well"}  do |f| %>
 <fieldset>
   <legend><%= @product.new_record? ? t("products.new.title") : t("products.edit.title") %></legend>
@@ -9,10 +9,20 @@
   <div class="span8 offset2">
     <!--//:name, :description, :available_on, :price, :sku, :weight, :height, :width, :depth,-->
     <div class="row-fluid">   
-      <div class="span6 lightblue">
-        <%= f.label :primary_category, t('products.primary_category') %>
-        <%= select_tag("product[primary_category]", options_for_select(@categories.collect { |ff| [ff.send(:name), ff.send(:id), :class => "selected span12"] }, @categories.collect { |fs| fs.send(:id) }),
-                   {:multiple=>true, :id => "primary_category"}) %>
+      <div class="span9 lightblue">
+        <%= f.label :categories, t('products.categories') %>
+        <%= select_tag("product[category_ids]", options_for_select(@product.categories.collect { 
+          |ff| [ff.send(:name), ff.send(:id), :class => "selected span12"] 
+          }, 
+          @product.categories.collect { |fs| fs.send(:id) }),
+          {:multiple=>true, :id => "category_ids"}) %>
+
+      </div>
+      <div class="span3 lightblue">
+        <%= f.label :enabled, t('products.enabled') %>
+        <label class="checkbox">
+          <%= f.check_box :enabled %><%=t('products.enabled')%>
+        </label>
       </div>
     </div>
 
@@ -31,7 +41,7 @@
     <div class="row-fluid">
       <div class="span6 bgcolor">
         <%= f.label :stock, t('products.stock') %>
-        <%= f.number_field :stock, :class=> "span12" %>
+        <%= f.number_field :stock, :class=> "span12", :min=> 0 %>
       </div>
       
       <div class="span6 bgcolor">
@@ -87,15 +97,15 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-      $("#primary_category").fcbkcomplete({
+      $("#category_ids").fcbkcomplete({
           json_url: "<%= multiselect_categories_products_path %>",
           addontab: true,                   
           maxitems: 100,
           height: 15,
           cache: true,
-          width: 580,
+          width: 430,
           input_style: {
-            width: 580,
+            width: 430,
             border: "1px solid #cccccc"
           }
       });
