@@ -1,0 +1,28 @@
+<div class="page-header"><%= t("products.show.title") %></div>
+
+<%= form_for :search, :html => { :class => "well form-search", :method => :get } do |f|  %>
+		  <div class="control-group">
+	        <%= label_tag :name, t("products.name"), :class => "control-label" %>
+	        <div class="controls">
+	          <%= f.text_field :name_eq %>
+	        </div>
+	      </div>
+
+	      <div class="control-group">
+	        <%= label_tag :available_on, t("products.available_on"), :class => "control-label" %>
+	        <div class="controls">
+	          <%= f.text_field :available_on_eq %>
+	        </div>
+	      </div>
+
+		<div class="form-actions span3">
+			<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+		</div>
+		<div style="clear:both;"></div>
+<% end %>
+	</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#search_available_on_eq").mask("99/99/9999");
+  });
+</script>

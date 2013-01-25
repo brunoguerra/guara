@@ -1,3 +1,5 @@
+
+
 module Guara
   class CustomersController < BaseController
     load_and_authorize_resource :class => Guara::Customer, :except => [:create]
@@ -6,6 +8,8 @@ module Guara
   
     autocomplete :business_segment, :name, :full => true
     autocomplete :business_activity, :name, :full => true
+    
+    include BaseHelper
   
     def index
       @sels = params["sels"] || []
@@ -16,7 +20,11 @@ module Guara
       @search = Customer.search(params[:search])
       
       #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
-      @customers = @search.paginate(page: params[:page], :per_page => 10)
+      if class_exists?("Ransack")
+        @customers = @search.result().paginate(page: params[:page], :per_page => 10)
+      else
+        @customers = @search.paginate(page: params[:page], :per_page => 10)
+      end
       params[:search] = {} if params[:search].nil?
     end
   

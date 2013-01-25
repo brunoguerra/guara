@@ -1,6 +1,0 @@
-<ul class="nav nav-tabs">
-  <li <%= 'class=active' if active == :customer %> ><%= link_to t("customers.general"), customer_path(@customer) %></li>
-  <li <%= 'class=active' if active == :contacts %> ><%= link_to t("contacts.index.link"), customer_contacts_path(@customer) %></li>
-  <li <%= 'class=active' if active == :financial %> ><a href="#">Dados de Cobran&ccedil;a</a></li>
-  <li <%= 'class=active' if active == :customer_association %> ><a href="#">Empresas relacionadas</a></li>
-</ul>

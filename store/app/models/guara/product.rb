@@ -1,5 +1,9 @@
 module Guara
   class Product < Spree::Product
+
+    include ActiveExtend::ActiveDisablable
+
+    after_initialize :ensure_master
     
     has_many :product_categories
     has_many :categories, through: :product_categories
@@ -8,17 +12,14 @@ module Guara
     
     attr_accessor :primary_category
     
+    attr_accessible :stock, :category_ids, :enabled
+
     alias_method :stock, :on_hand
     alias_method :current_stock, :on_hand
     alias_method :stock=, :on_hand=
     
     def in_stock?
       stock > 0
-    end
-    
-    def enabled
-      #TODO: permitir desabilitar o produto
-      true
     end
     
     def manufacturer

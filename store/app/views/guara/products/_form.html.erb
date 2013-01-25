@@ -1,0 +1,122 @@
+<%= semantic_form_for @product, 
+:url => @product.new_record? ? products_path : product_path(@product.id), 
+:html => {:class => "well"}  do |f| %>
+<fieldset>
+  <legend><%= @product.new_record? ? t("products.new.title") : t("products.edit.title") %></legend>
+  
+
+<div class="row-fluid">
+  <div class="span8 offset2">
+    <!--//:name, :description, :available_on, :price, :sku, :weight, :height, :width, :depth,-->
+    <div class="row-fluid">   
+      <div class="span9 lightblue">
+        <%= f.label :categories, t('products.categories') %>
+        <%= select_tag("product[category_ids]", options_for_select(@product.categories.collect { 
+          |ff| [ff.send(:name), ff.send(:id), :class => "selected span12"] 
+          }, 
+          @product.categories.collect { |fs| fs.send(:id) }),
+          {:multiple=>true, :id => "category_ids"}) %>
+
+      </div>
+      <div class="span3 lightblue">
+        <%= f.label :enabled, t('products.enabled') %>
+        <label class="checkbox">
+          <%= f.check_box :enabled %><%=t('products.enabled')%>
+        </label>
+      </div>
+    </div>
+
+    <div class="row-fluid">   
+      <div class="span6 lightblue">
+        <%= f.label :name, t('products.name') %>
+        <%= f.text_field :name, :class=> "span12" %>
+      </div>
+
+      <div class="span6 lightblue">
+        <%= f.label :description, t('products.description') %>
+        <%= f.text_field :description, :class=> "span12" %>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span6 bgcolor">
+        <%= f.label :stock, t('products.stock') %>
+        <%= f.number_field :stock, :class=> "span12", :min=> 0 %>
+      </div>
+      
+      <div class="span6 bgcolor">
+        <%= f.label :available_on, t('products.available_on') %>
+        <%= f.text_field :available_on, :class=> "span12" %>
+      </div>
+    </div>
+
+    <div class="row-fluid">   
+      <div class="span6 lightblue">
+        <%= f.label :price, t('products.price') %>
+        <%= f.text_field :price, :class=> "span12" %>
+      </div>
+
+      <div class="span6 lightblue">
+        <%= f.label :sku, t('products.sku') %>
+        <%= f.text_field :sku, :class=> "span12" %>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span3 lightblue">
+        <%= f.label :weight, t('products.weight') %>
+        <%= f.number_field :weight, :class=> "span12", :min=> 0 %>
+      </div>
+
+      <div class="span3 lightblue">
+        <%= f.label :height, t('products.height') %>
+        <%= f.number_field :height, :class=> "span12", :min=> 0 %>
+      </div>
+
+      <div class="span3 lightblue">
+        <%= f.label :width, t('products.width') %>
+        <%= f.number_field :width, :class=> "span12", :min=> 0 %>
+      </div>
+
+      <div class="span3 lightblue">
+        <%= f.label :depth, t('products.depth') %>
+        <%= f.number_field :depth, :class=> "span12", :min=> 0 %>
+      </div>
+    </div>
+
+    <%= f.submit class: "btn btn-large btn-primary" %>
+  </div>
+
+  <div class="span4">
+    
+  </div>
+</div>
+
+</fieldset>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#category_ids").fcbkcomplete({
+          json_url: "<%= multiselect_categories_products_path %>",
+          addontab: true,                   
+          maxitems: 100,
+          height: 15,
+          cache: true,
+          width: 430,
+          input_style: {
+            width: 430,
+            border: "1px solid #cccccc"
+          }
+      });
+
+      $('#product_price').priceFormat({
+        prefix: 'R$ ',
+        centsSeparator: ',',
+        thousandsSeparator: '.'
+      });
+
+      $("#product_available_on").mask("99/99/9999");
+  });
+</script>
+
