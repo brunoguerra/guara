@@ -19,11 +19,11 @@ module Guara
       end
   
       def self.total_in_on(date)
-        where(date_init: date).joins(:order_items).sum("value*total")
+        where(date_init: date).joins(:items).sum("price*total")
       end
   
       def self.total_out_on(date)
-        where(date_init: date).joins(:order_items).sum("value*total")
+        where(date_init: date).joins(:items).sum("price*total")
       end
       
   end
