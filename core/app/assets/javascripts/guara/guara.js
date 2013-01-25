@@ -25,7 +25,7 @@ $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
 
 $(document).on("focus", "[data-behaviour~='datetimepicker']", function(e){
     $(this).datetimepicker({ dateFormat: "dd/mm/yy", timeFormat: "hh:mm", "weekStart": 1, "autoclose": true, 
-	hourGrid: 4, minuteGrid: 10});
+	hourGrid: 4, minuteGrid: 10, minDateTime: new Date()});
 });
 
 $(document).ready(function(){

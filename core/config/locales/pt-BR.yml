@@ -14,6 +14,8 @@ pt-BR:
       small: "CMGB - CRM"
   
   #MODULES <=================================
+  user_groups:
+    title: "Grupos"
   home:
     link: "Painel Pricipal"
     feed: "Mensagens"
@@ -382,6 +384,7 @@ pt-BR:
       destroy: "Apagar"
       disable: "Desabilitar"
       new_sucess: "Cadastrado com Sucesso"
+      edit_sucess: "Atualizado com Sucesso"
       actions: "Ações"
       errors: "O cadastro possui "
       error: "erro"
