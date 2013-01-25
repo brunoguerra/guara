@@ -33,9 +33,9 @@ module Guara
     end
     
     def class_exists?(class_name)
-      klass = Module.const_get(class_name)
-      return klass.is_a?(Class)
-    rescue NameError
+      return Object.const_defined?(class_name)
+    rescue Exception => e
+      puts ":::================> " + e.message
       return false
     end
   end
