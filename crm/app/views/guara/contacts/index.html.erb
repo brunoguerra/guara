@@ -5,16 +5,16 @@
 
 <div class="row">
 	<div class="span12">
-	  <%= form_tag customer_contacts_path, :class => "well form-search", :method => :get, :name => :search do  %>
+	  <%= form_for [@customer, @search], :html => { :class => "well form-search" }, :method => :get, :name => :search do |f| %>
 		<fieldset>
 		  <legend><%= t("contacts.search.title") %></legend>
 		  <div class="row">
 			<div class="span4">
 			
 			  <div class="control-group">
-	            <%= label_tag :name, t("contacts.name"), :class => "control-label" %>
+	            <%= f.label :name, t("contacts.name"), :class => "control-label" %>
 	            <div class="controls">
-		          <%= text_field_tag :name, params[:name] %>
+		          <%= f.text_field :name_contains %>
 	            </div>
 	          </div>
 				
