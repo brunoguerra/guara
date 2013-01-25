@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "guara_crm"
+  s.add_dependency "guara_crm"
   s.add_dependency "spree_core"
   s.add_dependency "spree_api"
   s.add_dependency "spree_promo"

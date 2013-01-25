@@ -5,4 +5,34 @@
 				<%= render :partial => "navbar", :locals => { active: :none } %>
 			</navbar>
 
-			
+		<div class="row">
+			<div class="span12">
+				<fieldset>
+				<section id="index">
+				  <div class="page-header">
+					<%= t("search.results")%>
+				  </div>
+
+				  <table class="table table-bordered table-striped">
+				    <thead>
+				      <tr>
+				        <th><%= t("orders.person.title") %></th>
+				        <th><%= t("orders.date_init.title") %></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				   
+				   <% @order.each do |order| %>
+					  <tr>
+					    <td><%= order.person %></td>
+					    <td><%= order.date_init %></td>
+					  </tr>
+					<% end %>
+
+				    </tbody>
+				  </table><!-- FIM TABLE -->
+				</section><!-- FIM DIV INDEX -->
+				
+			</fieldset>
+		</div>
+</div>

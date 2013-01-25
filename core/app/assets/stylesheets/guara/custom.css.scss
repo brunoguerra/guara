@@ -368,3 +368,39 @@ fieldset.actions {
 	width: 300px;
 	}
 
+
+
+/* STYLE STORE ORDERS IN*/
+
+
+.row_orders_in {
+  margin-left: 0px;
+}
+
+#order_items_product_input {
+  width: 35%;
+  float: left;
+}
+
+#order_items_total_input {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+#order_items_price_input {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+#order_items_price_total_input {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+.btn_remove_field_orders {
+  margin-top: 20px;
+  margin-left: 10px;
+}

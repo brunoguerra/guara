@@ -47,7 +47,6 @@ pt-BR:
         title: "Editar Compra"
         link: "Editar Compra"
 
-
     out:
       index:
         title: "Vendas"
@@ -55,3 +54,39 @@ pt-BR:
       new:
         title: "Nova Venda"
         link: "Nova Venda"
+
+    supplier:
+        title: "Fornecedor"
+
+    products:
+      title: "Produtos"
+      
+    person:
+      title: "Pessoa"
+
+    date_finish: 
+      title: "Data Final"
+
+    date_init:
+      title: "Data Inicial"
+
+    payment_date: 
+      title: "Data do Pagamento"
+
+    payment_state:
+      title: "Situação do Pagamento"
+
+    payment_type:
+      title: "Tipo de Pagamento"
+
+    person_id:
+      title: "Pessoa"
+    
+    state:
+      title: "Situação "
+
+    state_date:
+      title: "state_date"
+
+    type:
+      title: "Tipo"

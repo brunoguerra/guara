@@ -2,15 +2,8 @@ module Guara
   class OrdersController < Guara::StoreBaseController
     load_and_authorize_resource :class => "Guara::Order"
 
-    def index
-    	@search = Order.search(params[:search])
-    	@order = @search.result().paginate(page: params[:page], :per_page => 10)
-    end
 
-    def new
-    	@order = Order.new
-    	puts '------'
-    end
+
 =begin   
 	
 	 def edit

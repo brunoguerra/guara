@@ -2,11 +2,15 @@ module Guara
   class Order < ActiveRecord::Base
     
     attr_accessible :person, :date_finish, :date_init, :payment_date, :payment_state,
-                    :payment_type, :person_id, :state, :state_date, :type
+                    :payment_type, :payment_parts, :person_id, :state, :state_date, :type, :products
     
-    belongs_to :person    
+    belongs_to :person
     
-    has_many :order_items
+
+    has_many :items, class_name: "Guara::OrderItem"
+    has_many :products, through: :items
+
+
     
     public
       def state=(state)

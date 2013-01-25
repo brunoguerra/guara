@@ -9,7 +9,7 @@
           <span class="icon-bar"></span>
         </a>
 		
-        <%= link_to t("orders.in.index.title"), "#", :class => "brand" %>
+        <%= link_to t("orders.in.index.title"), orders_in_index_path, :class => "brand" %>
         <div class="nav-collapse">
           <ul class="nav">
 			    <li <%= 'class=active' if active == :stock_in %> ><%= link_to t("orders.in.new.link"), new_orders_in_path %></li>

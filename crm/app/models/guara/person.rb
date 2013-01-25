@@ -21,6 +21,7 @@ module Guara
     has_many :tasks, dependent: :destroy, :as => :interested
     has_many :emails, :as => :emailable, dependent: :destroy
     has_many :contacts, dependent: :destroy
+    has_many :order
   
     belongs_to :state
     belongs_to :city

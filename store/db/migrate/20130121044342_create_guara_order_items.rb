@@ -4,7 +4,7 @@ class CreateGuaraOrderItems < ActiveRecord::Migration
       t.integer :order_id
       t.integer :product_id
       t.integer :total
-      t.float :value
+      t.float :price
 
       t.timestamps
     end
