@@ -4,6 +4,6 @@ module Guara
   
     belongs_to :emailable, :polymorphic => true
   
-    validates :emailable, presence: true
+    #validates :emailable, presence: true
   end
 end

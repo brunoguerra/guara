@@ -1,3 +1,5 @@
+
+
 module Guara
   class CustomersController < BaseController
     load_and_authorize_resource :class => Guara::Customer, :except => [:create]
@@ -6,12 +8,23 @@ module Guara
   
     autocomplete :business_segment, :name, :full => true
     autocomplete :business_activity, :name, :full => true
+    
+    include BaseHelper
   
     def index
       @sels = params["sels"] || []
+      
+      #@query = Customer.search(params[:search])
+      #@search = @query.result
+      
       @search = Customer.search(params[:search])
+      
       #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
-      @customers = @search.paginate(page: params[:page], :per_page => 10)
+      if class_exists?("Ransack")
+        @customers = @search.result().paginate(page: params[:page], :per_page => 10)
+      else
+        @customers = @search.paginate(page: params[:page], :per_page => 10)
+      end
       params[:search] = {} if params[:search].nil?
     end
   
@@ -121,7 +134,7 @@ module Guara
     end
   
     def multiselect_customers_pj
-      render :json => CustomerPj.includes(:customer).where(["(guara_customers.name ilike ?  or guara_customers.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.customer.name } }
+      render :json => CustomerPj.includes(:customer).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.customer.name } }
     end
   end
 end

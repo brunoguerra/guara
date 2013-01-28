@@ -1,0 +1,71 @@
+# encoding: UTF-8
+
+pt-BR:
+  
+  stock:
+    title: "Estoque"
+    link: "Estoque"
+    dashboard:
+      title: "Controle de Estoque"
+      description: "Controle da movimentação dos produtos no sistema"
+      
+    widget:
+      overview:
+
+        title: "Últimos 30 dias"
+        added_products:
+          title: "Produtos Cadastrados"
+        orders:
+          in:
+            title: "Movimentações de Entrada"
+          out:
+            title: "Movimentações de Saída"
+
+        chart:
+          in:
+            title: "Entradas"
+          out:
+            title: "Saídas"
+            
+  store_categories:
+    title: "Categorias"
+    index:
+      title: "Categorias dos Produtos"
+      link: "Categorias"
+  
+  products:
+    index:
+      title: "Produtos"
+      link: "Produtos"
+    show:
+      title: "Produto"
+    new:
+      link: "Novo"
+      title: "Novo"
+    edit:
+      link: "Editar"
+      title: "Editar"
+    available_on: "Disponivel em"  
+    code: "Código"
+    categories: "Categorias"
+    description: "Descrição"
+    depth: "Profundidade"
+    enabled: "Habilitar"
+    height: "Altura"
+    name: "Nome"
+    price: "Preço"
+    primary_category: "Categorias"
+    sku: "Referência"
+    stock: "Estoque"
+    weight: "Peso"
+    width: "Largura"
+
+  orders:
+    in:
+      index:
+        title: "Compras"
+        link: "Compras"
+    out:
+      index:
+        title: "Vendas"
+        link: "Vendas"

@@ -9,7 +9,7 @@
 		<% end %>
 
 		<% if can? :list, :task %>
-			<%= link_to t("tasks.index.link"),customer_tasks_path(@customer), :class => 'new-link btn' %>
+			<%= link_to t("tasks.index.link"),	customer_tasks_path(@customer), :class => 'new-link btn' %>
 		<% end %>
 	 	
 		<div class="form modal hide fade" style="display:none">

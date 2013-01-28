@@ -1,10 +1,10 @@
 module Guara
   class Contact < ActiveRecord::Base
     attr_accessible :name, :birthday, :business_function, :department, :department_id,
-                    :phone, :cell, :customer, :emails
+                    :phone, :cell, :customer, :emails, :emails_attributes
   
     #=========================== associations <--------------------------------------------
-    belongs_to :customer
+    belongs_to :customer, :foreign_key => "person_id"
     belongs_to :department, class_name: "BusinessDepartment"
     has_many :emails, :as => :emailable, dependent: :destroy
 
@@ -14,31 +14,13 @@ module Guara
 
     #=========================== validations <--------------------------------------------
     validates :name, :presence => true, length: { maximum: 150 }
-    validates :customer_id, :presence => true
-    validates_uniqueness_of :name, :scope => [:customer_id, :business_function]
+    validates :person_id, :presence => true
+    validates_uniqueness_of :name, :scope => [:person_id, :business_function]
 
+    #=========================== scopes <--------------------------------------------
+    default_scope :order => :name
+    
     #=========================== search <--------------------------------------------  
-  
-    def self.search_by_params(results=nil, query)
-    
-      results = self.send(:relation) if results.nil?
-      where = {}
-    
-      query.each do |k,v|
-      
-        next if v.nil?
-      
-        if k=="name"
-          where.merge! 'upper(name) LIKE ?', "%#{name}%"
-        elsif self.instance_methods.include?("#{k}_id".to_sym)
-          where.merge! :"#{k}_id" => v
-        elsif self.instance_methods.include?(k.to_sym)
-          where.merge! k.to_sym => v
-        end
-      end
-    
-      results.where(where)
-    end
   
   
     def self.search_by_name(results, name)

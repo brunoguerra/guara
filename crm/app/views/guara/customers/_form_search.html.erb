@@ -1,6 +1,6 @@
 <div class="page-header"><%= t("customers.index.title") %></div>
 
-<%= form_for @search, :html => { :class => "well form-search", :method => :get } do |f|  %>
+<%= form_for customers_path, :html => { :class => "well form-search", :method => :get } do |f|  %>
 <% f.fields_for :person do |person_f| %>
 		<fieldset>
 		  <div class="row">
@@ -35,7 +35,7 @@
 				  <%= f.hidden_field :person_guara_customer_pj_type_activities_id_eq %>
 	            </div>
 	          </div>
-	
+
 			  <div class="control-group">
 		            <%= label_tag :district, t("helpers.label.customers.search.bairro"), :class => "control-label" %>
 	            <div class="controls">
@@ -51,15 +51,15 @@
 		          </div>
 			   <% end %>
 			<% if (mode == :advanced) then %>
-				
-				  
+
+
 				  <div class="control-group">
 		            <%= label_tag :is_customer, t("helpers.label.customers.search.is_customer"), :class => "control-label" %>
 		            <div class="controls">
 			          <%= f.check_box :is_customer_is_true %>
 		            </div>
 		          </div>
-		
+
 				  <!-- div class="control-group">
 		            <%= label_tag :type, t("helpers.label.customers.search.type"), :class => "control-label" %>
 		            <div class="controls">
@@ -81,21 +81,21 @@
 			          <%= f.check_box :enabled_is_false %>
 		            </div>
 		          </div>
-				  
+
 				  <div class="control-group">
 		            <%= label_tag :email, t("emails.email"), :class => "control-label" %>
 		            <div class="controls">
 			          <%= f.text_field :emails_email_contains %>
 		            </div>
 		          </div>
-		
+
 				  <div class="control-group">
 		            <%= label_tag :doc, t("customers.doc"), :class => "control-label" %>
 		            <div class="controls">
 			          <%= f.text_field :doc_equals %>
 		            </div>
 		          </div>
-				
+
 			<% end %>
 				<div class="form-actions span3">
 					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>

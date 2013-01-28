@@ -324,7 +324,7 @@ fieldset.actions {
 /*NOVAS FORMATAÇÕES*/
 
 
-.controls input {
+ .controls input {
   height:30px;
 }
 
@@ -357,6 +357,7 @@ fieldset.actions {
     margin-left: 20px;
   }
 
+/*<<<<<<< HEAD*/
 	.contacts .side .btn-group:first-child {
 		float: left;
 		margin-right: 10px;
@@ -367,3 +368,8 @@ fieldset.actions {
 	height: 30px;
 	width: 300px;
 	}
+/*=======*/
+  input[type="text"].search-query{
+    height: 30px;
+  }
+/*>>>>>>> upstream/master*/

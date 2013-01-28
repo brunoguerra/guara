@@ -33,6 +33,11 @@
           </div>
 
 		  <div class="control-group">
+        <%= show_label_tag t('contacts.emails') %>
+				<%= concat_emails(@contact.emails) %>
+      </div>
+
+		  <div class="control-group">
             <%= show_label_tag t('contacts.phone') %>
 			<%= @contact.phone %>
           </div>

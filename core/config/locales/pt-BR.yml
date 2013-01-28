@@ -14,6 +14,8 @@ pt-BR:
       small: "CMGB - CRM"
   
   #MODULES <=================================
+  user_groups:
+    title: "Grupos"
   home:
     link: "Painel Pricipal"
     feed: "Mensagens"
@@ -65,7 +67,7 @@ pt-BR:
     district: "Bairro"
     city: "Cidade"
     state: "Estado"
-    emails: "e-mails"
+    emails: "E-mails"
     notes: "Notas"
     phone: "Fone"
     fax: fax
@@ -112,7 +114,8 @@ pt-BR:
       title: "Exibindo Contato"
     search:
         title: "Filtro Contatos"
-    emails: "Emails"    
+    all: "Todos os Contatos"
+    emails: "E-mails"
 
   searches:
       advanced: "Avançado"
@@ -251,11 +254,11 @@ pt-BR:
   
   business_departments:
     link: "Setores"
-    title: "Setor/Departamento"
+    title: "Setores das Empresas"
   
   task_types:
-    link: "Tipos de Tarefas"
-    title: "Tipos de Tarefas"
+    link: "Atividades"
+    title: "Atividades"
   
   #SECTIONS <===================================
   
@@ -374,6 +377,7 @@ pt-BR:
       destroy: "Apagar"
       disable: "Desabilitar"
       new_sucess: "Cadastrado com Sucesso"
+      edit_sucess: "Atualizado com Sucesso"
       actions: "Ações"
       errors: "O cadastro possui "
       error: "erro"
