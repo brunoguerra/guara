@@ -100,6 +100,16 @@ module Guara
         end
       end
     end
+
+    def destroy
+      @task.destroy
+
+      respond_to do |format|
+        format.html { redirect_to customer_path(@customer) }
+        format.json { head :ok }
+      end
+
+    end
   
   end
 end
