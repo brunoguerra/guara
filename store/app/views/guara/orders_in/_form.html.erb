@@ -25,10 +25,11 @@
 							:product => {
 								:collection => Guara::Product.all,
 								:class => "span2",
+								:label => t('orders.products.title'), 
 							},
-							:total => { :class => "span2", },
-							:price => { :class => "span2", },
-							:price_total => { },
+							:total => { :class => "span2", :label => t('orders.products.total.title')},
+							:price => { :id => "campoPrice", :label => t('orders.products.price.title')},
+							:price_total => { :label => t('orders.products.price_total.title')},
 
 						} 
 				} %>
@@ -37,3 +38,18 @@
   <%= f.submit class: "btn btn-large btn-primary" %>
 </fieldset>	
 <% end %>
+
+
+<script>
+
+	jQuery(function($){
+
+	       $("#campoPrice").mask("R$ ");
+
+	       $("#campoTelefone").mask("(999) 999-9999");
+
+	       $("#campoSenha").mask("***-****");
+
+	});
+
+</script>
