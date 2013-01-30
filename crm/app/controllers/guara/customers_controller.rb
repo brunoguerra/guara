@@ -17,7 +17,16 @@ module Guara
       #@query = Customer.search(params[:search])
       #@search = @query.result
       
-      @search = Customer.search(params[:search])
+      param_search = params[:search]
+      
+      if !param_search.nil? && param_search.size>0 
+        param_search[:person_guara_customer_pj_type_activities_business_segment_id_in].delete ''  if (param_search[:person_guara_customer_pj_type_activities_business_segment_id_in][0].empty?)
+        param_search.delete :person_guara_customer_pj_type_activities_business_segment_id_in      if param_search[:person_guara_customer_pj_type_activities_business_segment_id_in].size==0
+        param_search[:person_guara_customer_pj_type_activities_id_in].delete ''                   if (param_search[:person_guara_customer_pj_type_activities_id_in][0].empty?)
+        param_search.delete :person_guara_customer_pj_type_activities_id_in                       if param_search[:person_guara_customer_pj_type_activities_id_in].size==0      
+      end
+      
+      @search = Customer.search(param_search)
       
       #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
       if class_exists?("Ransack")
