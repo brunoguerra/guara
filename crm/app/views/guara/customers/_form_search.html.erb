@@ -1,6 +1,8 @@
+<%= javascript_include_tag "select2/select2.min" %>
+<%= stylesheet_link_tag "select2/select2.css" %>
 <div class="page-header"><%= t("customers.index.title") %></div>
 
-<%= form_for customers_path, :html => { :class => "well form-search", :method => :get } do |f|  %>
+<%= form_for @search, :html => { :class => "well form-search", :method => :get } do |f|  %>
 <% f.fields_for :person do |person_f| %>
 		<fieldset>
 		  <div class="row">
@@ -15,24 +17,29 @@
 			  <div class="control-group">
 	            <%= label_tag :segment, t("helpers.label.customers.search.segment"), :class => "control-label" %>
 	            <div class="controls">
-		          <%= autocomplete_field_tag :segment_autocomplete,
-		name_or_nothing(Guara::BusinessSegment.find_by_id(params[:search][:person_customer_pj_type_segments_id_eq])),
-		autocomplete_business_segment_name_customers_path,
-		:size => 75,
-		:id_element => '#search_person_guara_customer_pj_type_segments_id_eq'
+		          <%= f.select :person_guara_customer_pj_type_activities_business_segment_id_in, options_for_select([nil]) +options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:person_guara_customer_pj_type_activities_business_segment_id_in]), {}, { :multiple => true, :style => "width: 200px;", :placeholder => "segments" }
+		#:id_element => '#search_person_guara_customer_pj_type_segments_id_eq'
+		#autocomplete_business_segment_name_customers_path
+		#name_or_nothing(Guara::BusinessSegment.find_by_id(params[:search][:person_customer_pj_type_segments_id_eq]))
 		%>
-				  <%= f.hidden_field :person_guara_customer_pj_type_segments_id_eq %>
+					<script language="javascript">
+					$("#search_person_guara_customer_pj_type_activities_business_segment_id_in").select2({
+					              maximumInputLength: 10
+					            });
+					</script>
 	            </div>
 	          </div>
 
 			  <div class="control-group">
 	            <%= label_tag :activity, t("helpers.label.customers.search.activity"), :class => "control-label" %>
 	            <div class="controls">
-		          <%= autocomplete_field_tag :activity_autocomplete, name_or_nothing(Guara::BusinessActivity.find_by_id(params[:search][:person_customer_pj_type_activities_id_eq])), 
-		autocomplete_business_activity_name_customers_path,
-		:size => 75,
-		:id_element => '#search_person_guara_customer_pj_type_activities_id_eq' %>
-				  <%= f.hidden_field :person_guara_customer_pj_type_activities_id_eq %>
+		          <%= f.select :person_guara_customer_pj_type_activities_id_in, options_for_select([nil]) + options_from_collection_for_select(Guara::BusinessActivity.all, :id, :name, params[:search][:person_guara_customer_pj_type_activities_id_in]), {}, { :multiple => true, :style => "width: 200px;", :placeholder => "segments"  } %>
+							<script language="javascript">
+							$("#search_person_guara_customer_pj_type_activities_id_in").select2({
+							              maximumInputLength: 10
+							            });
+							</script>
+		
 	            </div>
 	          </div>
 
