@@ -23,10 +23,6 @@ module Guara
       end
     end
   
-    def show_label_tag(label)
-      label_tag label, label+":", :class => "strong"
-    end
-  
     def inline_namedlist(list)
        list.all.collect {|item| "#{item.name}" }.join ", "
     end

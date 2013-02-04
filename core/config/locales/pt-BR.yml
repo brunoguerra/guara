@@ -387,7 +387,7 @@ pt-BR:
         search:
           <<: *attr_customer
           <<: *attr_customer_pj
-          names: "Nome: (Razão social, Nome Fantasia)"
+          names: "Nome Fantasia/Razão Social:"
           type: "Tipo"
           type_fisica: "Física"
           type_juridica: "Jurídica"
