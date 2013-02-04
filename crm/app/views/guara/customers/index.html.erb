@@ -3,44 +3,54 @@
 <%= render :partial => "navbar", :locals => { :active => :search } %>
 
 
-<div class="row">
-	<div class="span9 search_fast9">
-		<section id="index">
-		  <div class="page-header">
-			<%= t("search.results")%>
-		  </div>
+<div class="row container">
 
-		  <table class="table table-bordered table-striped">
-		    <thead>
-		      <tr>
-		        <th><%= t("search.select") %></th>
-		        <th><%= t("customers.code") %></th>
-		        <th><%= t("customers.names") %></th>
-		        <th><%= t("customers.a_customer") %></th>
-		        <th><%= t("customers.enabled") %></th>
-		        <th><%= t("customers.complete") %></th>
-		        <th><%= t("helpers.forms.actions") %></th>
-		      </tr>
-		    </thead>
-		    <tbody>
-			<% @customers.each do |c| %>
-		      <tr>
-		        <td><%= check_box_tag 'sels[]', c.id, @sels[c.id] %></td>
-		        <td><%= c.id %></td>
-		        <td><%= link_to c.name, customer_path(c)  %></td>
-		        <td><span class="badge <%= c.a_customer? ? "badge-success" : "badge-important" %>"><%= format_boolean c.a_customer? %></td>
-		        <td><span class="badge <%= c.enabled ? "badge-success" : "badge-important" %>"><%= format_boolean c.enabled %></span></td>
-		        <td><span class="badge <%= c.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean c.complete %></span></td>
-		        <td><%= link_to t("helpers.forms.show"), customer_path(c), :class => "btn" %></td>
-		      </tr>
-		    <% end %>
-
-		    </tbody>
-		  </table>
-		</section>
-	</div>
-	<div class="span3 search_fast3">
+	<div class="container">
 		<%= render :partial => "form_search", :locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } %>
 	</div>
+	
+	<div class="container">
+		<section id="index">
+			<div class="page-header">
+				<%= t("search.results")%>
+			</div>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th><i class="icon-check" title="selecione"></i></th>
+						<th><%= t("customers.code") %></th>
+						<th><%= t("customers.name") %></th>
+						<th><i class="icon-user" title="é cliente?"></i></th>
+						<th><i class="icon-ok" title="cliente ativo?"></i></th>
+						<th><i class="icon-file" title="cadastro completo?"></i></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @customers.each do |c| %>
+					<tr>
+						<td><%= check_box_tag 'sels[]', c.id, @sels[c.id] %></td>
+						<td><%= c.id %></td>
+						<td id="name_customer_table"><%= link_to c.name, customer_path(c)  %></td>
+
+						<td><span class="badge <%= c.a_customer? ? "badge-success" : "badge-important" %>"><%= format_boolean c.a_customer? %></td>
+
+						<td><span class="badge <%= c.enabled ? "badge-success" : "badge-important" %>"><%= format_boolean c.enabled %></span></td>
+
+						<td><span class="badge <%= c.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean c.complete %></span></td>
+
+						<td>
+							<%= index_btn_view customer_path(c), "Exibir Cliente" %> 
+						</td>
+
+					</tr>
+					<% end %>
+
+				</tbody>
+			</table>
+		</section>
+	</div>
+	
 	<%= will_paginate %>
 </div>

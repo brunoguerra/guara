@@ -1,0 +1,20 @@
+<!-- Modal Apagar-->
+<div id="modal-confirm" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">{TITLE}</h3>
+  </div>
+  <div class="modal-body">
+    <p>{{VALUE}}</p>
+  </div>
+  <div class="modal-footer">
+
+    <% if (:destroy) then %>
+      <%= link_to t('helpers.forms.destroy'), controller_path, method: :delete, :class => 'btn btn-danger'  %>
+    <% end %>
+    
+    <a id="modal-cancel" href="javascript:void(0);" class="btn secondary">Cancelar</a>
+
+  </div>
+</div>
+<!-- Modal Apagar-->

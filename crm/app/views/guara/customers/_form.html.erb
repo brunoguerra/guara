@@ -135,7 +135,7 @@
 		<div class="span8">
 			<div class="form-actions">
 			<%= f.submit :class => "btn btn-primary" %>
-            <button type="reset" class="btn"><%= t("helpers.forms.cancel") %></button>
+            <%= link_to t('helpers.forms.cancel'), customer_path(), :class => "btn" %>
           </div>
 		</div>
 	  </div>

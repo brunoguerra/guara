@@ -31,7 +31,7 @@ pt-BR:
     district: "Bairro"
     city: "Cidade"
     state: "Estado"
-    emails: "e-mails"
+    emails: "E-mails"
     notes: "Notas"
     phone: "Fone"
     fax: fax
@@ -91,6 +91,7 @@ pt-BR:
     total_employes: "Total de Funcionários"
     segments: "Segmentos"
     activities: "Atividades"
+    associated: "Associados"
   activities:
     title: "Atividades"
     link: "Atividades" 
@@ -194,7 +195,7 @@ pt-BR:
         search:
           <<: *attr_customer
           <<: *attr_customer_pj
-          names: "Nome: (Razão social, Nome Fantasia)"
+          names: "Nome Fantasia/Razão Social"
           type: "Tipo"
           type_fisica: "Física"
           type_juridica: "Jurídica"

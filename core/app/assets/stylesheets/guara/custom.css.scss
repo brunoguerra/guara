@@ -324,7 +324,7 @@ fieldset.actions {
 /*NOVAS FORMATAÇÕES*/
 
 
- .controls input {
+.controls input {
   height:30px;
 }
 
@@ -337,22 +337,52 @@ fieldset.actions {
   margin-bottom: 0;
 }
 
- .modules + legend {
+.modules + legend {
   border-bottom: none;
   text-transform: uppercase;
 }
 
-  legend small {
-    font-size: 22px;
-    color: #999;
-    border-bottom: none;
-  }
+legend small {
+  font-size: 22px;
+  color: #999;
+  border-bottom: none;
+}
 
-  .row .controls > .checkbox:first-child {
-    padding-top: 5px;
-    margin-left: 20px;
-  }
+.row .controls > .checkbox:first-child {
+  padding-top: 5px;
+  margin-left: 20px;
+}
 
-  input[type="text"].search-query{
-    height: 30px;
-  }
+input[type="text"].search-query{
+  height: 30px;
+}
+
+table thead tr th, table tbody tr td{
+  text-align: center !important;
+}
+
+table tbody tr #name_customer_table{
+  text-align: left !important;
+  
+}
+
+.box-gray-data{
+background-color: #EBF2F2;
+padding-left: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+margin-top: 5px ;
+margin-bottom: 5px ;
+margin-left: 10px;
+}
+
+.show .thumbnails .container .thumbnail{
+overflow: hidden;
+}
+
+.show .thumbnails .container .thumbnail .span7{
+
+}
+
+

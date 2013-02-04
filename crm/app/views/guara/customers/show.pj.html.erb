@@ -3,153 +3,154 @@
 	<%= render :partial => "navbar", :locals => { :active => :view } %>
 	<%= render :partial => "modules", :locals => { :active => :general} %>
 	<ul class="thumbnails">
-      <li class="span7">
-        <div class="thumbnail">
-          <div class="caption">
 
-			<%= render partial: "businesses_done" %>
+		<li class="container">
+			<div class="thumbnail">
 
-			  <div class="row">
+				<%= render partial: "businesses_done" %>
+
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customers.phone") %></b>
+						</br><%= nbsp @customer.phone %>
+					</p>
+				</div>
+
+
+				<div class="span3 box-gray-data">					
+					<p>
+						<b><%=  t('customers.cnpj') %></b>
+						</br><%= @customer.doc %>
+					</p>
+				</div>
+
+				<div class="span3 box-gray-data">					
+					<p>
+						<b><%=  t("customer_#{@customer.person.prefix}s.doc_rg") %></b>
+						</br><%= nbsp @customer.doc_rg %>
+					</p>
+				</div>
+				
+				<div class="span1 box-gray-data">					
+					<p>
+						<b><%= t('custumer.id') %></b>
+						</br><%= @customer.id %>
+					</p>
+				</div>
+
+				<div class="span7 box-gray-data">					
+					<p>
+						<b><%=  t("customers.address") %></b>
+						</br><%= nbsp @customer.format_address %>
+					</p>
+				</div>
+
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customers.emails") %></b>
+						</br><%= nbsp inline_list @customer.emails, :email %>
+					</p>
+				</div>
+
+				<div class="span7 box-gray-data">					
+					<p>
+						<b><%=  t("customer.site") %></b>
+						</br><%= nbsp @customer.site %>
+					</p>
+				</div>
+
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customers.social_link") %></b>
+						</br><%= nbsp @customer.social_link %>
+					</p>
+				</div>
+				
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customer_pjs.segments") %></b>
+						</br><%= nbsp inline_list @customer.person.segments, :name %>
+					</p>
+				</div>
+
+				<div class="span3 box-gray-data">					
+					<p>
+						<b><%=  t("customer_pjs.activities") %></b>
+						</br><%= nbsp inline_list @customer.person.activities, :name %>
+					</p>
+				</div>
+
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customer_pjs.total_employes") %></b>
+						</br><%= nbsp @customer.person.total_employes %>
+					</p>
+				</div>
+
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customers.complete") %></b>
+						<span class="badge <%= @customer.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean @customer.complete %></span>
+					</p>
+				</div>
+
+				<div class="dl-horizontal span3 box-gray-data" id="notes">
+					<p>
+						<b><%=  t("customer.notes") %></b>
+					
+						<div id="complete">
+							<%= simple_format(@customer.notes) %>
+						</div>
+						<%= nbsp simple_format(index_notes(@customer.notes)) %>
+				</div>
+
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customer_pjs.associated") %></b>
+						</br>
+						<ul class="span3">
+							<% @customer.person.associateds.each do |pj_assoc| %>
+							<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+							<% end %>
+
+							<% @customer.person.associates.each do |pj_assoc| %>
+							<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+							<% end %>
+						</ul>
+					</p>
+				</div>						
+
+
 				<div class="span4">
-
-					<dl class='dl-horizontal'>
-						<dt><%= t('custumer.id') %></dt>
-						<dd><%= @customer.id %></dd>
-					</dl>
-
-				  <dl class="dl-horizontal">					
-            <dt><%=  t('customers.cnpj') %></dt>
-				    <dd><%= @customer.doc %></dd>
-          </dl>
-
-				  <dl class="dl-horizontal">
-            <dt><%=  t("customer_#{@customer.person.prefix}s.doc_rg") %></dt>
-            <dd><%= nbsp @customer.doc_rg %></dd>	
-          </dl>
- 
-				  <dl class="dl-horizontal">
-            <dt><%=  t("customers.social_link") %></dt>
-		        <dd><%= nbsp @customer.social_link %></dd>
-          </dl>
-
-					<dl class="dl-horizontal">
-            <dt><%=  t("customers.emails") %></dt>
-	          <dd>
-		        <%= nbsp inline_list @customer.emails, :email %>
-	          </dd>
-	        </dl>
+					<div class="form-actions">
+						<% if can? :update, @customer  %>
+						<%= link_to t("helpers.forms.edit"), edit_customer_path(@customer), :class => "btn btn-primary" %>
+						<% end %>
+					</div>
 				</div>
-
-				<div class="span2 column2">
-					<dl>
-            <dt><%=  t("customers.complete") %></dt>
-		        <dd><span class="badge <%= @customer.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean @customer.complete %></span></dd>
-	        </dl>
-
-					<dl>
-           	<dt><%=  t("customers.phone") %></dt>
-            <dd>
-	          <%= nbsp @customer.phone %>
-            </dd>
-	        </dl>
-				</div>
-
-				<div class="span6">
-					<dl class="dl-horizontal">
-			            <dt><%=  t("customer.site") %></dt>
-			            <dd>
-				          <%= nbsp @customer.site %>
-			            </dd>
-			        </dl>
-
-					<dl class="dl-horizontal">
-			            <dt><%=  t("customers.address") %></dt>
-						<dd>
-				          <%= nbsp @customer.format_address %>
-						</dd>
-			          </dl>
-
-					  <dl class="dl-horizontal" id="notes">
-			            <dt><%=  t("customer.notes") %></dt>
-						<dd>
-							<div id="complete">
-								<%= simple_format(@customer.notes) %>
-							</div>
-		        	<%= nbsp simple_format(index_notes(@customer.notes)) %>
-
-						</dd>
-			          </dl>
-
-					  <dl class="dl-horizontal">
-			            <dt><%=  t("customer_pjs.total_employes") %></dt>
-			            <dd>
-				          <%= nbsp @customer.person.total_employes %>
-			            </dd>
-			          </dl>
-
-						<dl class="dl-horizontal">
-				            <dt><%=  t("customer_pjs.segments") %></dt>
-				            <dd>
-					          <%= nbsp inline_list @customer.person.segments, :name %>
-				            </dd>
-				        </dl>
-
-						<dl class="dl-horizontal">
-				            <dt><%=  t("customer_pjs.activities") %></dt>
-				            <dd>
-					          <%= nbsp inline_list @customer.person.activities, :name %>
-				            </dd>
-				        </dl>
-
-						<dl class="dl-horizontal">
-				            <dt><%=  t("customer_pjs.associateds") %></dt>
-				            <dd>
-							  <ul>
-					          <% @customer.person.associateds.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
-							 <% end %>
-
-					          <% @customer.person.associates.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
-							 <% end %>
-							  </ul>
-
-				            </dd>
-				        </dl>	
-				</div>
-
-
-
-				<div class="span6">
-				  <div class="form-actions">
-					<% if can? :update, @customer  %>
-					<%= link_to t("helpers.forms.edit"), edit_customer_path(@customer), :class => "btn btn-primary" %>
+				
+			</div>
+		</li>
+		
+		<li class="container">
+			<div class="thumbnail contacts">
+				<div class="caption">
+					<legend><%=t("contacts.side.title") %></legend>
+					<%= render :partial => "guara/contacts/list_contacts" %>
+					<% if can? :create, :contact  %>
+						<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
 					<% end %>
-		          </div>
 				</div>
-
-			  </div>
-
-	      </div>
-	    </div>
-	  </li>
-      <li class="span5">
-        <div class="thumbnail contacts">
-          <div class="caption">
-			  <legend><%=t("contacts.side.title") %></legend>
-				<%= render :partial => "guara/contacts/side_panel" %>
-		  </div>
-		</div>
-	  </li>
-
-      <li class="span5">
-        <div class="thumbnail tasks">
-          <div class="caption">
-			  <legend><%=t("tasks.side.title") %></legend>
-			  <%= render :partial => "guara/tasks/side_panel" %>
-		  </div>
-		</div>
-	  </li>
+			</div>
+		</li>
+		<li class="container">
+			<div class="thumbnail contacts">
+				<div class="caption">
+					<legend><%=t("tasks.side.title") %></legend>
+					<%= render :partial => "guara/tasks/side_panel" %>
+				</div>
+			</div>
+		</li>
 
 	</ul>
 

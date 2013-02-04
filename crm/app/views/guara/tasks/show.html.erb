@@ -1,3 +1,6 @@
+
+<%= render :partial => "shared/guara/modal_delete", :locals => {:controller_path => "#{customer_task_path(@customer)}"}%>
+
 <% if not @no_layout %>
 <%= render :partial => "header" %>
 <% end %>
@@ -63,4 +66,64 @@
 </section>
 
 <%= link_to t('helpers.forms.edit'), edit_customer_task_path(@customer, @task) %> |
-<%= link_to t('helpers.forms.back'), customer_tasks_path(@customer) %>
+<%= link_to t('helpers.forms.back'), customer_tasks_path(@customer) %> |
+<%= link_to t("helpers.forms.destroy"),
+                      "javascript:void(0);",
+                      :method => :delete,
+                      :dataurl => customer_task_path(@customer),
+                      :modal_message => "Você realmente quer apagar esta tarefa?</b>",
+                      :class => 'delete-confirm' %>
+
+<script type="text/javascript">
+  
+  var d = $("#modal-confirm");
+  $.fn.extend({
+    center: function () {
+      return this.each(function() {
+        var top = ($(window).height() - $(this).outerHeight()) / 2;
+        var left = ($(window).width() - $(this).outerWidth()) / 2;
+        $(this).css({position:'absolute', margin:0, top: (top > 0 ? top : 0)+'px', left: (left > 0 ? left : 0)+'px'});
+      });
+    }
+  });
+
+  $("#modal-confirm").toggle(false);
+  $("#modal-confirm #modal-cancel, #modal-confirm a.close").click(function (e) {
+    d.modal('toggle');
+    return true;
+  });
+
+  $("#modal-confirm #modal-accept").click(function (e) {
+    d.modal('toggle');
+    return true;
+  });
+
+  $('.delete-confirm').click(function(e) {
+    e.preventDefault();
+    d.modal('toggle');
+
+    var me  = $($(this)[0]),
+    url   = '#',
+    title   = 'Confirmação',
+    message = '';
+
+    if(me.attr('data_url')){
+      url = me.attr('dataurl');
+    }
+
+    if(me.attr('modal_title')){
+      title = me.attr('modal_title');
+    }
+
+    if(me.attr('modal_message')){
+      message = me.attr('modal_message');
+    }
+
+    $('#modal-accept').attr('href', url);
+    
+    $("#myModalLabel").html(title);
+    var msg = $($("#modal-confirm div.modal-body p"));
+    msg.html(message);
+  });
+
+</script>

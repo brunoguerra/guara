@@ -3,36 +3,48 @@
 <%= render :partial => "header" %>
 
 
-<div class="row">
-	<div class="span12">
-	  <%= form_for [@customer, @search], :html => { :class => "well form-search" }, :method => :get, :name => :search do |f| %>
+<div class="container">
+	<div class="caption">
+		<%= form_for [@customer, @search], :html => { :class => "well form-search" }, :method => :get, :name => :search do |f| %>
 		<fieldset>
-		  <legend><%= t("contacts.search.title") %></legend>
-		  <div class="row">
-			<div class="span4">
-			
-			  <div class="control-group">
-	            <%= f.label :name, t("contacts.name"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= f.text_field :name_contains %>
-	            </div>
-	          </div>
-				
-			</div>
-			
-			<div class="span8">
-				<div class="form-actions">
-					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+			<legend><%= t("contacts.search.title") %></legend>
+			<div class="row">
+				<div class="span4">
+
+					<div class="control-group">
+						<%= f.label :name, t("contacts.name"), :class => "control-label" %>
+						<div class="controls">
+							<%= f.text_field :name_contains %>
+						</div>
+					</div>
+
 				</div>
+
+				<div class="span8">
+					<div class="form-actions">
+						<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+					</div>
+				</div>
+
 			</div>
-			
-		  </div>
 		</fieldset>
-	  <% end %>
+		<% end %>
 	</div>
 </div>
 
-<%= render :partial => "list_contacts" %>
 
-<%= link_to t('helpers.forms.new')+' '+t('activerecord.models.contact'), new_customer_contact_path(params[:customer_id]), :class => "btn" %>
+<div class="container">
+	<div class="thumbnail contacts">
+		<div class="caption">
+			<legend><%=t("contacts.side.title") %></legend>
+			<%= render :partial => "guara/contacts/list_contacts" %>
+			<%= link_to t('helpers.forms.new')+' '+t('activerecord.models.contact'), new_customer_contact_path(params[:customer_id]), :class => "btn btn-primary" %>
+		</div>
+
+	</div>
+</div>
+
+
+
+
 

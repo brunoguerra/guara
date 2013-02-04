@@ -13,9 +13,8 @@
 						
 						<%= build_menu_admin() %>
 
-						<% if signed_in? and current_user.admin? %>
-						<li><%= link_to t("administration.link"), users_path %></li>
-						<% end %>
+						<!-- BUG? link Painel Administrativo duplicado - LINK REMOVIDO -->
+						
 
 						<div class="btn-group pull-right">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

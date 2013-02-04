@@ -1,3 +1,7 @@
+
+<!-- RENDER para o botão deletar contato-->
+<%= render :partial => "shared/guara/modal_delete", :locals => {:controller_path => "#{customer_contacts_path(@contact)}"} %>
+
 <% if @json %>
 <%= render :partial => "header" %>
 <% end %>
@@ -54,4 +58,10 @@
 </section>
 <% if @json then @new_target = { target: 'new' } end %>
 <%= link_to t('helpers.forms.edit'), edit_customer_contact_path(@contact.customer, @contact), @new_target %> |
-<%= link_to t('helpers.forms.back'), customer_contacts_path(@contact.customer), @new_target %>
+<%= link_to t('helpers.forms.back'), customer_contacts_path(@contact.customer), @new_target %> | 
+<%= link_to t("helpers.forms.destroy"),
+                      "javascript:void(0);",
+                      :method => :delete,
+                      :dataurl => customer_contact_path(@contact),
+                      :modal_message => "Você realmente quer apagar este contato?</b>",
+                      :class => 'delete-confirm' %>

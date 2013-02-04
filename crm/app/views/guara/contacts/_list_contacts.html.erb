@@ -1,8 +1,6 @@
 <% if @contacts %>
 <section id="buttons">
   
-  <legend><%= t("search.results")%></legend>
-  
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -11,8 +9,8 @@
         <th><%= t("contacts.business_function") %></th>
         <th><%= t("contacts.phone") %></th>
         <th><%= t("contacts.cell") %></th>
-        <th><%= t("contacts.emails") %></th>
-        <th><%= t("helpers.forms.actions") %></th>
+        <th><%= t("contacts.email") %></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -24,8 +22,10 @@
       <td><%= contact.phone %></td>
       <td><%= contact.cell %></td>
       <td><%= concat_emails(contact.emails) %></td>
-      <td></td>
-      <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
+      
+      <td>
+        <%= index_btn_view [contact.customer, contact], "Exibir Contato" %>
+      </td>
       </tr>
     <% end %>
     </tbody>
@@ -35,4 +35,5 @@
 <% end %>
 
 <br />
+
 
