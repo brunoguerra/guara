@@ -24,7 +24,7 @@ class GuaraCrm < ActiveRecord::Migration
       
       t.boolean :enabled, :default => true
       
-      t.references :person, :polymorphic => true
+      t.references :customer, :polymorphic => true
       
       t.boolean :complete      
       t.float	:annual_revenue

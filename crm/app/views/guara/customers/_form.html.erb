@@ -1,5 +1,5 @@
 <%= semantic_form_for @customer, :html => {:class => "well"}  do |f| %>
-<%= f.semantic_fields_for @customer.person do |person_f| %>
+<%= f.semantic_fields_for @customer.customer do |person_f| %>
 <%= render 'shared/guara/error_messages', object: f.object %>
 	<fieldset>
 	  <legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
@@ -58,30 +58,12 @@
 
 		</div>
 		
-		<div class="span3 column2">
-			  <div class="control-group">
-	            <%= person_f.label :segments, :class => "control-label" %>
-	            <div class="controls">
-		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
-					<%= render :partial => 'shared/guara/multi_selection', 
-					:locals => { 
-						:form => person_f, 
-						:values => @person.segments, 
-						:autocomplete => multiselect_business_segments_customers_path, 
-						:form_field => :segments, 
-						:field_show => :name, 
-						:field_store => :id, 
-						:width => 220
-					} %>
-	            </div>
-	          </div>
-	
-	
+		<div class="span3 column2">	
 			  <div class="control-group">
 	            <%= person_f.label :activities, :class => "control-label" %>
 	            <div class="controls">
 		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
-					<%= render :partial => 'shared/guara/multi_selection', 
+					<% render :partial => 'shared/guara/multi_selection', 
 					:locals => { 
 						:form => person_f, 
 						:values => @person.activities, 
@@ -91,6 +73,20 @@
 						:field_store => :id, 
 						:width => 220 
 					} %>
+					
+					          <%= select_tag :activities,
+																	options_for_select( 
+																											Guara::BusinessActivity.joins(:business_segment).all.map do |a|
+																												[[(a.business_segment || Guara::BusinessSegment.first).name ,a.name].join(": "), a.id]
+																											end,
+																											params[:activities] || @person.activities.map { |a| a.id }
+																										), 
+																	{ :multiple => true, 
+																		:style => "width: 200px;", 
+																		:placeholder => t("customer_pjs.segments"), 
+																		:class => "multiselect" 
+																	}
+					%>
 	            </div>
 	          </div>
 					

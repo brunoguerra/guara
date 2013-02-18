@@ -4,7 +4,7 @@ module Guara
   
     attr_protected
   
-    has_one	:customer	, :as => :person
+    has_one	:person	, :as => :customer
     belongs_to	:company	, class_name: "Customer"
     has_many	:history_pfs
   

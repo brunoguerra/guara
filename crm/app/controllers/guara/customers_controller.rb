@@ -20,10 +20,8 @@ module Guara
       param_search = params[:search]
       
       if !param_search.nil? && param_search.size>0 
-        param_search[:person_guara_customer_pj_type_activities_business_segment_id_in].delete ''  if (param_search[:person_guara_customer_pj_type_activities_business_segment_id_in][0].empty?)
-        param_search.delete :person_guara_customer_pj_type_activities_business_segment_id_in      if param_search[:person_guara_customer_pj_type_activities_business_segment_id_in].size==0
-        param_search[:person_guara_customer_pj_type_activities_id_in].delete ''                   if (param_search[:person_guara_customer_pj_type_activities_id_in][0].empty?)
-        param_search.delete :person_guara_customer_pj_type_activities_id_in                       if param_search[:person_guara_customer_pj_type_activities_id_in].size==0      
+        filter_multiselect param_search, :customer_guara_customer_pj_type_activities_business_segment_id_in
+        filter_multiselect param_search, :customer_guara_customer_pj_type_activities_id_in
       end
       
       @search = Customer.search(param_search)
@@ -36,6 +34,14 @@ module Guara
       end
       params[:search] = {} if params[:search].nil?
     end
+    
+    def filter_multiselect param_search, param
+      param_search[param].delete ''  if (param_search.include? param) && (param_search[param][0].empty?)
+      if (param_search.include? param) && 
+         (param_search[param].size==0)
+        param_search.delete param
+      end
+    end
   
     def show
       @task = @customer.tasks.build
@@ -45,7 +51,7 @@ module Guara
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
-      render "show."+@customer.person.prefix
+      render "show."+@customer.customer.prefix
     end
   
     def disable
@@ -54,45 +60,55 @@ module Guara
   
     def new
       @person = CustomerPj.new
-      @customer.person = @person
+      @customer.customer = @person
       @segments = BusinessSegment.all
       render "new."+preferences_customer_type?.to_s
     end
   
-    def update_advanced_fields    
-      @person.segments = params[:segments_select] ? params[:segments_select].collect { |bsid| BusinessSegment.find bsid }.uniq : []
-      @person.activities = params[:activities_select] ? params[:activities_select].collect { |baid| BusinessActivity.find baid }.uniq : []
-    
+    def update_advanced_fields
+                    
+      #@person.segments = params[:segments_select] ? params[:segments_select].collect { |bsid| BusinessSegment.find bsid }.uniq : []
+      activities = params[:activities] ? params[:activities].collect { |baid| BusinessActivity.find_by_id baid }.uniq : []
+      activities.delete nil
+      @person.activities = activities
+      
       @person.associateds = params[:associateds_select] ? params[:associateds_select].collect { |assoc| CustomerPj.find assoc }.uniq : []    
     end
-  
+    
     def create
       if (params[:customer]==nil)
         return
       end
-    
+      
       @customer = Guara::Customer.new(params[:customer])
-      @person = Guara::CustomerPj.new(params[:customer_pj])
-
+      @customer.customer = Guara::CustomerPj.new(params[:customer_pj])
+      @person = @customer.customer
+      
       update_advanced_fields
-
-      @customer.person = @person
     
-      if @customer.save && @person.save
-        raise "Error, person is nil" if (@customer.person==nil)
-        @customer.person = @person
-        @customer.person_id = @person.id
-        @customer.save
-        @person.save
-
-        puts " inspect #{@customer.inspect}"
-        Rails.logger.debug "inspect #{@customer.inspect}"
+      if save_customer
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
       else
+        valid = @customer.valid? && @person.valid?
+        Rails.logger.debug [@customer.errors.inspect, @person.errors.inspect].to_s
         authorize! :new, @customer, 'new.'+preferences_customer_type?.to_s
         render 'new.'+preferences_customer_type?.to_s
       end
+    end
+    
+    def save_customer
+      res = false
+      Guara::Customer.transaction do
+        debugger
+        raise ActiveRecord::Rollback if !@person.save
+        @customer.customer = @person
+        raise ActiveRecord::Rollback if !@customer.save
+        @customer.update_attribute :customer_id, @person.id        
+        res = true
+      end
+      
+      res
     end
   
     def update
@@ -101,11 +117,15 @@ module Guara
       params[:customer].delete :customer_pj
     
       #@customer = Customer.find params[:id]
-      @person = @customer.person
+      @person = @customer.customer
     
       update_advanced_fields
-    
-      if @person.save && @customer.update_attributes(params[:customer]) && @person.update_attributes(params_pj)
+      
+      
+      @customer.attributes = params[:customer]
+      @person.attributes = params_pj
+      
+      if save_customer
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
       else
@@ -115,7 +135,7 @@ module Guara
   
     def edit
       @customer = Customer.find params[:id]
-      @person = @customer.person
+      @person = @customer.customer
     
       @customer.emails.build
     end

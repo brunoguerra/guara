@@ -39,6 +39,7 @@ FactoryGirl.define do
   
   factory :state, :class => Guara::State do
     name { Faker::Name.name }
+    acronym { ['CE', 'SP', 'AC', 'RO', 'RJ'].sample }
   end
     
   factory :city, :class => Guara::City do

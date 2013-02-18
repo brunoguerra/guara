@@ -1,4 +1,4 @@
-<section class="show">
+<section class="show" id="customer_show">
 
 	<%= render :partial => "navbar", :locals => { :active => :view } %>
 	<%= render :partial => "modules", :locals => { :active => :general} %>
@@ -23,7 +23,7 @@
           </dl>
 
 				  <dl class="dl-horizontal">
-            <dt><%=  t("customer_#{@customer.person.prefix}s.doc_rg") %></dt>
+            <dt><%=  t("customer_#{@customer.customer.prefix}s.doc_rg") %></dt>
             <dd><%= nbsp @customer.doc_rg %></dd>	
           </dl>
  
@@ -83,21 +83,21 @@
 					  <dl class="dl-horizontal">
 			            <dt><%=  t("customer_pjs.total_employes") %></dt>
 			            <dd>
-				          <%= nbsp @customer.person.total_employes %>
+				          <%= nbsp @customer.customer.total_employes %>
 			            </dd>
 			          </dl>
 
 						<dl class="dl-horizontal">
 				            <dt><%=  t("customer_pjs.segments") %></dt>
 				            <dd>
-					          <%= nbsp inline_list @customer.person.segments, :name %>
+					          <%= nbsp inline_list @customer.customer.segments, :name %>
 				            </dd>
 				        </dl>
 
 						<dl class="dl-horizontal">
 				            <dt><%=  t("customer_pjs.activities") %></dt>
 				            <dd>
-					          <%= nbsp inline_list @customer.person.activities, :name %>
+					          <%= nbsp inline_list @customer.customer.activities, :name %>
 				            </dd>
 				        </dl>
 
@@ -105,11 +105,11 @@
 				            <dt><%=  t("customer_pjs.associateds") %></dt>
 				            <dd>
 							  <ul>
-					          <% @customer.person.associateds.each do |pj_assoc| %>
+					          <% @customer.customer.associateds.each do |pj_assoc| %>
 								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
 							 <% end %>
 
-					          <% @customer.person.associates.each do |pj_assoc| %>
+					          <% @customer.customer.associates.each do |pj_assoc| %>
 								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
 							 <% end %>
 							  </ul>

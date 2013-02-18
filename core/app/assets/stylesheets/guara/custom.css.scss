@@ -356,3 +356,10 @@ fieldset.actions {
   input[type="text"].search-query{
     height: 30px;
   }
+
+/* select2 */
+.select2-container-multi .select2-choices .select2-search-field input {
+	margin: auto;
+	padding: auto;
+	height: 30px;	
+}

@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+module Guara
+
 describe "User pages" do
 
   subject { page }
@@ -113,4 +115,6 @@ describe "User pages" do
     end
   end
   
+end
+
 end
