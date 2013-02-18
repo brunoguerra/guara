@@ -1,0 +1,7 @@
+
+eval(File.read(File.dirname(__FILE__) + '/../common_dependencies.rb'))
+
+gem 'guara_core', :path => "../core/"
+gem 'guara_crm', :path => "../crm/"
+
+gemspec

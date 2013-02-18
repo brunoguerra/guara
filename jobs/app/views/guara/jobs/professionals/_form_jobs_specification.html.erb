@@ -1,0 +1,11 @@
+
+
+<%= semantic_form_for @professional, 
+:url => @professional.new_record? ? new_customer_professional_path(@customer) : customer_professional_path(@customer, @professional), 
+:html => {:class => "well"}  do |f| %>
+
+
+ <%= f.input :name %>
+
+
+<% end %>

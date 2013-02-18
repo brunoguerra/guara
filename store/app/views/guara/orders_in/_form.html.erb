@@ -1,0 +1,39 @@
+<%= semantic_form_for @order, :url => orders_in_index_path(), :method => @order.new_record? ? :post : :put  do |f| %>
+	
+<fieldset>
+  <legend><%= @order.new_record? ? t("orders.in.new.title") : t("order.in.edit.title") %></legend>
+
+	<div class="row well row_orders_in">
+	  <div class="span5 ">	    
+	   
+	    <%= f.input :person, :label => t("orders.supplier.title"), :as => :select, :collection => Guara::Supplier.all %>
+	 
+	    <%= f.input :date_init, :label => t("orders.date_init.title"), :as => :string, :input_html => { 'data-behaviour' => 'datetimepicker' } %>
+
+	   </div> <!-- FIM SPAN -->
+	</div><!-- FIM ROW -->
+
+
+	<div class="thumbnail ">
+			<legend><small><%= t("orders.products.title") %></small></legend>
+			  <%= render :partial => 'active_extend/one_to_many_inputs', 
+					:locals => { 
+						:values => @order.items, 
+						:form => f, 
+						:target => :items, 
+						:inputs => { 
+							:product => {
+								:collection => Guara::Product.all,
+								:class => "span2",
+							},
+							:total => { :class => "span2", },
+							:price => { :class => "span2", },
+							:price_total => { },
+
+						} 
+				} %>
+	</div>
+
+  <%= f.submit class: "btn btn-large btn-primary" %>
+</fieldset>	
+<% end %>

@@ -1,0 +1,13 @@
+<h1 class="modules">Novo Professional</h1>
+	
+<ul class="nav nav-tabs">
+  
+  <li <%= 'class=active' if active == :new %> >
+  	<%= link_to t("professional.new.link"), new_professional_path %>
+  </li>
+
+  <li <%= 'class=active' if active == :new %> >
+  	<%= link_to t("vacancy_specification.new.link"), new_vacancy_specification_path %>
+  </li>
+  
+</ul>

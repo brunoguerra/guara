@@ -217,7 +217,7 @@ ul {
 .show {
 	.control-group {
 		background: #f1f1f1;
-		margin-top: 5px;
+		margin-top: 20px;
 		padding-bottom: 10px;
 		label {
 			background: #ffffff;
@@ -325,7 +325,7 @@ fieldset.actions {
 
 
  .controls input {
-  height:30px;
+  padding: 12px 8px !important;
 }
 
 .emails_custumer {
@@ -357,7 +357,6 @@ fieldset.actions {
     margin-left: 20px;
   }
 
-/*<<<<<<< HEAD*/
 	.contacts .side .btn-group:first-child {
 		float: left;
 		margin-right: 10px;
@@ -368,8 +367,40 @@ fieldset.actions {
 	height: 30px;
 	width: 300px;
 	}
-/*=======*/
-  input[type="text"].search-query{
-    height: 30px;
-  }
-/*>>>>>>> upstream/master*/
+
+
+
+/* STYLE STORE ORDERS IN*/
+
+
+.row_orders_in {
+  margin-left: 0px;
+}
+
+#order_items_product_input {
+  width: 35%;
+  float: left;
+}
+
+#order_items_total_input {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+#order_items_price_input {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+#order_items_price_total_input {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+.btn_remove_field_orders {
+  margin-top: 20px;
+  margin-left: 10px;
+}
