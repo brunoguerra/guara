@@ -1,0 +1,10 @@
+<fieldset>
+<% inputs.each do |input,options| %>
+	<%= f.input input, options %>
+<% end %>
+<%= f.hidden_field :_destroy %>
+
+<%= link_to '#', class: "remove_fields btn btn-small" do %>
+	<i class="icon-remove"></i>
+<% end  %></span>
+</fieldset>
