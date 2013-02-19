@@ -1,127 +1,118 @@
-
 <%= semantic_form_for [@customer, @professional], 
-:url => @professional.new_record? ? new_customer_professional_path(@customer) : customer_professional_path(@customer, @professional), 
-:html => {:class => "well"}  do |f| %>
+:url => @professional.new_record? ? customer_professionals_path(@customer) : customer_professional_path(@customer, @professional), 
+:html => {:class => ""}  do |f| %>
 
+	<fieldset>
 
-<fieldset>
-	<legend>
-		<%=  t("customers.professional.title") %>
-	</legend>
-
-	<div class="row-fluid">
-		<div class="span12">
+		<div class="row page-header">
+			<legend class="span2"><small> <%=  t("customers.professional.title") %></small></legend>
 			
-				
-		        <%= f.input :have_job, :label => t("customers.professional.new.have_job.title"),
-		        	:as => :radio, 
-		        	:collection => ["Sim", "Não"],
-		        	:class => "form-inline" %>
-				
-		        <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification do |specification_f| %>
-		        <div class="vacancy_specifications">
-		        	<legend><small><%= t("customers.professional.new.business_action.title") %></small></legend>
+			<!-- HAVE JOB ? -->	
+			<div class="span9 well">
+		    <%= f.input :have_job, :label => t("customers.professional.new.have_job.title"),
+		    	:as => :radio, 
+		    	:collection => ["Sim", "Não"],
+		    	:class => "well" %><!-- END DIV HAVE JOB ? -->
+		    </div>
+		</div>
 
+		<!-- VACANCY SPECIFICATION -->
+	    <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification do |specification_f| %>
 
-		        	<div class="role">
-			        	<% Guara::Jobs::BusinessAction.all.each do |ba| %>
-				        	<ul>
-				        		<li><h3><%= ba.name %></h3></li>
-				        		<% Guara::Jobs::Role.where(business_action_id: ba.id).each do |r| %>
-				        			<li><%= check_box_tag "roles[]", r.id, :id => "role_%d" % r.id  %><%= label_tag "role_%d" % r.id, r.name %> </li>
-				        		<% end %>
+	        <div class="row page-header">
+	        	<legend class="span2"><small> <%=  t("customers.professional.new.business_action.title") %></small></legend>
 
-				        	</ul>
-			        	<% end %>
-		        	</div>
+	        	<div class="span9 well">
+		        	<% Guara::Jobs::BusinessAction.all.each do |ba| %>
+			        	<ul>
+			        		<li><h3><%= ba.name %></h3></li>
+			        		<% Guara::Jobs::Role.where(business_action_id: ba.id).each do |r| %>
+			        			<li><%= check_box_tag "roles[]", r.id, :id => "role_%d" % r.id  %><%= label_tag "role_%d" % r.id, r.name %> </li>
+			        		<% end %>
 
-		        	<%= specification_f.input :salary_requirements,
-		        		:as => :string,
-		        		:label => t("customers.professional.new.salary_requirements.title"),
-		        		:input_html => {:class => "span4"}	 %>
-   
-		        </div><!-- FIM ESPECIFICAÇÃO DA VAGA -->
-		        <% end %>
+			        	</ul>
+		        	<% end %>
+	        	
 
+	        	<%= specification_f.input :salary_requirements,
+	        		:as => :string,
+	        		:label => t("customers.professional.new.salary_requirements.title"),
+	        		:input_html => {:class => "control-label"}	 %>
+	        	</div>
 
-			<div class="controls controls-row">
+	        </div>
+	    <% end %><!-- END VACANCY SPECIFICATION -->
 
-				<div class="formation "><!-- FORMAÇÃO ACADÊMICA -->
-					<legend><small><%= t("customers.professional.new.formation.title") %></small></legend>
+	    <!-- FORMATION -->
+		<div class="row page-header">
+			<legend class="span2"><small> <%=  t("customers.professional.new.formation.title") %></small></legend>
+			
+			<div class="span9 well">
+	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
+					:locals => { 
+						:values => @professional.formations, 
+						:form => f, 
+						:target => :formations, 
+						:inputs => { 
+							:level_education => {
+								:label => t("customers.professional.new.level_education.title"),
+								:collection => Guara::Jobs::LevelEducation.all,
+								:class => "span2",
+							},
 
-				
-			  			<%= render :partial => 'active_extend/one_to_many_inputs', 
-							:locals => { 
-								:values => @professional.formations, 
-								:form => f, 
-								:target => :formations, 
-								:inputs => { 
-									:level_education => {
-										:label => t("customers.professional.new.level_education.title"),
-										:collection => Guara::Jobs::LevelEducation.all,
-										:class => "span2",
-									},
+							:course => { :label => t("customers.professional.new.course.title") },
 
-									:course => { :label => t("customers.professional.new.course.title") },
+							:name_institution => { 
+								:label => t("customers.professional.new.name_institution.title")},
 
-									:name_institution => { 
-										:label => t("customers.professional.new.name_institution.title")},
+							:situation => {
+								:collection => ["Concluído","Andamento", "Cancelado","Trancado"],
+								:label => t("customers.professional.new.situation.title")},
 
-									:situation => {
-										:collection => ["Concluído","Andamento", "Cancelado","Trancado"],
-										:label => t("customers.professional.new.situation.title")},
+							:date_conclusion => { 
+								:input_html => { 'data-behaviour' => 'datetimepicker' },
+								:label => t("customers.professional.new.date_conclusion.title") },
 
-									:date_conclusion => { 
-										:input_html => { 'data-behaviour' => 'datetimepicker' },
-										:label => t("customers.professional.new.date_conclusion.title") },
+							:description => {
+								:input_html => { :rows => 5,  :maxlength => 300, },
+								:label => t("customers.professional.new.description.title") }
+					}}
+				%>	
+			</div>
+		</div><!-- END FORMATION -->
 
-									:description => {
-										:input_html => { :rows => 5,  :maxlength => 300, },
-										:label => t("customers.professional.new.description.title") }
-							}}
-						%>
-				
-				</div><!-- FIM FORMAÇÃO ACADÊMICA -->
-	
+		<!--EXPERIENCE PROFESSIONAL-->
+		<div class="professional_experience ">
+			<legend><small><%= t("customers.professional.new.professional_experience.title") %></small></legend>
+	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
+					:locals => { 
+						:values => @professional.professional_experiences, 
+						:form => f, 
+						:target => :professional_experiences, 
+						:inputs => { 
+							:company_name => { 
+								:label => t("customers.professional.new.company_name.title") },
 
-					<div class="professional_experience ">
-						<legend><small><%= t("customers.professional.new.professional_experience.title") %></small></legend>
-				  			<%= render :partial => 'active_extend/one_to_many_inputs', 
-								:locals => { 
-									:values => @professional.professional_experiences, 
-									:form => f, 
-									:target => :professional_experiences, 
-									:inputs => { 
-										:company_name => { 
-											:label => t("customers.professional.new.company_name.title") },
+							:role => { 
+								:label => t("customers.professional.new.role.title") },
 
-										:role => { 
-											:label => t("customers.professional.new.role.title") },
+							:activities => {:input_html => {:rows => 5, :maxlength => 300}, 
+								:label => t("customers.professional.new.activities.title") },
 
-										:activities => {:input_html => {:rows => 5, :maxlength => 300}, 
-											:label => t("customers.professional.new.activities.title") },
+							:date_admission => { 
+								:input_html => { 'data-behaviour' => 'datetimepicker', 
+													:select => {:class => "teste"} }, 
+								:label => t("customers.professional.new.date_admission.title") },
 
-										:date_admission => { 
-											:input_html => { 'data-behaviour' => 'datetimepicker', 
-																:select => {:class => "teste"} }, 
-											:label => t("customers.professional.new.date_admission.title") },
+							:date_resignation => { 
+								:input_html => { 'data-behaviour' => 'datetimepicker' },
+								:label => t("customers.professional.new.date_resignation.title")},								
+					}}
+				%>
+		</div><!-- END EXPERIENCE PROFESSIONAL-->
 
-										:date_resignation => { 
-											:input_html => { 'data-behaviour' => 'datetimepicker' },
-											:label => t("customers.professional.new.date_resignation.title")},								
-								}}
-							%>
-			</div><!-- FIM FORMAÇÃO ACADÊMICA -->
+		<%= f.submit class: "btn btn-large btn-primary" %> 
 
+	</fieldset>
 
-		</div><!-- FIM FORMAÇÃO CONTROLS CONTROLS-ROW -->
- 
-
-
-		</div><!-- FIM SPAN12 -->
-
-		  <%= f.submit class: "btn btn-large btn-primary" %>
-
-	</div><!-- FIM ROW-FLUID-->
-
-<% end %>
+<% end %><!-- END FORM -->

@@ -13,9 +13,6 @@ module Guara
 	    	belongs_to :person
 	    	belongs_to :customer, foreign_key: "person_id"
 
-	    	alias_method :person, :customer
-	    	alias_method :person=, :customer=
-
 	    
 	  		has_many :formations, dependent: :destroy
 	  		has_many :professional_experiences, dependent: :destroy

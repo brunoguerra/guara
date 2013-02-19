@@ -26,22 +26,24 @@ module Guara
 	    end # SHOW
 
 	    def manage_advanced_fields()
+	    	@professional.vacancy_specification = VacancySpecification.new(params[:jobs_professional][:vacancy_specification_attributes]) if @professional.vacancy_specification.nil?
 	    	roles_id = params[:roles]
 	    	@professional.vacancy_specification.roles = roles_id.map { |r_id| Role.find r_id }
 	    end # MÉTODO PARA SELEÇÃO DE VÁRIOS CARGOS
 
 
 	    def create
+	    	#@professional.vacancy_specification = VacancySpecification.new(params[:professional][:vacancy_specification]) 
 	    	manage_advanced_fields()
 
 	    	respond_to do |format|
-            if @professional.save
-              format.html { redirect_to(customer_professional_path(@customer, @professional), :notice => 'Contact was successfully created.') }
-              format.json { render :json => @professional, :status => :created, :location => @professional}
-            else
-              format.html { render :action => "new" }
-              format.json { render :json => @professional.errors, :status => :unprocessable_entity }
-            end
+	            if @professional.save
+	              format.html { redirect_to(customer_professional_path(@customer, @professional), :notice => 'Contact was successfully created.') }
+	              format.json { render :json => @professional, :status => :created, :location => @professional}
+	            else
+	              format.html { render :action => "new" }
+	              format.json { render :json => @professional.errors, :status => :unprocessable_entity }
+	            end
             end
 	    end # CREATE
 

@@ -9,7 +9,3 @@ module Guara
 		has_one :professional, class_name: "Guara::Jobs::Professional"
 	end
 end
-
-
-
-puts Guara::Jobs.table_name_prefix+("%s:%d" % [__FILE__, __LINE__])
