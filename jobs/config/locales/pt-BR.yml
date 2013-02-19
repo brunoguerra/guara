@@ -1,0 +1,72 @@
+# encoding: UTF-8
+
+pt-BR:
+  
+  jobs:
+    title: "Jobs"
+
+  jobs_business_actions:
+    title: "Área de Atuação"
+
+  jobs_roles:
+    title: "Cargos"
+
+  jobs_level_educations:
+    title: "Grau de Formação"
+
+  customers:
+    professional:
+      title: "Dados Curriculares"
+      
+      new:
+        title: "Dados Curriculares"
+        link: "Dados Curriculares"
+
+        have_job: 
+          title: "Empregado atualmente ?"
+
+        business_action:
+          title: "Área de Atuação" 
+
+        formation:
+          title: "Formação Acadêmica"  
+
+        salary_requirements:
+          title: "Pretensão Salarial"
+
+        level_education:
+          title: "Grau de Formação"
+
+        course:
+          title: "Curso"
+
+        name_institution:
+          title: "Nome Instituição"
+
+        situation:
+          title: "Situação"
+
+        date_conclusion:
+          title: "Data de Conclusão"
+
+        description:
+          title: "Descrição"
+
+        professional_experience:
+          title: "Experiência Profissional"
+
+        company_name:
+          title:   "Nome da Empresa"
+
+        role:
+          title: "Cargo"
+
+        activities:
+          title: "Atividades"
+
+        date_admission:
+          title: "Data de Admissão"
+
+        date_resignation:
+          title: "Data de Demissão"
+

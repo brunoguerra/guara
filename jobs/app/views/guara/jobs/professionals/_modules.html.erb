@@ -1,0 +1,15 @@
+<h1 class="modules"><%= @customer.name %></h1>
+	
+<ul class="nav nav-tabs">
+  <li <%= 'class=active' if active == :general %> >
+  	<%= link_to t("customers.general"), customer_professional_path(@customer, @professional) %>
+  </li>
+
+
+  <li <%= 'class=active' if active == :edit %> >
+  	<%= link_to t("customers.edit.link"), edit_customer_professional_path(@customer, @professional) %>
+  </li>
+
+  
+  
+</ul>
