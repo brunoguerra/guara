@@ -1,7 +1,7 @@
 module Guara
   class Order < ActiveRecord::Base
     
-    attr_accessible :person, :date_finish, :date_init, :payment_date, :payment_state,
+    attr_accessible :person, :date_finish, :date_init, :payment_date, :payment_state, :items,
                     :payment_type, :payment_parts, :person_id, :state, :state_date, :type, :products
     
     belongs_to :person
