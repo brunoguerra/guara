@@ -16,15 +16,15 @@ module Guara
                                 city: FactoryGirl.create(:city),
                                 district: FactoryGirl.create(:district))
                               
-       @customer.person = CustomerPj.new(fax: "859998887", total_employes: 230)
+       @customer.customer = CustomerPj.new(fax: "859998887", total_employes: 230)
        @customer.save
        
-       3.times { @customer.person.customer_segments.build(segment: FactoryGirl.create(:business_segment)) }
+       3.times { @customer.customer.customer_segments.build(segment: FactoryGirl.create(:business_segment)) }
                                   
-       3.times { @customer.person.customer_activities.build(activity: FactoryGirl.create(:business_activity)) }
+       3.times { @customer.customer.customer_activities.build(activity: FactoryGirl.create(:business_activity)) }
      end
   
-    subject { @customer.person }
+    subject { @customer.customer }
   
     it { should respond_to :fax }
     it { should respond_to :segments }
@@ -64,10 +64,10 @@ module Guara
       before do
         @customer.save
         @anothers_pj = Array.new(2) { Factory(:customer_pj) }
-        @anothers_pj.each { |pj| @customer.person.associate_to!(pj) }
+        @anothers_pj.each { |pj| @customer.customer.associate_to!(pj) }
       end
     
-      it { @anothers_pj.each { |another_pj| @customer.person.associateds.should include(another_pj) } }
+      it { @anothers_pj.each { |another_pj| @customer.customer.associateds.should include(another_pj) } }
     end
   
   end

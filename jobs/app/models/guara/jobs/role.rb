@@ -1,3 +1,5 @@
+require File.expand_path("../../jobs", __FILE__) if Rails.env.development?
+
 
 class Guara::Jobs::Role < ActiveRecord::Base
 	attr_accessible :name, :business_action_id

@@ -16,7 +16,7 @@
 
   <li <%= 'class=active' if active == :customer_association %> ><a href="#">Empresas relacionadas</a></li>
 
-  <li <%= 'class=active' if active == :professional %> >
-  	<%= link_to t("customers.professional.new.link"), @customer.professional.nil? ? new_customer_professional_path(@customer, @professional) : edit_customer_professional_path(@customer, @professional) %> </li>
+  <%= customer_nav_modules_build_tabs(@customer, active) %>
+  
 
 </ul>

@@ -357,6 +357,7 @@ fieldset.actions {
     margin-left: 20px;
   }
 
+
 	.contacts .side .btn-group:first-child {
 		float: left;
 		margin-right: 10px;
@@ -406,59 +407,15 @@ fieldset.actions {
 }
 
 
-/* STYLE JOBS */
 
-form#new_jobs_professional label[for=jobs_professional_have_job]{
-  float: left;
-}
-
-form#new_jobs_professional label[for=jobs_professional_have_job_sim]{
-  float: left;
-  margin: -5px 15px;
-}
-
-form#new_jobs_professional label[for=jobs_professional_have_job_no]{
-  float: left;
-}
-
-form#new_jobs_professional label{
-  float: left;
-  margin-right: 15px;
+input[type="text"].search-query{
+  height: 30px;
 }
 
 
-form#new_jobs_professional legend { border-bottom: none; line-height: 30px;}
-
-  form#new_jobs_professional ul {margin:0;}
-
-    form#new_jobs_professional ul li input{float: left; margin-right: 5px;}
-
-  form#new_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements_input{margin-top: 40px;}
-
-  form#new_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left; width: 350px; }
-
-  form#new_jobs_professional .control-group {float: right;}
-
-    form#new_jobs_professional .control-group .controls {float: right;}
-
-    form#new_jobs_professional .control-group .controls select { width: 500px; }
-
-    form#new_jobs_professional .control-group .controls input { width: 500px; }
-
-    form#new_jobs_professional .control-group .controls select.span1 { width: auto; }
-    
-    form#new_jobs_professional .control-group .controls select.span2 { width: auto; margin-left: 10px; margin-right: -10px;}
-
-    form#new_jobs_professional .control-group .controls textarea { width: 500px; }
-
-  form#new_jobs_professional .date_select { float: left; margin-left: 45px;}
-
-  form#new_jobs_professional fieldset {padding: 10px;}
-
-  form#new_jobs_professional .remove_fields {
-    position: relative;
-    left: 682px;
-    top: -28px;
-    padding: 0px 4px;
-    line-height: 17px;
-  }
+/* select2 */
+.select2-container-multi .select2-choices .select2-search-field input {
+  margin: auto;
+  padding: auto;
+  height: 30px; 
+}

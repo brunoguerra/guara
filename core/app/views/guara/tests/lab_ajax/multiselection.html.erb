@@ -1,6 +1,6 @@
 
 <%= form_for @customer, :html => {:class => "well search"}  do |f| %>
-<%= f.fields_for @customer.person do |person_f| %>
+<%= f.fields_for @customer.customer do |person_f| %>
 	<fieldset>
 	  <legend><%= t("customers.new.title") %></legend>
 	  <div class="row">

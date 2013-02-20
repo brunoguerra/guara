@@ -4,6 +4,8 @@ module Guara
 	    load_and_authorize_resource :customer, :class => ::Guara::Customer
     	load_and_authorize_resource :through => :customer, :class => Guara::Jobs::Professional, :singleton => true
 
+    	helper CustomersHelper
+
 	    def index
 	    	@search = Professional.search(params[:search])
 
@@ -33,6 +35,7 @@ module Guara
 
 
 	    def create
+	    	@professional = Professional.new(params[:jobs_professional])
 	    	#@professional.vacancy_specification = VacancySpecification.new(params[:professional][:vacancy_specification]) 
 	    	manage_advanced_fields()
 
@@ -49,8 +52,6 @@ module Guara
 
 	    def edit
 	    	 @professional = Professional.find(params[:id])
-	    	 #@professional.vacancy_specification = VacancySpecification.new if @professional.vacancy_specification == nil
-
 	    end # EDIT
 
 	    def update

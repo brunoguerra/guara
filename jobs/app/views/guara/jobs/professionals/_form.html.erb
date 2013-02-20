@@ -37,15 +37,16 @@
 	        	<%= specification_f.input :salary_requirements,
 	        		:as => :string,
 	        		:label => t("customers.professional.new.salary_requirements.title"),
-	        		:input_html => {:class => "control-label"}	 %>
+	        		:input_html => {:class => "control-label"}%>
+
 	        	</div>
 
 	        </div>
 	    <% end %><!-- END VACANCY SPECIFICATION -->
 
 	    <!-- FORMATION -->
-		<div class="row page-header">
-			<legend class="span2"><small> <%=  t("customers.professional.new.formation.title") %></small></legend>
+		<div class="row page-header formation">
+			<legend class="span2"><small><%=  t("customers.professional.new.formation.title") %></small></legend>
 			
 			<div class="span9 well">
 	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
@@ -76,14 +77,22 @@
 							:description => {
 								:input_html => { :rows => 5,  :maxlength => 300, },
 								:label => t("customers.professional.new.description.title") }
-					}}
+						},
+						:options => {
+							add_class: "btn btn-block"
+						},
+
+				}
 				%>	
 			</div>
 		</div><!-- END FORMATION -->
 
 		<!--EXPERIENCE PROFESSIONAL-->
-		<div class="professional_experience ">
-			<legend><small><%= t("customers.professional.new.professional_experience.title") %></small></legend>
+
+		<div class="row page-header professional_experiences">
+			<legend class="span2"><small><%=  t("customers.professional.new.professional_experience.title") %></small></legend>
+				
+			<div class="span9 well">
 	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
 					:locals => { 
 						:values => @professional.professional_experiences, 
@@ -106,13 +115,35 @@
 
 							:date_resignation => { 
 								:input_html => { 'data-behaviour' => 'datetimepicker' },
-								:label => t("customers.professional.new.date_resignation.title")},								
-					}}
+								:label => t("customers.professional.new.date_resignation.title")}
+								},	
+							:options => {
+								add_class: "btn btn-block"
+						}							
+					}
 				%>
+			</div>
 		</div><!-- END EXPERIENCE PROFESSIONAL-->
 
 		<%= f.submit class: "btn btn-large btn-primary" %> 
 
+		<%= link_to t('helpers.forms.back'), @professional.new_record? ? customer_path(@customer) : customer_professional_path(@customer), :class => "btn back_jobs" %>
+
 	</fieldset>
 
 <% end %><!-- END FORM -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {    
+	
+      $('#jobs_professional_vacancy_specification_attributes_salary_requirements').priceFormat({
+        prefix: 'R$ ',
+        centsSeparator: ',',
+        thousandsSeparator: '.'
+      });
+
+});
+
+
+</script>

@@ -112,7 +112,7 @@ module Guara
       end
     
     end
-  
+    
     describe "show task" do
       before do
         sign_in admin
