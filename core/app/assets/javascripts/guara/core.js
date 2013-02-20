@@ -1,3 +1,16 @@
+//= require jquery
+//= require jquery-ui
+//= require jquery.popover
+//= require jquery_ujs
+//= require bootstrap
+//= #require bootstrap-datepicker
+//= #require bootstrap-datepicker/locales/bootstrap-datepicker.pt
+//= require guara/jquery-ui-timepicker-addon
+//= require guara/jquery-ui-timepicker-addon
+//= require guara/jquery.mask
+//= require guara/fcbk.js
+//= require select2/select2.min
+//= require active_admin
 
 $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     $(this).datepicker({"format": "dd/mm/yyyy hh:mm", "weekStart": 1, "autoclose": true});

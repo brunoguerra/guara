@@ -11,3 +11,36 @@
  *= require_self
  *= require_tree .
  */
+
+.row_orders_in {
+	margin-left: 0px;
+}
+
+
+.products {
+	width: 35%;
+	float: left;
+}
+
+.total {
+	width: 15%;
+	float: left;
+	margin-left: 10px;
+}
+
+.price {
+	width: 15%;
+	float: left;
+	margin-left: 10px;
+}
+
+.price_total {
+	width: 15%;
+	float: left;
+	margin-left: 10px;
+}
+
+.btn_remove_field_orders {
+	margin-top: 20px;
+	margin-left: 10px;
+}

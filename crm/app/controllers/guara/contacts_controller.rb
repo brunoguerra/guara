@@ -3,6 +3,8 @@ module Guara
     load_and_authorize_resource :customer, :class => Guara::Customer
     load_and_authorize_resource :through => :customer, :class => Guara::Contact
   
+    helper CustomersHelper
+
     # GET customers/1/contacts
     # GET customers/1/contacts.json
     def index  

@@ -5,27 +5,21 @@
 
 <div class="row">
 	<div class="span12">
-	  <%= form_for [@customer, @search], :html => { :class => "well form-search" }, :method => :get, :name => :search do |f| %>
+	  <%= form_tag customer_contacts_path, :class => "well form-search", :method => :get, :name => :search do  %>
 		<fieldset>
 		  <legend><%= t("contacts.search.title") %></legend>
-		  <div class="row">
+		  <div class="row all-search">
 			<div class="span4">
 			
-			  <div class="control-group">
-	            <%= f.label :name, t("contacts.name"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= f.text_field :name_contains %>
+			  <div class="form-search">
+			  	<div class="input-append">
+	              <%= text_field_tag :name, params[:name], :class => "span2 search-query" %>
+		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
 	            </div>
 	          </div>
 				
 			</div>
-			
-			<div class="span8">
-				<div class="form-actions">
-					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
-				</div>
-			</div>
-			
+				
 		  </div>
 		</fieldset>
 	  <% end %>
