@@ -114,8 +114,10 @@ pt-BR:
       title: "Exibindo Contato"
     search:
         title: "Filtro Contatos"
+
     all: "Todos os Contatos"
     emails: "E-mails"
+
 
   searches:
       advanced: "Avançado"
@@ -223,8 +225,15 @@ pt-BR:
       user: "Usuário"
       link: "Permissões de Acesso"
       title: "Permissões de Acesso para %{user}"
-    new: "Novo Usuário"
-    all: "Todos os Usuários"
+    new:
+      link: "Novo Usuário"
+    edit:
+      link: "Editar"
+
+    all:
+      title: "Todos os Usuários"
+      link: "Todos os Usuários"
+
   
   company_businesses:
     link: "Áreas de Negócio"
@@ -255,8 +264,8 @@ pt-BR:
     title: "Setores das Empresas"
   
   task_types:
-    link: "Atividades"
-    title: "Atividades"
+    link: "Tipos de Atividades"
+    title: "Tipos de Atividades"
   
   #SECTIONS <===================================
   

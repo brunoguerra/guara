@@ -8,10 +8,9 @@ pt-BR:
     dashboard:
       title: "Controle de Estoque"
       description: "Controle da movimentação dos produtos no sistema"
-      
+
     widget:
       overview:
-
         title: "Últimos 30 dias"
         added_products:
           title: "Produtos Cadastrados"
@@ -20,19 +19,17 @@ pt-BR:
             title: "Movimentações de Entrada"
           out:
             title: "Movimentações de Saída"
-
         chart:
           in:
             title: "Entradas"
           out:
             title: "Saídas"
-            
+
   store_categories:
-    title: "Categorias"
     index:
       title: "Categorias dos Produtos"
       link: "Categorias"
-  
+
   products:
     index:
       title: "Produtos"
@@ -65,7 +62,54 @@ pt-BR:
       index:
         title: "Compras"
         link: "Compras"
+      new:
+        title: "Nova Compra"
+        link: "Nova Compra"  
+      edit:
+        title: "Editar Compra"
+        link: "Editar Compra"
+
     out:
       index:
         title: "Vendas"
         link: "Vendas"
+      new:
+        title: "Nova Venda"
+        link: "Nova Venda"
+
+    supplier:
+        title: "Fornecedor"
+
+    products:
+      title: "Produtos"
+      
+    person:
+      title: "Pessoa"
+
+    date_finish: 
+      title: "Data Final"
+
+    date_init:
+      title: "Data Inicial"
+
+    payment_date: 
+      title: "Data do Pagamento"
+
+    payment_state:
+      title: "Situação do Pagamento"
+
+    payment_type:
+      title: "Tipo de Pagamento"
+
+    person_id:
+      title: "Pessoa"
+    
+    state:
+      title: "Situação "
+
+    state_date:
+      title: "state_date"
+
+    type:
+      title: "Tipo"
+
