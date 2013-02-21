@@ -135,7 +135,7 @@ module Guara
   
     def edit
       @customer = Customer.find params[:id]
-      @person = @customer.customer
+      @person = @customer.customer 
     
       @customer.emails.build
     end

@@ -9,7 +9,7 @@
           <span class="icon-bar"></span>
         </a>
 		
-        <%= link_to navbar_title==nil ? t("customers.title") : navbar_title, "#", :class => "brand" %>
+        <%= link_to defined?(:navbar_title) ? t("customers.title") : navbar_title, "#", :class => "brand" %>
         <div class="nav-collapse">
           <ul class="nav">
 			    <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
