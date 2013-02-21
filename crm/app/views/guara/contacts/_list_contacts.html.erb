@@ -1,6 +1,22 @@
 <% if @contacts %>
 <section id="buttons">
-  
+<%
+ inputs = {
+						:name => {},
+						:phone => {},
+ 					}
+%>
+<%= semantic_form_for @customer, :url => edit_index_customer_contacts_path(@customer) do |f| %>
+	<%= f.semantic_fields_for :contacts do |flds_builder, i| %>
+	  <%= render 'active_extend/one_to_many_inputs_fields_grid', f: flds_builder, inputs: inputs %>
+	<% end %>
+
+	<%= link_to_add_fields "add", f, :contacts, local_assigns[:options] do |builder| %>
+		<%= render 'active_extend/one_to_many_inputs_fields_grid', f: builder, inputs: inputs %>
+	<% end  %>
+	
+<% end %>
+
   <legend><%= t("search.results")%></legend>
   
   <table class="table table-bordered table-striped">
