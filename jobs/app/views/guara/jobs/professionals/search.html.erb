@@ -1,0 +1,47 @@
+<navbar>
+	<%= render :partial => "/guara/customers/navbar", :locals => { active: :search_professional } %>
+</navbar>
+
+<div class="row">
+	<div class="span9 search_fast9">	  
+		<section id="search">
+
+			<div class="page-header">
+				<%= t("search.results")%>
+			</div>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+					<th><%= t("professional.names") %></th>
+					<th><%= t("professional.business_action_roles.title") %></th>
+					<th><%= t("helpers.forms.actions") %></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<% @professional.each do |p| %>
+						<tr>
+							<td><%= p.person.name %></td>
+							<td>
+								<ul><% p.vacancy_specification.roles.each do |r| %>
+										<li><b><%= r.business_action.name %></b> - <%= r.name %><br></li>
+									<% end %>
+								</ul>
+							</td>
+							<td><%= link_to t("helpers.forms.show"), customer_professional_path(p.person_id, p), :class => "btn" %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table><!-- FIM EXIBIÇÃO PROFESSIONAL -->
+
+			<div class="span3 search_fast3">
+				<%= render :partial => "form_search", 
+					:locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } %>
+			</div> <!-- BUSCA -->
+			
+		
+
+		</section>      	
+	</div>
+</div>

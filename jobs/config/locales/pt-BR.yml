@@ -14,59 +14,63 @@ pt-BR:
   jobs_level_educations:
     title: "Grau de Formação"
 
-  customers:
-    professional:
-      title: "Dados Curriculares"
-      
-      new:
-        title: "Dados Curriculares"
-        link: "Dados Curriculares"
+  professional:
+    title: "Dados Curriculares"        
+    link: "Dados Curriculares"
 
-        have_job: 
-          title: "Empregado atualmente ?"
+    business_action_roles:
+      title: "Área de Atuação - Cargos"
 
-        business_action:
-          title: "Área de Atuação" 
+    have_job: 
+      title: "Empregado atualmente ?"
 
-        formation:
-          title: "Formação Acadêmica"  
+    business_action:
+      title: "Área de Atuação" 
 
-        salary_requirements:
-          title: "Pretensão Salarial"
+    formation:
+      title: "Formação Acadêmica"  
 
-        level_education:
-          title: "Grau de Formação"
+    salary_requirements:
+      title: "Pretensão Salarial"
 
-        course:
-          title: "Curso"
+    level_education:
+      title: "Grau de Formação"
 
-        name_institution:
-          title: "Nome Instituição"
+    course:
+      title: "Curso"
 
-        situation:
-          title: "Situação"
+    name_institution:
+      title: "Nome Instituição"
 
-        date_conclusion:
-          title: "Data de Conclusão"
+    situation:
+      title: "Situação"
 
-        description:
-          title: "Descrição"
+    date_conclusion:
+      title: "Data de Conclusão"
 
-        professional_experience:
-          title: "Experiência Profissional"
+    description:
+      title: "Descrição"
 
-        company_name:
-          title:   "Nome da Empresa"
+    professional_experience:
+      title: "Experiência Profissional"
 
-        role:
-          title: "Cargo"
+    company_name:
+      title:   "Nome da Empresa"
 
-        activities:
-          title: "Atividades"
+    role:
+      title: "Cargo"
 
-        date_admission:
-          title: "Data de Admissão"
+    activities:
+      title: "Atividades"
 
-        date_resignation:
-          title: "Data de Demissão"
+    date_admission:
+      title: "Data de Admissão"
 
+    date_resignation:
+      title: "Data de Demissão"
+
+  search:
+    link: "Buscar Profissional"
+
+  business_action_roles:
+    title: "Área de Atuação - Cargos"

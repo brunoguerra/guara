@@ -14,6 +14,9 @@
           <ul class="nav">
 			    <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
 			    <li <%= 'class=active' if active == :new %> ><%= link_to t("customers.new.link"), new_customer_path %></li>
+
+          <li <%= 'class=active' if active == :search_professional %> >
+              <%= link_to t("customers.professional.search.link"), professionals_search_path %></li>
         </ul>
           
         </div><!-- /.nav-collapse -->

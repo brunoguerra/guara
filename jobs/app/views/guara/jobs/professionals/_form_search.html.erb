@@ -1,0 +1,78 @@
+
+<% #TODO remover style e colocar em arquivo único %>
+<div class="page-header"><%= t("customers.index.title") %></div>
+
+	<%= form_for @search,:url => professionals_search_path ,
+		:html => { :class => "well form-search", :method => :get } do |f|  %>
+		
+				<fieldset>
+				  <div class="row">
+					  <div class="control-group">
+			        <%= f.label :name_contains, t("helpers.label.professional.search.names"), :class => "control-label" %>
+			        <div class="controls">
+				      	<%= f.text_field :person_name_contains %>
+			        </div>
+			      </div> <!-- SEARCH SIMPLE -->
+
+
+			      <% if (mode == :advanced) then %>
+						  <%= hidden_field_tag :search_mode_advanced, "true" %>
+
+						   <div class="control-group">
+		            <%= label_tag :salary_requirements, t("helpers.label.professional.search.salary_requirements"), :class => "control-label" %>
+	            	<div class="controls">
+		          		<%= f.text_field :vacancy_specification_salary_requirements_btw %>
+	           		</div>
+		      		</div>
+
+		      		<div class="control-group">
+		            <%= label_tag :business_action, t("helpers.label.professional.search.business_action"), :class => "control-label" %>
+	            	<div class="controls">
+
+		          		<%= f.select(:vacancy_specification_roles_business_action_name_in,
+														options_from_collection_for_select([] + Guara::Jobs::BusinessAction.all, :id, :name, params[:search][:vacancy_specification_roles_business_action_name_in]), 
+														{}, 
+														{ :multiple => true, 
+															:style => "width: 200px;", 
+															:placeholder => t("customer_pjs.segments"), 
+															:class => "multiselect" 
+														})
+	              	%>
+
+	           		</div>
+		      		</div>
+
+		      		<div class="control-group">
+		            <%= label_tag :level_education, t("helpers.label.professional.search.level_formation"), :class => "control-label" %>
+		            	<div class="controls">
+
+			          		<%= f.select(:formations_level_education_name_in,
+															options_from_collection_for_select([] + Guara::Jobs::LevelEducation.all, :id, :name, params[:search][:formations_level_education_name_in]), 
+															{}, 
+															{ :multiple => true, 
+																:style => "width: 200px;", 
+																:placeholder => t("customer_pjs.segments"), 
+																:class => "multiselect" 
+															})
+		              		%>
+
+		           		</div>
+		      		</div>
+
+				<% end %>
+
+		          <div class="form-actions span3">
+								<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+								<% if (mode != :advanced) then %>
+								<%= link_to t("searches.advanced"), professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
+								<% end  %>
+					    </div><!-- BUTTON SEARCH SIMPLE OR ADVANCE -->
+
+					 </div>
+				</fieldset>
+	
+
+	<% end %>
+
+</div>
+

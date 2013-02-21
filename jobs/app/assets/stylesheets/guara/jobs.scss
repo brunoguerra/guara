@@ -20,38 +20,38 @@ form.guara_jobs_professional label{
 }
  
 
-form.guara_jobs_professional legend { border-bottom: none; line-height: 30px;}
+.guara_jobs_professional legend { border-bottom: none; line-height: 30px;}
 
-  form.guara_jobs_professional ul {margin:0;}
+  .guara_jobs_professional ul {margin:0 0 20px 0; overflow: hidden;}
 
-    form.guara_jobs_professional ul li input{float: left; margin-right: 5px;}
+    .guara_jobs_professional ul li input{float: left; margin-right: 5px;}
 
-  form.guara_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements_input{margin-top: 40px;float: left !important;}
+  .guara_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements_input{margin-top: 40px;float: left !important;}
 
-  form.guara_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left !important; width: 350px; }
+  .guara_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left !important; width: 350px; }
 
-  form.guara_jobs_professional .control-group {float: right;}
+  .guara_jobs_professional .control-group {float: right;}
 
-    form.guara_jobs_professional .control-group .controls {float: right;}
+    .guara_jobs_professional .control-group .controls {float: right;}
 
-    form.guara_jobs_professional .control-group .controls select { width: 500px; }
+    .guara_jobs_professional .control-group .controls select { width: 500px; }
 
-    form.guara_jobs_professional .control-group .controls input { width: 500px; }
+    .guara_jobs_professional .control-group .controls input { width: 500px; }
 
-    form.guara_jobs_professional .control-group .controls input[name=""]{ width: 500px; }
+    .guara_jobs_professional .control-group .controls input[name=""]{ width: 500px; }
 
 
-    form.guara_jobs_professional .control-group .controls select.span1 { width: auto; }
+    .guara_jobs_professional .control-group .controls select.span1 { width: auto; }
     
-    form.guara_jobs_professional .control-group .controls select.span2 { width: auto; margin-left: 10px; margin-right: -10px;}
+    .guara_jobs_professional .control-group .controls select.span2 { width: auto; margin-left: 10px; margin-right: -10px;}
 
-    form.guara_jobs_professional .control-group .controls textarea { width: 500px; }
+    .guara_jobs_professional .control-group .controls textarea { width: 500px; }
 
-  form.guara_jobs_professional .date_select { float: right; margin-right: 269px;}
+  .guara_jobs_professional .date_select { float: right; margin-right: 269px;}
 
-  form.guara_jobs_professional fieldset {padding: 10px;}
+  .guara_jobs_professional fieldset {padding: 10px;}
 
-  form.guara_jobs_professional .remove_fields {
+  .guara_jobs_professional .remove_fields {
     position: relative;
     left: 682px;
     top: -28px;
@@ -59,14 +59,14 @@ form.guara_jobs_professional legend { border-bottom: none; line-height: 30px;}
     line-height: 17px;
   } 
 
-  form.guara_jobs_professional .add_fields {
+  .guara_jobs_professional .add_fields {
     position: relative;
     top: 34px;
     width: 740px;
     margin-left: -20px;
   }
 
-  form.guara_jobs_professional .well {padding: 19px 19px 0px 19px;}
+  .guara_jobs_professional .well {padding: 19px 19px 0px 19px;}
 
   /* professional */
 
@@ -92,3 +92,9 @@ form.guara_jobs_professional input[type="submit"]{float: right;}
 form.guara_jobs_professional .back_jobs {margin-top: 10px;}
 
 .back_jobs .btn {margin-top: -160px !important;}
+
+
+/* SHOW */
+
+
+ .show .dl-horizontal dt { width: 171px; }

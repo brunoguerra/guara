@@ -36,9 +36,7 @@
 														options_for_select([nil]) + 
 														options_from_collection_for_select(Guara::BusinessActivity.all,
 																															:id, 
-																															:name, 
-																															params[:search][:customer_guara_customer_pj_type_activities_id_in]
-																															),
+																															:name		),
 													{}, 
 													{ :multiple => true, 
 														:style => "width: 200px;", 
