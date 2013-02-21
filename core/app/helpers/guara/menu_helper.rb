@@ -23,7 +23,7 @@ module Guara
       returns = ""
       menu[:items].each do |item|
         rails_model = item.to_s.titlecase.gsub(' ','').singularize.to_sym
-      
+        
         if can? :read, rails_model
         
           if (item.is_a? Array)
@@ -37,7 +37,7 @@ module Guara
             menu_path << "path"
             path = eval(menu_path.join('_')+"()")
     			end
-  			
+           			
     			returns += %Q{ <li>#{ link_to t(item_title.to_s+".title"), path }</li> }
 
         end

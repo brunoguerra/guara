@@ -1,11 +1,9 @@
-
-require 'guara_core'
-require 'guara_crm'
-
 require 'spree_core'
 require 'spree_api'
 require 'spree_dash'
 require 'spree_promo'
+require 'meta_search'
+require 'rails3-jquery-autocomplete'
 
 module Guara  
   module Store

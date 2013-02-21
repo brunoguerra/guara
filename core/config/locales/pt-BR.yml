@@ -222,8 +222,10 @@ pt-BR:
       user: "Usuário"
       link: "Permissões de Acesso"
       title: "Permissões de Acesso para %{user}"
-    new: "Novo Usuário"
-    all: "Todos os Usuários"
+    new:
+      link: "Novo Usuário"
+    edit:
+      link: "Editar"
   
   company_businesses:
     link: "Áreas de Negócio"

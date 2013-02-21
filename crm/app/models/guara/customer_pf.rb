@@ -1,7 +1,7 @@
 module Guara
-  class CustomerPf < ActiveRecord::Base
-    # attr_accessible :title, :body
-  
+  class CustomerPf < ActiveRecord::Base  
+    attr_accessible :sex, :civil_status, :country
+
     attr_protected
   
     has_one	:person	, :as => :customer

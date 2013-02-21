@@ -1,13 +1,22 @@
-<div id="title">
+
 <h1 class="modules"><%=@customer.name%></h1>
 <legend><small><%= @customer.name_sec || t("customers.show.title") %></small></legend>
-</div>
 
 <ul class="nav nav-tabs">
+
   <li <%= 'class=active' if active == :general %> ><%= link_to t("customers.general"), customer_path(@customer) %></li>
+
   <li <%= 'class=active' if active == :edit %> ><%= link_to t("customers.edit.link"), edit_customer_path(@customer) %></li>
+
   <li <%= 'class=active' if active == :contacts %> ><%= link_to t("contacts.index.link"), customer_contacts_path(@customer) %></li>
+
   <li <%= 'class=active' if active == :tasks %> ><%= link_to t("tasks.index.link"), customer_tasks_path(@customer) %></li>
+
   <li <%= 'class=active' if active == :financial %> ><a href="#">Dados de Cobran&ccedil;a</a></li>
+
   <li <%= 'class=active' if active == :customer_association %> ><a href="#">Empresas relacionadas</a></li>
+
+  <%= customer_nav_modules_build_tabs(@customer, active) %>
+  
+
 </ul>

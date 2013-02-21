@@ -9,11 +9,16 @@
       	<div class="caption">
 
       		<div class="span6">
-						<dl class="dl-horizontal">
+				<dl class="dl-horizontal">
 			        <dt><%=  t("professional.id") %></dt>
-							<dd><%=  @professional.id %></dd>
-							<dd><%=  %></dd>
-			      </dl>
+					<dd><%=  @professional.id %></dd>
+
+					<dt><%=  t("professional.have_job") %></dt>
+					<dd><%=  format_boolean @professional.have_job %></dd>
+
+					<dt><%=  t("professional.business_action.name") %></dt>
+					
+			    </dl>
 
 					  <dl class="dl-horizontal">
 			           

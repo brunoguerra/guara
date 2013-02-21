@@ -106,13 +106,13 @@
 	            </div>
 	          </div>
 	
-				<div class="thumbnail" id="emails">
+				<div class="thumbnail emails_custumer">
 					<legend><small><%= t("customers.emails").titleize %></small></legend>
 			  <%= render :partial => 'active_extend/one_to_many_inputs', 
 					:locals => { 
 						:values => @customer.emails, 
 						:form => f, 
-						:target => :emails, 
+						:target => :emails,
 						:inputs => { 
 							:email => { 
 								:as => :string, 

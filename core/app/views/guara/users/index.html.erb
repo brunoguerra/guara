@@ -2,7 +2,8 @@
 
 <% provide(:title, 'All users') %>		
 
-<%= will_paginate %>
+<%= render :partial => "navbar", :locals => { :active => :new } %>
+
 
 <table class="table table-bordered table-striped">
 <thead>

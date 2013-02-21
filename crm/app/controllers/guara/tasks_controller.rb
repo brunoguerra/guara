@@ -4,6 +4,8 @@ module Guara
     load_and_authorize_resource :through => :customer, :class => Guara::Task, :except => [:create, :update]
     
     include FormAjaxHelper
+
+    helper CustomersHelper
     
     def initialize()
       super

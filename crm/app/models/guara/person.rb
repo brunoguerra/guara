@@ -6,6 +6,9 @@ module Guara
                     :is_customer, :person, :customer, :customer_type, :customer_id, :postal, :emails, :complete, :state, :city, :district, :phone, 
                     :fax, :social_link, :site, :enabled, :other_contacts, :notes, :emails_attributes,
                     :external_key
+
+    cattr_writer :modules
+
     #attr_protected
   
     before_validation :before_validation_completed
@@ -24,10 +27,12 @@ module Guara
     has_many :tasks, dependent: :destroy, :as => :interested
     has_many :emails, :as => :emailable, dependent: :destroy
     has_many :contacts, dependent: :destroy
+    has_many :order
   
     belongs_to :state
     belongs_to :city
     belongs_to :district
+    
   
     #============================ 
   
@@ -111,7 +116,19 @@ module Guara
       def a_customer?
         self.is_customer || (self.businesses.count>0)
       end
+
+      def self.modules
+        @@modules || []
+      end
+
+      def self.add_module(customer_module)
+        @@modules = [] if @@modules.nil?
+        @@modules << customer_module
+      end
   
+      def base_uri
+        customer_path(self)
+      end
   
     private
   

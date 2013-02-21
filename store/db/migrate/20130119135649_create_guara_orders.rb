@@ -10,6 +10,7 @@ class CreateGuaraOrders < ActiveRecord::Migration
       t.integer :payment_type
       t.datetime :payment_date
       t.integer :payment_state
+      t.integer :payment_parts
 
       t.timestamps
     end
