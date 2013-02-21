@@ -33,9 +33,8 @@ module Guara
     end
     
     def class_exists?(class_name)
-      return Object.const_defined?(class_name)
+      return Object.const_defined? (class_name)
     rescue Exception => e
-      puts ":::================> " + e.message
       return false
     end
   end

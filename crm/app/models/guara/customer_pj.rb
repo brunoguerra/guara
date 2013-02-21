@@ -1,12 +1,10 @@
 module Guara
   class CustomerPj < ActiveRecord::Base
-  
-  
     attr_accessible :segments, :activities, :fax, :total_employes, :annual_revenues
     #attr_protected
   
     #person
-    has_one	:customer, :as => :person
+    has_one	:person, :as => :customer
   
     #segments
     has_many :customer_segments
@@ -19,11 +17,11 @@ module Guara
     has_many :customer_activities
     has_many :activities, :through => :customer_activities, source: :activity
   
-    has_many :associations, foreign_key: "from_id", class_name: "CustomerPjHasCustomersPj"
+    has_many :associations, foreign_key: "from_id", class_name: "Guara::CustomerPjHasCustomersPj"
     has_many :associateds, through: :associations, source: :to
   
     has_many :reverse_associations, foreign_key: "to_id",
-                                       class_name:  "CustomerPjHasCustomersPj",
+                                       class_name:  "Guara::CustomerPjHasCustomersPj",
                                        dependent:   :destroy
     has_many :associates, through: :reverse_associations, source: :from          
   

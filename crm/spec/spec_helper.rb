@@ -33,6 +33,10 @@ require 'ffaker'
 Dir[File.expand_path("../support/*.rb", __FILE__)].each {|f| require f}
 
 
+#capybara
+#Capybara.javascript_driver = :webkit
+
+
 def config_transactional(config)
   
   except_tables = %w[SystemAbility SystemModule SystemTaskStatus SystemTaskResolution State City BusinessSegment BusinessActivity].collect { |e| pluralize_without_count(2, e.underscore) }

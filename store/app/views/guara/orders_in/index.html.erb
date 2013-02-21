@@ -16,7 +16,7 @@
 				  <table class="table table-bordered table-striped">
 				    <thead>
 				      <tr>
-				        <th><%= t("orders.state.title") %></th>
+				        <th><%= t("orders.person.title") %></th>
 				        <th><%= t("orders.date_init.title") %></th>
 				      </tr>
 				    </thead>
@@ -24,7 +24,7 @@
 				   
 				   <% @order.each do |order| %>
 					  <tr>
-					    <td><%= order.state %></td>
+					    <td><%= order.person %></td>
 					    <td><%= order.date_init %></td>
 					  </tr>
 					<% end %>

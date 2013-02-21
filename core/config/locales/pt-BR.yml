@@ -1,4 +1,3 @@
-
 pt-BR:
   commons: &commons
     "yes": "Sim"
@@ -114,10 +113,8 @@ pt-BR:
       title: "Exibindo Contato"
     search:
         title: "Filtro Contatos"
-
     all: "Todos os Contatos"
     emails: "E-mails"
-
 
   searches:
       advanced: "Avançado"
@@ -229,11 +226,6 @@ pt-BR:
       link: "Novo Usuário"
     edit:
       link: "Editar"
-
-    all:
-      title: "Todos os Usuários"
-      link: "Todos os Usuários"
-
   
   company_businesses:
     link: "Áreas de Negócio"
@@ -264,8 +256,8 @@ pt-BR:
     title: "Setores das Empresas"
   
   task_types:
-    link: "Tipos de Atividades"
-    title: "Tipos de Atividades"
+    link: "Atividades"
+    title: "Atividades"
   
   #SECTIONS <===================================
   

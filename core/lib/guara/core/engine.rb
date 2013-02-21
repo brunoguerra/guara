@@ -42,11 +42,7 @@ module Guara
       end
       
       initializer "guara.devise" do
-        Devise::SessionsController.layout "guara/base"
-        Devise::RegistrationsController.layout "guara/base"
-        Devise::ConfirmationsController.layout "guara/base"
-        Devise::UnlocksController.layout "guara/base"            
-        Devise::PasswordsController.layout "guara/base"
+        DeviseController.layout "guara/base"
       end
       
     end

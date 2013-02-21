@@ -7,8 +7,9 @@ Guara::Core::Engine.routes.prepend do
 
   resources :orders_in
   resources :orders_out
-  
+  resources :supplier
   resources :products
+
 
   mount Spree::Core::Engine, :at => '/ecom'
   

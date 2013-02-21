@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     guara_store (0.0.1)
-      guara_crm
+      guara_core
       guara_crm
       spree_api
       spree_core

@@ -26,6 +26,7 @@ pt-BR:
             title: "Saídas"
 
   store_categories:
+    title: "Categorias"
     index:
       title: "Categorias dos Produtos"
       link: "Categorias"
@@ -34,28 +35,6 @@ pt-BR:
     index:
       title: "Produtos"
       link: "Produtos"
-    show:
-      title: "Produto"
-    new:
-      link: "Novo"
-      title: "Novo"
-    edit:
-      link: "Editar"
-      title: "Editar"
-    available_on: "Disponivel em"  
-    code: "Código"
-    categories: "Categorias"
-    description: "Descrição"
-    depth: "Profundidade"
-    enabled: "Habilitar"
-    height: "Altura"
-    name: "Nome"
-    price: "Preço"
-    primary_category: "Categorias"
-    sku: "Referência"
-    stock: "Estoque"
-    weight: "Peso"
-    width: "Largura"
 
   orders:
     in:
@@ -83,6 +62,13 @@ pt-BR:
     products:
       title: "Produtos"
       
+      price:
+        title: "Preço"
+      total:
+        title: "Total"
+      price_total:
+        title: "Preço Total"
+
     person:
       title: "Pessoa"
 
@@ -113,3 +99,31 @@ pt-BR:
     type:
       title: "Tipo"
 
+
+
+  products:
+    index:
+      title: "Produtos"
+      link: "Produtos"
+    show:
+      title: "Produto"
+    new:
+      link: "Novo"
+      title: "Novo"
+    edit:
+      link: "Editar"
+      title: "Editar"
+    available_on: "Disponivel em"  
+    code: "Código"
+    categories: "Categorias"
+    description: "Descrição"
+    depth: "Profundidade"
+    enabled: "Habilitar"
+    height: "Altura"
+    name: "Nome"
+    price: "Preço"
+    primary_category: "Categorias"
+    sku: "Referência"
+    stock: "Estoque"
+    weight: "Peso"
+    width: "Largura"

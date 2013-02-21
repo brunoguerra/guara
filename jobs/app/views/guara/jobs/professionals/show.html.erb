@@ -1,0 +1,35 @@
+<section class="show">
+
+	<%= render :partial => "navbar", :locals => { :active => :view } %>
+	<%= render :partial => "modules", :locals => { :active => :general } %>
+
+	<ul class="thumbnails">
+    <li class="span7">
+    	<div class="thumbnail">
+      	<div class="caption">
+
+      		<div class="span6">
+				<dl class="dl-horizontal">
+			        <dt><%=  t("professional.id") %></dt>
+					<dd><%=  @professional.id %></dd>
+
+					<dt><%=  t("professional.have_job") %></dt>
+					<dd><%=  format_boolean @professional.have_job %></dd>
+
+					<dt><%=  t("professional.business_action.name") %></dt>
+					
+			    </dl>
+
+					  <dl class="dl-horizontal">
+			           
+			     	 </dl>
+				</div>
+
+				<div style="clear:both;"></div>
+
+        </div>
+      </div>
+    </li>
+  </ul>  
+
+</section>

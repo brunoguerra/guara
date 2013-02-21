@@ -9,8 +9,7 @@ module Guara
 
     has_many :items, class_name: "Guara::OrderItem"
     has_many :products, through: :items
-    
-    accepts_nested_attributes_for :items
+
 
     
     public

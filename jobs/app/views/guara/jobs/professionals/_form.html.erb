@@ -1,0 +1,149 @@
+<%= semantic_form_for [@customer, @professional], 
+:url => @professional.new_record? ? customer_professionals_path(@customer) : customer_professional_path(@customer, @professional), 
+:html => {:class => ""}  do |f| %>
+
+	<fieldset>
+
+		<div class="row page-header">
+			<legend class="span2"><small> <%=  t("customers.professional.title") %></small></legend>
+			
+			<!-- HAVE JOB ? -->	
+			<div class="span9 well">
+		    <%= f.input :have_job, :label => t("customers.professional.new.have_job.title"),
+		    	:as => :radio, 
+		    	:collection => ["Sim", "Não"],
+		    	:class => "well" %><!-- END DIV HAVE JOB ? -->
+		    </div>
+		</div>
+
+		<!-- VACANCY SPECIFICATION -->
+	    <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification do |specification_f| %>
+
+	        <div class="row page-header">
+	        	<legend class="span2"><small> <%=  t("customers.professional.new.business_action.title") %></small></legend>
+
+	        	<div class="span9 well">
+		        	<% Guara::Jobs::BusinessAction.all.each do |ba| %>
+			        	<ul>
+			        		<li><h3><%= ba.name %></h3></li>
+			        		<% Guara::Jobs::Role.where(business_action_id: ba.id).each do |r| %>
+			        			<li><%= check_box_tag "roles[]", r.id, :id => "role_%d" % r.id  %><%= label_tag "role_%d" % r.id, r.name %> </li>
+			        		<% end %>
+
+			        	</ul>
+		        	<% end %>
+	        	
+
+	        	<%= specification_f.input :salary_requirements,
+	        		:as => :string,
+	        		:label => t("customers.professional.new.salary_requirements.title"),
+	        		:input_html => {:class => "control-label"}%>
+
+	        	</div>
+
+	        </div>
+	    <% end %><!-- END VACANCY SPECIFICATION -->
+
+	    <!-- FORMATION -->
+		<div class="row page-header formation">
+			<legend class="span2"><small><%=  t("customers.professional.new.formation.title") %></small></legend>
+			
+			<div class="span9 well">
+	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
+					:locals => { 
+						:values => @professional.formations, 
+						:form => f, 
+						:target => :formations, 
+						:inputs => { 
+							:level_education => {
+								:label => t("customers.professional.new.level_education.title"),
+								:collection => Guara::Jobs::LevelEducation.all,
+								:class => "span2",
+							},
+
+							:course => { :label => t("customers.professional.new.course.title") },
+
+							:name_institution => { 
+								:label => t("customers.professional.new.name_institution.title")},
+
+							:situation => {
+								:collection => ["Concluído","Andamento", "Cancelado","Trancado"],
+								:label => t("customers.professional.new.situation.title")},
+
+							:date_conclusion => { 
+								:input_html => { 'data-behaviour' => 'datetimepicker' },
+								:label => t("customers.professional.new.date_conclusion.title") },
+
+							:description => {
+								:input_html => { :rows => 5,  :maxlength => 300, },
+								:label => t("customers.professional.new.description.title") }
+						},
+						:options => {
+							add_class: "btn btn-block"
+						},
+
+				}
+				%>	
+			</div>
+		</div><!-- END FORMATION -->
+
+		<!--EXPERIENCE PROFESSIONAL-->
+
+		<div class="row page-header professional_experiences">
+			<legend class="span2"><small><%=  t("customers.professional.new.professional_experience.title") %></small></legend>
+				
+			<div class="span9 well">
+	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
+					:locals => { 
+						:values => @professional.professional_experiences, 
+						:form => f, 
+						:target => :professional_experiences, 
+						:inputs => { 
+							:company_name => { 
+								:label => t("customers.professional.new.company_name.title") },
+
+							:role => { 
+								:label => t("customers.professional.new.role.title") },
+
+							:activities => {:input_html => {:rows => 5, :maxlength => 300}, 
+								:label => t("customers.professional.new.activities.title") },
+
+							:date_admission => { 
+								:input_html => { 'data-behaviour' => 'datetimepicker', 
+													:select => {:class => "teste"} }, 
+								:label => t("customers.professional.new.date_admission.title") },
+
+							:date_resignation => { 
+								:input_html => { 'data-behaviour' => 'datetimepicker' },
+								:label => t("customers.professional.new.date_resignation.title")}
+								},	
+							:options => {
+								add_class: "btn btn-block"
+						}							
+					}
+				%>
+			</div>
+		</div><!-- END EXPERIENCE PROFESSIONAL-->
+
+		<%= f.submit class: "btn btn-large btn-primary" %> 
+
+		<%= link_to t('helpers.forms.back'), @professional.new_record? ? customer_path(@customer) : customer_professional_path(@customer), :class => "btn back_jobs" %>
+
+	</fieldset>
+
+<% end %><!-- END FORM -->
+
+<script type="text/javascript">
+
+$(document).ready(function() {    
+	
+      $('#jobs_professional_vacancy_specification_attributes_salary_requirements').priceFormat({
+        prefix: 'R$ ',
+        centsSeparator: ',',
+        thousandsSeparator: '.'
+      });
+
+});
+
+
+</script>
