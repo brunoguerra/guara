@@ -5,6 +5,77 @@ pt-BR:
   jobs:
     title: "Jobs"
 
+    professional: &attr_professional
+      title: "Dados Curriculares"     
+      link: "Dados Curriculares"
+
+      names:
+        title: "Nome"
+
+      selecteds_candidates:
+        title: "Seleção de Candidatos"
+
+      selecteds:
+        title: "Selecionados"
+
+      index:
+        title: "Cadastro de Profissional"
+        link: "Profissional"
+
+      business_action_roles:
+        title: "Área de Atuação - Cargos"
+
+      have_job:
+         title: "Empregado atualmente ?"
+
+      business_action:
+        title: "Área de Atuação" 
+
+      formation:
+        title: "Formação Acadêmica"  
+
+      salary_requirements:
+        title: "Pretensão Salarial"
+
+      level_education:
+        title: "Grau de Formação"
+
+      course:
+        title: "Curso"
+
+      name_institution:
+        title: "Nome Instituição"
+
+      situation:
+        title: "Situação"
+
+      date_conclusion:
+        title: "Data de Conclusão"
+
+      description:
+        title: "Descrição"
+
+      professional_experience:
+        title: "Experiência Profissional"
+
+      company_name:
+        title:   "Nome da Empresa"
+
+      role:
+        title: "Cargo"
+
+      activities:
+        title: "Atividades"
+
+      date_admission:
+        title: "Data de Admissão"
+
+      date_resignation:
+        title: "Data de Demissão"
+
+      business_action_roles:
+        title: "Área de Atuação - Cargos"
+
   jobs_business_actions:
     title: "Área de Atuação"
 
@@ -14,63 +85,36 @@ pt-BR:
   jobs_level_educations:
     title: "Grau de Formação"
 
-  professional:
-    title: "Dados Curriculares"        
-    link: "Dados Curriculares"
-
-    business_action_roles:
-      title: "Área de Atuação - Cargos"
-
-    have_job: 
-      title: "Empregado atualmente ?"
-
-    business_action:
-      title: "Área de Atuação" 
-
-    formation:
-      title: "Formação Acadêmica"  
-
-    salary_requirements:
-      title: "Pretensão Salarial"
-
-    level_education:
-      title: "Grau de Formação"
-
-    course:
-      title: "Curso"
-
-    name_institution:
-      title: "Nome Instituição"
-
-    situation:
-      title: "Situação"
-
-    date_conclusion:
-      title: "Data de Conclusão"
-
-    description:
-      title: "Descrição"
-
-    professional_experience:
-      title: "Experiência Profissional"
-
-    company_name:
-      title:   "Nome da Empresa"
-
-    role:
-      title: "Cargo"
-
-    activities:
-      title: "Atividades"
-
-    date_admission:
-      title: "Data de Admissão"
-
-    date_resignation:
-      title: "Data de Demissão"
 
   search:
     link: "Buscar Profissional"
 
-  business_action_roles:
-    title: "Área de Atuação - Cargos"
+      
+
+  system:
+    modules: &jobs_modules
+      "guara/jobs/professional": "Profissional"
+
+  activerecord:
+      attributes:
+        "guara/jobs/professional":
+            <<: *attr_professional
+      
+      models:
+        <<: *jobs_modules
+
+  helpers:
+    label:
+      professional:
+        search:
+          level_education: 
+            title: "Grau de Formação"
+
+          business_action: 
+            title: "Área de Atuação"
+
+          salary_requirements:
+            title: "Pretensão Salarial"
+
+          names:
+            title: "Nome"

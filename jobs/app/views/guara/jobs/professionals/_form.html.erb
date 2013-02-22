@@ -5,11 +5,11 @@
 	<fieldset>
 
 		<div class="row page-header">
-			<legend class="span2"><small> <%=  t("professional.title") %></small></legend>
+			<legend class="span2"><small> <%=  t("jobs.professional.title") %></small></legend>
 			
 			<!-- HAVE JOB ? -->	
 			<div class="span9 well">
-		    <%= f.input :have_job, :label => t("professional.have_job.title"),
+		    <%= f.input :have_job, :label => t("jobs.professional.have_job.title"),
 		    	:as => :radio, 
 		    	:collection => ["Sim", "Não"],
 		    	:class => "well" %><!-- END DIV HAVE JOB ? -->
@@ -20,7 +20,7 @@
 	    <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification do |specification_f| %>
 
 	        <div class="row page-header">
-	        	<legend class="span2"><small><%=  t("professional.business_action.title") %></small></legend>
+	        	<legend class="span2"><small><%=  t("jobs.professional.business_action.title") %></small></legend>
 
 	        	<div class="span9 well">
 		        	<% Guara::Jobs::BusinessAction.all.each do |ba| %>
@@ -39,7 +39,7 @@
 
 	        	<%= specification_f.input :salary_requirements,
 	        		:as => :string,
-	        		:label => t("professional.salary_requirements.title"),
+	        		:label => t("jobs.professional.salary_requirements.title"),
 	        		:input_html => {:class => "control-label"}%>
 
 	        	</div>
@@ -49,7 +49,7 @@
 
 	    <!-- FORMATION -->
 		<div class="row page-header formation">
-			<legend class="span2"><small><%=  t("professional.formation.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.formation.title") %></small></legend>
 			
 			<div class="span9 well">
 	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
@@ -59,27 +59,27 @@
 						:target => :formations, 
 						:inputs => { 
 							:level_education => {
-								:label => t("professional.level_education.title"),
+								:label => t("jobs.professional.level_education.title"),
 								:collection => Guara::Jobs::LevelEducation.all,
 								:class => "span2",
 							},
 
-							:course => { :label => t("professional.course.title") },
+							:course => { :label => t("jobs.professional.course.title") },
 
 							:name_institution => { 
-								:label => t("professional.name_institution.title")},
+								:label => t("jobs.professional.name_institution.title")},
 
 							:situation => {
 								:collection => ["Concluído","Andamento", "Cancelado","Trancado"],
-								:label => t("professional.situation.title")},
+								:label => t("jobs.professional.situation.title")},
 
 							:date_conclusion => { 
 								:input_html => { 'data-behaviour' => 'datetimepicker' },
-								:label => t("professional.date_conclusion.title") },
+								:label => t("jobs.professional.date_conclusion.title") },
 
 							:description => {
 								:input_html => { :rows => 5,  :maxlength => 300, },
-								:label => t("professional.description.title") }
+								:label => t("jobs.professional.description.title") }
 						},
 						:options => {
 							add_class: "btn btn-block"
@@ -93,7 +93,7 @@
 		<!--EXPERIENCE PROFESSIONAL-->
 
 		<div class="row page-header professional_experiences">
-			<legend class="span2"><small><%=  t("professional.professional_experience.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.professional_experience.title") %></small></legend>
 				
 			<div class="span9 well">
 	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
@@ -103,22 +103,24 @@
 						:target => :professional_experiences, 
 						:inputs => { 
 							:company_name => { 
-								:label => t("professional.company_name.title") },
+								:label => t("jobs.professional.company_name.title")
+								},
 
 							:role => { 
-								:label => t("professional.role.title") },
+								:label => t("jobs.professional.role.title")
+								},
 
 							:activities => {:input_html => {:rows => 5, :maxlength => 300}, 
-								:label => t("professional.activities.title") },
+								:label => t("jobs.professional.activities.title") },
 
 							:date_admission => { 
 								:input_html => { 'data-behaviour' => 'datetimepicker', 
 													:select => {:class => "teste"} }, 
-								:label => t("professional.date_admission.title") },
+								:label => t("jobs.professional.date_admission.title") },
 
 							:date_resignation => { 
 								:input_html => { 'data-behaviour' => 'datetimepicker' },
-								:label => t("professional.date_resignation.title")}
+								:label => t("jobs.professional.date_resignation.title")}
 								},	
 							:options => {
 								add_class: "btn btn-block"
@@ -128,7 +130,7 @@
 			</div>
 		</div><!-- END EXPERIENCE PROFESSIONAL-->
 
-		<%= f.submit class: "btn btn-large btn-primary" %> 
+		<%= f.submit class: "btn  btn-primary" %> 
 
 		<%= link_to t('helpers.forms.back'), @professional.new_record? ? customer_path(@customer) : customer_professional_path(@customer), :class => "btn back_jobs" %>
 
@@ -137,16 +139,8 @@
 <% end %><!-- END FORM -->
 
 <script type="text/javascript">
+    $(function(){
+        $("#jobs_professional_vacancy_specification_attributes_salary_requirements").maskMoney();
+    })
+    </script>
 
-$(document).ready(function() {    
-	
-      $('#jobs_professional_vacancy_specification_attributes_salary_requirements').priceFormat({
-        prefix: 'R$ ',
-        centsSeparator: ',',
-        thousandsSeparator: '.'
-      });
-
-});
-
-
-</script>

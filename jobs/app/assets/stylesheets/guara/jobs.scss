@@ -26,6 +26,8 @@ form.guara_jobs_professional label{
 
     .guara_jobs_professional ul li input{float: left; margin-right: 5px;}
 
+
+
   .guara_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements_input{margin-top: 40px;float: left !important;}
 
   .guara_jobs_professional #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left !important; width: 350px; }
@@ -89,7 +91,7 @@ form.guara_jobs_professional .formation, .professional_experiences { overflow: h
 
 form.guara_jobs_professional input[type="submit"]{float: right;}
 
-form.guara_jobs_professional .back_jobs {margin-top: 10px;}
+form.guara_jobs_professional .back_jobs {margin-top: -5px;}
 
 .back_jobs .btn {margin-top: -160px !important;}
 
@@ -98,3 +100,13 @@ form.guara_jobs_professional .back_jobs {margin-top: 10px;}
 
 
  .show .dl-horizontal dt { width: 171px; }
+
+/* SEARCH */
+
+#search ul li b {display: block;}
+
+#search table td {text-transform: uppercase;}
+
+#search table td ul li{ margin-left: 5px;line-height: 12px;}
+
+#search table td a{text-transform: none;}
