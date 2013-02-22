@@ -10,6 +10,8 @@ module Guara
 							:formations_attributes, 
 							:professional_experiences_attributes
 
+			delegate :name, to: :person
+
 
 			#==============================> ASSOCIATE <============================#
 	    	belongs_to :person
@@ -30,7 +32,7 @@ module Guara
 
 
 	  		def base_uri
-			    self.new_record? ? new_customer_professional_path(self.customer, self) : edit_customer_professional_path(self.customer, self)
+			    self.new_record? ? new_customer_professional_path(self.customer, self) : customer_professional_path(self.customer, self)
 			end
 
 		end

@@ -1,0 +1,103 @@
+<navbar>
+	<%= render :partial => "/guara/customers/navbar", :locals => { active: :search_professional } %>
+</navbar>
+
+<div class="row">
+	<div class="span9 search_fast9">	  
+		<section id="search">
+			<div class="page-header">
+				<%= t("search.results")%>
+			</div>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+					<th><%= t("jobs.professional.names.title") %></th>
+					<th><%= t("jobs.professional.business_action_roles.title") %></th>
+					<th><%= t("helpers.forms.actions") %></th>
+					</tr>
+				</thead>	
+				<tbody>
+					<% @professional.each do |p| %>
+						<tr>
+							<td><%= p.person.name %></td>
+							<td>
+								<ul><% business_action_last = nil %>
+									<% p.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
+										<h5>
+										<% if (business_action_last.nil? || business_action_last.id != r.business_action.id)%>
+										<%= r.business_action.name %> :
+										<% end %>
+										</h5>
+										<li>- <%= r.name %><br></li>
+										<% business_action_last = r.business_action %>
+									<% end %>
+								</ul>
+							</td>
+							<td>
+								<%= link_to t("helpers.forms.show"), customer_professional_path(p.person_id, p), :class => "btn" %>
+								<%= link_to t("helpers.forms.select"), 
+								'javascript:void(0);', :class => "btn btn-info",
+								:onClick=> "setProfessionalToSelect2(#{p.id}, '#{p.person.name}');" %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table><!-- FIM EXIBIÇÃO PROFESSIONAL -->
+		</section>   
+	</div>
+	<div class="span3 search_fast3">
+		<%= render :partial => "form_search", 
+			:locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } 
+		%>
+
+		<div class="selects_professionals">
+			<div class="page-header"><%= t("jobs.professional.selecteds_candidates.title") %></div>
+				<%= form_for :select_professionals, :html => { :class => "well form-search", :method => :get } do |f|  %>
+
+					<div class="control-group">
+				        <%= label_tag :professionals_selecteds, t("jobs.professional.selecteds.title"), :class => "control-label" %>
+				            <div class="controls">
+					          <%= f.select(:professionals_selecteds,
+								options_from_collection_for_select([], :id, :name), 
+								{}, 
+								{ :multiple => true, 
+									:style => "width: 200px;", 
+									:placeholder => t("jobs.professional.selecteds.title"), 
+									:class => "multiselect" 
+								}) %>
+				            </div>
+
+				    </div>
+				  
+				<% end %>
+		</div>
+	</div> <!-- SEARCH PROFESSIONAL -->
+
+	<script type="text/javascript">
+		function setProfessionalToSelect2(id, name){
+			var noadd = false,
+			select    = $('#select_professionals_professionals_selecteds'),
+			options   = $('#select_professionals_professionals_selecteds option');
+
+			for (var i=0; i<options.length;i++){
+				if(options[i].value==id){
+					noadd = true;
+				}
+			}
+
+			if(!noadd){
+				select.append(
+					$('<option></option>')
+						.text(name)
+						.val(id)
+				);	
+			}
+
+			var sels = select.select2("val");
+			sels.push(id);
+			select.select2("val", sels); 	
+		}
+	</script>
+</div>
+
+

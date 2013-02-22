@@ -1,6 +1,10 @@
 
 pt-BR:
   customers: &attr_customer
+    professional:    
+      search:
+        link: "Pesquisar por Professional"
+        
     title: "Cadastro de Clientes"
     link: "Clientes"
     general: "Geral"
@@ -155,6 +159,8 @@ pt-BR:
     date: "Data da Resposta"
     side:
         title: "Feedbacks"
+
+    
           
 #Global <==================================
 

@@ -5,7 +5,9 @@ module Guara
       value ? t("commons.yes"):t("commons.no")
     end
   
-
+    def yes_or_no(value)
+      value ? t("commons.yes"):t("commons.no")
+    end
     ##
     #
     # options
