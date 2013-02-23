@@ -1,0 +1,324 @@
+
+<%= render :partial => "guara/jobs/jobs/navbar", 
+      :locals => { active: :custom_process } %>
+
+<section class="show">
+	<ul class="thumbnails">
+  		<li class="span9">
+		    <div class="thumbnail">
+		      <div class="caption">
+				<legend><%= t('custom_process.show.title') %></legend>
+				<div class="row">
+					<div class="span4">
+
+					  <div class="control-group">
+			            <%= t('custom_process.id') %>
+						<%= @custom_process.id %>
+			          </div>
+
+			          <div class="control-group">
+			            
+			            <div class="widthAuto" id="process">
+			            	<span style="float:left;">
+			            		<b><%= t('custom_process.name') %>:</b> 
+			            		<%= @custom_process.name %>
+			            	</span>
+			            	<div class="ep"></div>
+			            </div>
+			            &nbsp;
+			          </div>
+
+			          <a id="custom_steps" href="javascript:void(0);" class="btn">
+			          	<%= t('custom_process.link.custom_steps') %>
+			          </a>
+
+			          <a id="save_steps" href="javascript:void(0);" class="btn" disabled="disabled">
+			          	<%= t('custom_process.link.save_steps') %>
+			          </a> 
+			        </div>
+			    </div>
+			</div>
+		</li>
+
+		<li class="span3">
+			<div class="thumbnail">
+				<legend><%= t('products.show.steps') %></legend>
+				<a id="add_step" href="javascript:void(0);" class="btn" >add step</a>
+				<div class="container_steps">
+					<%  @steps.collect { |f| %>
+						<div class="w step widthAuto step_click" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
+							<span class="step_click" step_id="<%=f.send(:id)%>"><%=f.send(:name)%></span>
+							<div class="ep"></div>
+						</div>
+					<%	} %>
+				</div>
+				<%= render :partial => 'dialog_step' %>
+			</div>
+		</li>
+	</ul>
+</section>
+
+
+<ul id="dropdown-menu-step" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+	<li class="dropdown-submenu">
+        <a tabindex="-1" href="#">Editar</a>
+        <ul class="dropdown-menu">
+          <li>
+          	<a id="edit-step" tabindex="-1" href="javascript:void(0);">
+          		Informar Campos
+          	</a>
+          </li>
+          <li><a tabindex="-1" href="#">Campos Automatizados</a></li>
+        </ul>
+   	</li>
+
+	<li><a id="delete-step" tabindex="-1" href="javascript:void(0);">Deletar</a></li>
+</ul>
+
+<div id="dialog_attr_step" class="modal hide fade" style="width:940px;">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>Customizar Campos da Etapa</h3>
+	  </div>
+	  
+	  <div class="modal-body" id="form_builder">
+	    <%= render :partial => 'panel_build_form' %>
+	  </div>
+	  
+	  <div class="modal-footer">
+	    <a id="save_attr_step" href="javascript:void(0);" class="btn btn-primary">Salvar</a>
+	  </div>
+</div>
+
+<script type="text/javascript">
+	jQuery.fn.center = function () {
+	    this.css("position","absolute");
+	    this.css("top", Math.max(0, ((jQuery(window).height() - jQuery(this).outerHeight()) / 2) + 
+	                                                jQuery(window).scrollTop()) + "px");
+	    this.css("left", Math.max(0, ((jQuery(window).width() - jQuery(this).outerWidth()) / 2) + 
+	                                                jQuery(window).scrollLeft()) + "px");
+	    return this;
+	}
+
+	function son(id, con_id){
+		cons = jsPlumb.getConnections({source: id});
+		var sons = [];
+		if(!con_id){
+			con_id = 0;
+			window.level_son = 0;	
+		} 
+		else{
+			level_son ++;
+		}
+		
+		if(cons.length>0){
+			for(var j in cons){
+				var cons2 = cons;
+
+				if(cons2[j].id){
+					con_id2 = parseInt(cons2[j].id.split('_')[1]);
+					if(parseInt(con_id)<con_id2){
+						sons.push({
+							id: cons2[j].targetId,
+							con_id: con_id2,
+							level: level_son,
+							id_real: cons2[j].id, 
+							source_id: cons2[j].sourceId,
+							sons: son(cons2[j].targetId, con_id2)
+						});
+					}
+				}
+			}
+		}
+
+		return sons;
+	}
+
+	function alertDialog(msg, error){
+		var dialog = jQuery('#message-step');
+		if(error){
+			dialog
+				.removeClass('alert-success')
+				.addClass('alert-error');
+		}
+		else{
+			dialog
+				.removeClass('alert-error')
+				.addClass('alert-success');
+		}
+		jQuery('#message-step-body').html(msg);
+		dialog
+			.center()
+			.css("top", 20)
+			.show();
+			setTimeout(function(){
+				dialog.fadeOut(400);
+			}, 1500);
+	}
+
+	jQuery(document).bind("click", function(e){
+		if(!jQuery(e.target).hasClass('step_click')){
+			jQuery('#dropdown-menu-step').css('display', 'none');
+		}
+	});
+
+	jQuery(document).bind("contextmenu", function(e){
+		if(jQuery(e.target).hasClass('step_click')){
+			e.preventDefault();
+			var off = jQuery(e.target).offset();
+			off.top += 45;
+			jQuery('#dropdown-menu-step')
+				.css('display', 'block')
+				.attr('step_id', jQuery(e.target).attr('step_id'))
+				.offset(off);
+		}
+	});
+
+	jQuery('#edit-step').click(function(e){
+		window.step_id = jQuery("#dropdown-menu-step").attr('step_id');
+		$('#dialog_attr_step').modal('show');
+		jQuery('#dialog_attr_step').css('display', 'block', 'important');
+		getElsSaved(step_id);
+		return true;
+
+		var nome;
+		nome = prompt ("Digite o Nome");
+		if(nome != null && nome != "")
+			jQuery('#'+step_id+' span').html(nome);	
+	});
+
+	jQuery('#delete-step').click(function(e){
+		window.step_id = jQuery(jQuery(this).closest("ul")[0]).attr('step_id');
+		jsPlumb.detachAllConnections(step_id);
+		jQuery('#'+step_id).remove();
+	});
+
+	jQuery('#custom_steps').click(function(e){
+		jsPlumbDemo.start();
+	});
+
+	jQuery('#save_steps').click(function(e){
+		if(jsPlumbDemo.started){
+			var sons = son('process');
+			if(sons.length>0){
+				jQuery.ajax({
+				  type: "POST",
+				  url: "<%= custom_process_steps_path %>",
+				  data: { 
+				  	'custom_process[json]': JSON.stringify(sons),
+				  	'custom_process[custom_process_id]': <%= @custom_process.id %>
+				  }
+				}).done(function( d ) {
+					
+				}).fail(function(d){
+					
+				});
+			}
+			else{
+				alertDialog('Customize as Etapas do Processo!', true);
+			}
+		}
+	});
+
+	jQuery('#add_step').click(function(e){
+		$('#dialog_step').modal('show');
+		jQuery('#dialog_step').offset({ top: 315});
+	});
+
+	jQuery('#save_step').click(function(){
+		var name = jQuery.trim( jQuery('#name').val()	);
+		if (name != ""){
+			jQuery.ajax({
+				  type: "POST",
+				  url: "/step",
+				  data: { 
+				  	'step[name]': name,
+				  	'step[custom_process_id]': <%= @custom_process.id %>
+				  }
+				}).done(function( d ) {
+					jQuery('<div></div>')
+						.attr('id', d.id)
+						.addClass('w step widthAuto')
+						.append(jQuery('<span></span>').html(d.name))
+						.append(jQuery('<div></div>').addClass('ep'))
+						.appendTo(jQuery('.container_steps'));
+
+					$('#dialog_step').modal('hide');
+					alertDialog('Salvo');
+					jQuery('#name').val('');
+					jsPlumbDemo.init();
+
+				}).fail(function(d){
+					jQuery('#name').focus();
+					alertDialog('Erro ao Salvar', true);
+				});
+		} 
+	});
+	window.json_elements_saved = {};
+	<%
+		if @jsonNext.size > 0 and @jsonNext[0][:next] != nil %>
+			jsPlumbDemo.start();
+			setTimeout(function(){
+		<%
+		@jsonNext.each do |n|
+			#criando conexão de steps 
+			if n[:next] != nil%>
+			jsPlumb.connect({source:"<%=n[:id]%>", target:"<%=n[:next]%>"});
+			<%
+			end
+			
+			#atribuindo attrs ao step
+			if n[:attrs].size > 0 
+				@i = 0
+				n[:attrs].each do |at| 
+				@i = @i + 1
+				%>
+					if(!json_elements_saved["<%=n[:id]%>"]){
+						json_elements_saved["<%=n[:id]%>"] = [];
+					}
+					
+					json_elements_saved["<%=n[:id]%>"].push({
+						title: "<%=at[:label]%>", guidelines: "<%=at[:guidelines]%>", size: "medium", is_required: "<%=at[:required]%>", is_unique: 0,is_private: 0, type: "<%=at[:type_field]%>", object: "", position: "<%=at[:position]%>", id: <%= @i %>, is_db_live: 0, default_value: "<%=at[:column]%>", constraint: "", options: "<%=at[:options]%>"
+					});
+				<% end	
+			end
+		end %>
+		}, 500);
+		<% end
+	%>
+
+	function getElsSaved(id){
+		for (var i=0; i< ds.data["elements"].length; i++){
+			delete_element(ds.data["elements"][i].id);
+		}
+
+		var elsaved = json_elements_saved;
+		if(elsaved[id]){
+			for (var i=0; i< elsaved[id].length; i++){
+				var el = elsaved[id][i];
+				insert_element(el.type);
+				var a = ds.data["elements"];
+				b = a[a.length - 1];
+				ds.data["elements"][a.length - 1].title = el.title;
+				ds.data["elements"][a.length - 1].is_required = el.is_required;
+				ds.data["elements"][a.length - 1].default_value = el.default_value;
+				ds.data["elements"][a.length - 1].options = el.options;
+			}
+		}
+	}
+
+	var json_form = {
+        "id": 0,
+        "name": "Formulário sem título",
+        "description": "Esta é a sua descrição do formulário. Clique aqui para editar.",
+        "redirect": "",
+        "success_message": "Sucesso! Sua apresentação foi salva!",
+        "password": "",
+        "frame_height": 0,
+        "unique_ip": 0,
+        "captcha": 0
+    };
+    var json_elements = {
+        "elements": []
+    };
+</script>

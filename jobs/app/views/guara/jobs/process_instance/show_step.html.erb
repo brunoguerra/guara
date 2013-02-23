@@ -1,0 +1,34 @@
+<%= render :partial => 'shared/navbar', :locals => { :title => t("process_instance.show.title") } %>
+
+<section class="show">
+	<div class="offset1">
+		<ul class="thumbnails">
+			<li class="span9">
+			    <div class="thumbnail">
+			    	<h2><%=@step_init.name%></h2>
+					<%= render :partial => 'details_initial_stage', :locals=> {:vals=> @vals} %>
+				</div>
+			</li>
+	  		<li class="span9">
+			    <div class="thumbnail">
+			    	<h2><%=@current_step.name%></h2>
+			    	<div class="row-fluid">
+						<div class="span12">
+							<% @current_columns.each do |k, v| 
+								v.each do |c|  %>
+									<div class="control-group">
+										<%= show_span_tag c.label %>
+										<%= @vals_edit[c.id] %>
+									</div>
+							<%  end 
+							end %>
+						</div>
+					</div>
+
+					<%= link_to 'Voltar', process_instance_path(@process_instance), :class=> "btn" %> 
+					<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> @current_step.id), :class=> "btn" %> 
+				</div>
+			</li>
+		</ul>
+	</div>	
+</section>

@@ -29,13 +29,14 @@ module Guara
 
 	    def manage_advanced_fields()
 	    	@professional.vacancy_specification = VacancySpecification.new(params[:jobs_professional][:vacancy_specification_attributes]) if @professional.vacancy_specification.nil?
-	    	roles_id = params[:roles]
+	    	roles_id = params[:roles] || {}
 	    	@professional.vacancy_specification.roles = roles_id.map { |r_id| Role.find r_id }
 	    end # MÉTODO PARA SELEÇÃO DE VÁRIOS CARGOS
 
 
 	    def create
 	    	@professional = Professional.new(params[:jobs_professional])
+	    	@professional.person = @customer
 	    	#@professional.vacancy_specification = VacancySpecification.new(params[:professional][:vacancy_specification]) 
 	    	manage_advanced_fields()
 
