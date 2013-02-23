@@ -3,7 +3,7 @@
 <div class="page-header"><%= t("customers.index.title") %></div>
 
 	<%= form_for @search,:url => professionals_search_path ,
-		:html => { :class => "well form-search", :method => :get } do |f|  %>
+		:html => { :class => "well form-search", :method => :get }, :remote => true do |f|  %>
 		
 				<fieldset>
 				  <div class="row">

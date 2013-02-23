@@ -24,15 +24,24 @@ module Guara
 
 
 	    	if class_exists?("Ransack")
-		        @professional = @search.result().paginate(page: params[:page], :per_page => 10)
+		        @professionals = @search.result().paginate(page: params[:page], :per_page => 10)
 		    else
-		        @professional = @search.paginate(page: params[:page], :per_page => 10)
+		        @professionals = @search.paginate(page: params[:page], :per_page => 10)
 		    end
 
 		    params[:search] = {} if params[:search].nil?
+		    respond_to do |format|
+	            format.json { render "guara/jobs/professionals/_list_professionals.html.erb" }
+	            format.html { render "search" }
+            end
+	    end
 
-	    	
+	    def searched_professionals
+	    	@professionals || Professional.paginate(page: 1, per_page: 10)
+	    end
 
+	    def searched_search
+	    	@search || {:none => true}
 	    end
 	  	
 	  	def new

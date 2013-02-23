@@ -44,7 +44,14 @@
                                         <img src="/assets/button_text/paragraph_text.gif">
                                     </a>
                                 </li>
+
+                                <li>
+                                    <a id="widget_field" href="javascript:insert_element('section');">
+                                        <img src="/assets/button_text/widget.gif">
+                                    </a>
+                                </li>
                             </ul>
+
                             <ul id="second_column">
                                 <li>
                                     <a id="drop_down" href="javascript:insert_element('select');">
@@ -57,6 +64,7 @@
                                     </a>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                     <form style="display: none;" id="element_properties" action="" onsubmit="return false;">
@@ -93,9 +101,8 @@
                                     <a href="#" class="tooltip" title="Field Size" rel="This property set the visual appearance of the field in your form. It does not limit nor increase the amount of data that can be collected by the field.">(?)</a>
                                 </label>
                                 <select class="select full" id="field_size" autocomplete="off" tabindex="13" onchange="set_properties(JJ(this).val(), 'size')">
-                                    <option value="small">Pequeno</option>
-                                    <option value="medium">Médio</option>
-                                    <option value="large">Largo</option>
+                                    <option>Selecione um Tipo</option>
+                                    <option value="selecionar_candidatos">Seleção de Candidatos</option>
                                 </select>
                             </li>
                             <li class="right half" id="prop_date_format">
