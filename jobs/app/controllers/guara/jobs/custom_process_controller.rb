@@ -51,6 +51,7 @@ module Guara
               @attrs << {
                 :label => a[:label], 
                 :name => a[:name], 
+                :size => a[:widget],
                 :required => a[:required], 
                 :type_field => a[:type_field], 
                 :position => a[:position], 
@@ -92,6 +93,7 @@ module Guara
             :options=> j['options'], 
             :guidelines=> j['guidelines'], 
             :label=> j['title'], 
+            :widget=> j['size'], 
             :required=> j['is_required'], 
             :resume => j['is_private'], 
             :type_field=> j['type'], 
@@ -107,6 +109,12 @@ module Guara
         Step.destroy(params[:step_id])
         render :json => @json
       end
+      
+      def step_set_widget
+        @step = Step.find params[:step][:id]
+        @step.update_attributes({:widget=> params[:step][:widget]})
+        render :json => @step
+      end 
     
     end
   end
