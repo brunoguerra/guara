@@ -22,6 +22,9 @@ Guara::Core::Engine.routes.prepend do
 		resources :step
 		  
 		resources :process_instance
+
+		match "/professionals/search", to: "professionals#search"
+
 	end
   
   
