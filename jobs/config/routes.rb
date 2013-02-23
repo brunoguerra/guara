@@ -12,6 +12,7 @@ Guara::Core::Engine.routes.prepend do
 
 		match "/jobs",    to: "jobs#index"
 
+		match "/professionals/search", to: "professionals#search"
 	end
   
   

@@ -36,9 +36,7 @@
 														options_for_select([nil]) + 
 														options_from_collection_for_select(Guara::BusinessActivity.all,
 																															:id, 
-																															:name, 
-																															params[:search][:customer_guara_customer_pj_type_activities_id_in]
-																															),
+																															:name		),
 													{}, 
 													{ :multiple => true, 
 														:style => "width: 200px;", 
@@ -121,12 +119,11 @@
 					<% if (mode != :advanced) then %>
 					<%= link_to t("searches.advanced"), customers_path(:search_mode_advanced => true), :class => "btn" %>
 					<% end  %>
-		    </div>
+		    	</div>
 			</div>
 		</fieldset>
 	  <% end %>
 <% end %>
-	</div>
 
 <script>
 	$("[id$=autocomplete]").on("blur", function(e) {
@@ -140,6 +137,4 @@
 	$(".multiselect").select2({
 	              maximumInputLength: 10
 	            });
-
-	
 </script>
