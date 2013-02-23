@@ -1,38 +1,49 @@
-<% if @contacts %>
-<section id="buttons">
-  
-  <legend><%= t("search.results")%></legend>
-  
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th><%= t("contacts.name") %></th>
-        <th><%= t("contacts.department") %></th>
-        <th><%= t("contacts.business_function") %></th>
-        <th><%= t("contacts.phone") %></th>
-        <th><%= t("contacts.cell") %></th>
-        <th><%= t("contacts.emails") %></th>
-        <th><%= t("helpers.forms.actions") %></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-      <td><%= contact.name %></td>
-      <td><%= name_or_empty contact.department %></td>
-      <td><%= contact.business_function %></td>
-      <td><%= contact.phone %></td>
-      <td><%= contact.cell %></td>
-      <td><%= concat_emails(contact.emails) %></td>
-      <td></td>
-      <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-</section>
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#index" data-toggle="tab"><%= t("contacts.index.link") %></a></li>
+  <li><a href="#edit" data-toggle="tab"><%= t("contacts.index.edit") %></a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="tab-pane active" id="index">
+		<% if @contacts %>
+		  <table class="table table-bordered table-striped">
+		    <thead>
+		      <tr>
+		        <th><%= t("contacts.name") %></th>
+		        <th><%= t("contacts.department") %></th>
+		        <th><%= t("contacts.business_function") %></th>
+		        <th><%= t("contacts.phone") %></th>
+		        <th><%= t("contacts.cell") %></th>
+		        <th><%= t("contacts.emails") %></th>
+		        <th><%= t("helpers.forms.actions") %></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    <% @contacts.each do |contact| %>
+		      <tr>
+		      <td><%= contact.name %></td>
+		      <td><%= name_or_empty contact.department %></td>
+		      <td><%= contact.business_function %></td>
+		      <td><%= contact.phone %></td>
+		      <td><%= contact.cell %></td>
+		      <td><%= concat_emails(contact.emails) %></td>
+		      <td></td>
+		      <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
+		      </tr>
+		    <% end %>
+		    </tbody>
+		  </table>
+		<% end %> 
+  </div>
+  <div class="tab-pane" id="edit">
+		<%= render :partial => "guara/contacts/list_editable" %>
+	</div>
+</div>
 
-<% end %>
 
+<script>
+  $(function () {
+    $('#myTab a:first').tab('show');
+  })
+</script>
 <br />
-

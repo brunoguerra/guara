@@ -1,4 +1,4 @@
-Guara::Crm::Engine.routes.prepend do
+Guara::Core::Engine.routes.prepend do
   
   resources :customers do
     get :autocomplete_business_segment_name, :on => :collection
@@ -11,7 +11,11 @@ Guara::Crm::Engine.routes.prepend do
     
     get :multiselect_customers_pj, :on => :collection
     
-    resources :contacts
+    
+    resources :contacts do
+      post :multi, :on => :collection
+    end
+    
     resources :tasks do
       resources :feedbacks
     end

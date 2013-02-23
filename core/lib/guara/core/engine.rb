@@ -43,6 +43,7 @@ module Guara
       
       initializer "guara.devise" do
         DeviseController.layout "guara/base"
+        Devise::SessionsController.layout "guara/base"
       end
       
     end

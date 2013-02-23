@@ -1,0 +1,22 @@
+
+<table>
+	<thead>
+	<% if defined?(with_titles) && with_titles==true %>	
+		<% inputs.each do |input,options| %>
+				<th><%= f.label input %></th>
+		<% end  %>
+	<% end  %>
+	</thead>
+	<tbody>
+	<% inputs.each do |input,options| %>
+		<% options[:label] = false   %>
+		<td><%= f.input input, options %></td>
+	<% end %>
+	<td>
+		<%= f.hidden_field :_destroy %>
+		<%= link_to '#', class: "remove_fields btn btn-small" do %>
+			<i class="icon-remove"></i>
+		<% end  %>
+	</td>
+	</tbody>
+</table>
