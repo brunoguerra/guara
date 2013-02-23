@@ -11,16 +11,16 @@ form.guara_jobs_professional {
 	  float: left;
 	}
 
-	 label[for=jobs_professional_have_job_sim]{
+	label[for=jobs_professional_have_job_sim]{
 	  float: left;
 	  margin: -5px -8px;
 	}
 
-	 label[for=jobs_professional_have_job_no]{
+	label[for=jobs_professional_have_job_no]{
 	  float: left;
 	}
 
-	 label{
+	label{
 	  float: left;
 	  margin-right: 15px;
 	}
@@ -35,7 +35,7 @@ form.guara_jobs_professional {
 
    #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left !important; width: 350px; }
 
-   .control-group {
+		.control-group {
 			float: right;
 
       .controls {
@@ -59,15 +59,15 @@ form.guara_jobs_professional {
 
   fieldset {padding: 10px;}
 
-   .remove_fields {
+  .remove_fields {
     position: relative;
     left: 682px;
     top: -28px;
     padding: 0px 4px;
     line-height: 17px;
-  } 
+	} 
 
-   .add_fields {
+  .add_fields {
     position: relative;
     top: 34px;
     width: 740px;
@@ -75,6 +75,8 @@ form.guara_jobs_professional {
   }
 
    .well {padding: 19px 19px 0px 19px;}
+
+}
 
   /* professional */
 
