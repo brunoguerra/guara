@@ -1,8 +1,10 @@
 
 <table>
 	<thead>
-	<% inputs.each do |input,options| %>
-			<th></th>
+	<% if defined?(with_titles) && with_titles==true %>	
+		<% inputs.each do |input,options| %>
+				<th><%= f.label input %></th>
+		<% end  %>
 	<% end  %>
 	</thead>
 	<tbody>

@@ -30,7 +30,7 @@ function contact_show(id) {
 	
 	path = "<%= customer_contact_path(@customer,0) %>"+id+".json"
 
-    //path = path.replace(reg, id);
+    //path = path.replace(reg, id);	
 	
 	$('.modal-contact .modal-body').html("<div></div>");
 	$('.modal-contact .modal-body').load(path);

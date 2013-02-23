@@ -1,0 +1,26 @@
+<%
+ inputs = {
+						:name => {},
+						:department => {},
+						:business_function => {},
+						:phone => {},
+						:cell => {},
+						:emails_concat => { :as => :string },
+ 					}
+  first = true
+	options = local_assigns[:options] || {}
+	options.merge!(:add_class => "btn btn-block btn-primary")
+%>
+<%= semantic_form_for @customer, :url => multi_customer_contacts_path(@customer), :method => :post do |f| %>
+	<%= f.semantic_fields_for :contacts do |flds_builder, i| %>
+	  <%= render 'active_extend/one_to_many_inputs_fields_grid', f: flds_builder, inputs: inputs, with_titles: first %>
+	  <% first=false  %>
+	<% end %>
+
+	<%= link_to_add_fields "add", f, :contacts, options do |builder| %>
+		<%= render 'active_extend/one_to_many_inputs_fields_grid', f: builder, inputs: inputs %>
+	<% end  %>
+	<p>
+	<%= f.actions :label => t("helpers.submit"), :button_html => { :class => "btn btn-block" } %>
+	</p>
+<% end %>

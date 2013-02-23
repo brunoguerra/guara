@@ -1,0 +1,30 @@
+<h2><%= @current_step.name %></h2>
+
+<%= semantic_form_for :step_instance_attrs, 
+	:url => process_instance_path(@process_instance), 
+	:html => {:class => "well", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
+	
+	<div class="row-fluid">
+		
+		<div class="span<%= 12/@current_columns.size%>">
+			<%= get_fields(f, @current_columns, @vals_edit, 1) %>
+		</div>
+	  	<div class="span<%= 12/@current_columns.size%>" style="<%= 'display:none!important;' if @current_columns.size == 1 %>">
+	  		<%#= get_fields(f, @current_columns, @vals_edit, 2) %>
+	  	</div>
+
+	</div>
+
+    <%= f.hidden_field "step_id", :value => @current_step.id %>
+    <%= f.submit 'Salvar', class: "btn btn-large btn-primary" %>
+<% end %>
+
+<%#= javascript_include_tag "jquery-mask" %>
+<script type="text/javascript">
+	//$('.date_format').mask("99/99/9999");
+
+	function validate(){
+		<%=get_required_fields(@current_columns) %>
+		return true;
+	}
+</script>

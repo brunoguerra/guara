@@ -1,0 +1,11 @@
+<% provide(:title, t("custom_process.edit.title")) %>
+
+<section id="new">
+	<%# render :partial => "navbar", :locals => { :active => :new } %>
+
+	<%# render :partial => "guara/customers/modules", :locals => { :active => :professional} %>
+
+	<%= render "form" %>
+</section>
+
+<%= link_to t('helpers.forms.back'), custom_process_path, :class => "btn" %>
