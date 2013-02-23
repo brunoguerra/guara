@@ -63,12 +63,17 @@
 	<li class="dropdown-submenu">
         <a tabindex="-1" href="#">Editar</a>
         <ul class="dropdown-menu">
-          <li>
-          	<a id="edit-step" tabindex="-1" href="javascript:void(0);">
-          		Informar Campos
-          	</a>
-          </li>
-          <li><a tabindex="-1" href="#">Campos Automatizados</a></li>
+          	<li>
+	          	<a id="edit-step" tabindex="-1" href="javascript:void(0);">
+	          		Informar Campos
+	          	</a>
+          	</li>
+          	<li class="dropdown-submenu">
+		        <a tabindex="-1" href="#">Campos Automatizados</a>
+		        <ul class="dropdown-menu">
+		          <li><a class="step_widget_auto" type-widget="selecionar_candidatos" tabindex="-1" href="#">Selecionar Candidatos</a></li>
+		        </ul>
+		   	</li>
         </ul>
    	</li>
 
@@ -179,13 +184,26 @@
 		$('#dialog_attr_step').modal('show');
 		jQuery('#dialog_attr_step').css('display', 'block', 'important');
 		getElsSaved(step_id);
-		return true;
-
-		var nome;
-		nome = prompt ("Digite o Nome");
-		if(nome != null && nome != "")
-			jQuery('#'+step_id+' span').html(nome);	
 	});
+
+	jQuery('.step_widget_auto').click(function(e){
+		var step_id = jQuery("#dropdown-menu-step").attr('step_id');
+		var widget  = jQuery(this).attr('type-widget');
+		jQuery.ajax({
+		  type: "POST",
+		  url: "/custom_process/step_set_widget",
+		  data: { 
+		  	'step[id]': step_id,
+		  	'step[widget]': widget,
+		  	'step[custom_process_id]': <%= @custom_process.id %>
+		  }
+		}).done(function( d ) {
+			
+		}).fail(function(d){
+			
+		});
+	});
+
 
 	jQuery('#delete-step').click(function(e){
 		window.step_id = jQuery(jQuery(this).closest("ul")[0]).attr('step_id');

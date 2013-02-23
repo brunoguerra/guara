@@ -1,7 +1,7 @@
 require File.expand_path("../../jobs", __FILE__) if Rails.env.development?
 
 class Guara::Jobs::Step < ActiveRecord::Base
-  	attr_accessible :name, :next, :level, :type, :custom_process_id
+  	attr_accessible :name, :next, :level, :widget, :custom_process_id
 
   	has_many   :step_attrs, :dependent => :destroy
   	has_many   :custom_processes, :dependent => :destroy

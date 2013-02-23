@@ -1,4 +1,8 @@
-
+<navbar>
+			<%= render :partial => "guara/jobs/jobs/navbar", 
+      :locals => { active: :announcement_of_vacancies } %>
+		</navbar>
+		
 <section class="show">
 	<div class="offset1">
 		<ul class="thumbnails">
@@ -9,7 +13,11 @@
 			</li>
 	  		<li class="span9">
 			    <div class="thumbnail">
-			    	<%= render :partial => 'form' %>
+			    	<% if !@current_step.widget.nil? %>
+			    		<%= render :partial => "guara/jobs/widgets/form_#{@current_step.widget}" %>
+			    	<% else %>
+			    		<%= render :partial => 'form' %>
+			    	<% end %>
 				</div>
 			</li>
 		</ul>
