@@ -13,11 +13,7 @@
 			</li>
 	  		<li class="span9">
 			    <div class="thumbnail">
-			    	<% if !@current_step.widget.nil? %>
-			    		<%= render :partial => "guara/jobs/widgets/form_#{@current_step.widget}" %>
-			    	<% else %>
-			    		<%= render :partial => 'form' %>
-			    	<% end %>
+			    	<%= render :partial => 'form' %>
 				</div>
 			</li>
 		</ul>

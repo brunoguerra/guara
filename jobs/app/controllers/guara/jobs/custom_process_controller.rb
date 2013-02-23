@@ -51,6 +51,7 @@ module Guara
               @attrs << {
                 :label => a[:label], 
                 :name => a[:name], 
+                :size => a[:widget],
                 :required => a[:required], 
                 :type_field => a[:type_field], 
                 :position => a[:position], 
@@ -92,6 +93,7 @@ module Guara
             :options=> j['options'], 
             :guidelines=> j['guidelines'], 
             :label=> j['title'], 
+            :widget=> j['size'], 
             :required=> j['is_required'], 
             :resume => j['is_private'], 
             :type_field=> j['type'], 

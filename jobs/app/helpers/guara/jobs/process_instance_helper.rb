@@ -4,6 +4,7 @@ module Guara
 
       	def get_collection(alias_model, vals)
     		#Retornar Model de Clientes ou Empresas
+            vals = [] if vals.class == String
     		if alias_model == 'role'
                 Guara::Jobs::Role.all.map{ |c| [c.name, c.id] }
                 options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
@@ -32,6 +33,8 @@ module Guara
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val[rec.id]
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
+            elsif rec.type_field == 'section'
+                return render "guara/jobs/widgets/form_#{rec.widget}"
             else
                 @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level"
         	end
