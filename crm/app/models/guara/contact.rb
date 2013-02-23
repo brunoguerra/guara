@@ -49,5 +49,14 @@ module Guara
       @contacts = @customer.contacts.where( @selected_department ? ({ department_id: @selected_department }) : "1=1")
     end
   
+    def emails_concat
+      emails.map { |e| e.email }.join(", ")
+    end
+    
+    def emails_concat=(emails_concated)
+      if emails_concated.eq(self.emails_concat)
+        emails.map { |e| e.email }.join(", ")
+      end
+    end
   end
 end

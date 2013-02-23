@@ -11,8 +11,9 @@ Guara::Core::Engine.routes.prepend do
     
     get :multiselect_customers_pj, :on => :collection
     
+    
     resources :contacts do
-      get :edit_index, :on => :collection
+      post :multi, :on => :collection
     end
     
     resources :tasks do
