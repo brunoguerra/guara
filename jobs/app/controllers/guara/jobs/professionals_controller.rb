@@ -7,6 +7,8 @@ module Guara
     	include CustomersHelper
     	include Select2Helper
 
+    	helper CustomersHelper
+
 
     	def index
     		 redirect_to :show
