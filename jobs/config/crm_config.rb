@@ -1,5 +1,8 @@
 puts "customer_modules"
 
+
+I18n.load_path += Dir[File.expand_path('../locales/*.{rb,yml}', __FILE__)] # TORNA  A TRADUÇÃO FUNCIONAL EM UM INITIALIZE
+
 customer_module = {
 	:name => :professional,
 	:tabs => [{
