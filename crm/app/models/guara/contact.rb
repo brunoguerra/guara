@@ -1,12 +1,12 @@
 module Guara
   class Contact < ActiveRecord::Base
     attr_accessible :name, :birthday, :business_function, :department, :department_id,
-                    :phone, :cell, :customer, :emails, :emails_attributes
+                    :phone, :cell, :customer, :emails, :emails_attributes, :emails_concat
   
     #=========================== associations <--------------------------------------------
     belongs_to :customer, :foreign_key => "person_id"
     belongs_to :department, class_name: "BusinessDepartment"
-    has_many :emails, :as => :emailable, dependent: :destroy
+    has_many :emails, :as => :emailable, dependent: :destroy, :extend => Guara
 
     #============================ 
   
@@ -54,8 +54,9 @@ module Guara
     end
     
     def emails_concat=(emails_concated)
-      if emails_concated.eq(self.emails_concat)
-        emails.map { |e| e.email }.join(", ")
+      if !emails_concated.equal?(self.emails_concat)
+        emails_arr = emails_concated.split(",")
+        self.emails = emails_arr.map {|email| Email.new(:email => email.strip)}
       end
     end
   end
