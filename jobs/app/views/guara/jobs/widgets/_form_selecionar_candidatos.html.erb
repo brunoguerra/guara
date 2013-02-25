@@ -6,8 +6,12 @@
 	res = @controller.search
 	@professionals = @controller.searched_professionals
 	@search = @controller.searched_search
-	@professional_search_url = 
 %>
-
-
-<%= render :partial => "guara/jobs/professionals/search_results" %>
+<style type="text/css">
+.control-group .row{
+	margin-left: 0px!important;
+}
+</style>
+<div class="control-group">
+	<%= render :partial => "guara/jobs/professionals/search_results" %>
+</div>
