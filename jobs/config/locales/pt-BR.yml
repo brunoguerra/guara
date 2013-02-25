@@ -6,8 +6,8 @@ pt-BR:
     title: "Jobs"
 
     professional: &attr_professional
-      title: "Dados Curriculares"     
-      link: "Dados Curriculares"
+      index:
+        link: "Dados Curriculares"
 
       names:
         title: "Nome"
@@ -84,6 +84,9 @@ pt-BR:
 
   jobs_level_educations:
     title: "Grau de Formação"
+
+  jobs_consultants:
+    title: "Consultor"
 
 
   search:
