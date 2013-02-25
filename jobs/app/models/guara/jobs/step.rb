@@ -14,7 +14,7 @@ class Guara::Jobs::Step < ActiveRecord::Base
 		self.step_attrs.where(:resume=> true).order(:position)
 	end
 
-	def step_attrs_vals
-		self.step_instance_attrs.joins(:step_attr).where("guara_jobs_step_attrs.resume", true)
+	def step_attrs_vals(process_instance_id)
+		self.step_instance_attrs.where(:process_instance_id=> process_instance_id)
 	end
 end

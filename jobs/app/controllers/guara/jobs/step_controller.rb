@@ -12,10 +12,12 @@ module Guara
         @step = Step.new
         @step.attributes = params[:step]
 
-        if @step.save
-          render :json => @step, :status => :created, :location => @step
-        else
-          render :json => @step.errors, :status => :unprocessable_entity
+        respond_to do |format|
+          if @step.save
+            format.json { render :json => @step, :status => :created }
+          else
+            format.json { render :json => @step.errors, :status => :unprocessable_entity }
+          end
         end
       end   
     end

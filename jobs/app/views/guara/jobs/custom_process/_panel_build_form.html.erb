@@ -97,13 +97,10 @@
                                 </select>
                             </li>
                             <li class="right half" id="prop_element_size">
-                                <label class="desc" for="field_size">Tamanho do Campo
+                                <label class="desc" for="field_size">Campo Personalizado
                                     <a href="#" class="tooltip" title="Field Size" rel="This property set the visual appearance of the field in your form. It does not limit nor increase the amount of data that can be collected by the field.">(?)</a>
                                 </label>
-                                <select class="select full" id="field_size" autocomplete="off" tabindex="13" onchange="set_properties(JJ(this).val(), 'size')">
-                                    <option>Selecione um Tipo</option>
-                                    <option value="selecionar_candidatos">Seleção de Candidatos</option>
-                                </select>
+                                <input type="text" id="element_label" class="text_field" onkeyup="set_properties(JJ(this).val(), 'size')" />
                             </li>
                             <li class="right half" id="prop_date_format">
                                 <label class="desc" for="field_size">Formato da Data

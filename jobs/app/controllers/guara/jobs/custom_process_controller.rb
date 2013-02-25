@@ -53,6 +53,7 @@ module Guara
                 :name => a[:name], 
                 :size => a[:widget],
                 :required => a[:required], 
+                :resume => a[:resume], 
                 :type_field => a[:type_field], 
                 :position => a[:position], 
                 :column => a[:column], 
@@ -86,9 +87,9 @@ module Guara
       def add_attr_to_steps
         @json = JSON.parse(params[:elements])['elements']
         StepAttr.destroy_all(:step_id=> params[:step_id])
-
+        @attrs = []
         @json.each do |j|
-          StepAttr.create({
+          @a = {
             :column => j['default_value'], 
             :options=> j['options'], 
             :guidelines=> j['guidelines'], 
@@ -99,10 +100,14 @@ module Guara
             :type_field=> j['type'], 
             :step_id=> params[:step_id],
             :position=> j['position']
-          })
+          } 
+
+          @attr = StepAttr.create(@a)
+          @a[:id] = @attr.id
+          @attrs << @a
         end
         
-        render :json => {:success=> true}
+        render :json => {:success=> true, :attrs=> @attrs}
       end
 
       def delete_step
