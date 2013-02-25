@@ -64,13 +64,12 @@
 		          <div class="form-actions span3">
 					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
 					<% if (mode != :advanced) then %>
+					<!--  -->
 						<%= link_to t("searches.advanced"), professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
 					<% end  %>
 				</div><!-- BUTTON SEARCH SIMPLE OR ADVANCE -->
 
 					 </div>
 				</fieldset>
-	
-
 	<% end %>
 
