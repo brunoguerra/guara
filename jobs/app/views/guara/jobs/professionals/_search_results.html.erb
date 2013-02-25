@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="span9 search_fast9">	  
+	<div class="span8 search_fast9">	  
 		<section id="search">
 			<div class="page-header">
 				<%= t("search.results")%>
@@ -10,7 +10,7 @@
 			</div>
 		</section>   
 	</div>
-	<div class="span3 search_fast3">
+	<div class="span4 search_fast3">
 		<%= render :partial => "guara/jobs/professionals/form_search", 
 			:locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } 
 		%>
