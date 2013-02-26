@@ -5,7 +5,9 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
 
   belongs_to :custom_process, foreign_key: "process_id"
   belongs_to :step, foreign_key: "state"
+  #@deprecated Utilizar o acesso por step
   has_many :step_instance_attrs, :dependent => :destroy
+  
 
   def step_init
   	self.custom_process.step

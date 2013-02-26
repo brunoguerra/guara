@@ -1,9 +1,9 @@
 <%
-	@controller = Guara::Jobs::ProfessionalsController.new
+	@controller = Guara::Jobs::VacancyController.new
 	@controller.request = request
 	@controller.response = response
 	@controller.params = params
-	res = @controller.search
+	res = @controller.
 	@professionals = @controller.searched_professionals
 	@search = @controller.searched_search
 %>
