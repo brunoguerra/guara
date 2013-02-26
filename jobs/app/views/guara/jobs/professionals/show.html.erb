@@ -29,11 +29,8 @@
 					<%= @professional.vacancy_specification.salary_requirements %>
 			</div>
 		</div>
-					
 
-
-
-        <div class="row page-header">
+		<div class="row page-header">
 			<legend class="span2"><small><%=  t("jobs.professional.formation.title") %></small></legend>
 
 		    <div class="span9 well">
@@ -70,26 +67,42 @@
 
 							<dh><%= t("jobs.professional.company_name.title") %></dh>
 							<%= e.company_name %><br>
-						
-							<dh><%= t("jobs.professional.role.title") %></dh>
-							<%= e.role %><br>
 							
 
-							<dh><%= t("jobs.professional.activities.title") %></dh>
-							<%= e.activities %><br>
-							
+						<% e.careers.each do |c| %>
+								<dh><%= t("jobs.professional.role.title") %></dh>
+								<%= c.role %><br>
+								
 
-							<dh><%= t("jobs.professional.date_admission.title") %></dh>
-							<%= e.date_admission %><br>
+								<dh><%= t("jobs.professional.activities.title") %></dh>
+								<%= c.activities %><br>
+								
+
+								<dh><%= t("jobs.professional.date_admission.title") %></dh>
+								<%= c.date_admission %><br>
 
 
-							<dh><%= t("jobs.professional.date_resignation.title") %></dh>
-							<%= e.date_resignation %><br>
-
+								<dh><%= t("jobs.professional.date_resignation.title") %></dh>
+								<%= c.date_resignation %><br>
+						<% end %>
 
 					<% end %>
 
 			</div>
+
+			<div class="row page-header">
+				<legend class="span2"><small><%=  t("jobs.professional.languages.title") %></small></legend>
+
+			    <div class="span9 well">
+				    <dh><%=  t("jobs.professional.languages.title") %></dh>
+						<% @professional.languages.each do |l| %>
+							<%= l.name %>
+						<% end %>
+				</div>
+			</div>
+					
+
+			<%= link_to t("helpers.forms.edit"), edit_customer_professional_path(@customer, @professional), :class => "btn btn-primary" %>
 		</div>
 					
 

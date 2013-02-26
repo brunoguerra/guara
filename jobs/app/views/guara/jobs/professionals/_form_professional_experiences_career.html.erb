@@ -1,0 +1,28 @@
+<%= render :partial => 'active_extend/one_to_many_inputs',
+	:locals => { 
+		:values => @professional.professional_experiences[index].careers, 
+		:form => form, 
+		:target => :careers, 
+		:inputs => {
+
+			:role => { 
+				:label => t("jobs.professional.role.title")
+			},
+
+			:activities => {
+				:input_html => {:rows => 5, :maxlength => 300}, 
+				:label => t("jobs.professional.activities.title") 
+			},
+
+			:date_admission => { 
+				:input_html => { 'data-behaviour' => 'datetimepicker'}, 
+				:label => t("jobs.professional.date_admission.title") },
+
+			:date_resignation => { 
+				:input_html => { 'data-behaviour' => 'datetimepicker' },
+				:label => t("jobs.professional.date_resignation.title")}
+				},
+
+			:options => { add_class: "btn btn-block" }
+	}
+%>

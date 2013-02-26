@@ -45,6 +45,9 @@
 			</table><!-- FIM EXIBIÇÃO PROFESSIONAL -->
 		</section>   
 	</div>
+
+	<%= will_paginate @professional %>
+
 	<div class="span3 search_fast3">
 		<%= render :partial => "form_search", 
 			:locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } 

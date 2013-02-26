@@ -7,7 +7,7 @@ module Guara
 			#==================================> ATTRIBUTES <============================#
 			attr_accessible :have_job, :business_action, :salary_requirements, 
 							:vacancy_specifications, :vacancy_specification_attributes,
-							:formations_attributes, 
+							:formations_attributes, :languages,
 							:professional_experiences_attributes
 
 			delegate :name, to: :person
@@ -21,6 +21,7 @@ module Guara
 	  		has_many :formations, dependent: :destroy
 	  		has_many :professional_experiences, dependent: :destroy
 	  		has_one :vacancy_specification, dependent: :destroy
+	  		has_many :languages, dependent: :destroy
 
 
 
