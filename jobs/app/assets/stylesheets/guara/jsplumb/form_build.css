@@ -1,0 +1,213 @@
+#dialog_attr_step.modal{
+	width: 940px;
+	left: 36%;
+}
+
+#panel { 
+	border-style: none; 
+	background: rgb(255, 255, 255) none repeat; 
+	overflow: hidden;
+	width: 100%;
+}
+
+
+/** sidebar**/
+/** sidebar left**/
+.side-left{
+    display: block;
+    background: #333333 url('../img/bg-body-bar.jpg');
+    border: 1px solid #2E2E2E;
+}
+.side-left.fixed{
+    position: fixed;
+}
+
+.sidebar{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    color: #999;
+}
+
+.sidebar > li > a > .badge,
+.sidebar > li > a > .label{
+    position: absolute;
+    top: 5px;
+    left: 65%;
+    padding: 2px 5px 2px 5px;
+    font-size: 11px;
+}
+.sidebar > li{
+    position: relative;
+    margin: 0px;
+    padding: 15px 0px;
+    list-style: none;
+    height: 30px;
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    border-top: 1px solid #555555;
+    border-bottom: 1px solid #2E2E2E;
+}
+.sidebar > li > a{
+    color: #CDCDCD;
+    background-image: -webkit-linear-gradient(top, rgba(86, 86, 86, 0.2) 0%, rgba(54, 54, 54, 0.2) 100%);
+    background-image: -moz-linear-gradient(top, rgba(86, 86, 86, 0.2) 0%, rgba(54, 54, 54, 0.2) 100%);
+    background-image: -o-linear-gradient(top, rgba(86, 86, 86, 0.2) 0%, rgba(54, 54, 54, 0.2) 100%);
+    background-image: -ms-linear-gradient(top, rgba(86, 86, 86, 0.2) 0%, rgba(54, 54, 54, 0.2) 100%);
+    background-image: linear-gradient(top, rgba(86, 86, 86, 0.2) 0%, rgba(54, 54, 54, 0.2) 100%);
+}
+.sidebar > li:hover, .sidebar a:hover{
+    color: #008299;
+}
+
+.sidebar > li:hover ul{ /* this block for display sub-sidebar if any*/
+    display: block;
+}
+
+.sidebar > li.active > a{
+    color: #F1F1F1;
+}
+.sidebar > li.active:after, .sidebar > li.active:before{
+    right: -1px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.sidebar > li.active:after{
+    border-color: rgba(204, 204, 204, 0);
+    border-right-color: #FFFFFF;
+    border-width: 10px;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.sidebar > li.active.first:after{
+    border-right-color: #EDEDED;
+}
+
+.sidebar > li.active:before{
+    border-color: rgba(204, 204, 204, 0);
+    border-right-color: #CDCDCD;
+    border-width: 11px;
+    top: 50%;
+    margin-top: -11px;
+}
+/** end sidebar left **/
+
+
+#container_form_fields li {
+    margin: 0pt 0pt 8px;
+    width: 100%;
+    position: relative;
+}
+
+#container_form_fields li a.hover_ready {
+    border: 1px solid rgb(255, 255, 255);
+    padding: 4px 5px 2px 9px;
+    display: block;
+    text-decoration: none;
+    color: rgb(68, 68, 68);
+}
+
+#container_form_fields li * {
+    cursor: pointer;
+}
+
+a, a:visited {
+    border-radius: 0.2em;
+}
+
+#container_form_fields li a.hover_ready::after {
+    content: ".";
+    display: block;
+    height: 0pt;
+    clear: both;
+    visibility: hidden;
+}
+
+#container_form_fields label.desc, #container_form_fields legend {
+    overflow: hidden;
+    width: 100%;
+}
+
+label.desc {
+    border: medium none;
+    padding: 0pt 4px 1px 0pt;
+    line-height: 150%;
+    color: rgb(34, 34, 34);
+    display: block;
+    font-size: 95%;
+    font-weight: bold;
+}
+
+#container_form_fields li div, #container_form_fields li span {
+    margin: 0pt 5px 0pt 0pt;
+    padding: 0pt 0pt 8px;
+    color: rgb(68, 68, 68);
+}
+
+#container_form_fields .element_actions {
+    margin: -8px 10px 0px 0pt;
+    padding: 0pt;
+    display: none;
+    position: absolute;
+    right: 0pt;
+    line-height: 10px;
+}
+
+input.text, textarea.textarea, select.select {
+    border-style: solid;
+    border-color: rgb(124, 124, 124) rgb(195, 195, 195) rgb(221, 221, 221);
+    border-width: 1px;
+    margin: 0pt;
+    background: rgb(255, 255, 255) url('../img/input_bg.gif') repeat-x scroll center top;
+    font-size: 100%;
+    color: rgb(51, 51, 51);
+}
+
+#container_form_fields input[readonly], 
+#container_form_fields select[readonly], 
+#container_form_fields textarea[readonly]{
+    background-color: #fff;
+}
+
+#container_form_fields li.current_edit {
+    border: 1px solid #CCCCCC;
+    background-color: #F3F7FB;
+}
+
+#container_form_fields li.current_edit .hover_ready:hover { 
+            background-color: #F3F7FB; 
+}
+#container_form_fields li.current_edit .desc { color: #1A5BB2 ! important; }
+.arrow { 
+        margin: 0pt 7px 0pt 0pt; 
+        no-repeat; display: none; 
+        position: absolute; 
+        z-index: 0; right: 100%; 
+}
+#container_form_fields li.current_edit .arrow { 
+        display: block; 
+}
+#container_form_fields .element_actions { 
+    margin: -8px 10px 0px 0pt; 
+    padding: 0pt; 
+    display: none; 
+    position: absolute; 
+    right: 0pt; 
+    line-height: 10px; 
+
+}
+#container_form_fields li.current_edit .element_actions { 
+    display: block; 
+}
+
+#container_form_fields li a.hover_ready:hover { 
+    border: 1px dotted #5F7EB2 ! important; 
+    background: transparent url('../img/pencil.gif') no-repeat scroll 98% 4px; 
+}

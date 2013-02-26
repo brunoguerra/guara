@@ -12,7 +12,6 @@ module Guara
         @steps = Step.find(:all, :conditions => ["custom_process_id = ?", params[:id]])
         @jsonNext = [{:id=>'process', :next=> @custom_process.step_init, :attrs=> []}]
         getAllNextSteps(@custom_process.step_init)
-        #render :show, :layout => false
       end
 
       def new
@@ -48,6 +47,9 @@ module Guara
         @steps.each do |s|
           if s.id == id
             s.step_attrs.each do |a|
+              a[:title] = a[:label]
+              a[:type] = a[:type_field]
+              
               @attrs << a
             end
 
@@ -73,25 +75,29 @@ module Guara
       end
 
       def add_attr_to_steps
-        @json = JSON.parse(params[:elements])['elements']
+        @json = JSON.parse(params[:elements])
         StepAttr.destroy_all(:step_id=> params[:step_id])
+        @attrs = []
 
         @json.each do |j|
-          StepAttr.create({
-            :column => j['default_value'], 
+          @a = {
+            :column => j['column'], 
             :options=> j['options'], 
-            :guidelines=> j['guidelines'], 
             :label=> j['title'], 
-            :widget=> j['size'], 
-            :required=> j['is_required'], 
-            :resume => j['is_private'], 
+            :widget=> j['widget'], 
+            :required=> j['required'], 
+            :resume => j['resume'], 
             :type_field=> j['type'], 
             :step_id=> params[:step_id],
             :position=> j['position']
-          })
+          } 
+
+          @attr = StepAttr.create(@a)
+          @a[:id] = @attr.id
+          @attrs << @a
         end
         
-        render :json => {:success=> true}
+        render :json => {:success=> true, :attrs=> @attrs}
       end
 
       def delete_step
@@ -99,12 +105,6 @@ module Guara
         render :json => @json
       end
       
-      def step_set_widget
-        @step = Step.find params[:step][:id]
-        @step.update_attributes({:widget=> params[:step][:widget]})
-        render :json => @step
-      end 
-    
     end
   end
 end
