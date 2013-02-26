@@ -1,11 +1,11 @@
 <%
  inputs = {
-						:name => {},
+						:name => { placeholder: t("contacts.name") },
 						:department => {},
-						:business_function => {},
-						:phone => {},
-						:cell => {},
-						:emails_concat => { :as => :string },
+						:business_function => { placeholder: t("contacts.business_function") },
+						:phone => { placeholder: t("contacts.phone") },
+						:cell => { placeholder: t("contacts.cell") },
+						:emails_concat => { :as => :string, placeholder: t("contacts.emails") },
  					}
   first = true
 	options = local_assigns[:options] || {}

@@ -3,7 +3,8 @@
 pt-BR:
   
   jobs:
-    title: "Jobs"
+    title: "Recrutamento e Seleção"
+    link: "Recrutamento e Seleção"
 
     professional: &attr_professional
       index:
