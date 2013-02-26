@@ -4,7 +4,7 @@ class Guara::Jobs::Step < ActiveRecord::Base
   	attr_accessible :name, :next, :level, :custom_process_id
 
   	has_many   :step_attrs, :dependent => :destroy
-  	has_many   :custom_processes, :dependent => :destroy
+  	has_many   :custom_processes, foreign_key: "step_init", :dependent => :destroy
   	has_many   :step_instance_attrs, :dependent => :destroy
 
   	belongs_to :parent, class_name: "Step", foreign_key: "next"

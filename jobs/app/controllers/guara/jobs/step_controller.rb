@@ -7,6 +7,14 @@ module Guara
       def index
         
       end
+
+      def destroy
+        @step = Step.find(params[:id])
+        @step.destroy
+        respond_to do |format|
+          format.json { render :json => {:sucess=> true} }
+        end
+      end
       
       def create
         @step = Step.new

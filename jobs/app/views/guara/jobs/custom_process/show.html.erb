@@ -37,7 +37,7 @@
 			          </a> 
 			        </div>
 
-			        <div id="position_steps_connecteds" class="span4" style="border:solid #333 1px;height:300px;padding:10px;">
+			        <div id="position_steps_connecteds" class="span4" style="height:300px;padding:10px;">
 			        	
 			        </div>
 
@@ -65,23 +65,7 @@
 
 
 <ul id="dropdown-menu-step" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-	<li class="dropdown-submenu">
-        <a tabindex="-1" href="#">Editar</a>
-        <ul class="dropdown-menu">
-          	<li>
-	          	<a id="edit-step" tabindex="-1" href="javascript:void(0);">
-	          		Informar Campos
-	          	</a>
-          	</li>
-          	<li class="dropdown-submenu">
-		        <a tabindex="-1" href="#">Campos Automatizados</a>
-		        <ul class="dropdown-menu">
-		          <li><a class="step_widget_auto" type-widget="selecionar_candidatos" tabindex="-1" href="#">Selecionar Candidatos</a></li>
-		        </ul>
-		   	</li>
-        </ul>
-   	</li>
-
+	<li><a id="edit-step" tabindex="-1" href="javascript:void(0);">Editar</a></li>
 	<li><a id="delete-step" tabindex="-1" href="javascript:void(0);">Deletar</a></li>
 </ul>
 
@@ -91,12 +75,8 @@
 	    <h3>Customizar Campos da Etapa</h3>
 	  </div>
 	  
-	  <div class="modal-body" id="form_builder">
+	  <div class="modal-body" id="form_build">
 	    <%= render :partial => 'panel_build_form' %>
-	  </div>
-	  
-	  <div class="modal-footer">
-	    <a id="save_attr_step" href="javascript:void(0);" class="btn btn-primary">Salvar</a>
 	  </div>
 </div>
 
@@ -266,8 +246,22 @@
 
 	jQuery('#delete-step').click(function(e){
 		window.step_id = jQuery(jQuery(this).closest("ul")[0]).attr('step_id');
-		jsPlumb.detachAllConnections(step_id);
-		jQuery('#'+step_id).remove();
+
+		if(jsPlumb.select({target: step_id}).length==0){
+			jQuery.ajax({
+			  type: "DELETE",
+			  url: "/step/"+step_id
+			}).done(function( d ) {
+				jsPlumb.detachAllConnections(step_id);
+				jQuery('#'+step_id).remove();
+				alert('Etapa Deletada!');
+			}).fail(function(d){
+				alert('Erro ao deletar etapa!');
+			});
+		}
+		else{
+			alert('Etapa Não pode ser Deletada por ter Conexões');
+		}
 	});
 
 	jQuery('#custom_steps').click(function(e){
@@ -277,7 +271,6 @@
 	jQuery('#save_steps').click(function(e){
 		if(jsPlumbDemo.started){
 			var sons = son('process');
-			console.info(sons);
 			if(sons.length>0){
 				jQuery.ajax({
 				  type: "POST",
@@ -288,6 +281,14 @@
 				  }
 				}).done(function( d ) {
 					alertDialog('Etapas Salvas!', false);
+					if(!json_elements_saved[d.attrs[0].step_id]){
+						json_elements_saved[d.attrs[0].step_id] = [];
+					}
+
+					for(var i = 0; i < d.attrs; i++){
+						json_elements_saved[d.attrs[i].step_id].push(d.attrs[i]);
+					}
+
 				}).fail(function(d){
 					
 				});
@@ -331,6 +332,7 @@
 				});
 		} 
 	});
+
 	window.json_elements_saved = {};
 	<%
 		if @jsonNext.size > 0 and @jsonNext[0][:next] != nil %>
@@ -341,23 +343,21 @@
 			#criando conexão de steps 
 			if n[:next] != nil%>
 			jsPlumb.connect({source:"<%=n[:id]%>", target:"<%=n[:next]%>"});
+			<% end %>
+			if(!json_elements_saved["<%=n[:id]%>"]){
+				json_elements_saved["<%=n[:id]%>"] = [];
+			}
 			<%
-			end
-			
 			#atribuindo attrs ao step
 			if n[:attrs].size > 0 
 				@i = 0
 				n[:attrs].each do |at| 
-				@i = @i + 1
 				%>
-					if(!json_elements_saved["<%=n[:id]%>"]){
-						json_elements_saved["<%=n[:id]%>"] = [];
-					}
-					
-					json_elements_saved["<%=n[:id]%>"].push({
-						title: "<%=at[:label]%>", guidelines: "<%=at[:guidelines]%>", size: "<%=at[:size]%>", is_required: <%= at[:required] == true ? 1 : 0 %>, is_unique: 0,is_private: "<%= at[:resume] == true ? 1 : 0 %>", type: "<%=at[:type_field]%>", object: "", position: "<%=at[:position]%>", id: <%= @i %>, is_db_live: 0, default_value: "<%=at[:column]%>", constraint: "", options: "<%=at[:options]%>"
+				  	json_elements_saved["<%=n[:id]%>"].push({
+						title: "<%=at[:title]%>", widget: "<%=at[:widget]%>", required: <%= at[:required] == true ? 1 : 0 %>, resume: "<%= at[:resume] == true ? 1 : 0 %>", type: "<%=at[:type]%>", position: "<%=at[:position]%>", id: <%= @i %>, column: "<%=at[:column]%>",  options: "<%=at[:options]%>"
 					});
-				<% end	
+				<% @i = @i + 1
+				 end	
 			end
 		end %>
 		}, 500);
@@ -365,55 +365,63 @@
 	%>
 
 	function getElsSaved(id){
-		for (var i=0; i< ds.data["elements"].length; i++){
-			delete_element(ds.data["elements"][i].id);
-		}
-
 		var elsaved = json_elements_saved;
+		form_builder.clear_fields();
+
 		if(elsaved[id]){
-			for (var i=0; i< elsaved[id].length; i++){
+			var count = elsaved[id].length;
+			for (var i=0; i < count; i++){
 				var el = elsaved[id][i];
-				insert_element(el.type);
-				var a = ds.data["elements"];
-				b = a[a.length - 1];
-
-				ds.data["elements"][a.length - 1].title = el.title;
-				ds.data["elements"][a.length - 1].is_required = el.is_required;
-				ds.data["elements"][a.length - 1].is_private = el.is_private;
-				ds.data["elements"][a.length - 1].size = el.size;
-				ds.data["elements"][a.length - 1].default_value = el.default_value;
-				ds.data["elements"][a.length - 1].options = el.options;
-
-				active_element = a.length - 1; 
-				set_properties(el.title, 'title');
-				set_properties(el.default_value, 'default_value');
-				set_properties(el.size, 'size');
-				if(el.is_private=='1'){
-                    $('#element_resume').prop('checked', true);
-                }
+        		form_builder.insert_el(el.type);
+        		form_builder.update_el(el);
 			}
 		}
 	}
-
-	var json_form = {
-        "id": 0,
-        "name": "Formulário sem título",
-        "description": "Esta é a sua descrição do formulário. Clique aqui para editar.",
-        "redirect": "",
-        "success_message": "Sucesso! Sua apresentação foi salva!",
-        "password": "",
-        "frame_height": 0,
-        "unique_ip": 0,
-        "captcha": 0
-    };
-    var json_elements = {
-        "elements": []
-    };
 
     setPositionStepsConnecteds(function(a){
     	<% @jsonNext.each do |n| %>
     		a.setPosition($("#<%=n[:id]%>"));
     	<% end %>
+    });
+
+    //START BUILD FORM
+    $('.insert_elements').click(function(e){
+        var type_field = $(e.currentTarget).attr('type-el');
+        form_builder.insert_el(type_field);
+    });
+
+    $( "#container_form_fields" ).sortable({ 
+        axis: "y",
+        update: function( event, ui ) {
+            form_builder.updatePositions();
+        }
+    });
+    $( "#container_form_fields" ).disableSelection();
+    $( ".datepicker" ).datepicker();
+
+    $('#save_attrs_to_step').click(function(){
+        if(form_builder.elements_inserteds.length>0){
+            var json = form_builder.getJSON();
+            jQuery.ajax({
+			  type: "POST",
+			  url: "add_attr_to_steps",
+			  data: { 
+			  	elements: json,
+	        	step_id: step_id
+			  }
+			}).done(function( d ) {
+				json_elements_saved[step_id] = [];
+
+				for(var i = 0; i < d.attrs.length; i++){
+					d.attrs[i]['type'] = d.attrs[i]['type_field'];
+					json_elements_saved[step_id].push(d.attrs[i]);
+				}
+
+			}).fail(function(d){
+				
+			});
+
+        }
     });
     
 </script>

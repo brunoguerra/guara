@@ -12,7 +12,6 @@ module Guara
         @steps = Step.find(:all, :conditions => ["custom_process_id = ?", params[:id]])
         @jsonNext = [{:id=>'process', :next=> @custom_process.step_init, :attrs=> []}]
         getAllNextSteps(@custom_process.step_init)
-        #render :show, :layout => false
       end
 
       def new
@@ -49,16 +48,15 @@ module Guara
           if s.id == id
             s.step_attrs.each do |a|
               @attrs << {
-                :label => a[:label], 
+                :title => a[:label], 
                 :name => a[:name], 
-                :size => a[:widget],
+                :widget => a[:widget],
                 :required => a[:required], 
                 :resume => a[:resume], 
-                :type_field => a[:type_field], 
+                :type => a[:type_field], 
                 :position => a[:position], 
                 :column => a[:column], 
                 :step_id => a[:step_id], 
-                :guidelines => a[:guidelines], 
                 :options => a[:options]
               }
             end
@@ -85,18 +83,18 @@ module Guara
       end
 
       def add_attr_to_steps
-        @json = JSON.parse(params[:elements])['elements']
+        @json = JSON.parse(params[:elements])
         StepAttr.destroy_all(:step_id=> params[:step_id])
         @attrs = []
+
         @json.each do |j|
           @a = {
-            :column => j['default_value'], 
+            :column => j['column'], 
             :options=> j['options'], 
-            :guidelines=> j['guidelines'], 
             :label=> j['title'], 
-            :widget=> j['size'], 
-            :required=> j['is_required'], 
-            :resume => j['is_private'], 
+            :widget=> j['widget'], 
+            :required=> j['required'], 
+            :resume => j['resume'], 
             :type_field=> j['type'], 
             :step_id=> params[:step_id],
             :position=> j['position']
@@ -115,12 +113,6 @@ module Guara
         render :json => @json
       end
       
-      def step_set_widget
-        @step = Step.find params[:step][:id]
-        @step.update_attributes({:widget=> params[:step][:widget]})
-        render :json => @step
-      end 
-    
     end
   end
 end
