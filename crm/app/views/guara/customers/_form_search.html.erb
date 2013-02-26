@@ -4,137 +4,128 @@
 
 <%= form_for @search, :html => { :class => "well form-search", :method => :get } do |f|  %>
 <% f.fields_for :person do |person_f| %>
-		<fieldset>
-		  <div class="row">
-			  <div class="control-group">
-	            <%= f.label :name_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= f.text_field :name_contains %>
-	            </div>
-	          </div>
-			  <% if (mode == :advanced) then %>
-			  <%= hidden_field_tag :search_mode_advanced, "true" %>
-			  <div class="control-group">
-	            <%= label_tag :segment, t("helpers.label.customers.search.segment"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= f.select(:customer_guara_customer_pj_type_activities_business_segment_id_in,
-														options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:customer_guara_customer_pj_type_activities_business_segment_id_in]), 
-														{}, 
-														{ :multiple => true, 
-															:style => "width: 200px;", 
-															:placeholder => t("customer_pjs.segments"), 
-															:class => "multiselect" 
-														})
-		%>
-	            </div>
-	          </div>
-
-			  <div class="control-group">
-	            <%= label_tag :activity, t("helpers.label.customers.search.activity"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= f.select(:customer_guara_customer_pj_type_activities_id_in,
-														options_for_select([nil]) + 
-														options_from_collection_for_select(Guara::BusinessActivity.all,
-																															:id, 
-																															:name		),
-													{}, 
-													{ :multiple => true, 
-														:style => "width: 200px;", 
-														:placeholder => t("customer_pjs.activities"), 
-														:class => "multiselect"  
-													})
-													%>
-							<script language="javascript">
-							$("#search_person_guara_customer_pj_type_activities_id_in").select2({
-							              maximumInputLength: 10
-							            });
-							</script>
-		
-	            </div>
-	          </div>
-
-			  <div class="control-group">
-		            <%= label_tag :district, t("helpers.label.customers.search.bairro"), :class => "control-label" %>
-	            <div class="controls">
-		          <%= f.text_field :district_name_contains %>
-	            </div>
-		      </div>
-
-				  <div class="control-group">
-		            <%= label_tag :total_employes, t("helpers.label.customers.search.employes_count"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= f.multiparameter_field :customer_guara_customer_pj_type_total_employes_btw, {:field_type => :number_field, :placeholder => t("commons.min"), :style => "width: 120px" }, {:field_type => :number_field, :placeholder => t("commons.max"), :style => "width: 120px"  }, :size => 5 %>
-		            </div>
-		          </div>
-			   <% end %>
-			<% if (mode == :advanced) then %>
-
-
-				  <div class="control-group">
-		            <%= label_tag :is_customer, t("helpers.label.customers.search.is_customer"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= f.check_box :is_customer_is_true %>
-		            </div>
-		          </div>
-
-				  <!-- div class="control-group">
-		            <%= label_tag :type, t("helpers.label.customers.search.type"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= radio_button_tag :type, :fisica %> <%= label_tag :type_fisica, t("helpers.label.customers.search.type_fisica")  %>
-			          <%= radio_button_tag :type, :juridica %> <%= label_tag :type_juridica, t("helpers.label.customers.search.type_juridica") %>
-		            </div>
-		          </div -->
-
-				  <div class="control-group">
-		            <%= label_tag :contact_name, t("helpers.label.customers.search.contact_name"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= f.text_field :contacts_name_contains %>
-		            </div>
-		          </div>
-
-				  <div class="control-group">
-		            <%= label_tag :enabled, t("commons.no")+" "+t("helpers.label.customers.search.enabled"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= f.check_box :enabled_is_false %>
-		            </div>
-		          </div>
-
-				  <div class="control-group">
-		            <%= label_tag :email, t("emails.email"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= f.text_field :emails_email_contains %>
-		            </div>
-		          </div>
-
-				  <div class="control-group">
-		            <%= label_tag :doc, t("customers.doc"), :class => "control-label" %>
-		            <div class="controls">
-			          <%= f.text_field :doc_equals %>
-		            </div>
-		          </div>
-
-			<% end %>
-				<div class="form-actions span3">
-					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
-					<% if (mode != :advanced) then %>
-					<%= link_to t("searches.advanced"), customers_path(:search_mode_advanced => true), :class => "btn" %>
-					<% end  %>
-		    	</div>
+<!--fieldset-->
+	<div class="container">
+		<div class="control-group">
+			<%= f.label :name_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.text_field :name_contains, :class => "span3" %>
 			</div>
-		</fieldset>
-	  <% end %>
-<% end %>
+		</div>
+		<% if (mode == :advanced) then %>
+		<%= hidden_field_tag :search_mode_advanced, "true" %>
+		<div class="control-group">
+			<%= label_tag :segment, t("helpers.label.customers.search.segment"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.select(:customer_guara_customer_pj_type_activities_business_segment_id_in,
+					options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:customer_guara_customer_pj_type_activities_business_segment_id_in]), 
+					{}, 
+					{ :multiple => true, 
+						:style => "width: 200px;", 
+						:placeholder => t("customer_pjs.segments"), 
+						:class => "multiselect" 
+						})
+						%>
+					</div>
+				</div>
 
-<script>
-	$("[id$=autocomplete]").on("blur", function(e) {
-		jobj = $(e.currentTarget);
-		if (jobj.val() == "") {
-			$(jobj.attr("data-id-element")).val("");
-		}
-	})
-	
+				<div class="control-group">
+					<%= label_tag :activity, t("helpers.label.customers.search.activity"), :class => "control-label" %>
+					<div class="controls">
+						<%= f.select(:customer_guara_customer_pj_type_activities_id_in,
+							options_for_select([nil]) + 
+							options_from_collection_for_select(Guara::BusinessActivity.all,
+								:id, 
+								:name		),
+							{}, 
+							{ :multiple => true, 
+								:style => "width: 200px;", 
+								:placeholder => t("customer_pjs.activities"), 
+								:class => "multiselect"  
+								})
+								%>
+								<script language="javascript">
+								$("#search_person_guara_customer_pj_type_activities_id_in").select2({
+									maximumInputLength: 10
+								});
+								</script>
 
-	$(".multiselect").select2({
-	              maximumInputLength: 10
-	            });
-</script>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<%= label_tag :district, t("helpers.label.customers.search.bairro"), :class => "control-label" %>
+							<div class="controls">
+								<%= f.text_field :district_name_contains, :class => "span3" %>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<%= label_tag :total_employes, t("helpers.label.customers.search.employes_count"), :class => "control-label" %>
+							<div class="controls">
+								<%= f.multiparameter_field :customer_guara_customer_pj_type_total_employes_btw, {:field_type => :number_field, :placeholder => t("commons.min"), :style => "width: 103px" }, {:field_type => :number_field, :placeholder => t("commons.max"), :style => "width: 103px"  }, :size => 5 %>
+							</div>
+						</div>
+					
+
+
+						<div class="control-group">
+							<%= label_tag :is_customer, t("helpers.label.customers.search.is_customer"), :class => "control-label" %>
+							<div class="controls">
+								<%= f.check_box :is_customer_is_true %>
+							</div>
+						</div>
+
+		        <div class="control-group">
+		        	<%= label_tag :contact_name, t("helpers.label.customers.search.contact_name"), :class => "control-label" %>
+		        	<div class="controls">
+		        		<%= f.text_field :contacts_name_contains, :class => "span3" %>
+		        	</div>
+		        </div>
+
+		        <div class="control-group">
+		        	<%= label_tag :enabled, t("commons.no")+" "+t("helpers.label.customers.search.enabled"), :class => "control-label" %>
+		        	<div class="controls">
+		        		<%= f.check_box :enabled_is_false %>
+		        	</div>
+		        </div>
+
+		        <div class="control-group">
+		        	<%= label_tag :email, t("emails.email"), :class => "control-label" %>
+		        	<div class="controls">
+		        		<%= f.text_field :emails_email_contains, :class => "span3" %>
+		        	</div>
+		        </div>
+
+		        <div class="control-group">
+		        	<%= label_tag :doc, t("customers.doc"), :class => "control-label" %>
+		        	<div class="controls">
+		        		<%= f.text_field :doc_equals, :class => "span3" %>
+		        	</div>
+		        </div>
+
+		        <% end %>
+		        <div class="form-actions span3">
+		        	<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
+		        	<% if (mode != :advanced) then %>
+		        	<%= link_to t("searches.advanced"), customers_path(:search_mode_advanced => true), :class => "btn" %>
+		        	<% end  %>
+		        </div>
+		    </div>
+		<!--/fieldset-->
+		<% end %>
+		<% end %>
+
+		<script>
+		$("[id$=autocomplete]").on("blur", function(e) {
+			jobj = $(e.currentTarget);
+			if (jobj.val() == "") {
+				$(jobj.attr("data-id-element")).val("");
+			}
+		})
+
+
+		$(".multiselect").select2({
+			maximumInputLength: 10
+		});
+		</script>

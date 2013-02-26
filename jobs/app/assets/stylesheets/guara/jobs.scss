@@ -60,6 +60,7 @@ form.guara_jobs_professional {
   fieldset {padding: 10px;}
 
   .remove_fields {
+  	float: right;
     position: relative;
     left: 682px;
     top: -28px;
@@ -69,7 +70,7 @@ form.guara_jobs_professional {
 
   .add_fields {
     position: relative;
-    top: 34px;
+    top: 34px;	
     width: 740px;
     margin-left: -20px;
   }
