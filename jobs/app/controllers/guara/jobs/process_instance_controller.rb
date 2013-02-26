@@ -44,7 +44,7 @@ module Guara
         else
           @current_step = Step.find params[:edit_step]
         end
-
+        
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
         @columns = set_columns(@step_attrs)
         @vals      = attrValues(@step_attrs, @step_init.step_instance_attrs)

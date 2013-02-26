@@ -18,6 +18,7 @@
 	<% end %>
 
 	<%= link_to_add_fields "add", f, :contacts, options do |builder| %>
+		<% first = @customer.contacts.size==0 %>
 		<%= render 'active_extend/one_to_many_inputs_fields_grid', f: builder, inputs: inputs %>
 	<% end  %>
 	<p>

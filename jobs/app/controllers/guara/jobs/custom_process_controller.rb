@@ -48,18 +48,7 @@ module Guara
         @steps.each do |s|
           if s.id == id
             s.step_attrs.each do |a|
-              @attrs << {
-                :label => a[:label], 
-                :name => a[:name], 
-                :size => a[:widget],
-                :required => a[:required], 
-                :type_field => a[:type_field], 
-                :position => a[:position], 
-                :column => a[:column], 
-                :step_id => a[:step_id], 
-                :guidelines => a[:guidelines], 
-                :options => a[:options]
-              }
+              @attrs << a
             end
 
             @jsonNext << {:id=>s.id, :next=> s.next, :attrs=> @attrs, :attrs_size=> @attrs.size}

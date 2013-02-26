@@ -82,6 +82,7 @@ pt-BR:
     index: 
       title: "%{customer}"
       link: "Contatos"
+      edit: "Editar"
     show:
       title: "Exibindo Contato"
     search:
