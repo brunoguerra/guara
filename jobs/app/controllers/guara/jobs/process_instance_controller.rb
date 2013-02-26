@@ -47,11 +47,10 @@ module Guara
 
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
         @columns = set_columns(@step_attrs)
-        @vals      = attrValues(@step_attrs, @step_init.step_instance_attrs)
+        @vals      = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
         @current_step_attrs = @current_step.step_attrs
-        @vals_edit = attrValues(@current_step_attrs, @current_step.step_instance_attrs)
-        @current_columns = set_columns(@current_step_attrs)
-        
+        @vals_edit = attrValues(@current_step_attrs, @current_step.step_attrs_vals(params[:id]))
+        @current_columns = set_columns(@current_step_attrs)        
       end
 
       def attrValues(step_attrs, step_instance_attrs)
@@ -104,14 +103,13 @@ module Guara
 
       def show_step
         edit
-
       end
       
       def show
         @process_instance = ProcessInstance.find params[:id]
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, true, true)
         @columns = set_columns(@step_attrs)
-        @vals = attrValues(@step_attrs, @step_init.step_attrs_vals)
+        @vals = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
       end
 
       def set_columns(steps_attrs)
