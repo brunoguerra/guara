@@ -17,13 +17,14 @@
 
 		<div class="selects_professionals">
 			<div class="page-header"><%= t("jobs.professional.selecteds_candidates.title") %></div>
-				
+				<%= form_for :select_professionals, :html => { :class => "well form-search", :method => :get } do |f|  %>
 
 					<div class="control-group">
 				        <%= label_tag :professionals_selecteds, t("jobs.professional.selecteds.title"), :class => "control-label" %>
 				            <div class="controls">
-					          <%= select_tag(:professionals_selecteds,
+					          <%= f.select(:professionals_selecteds,
 								options_from_collection_for_select([], :id, :name), 
+								{}, 
 								{ :multiple => true, 
 									:style => "width: 200px;", 
 									:placeholder => t("jobs.professional.selecteds.title"), 
@@ -31,9 +32,8 @@
 								}) %>
 				            </div>
 
-				    </div>
-				  
-				
+				    </div>  
+				<% end %>
 		</div>
 	</div> <!-- SEARCH PROFESSIONAL -->
 

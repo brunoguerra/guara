@@ -10,7 +10,7 @@
 			<%= get_fields(f, @current_columns, @vals_edit, 1) %>
 		</div>
 	  	<div class="span<%= 12/@current_columns.size%>" style="<%= 'display:none!important;' if @current_columns.size == 1 %>">
-	  		<%#= get_fields(f, @current_columns, @vals_edit, 2) %>
+	  		<%= get_fields(f, @current_columns, @vals_edit, 2) %>
 	  	</div>
 
 	</div>
@@ -21,7 +21,7 @@
 
 <%#= javascript_include_tag "jquery-mask" %>
 <script type="text/javascript">
-	//$('.date_format').mask("99/99/9999");
+	$('.date_format').datepicker($.datepicker.regional['pt-BR']);
 
 	function validate(){
 		<%=get_required_fields(@current_columns) %>

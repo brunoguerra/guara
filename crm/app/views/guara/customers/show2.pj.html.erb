@@ -137,10 +137,8 @@
 			<div class="thumbnail contacts">
 				<div class="caption">
 					<legend><%=t("contacts.side.title") %></legend>
-					<%= render :partial => "guara/contacts/list_contacts2" %>
-					<% if can? :create, :contact  %>
-						<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
-					<% end %>
+					<%= render :partial => "guara/contacts/list_contacts" %>
+					
 				</div>
 			</div>
 		</li>
