@@ -5,12 +5,7 @@ module Guara
       	def get_collection(alias_model, vals)
     		#Retornar Model de Clientes ou Empresas
             vals = [] if vals.class == String
-<<<<<<< HEAD
-    		if alias_model == 'role'
-=======
-    		    if alias_model == 'role'
-                Guara::Jobs::Role.all.map{ |c| [c.name, c.id] }
->>>>>>> upstream/master
+   		    if alias_model == 'role'
                 options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
             elsif alias_model == 'consultant'
                 options_for_select(Guara::Jobs::Consultant.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
