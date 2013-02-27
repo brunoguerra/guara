@@ -6,7 +6,5 @@ class Guara::Jobs::Formation < ActiveRecord::Base
 	
 	belongs_to :level_education
 
-	#has_many :professional_formations  
-  	#has_many :professionals, :through => :professional_formations
 end
  

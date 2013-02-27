@@ -1,19 +1,21 @@
 <section class="show guara_jobs_professional">
 
 	<%= render :partial => "/guara/customers/navbar", :locals => { :active => :professional } %>
-	<%= render :partial => "modules", :locals => { :active => :general } %>
+	<%= render :partial => "/guara/customers/modules", :locals => { :active => :professional } %>
 
+		<div class="thumbnails">
+			<div class="caption">
+				<div class="span12">
 
-    	<div class="row page-header">
-			<legend class="span2"><small><%= t("jobs.professional.title") %></small></legend>
-			
-			<!-- HAVE JOB ? -->	
-			<div class="span9 well">
-				<dh><%= t("jobs.professional.have_job.title") %></dh>
-		    		<%= yes_or_no @professional.have_job %>
-		    </div><!-- HAVE JOB -->	
+					<legend><%= t("jobs.professional.index.title") %></legend>
+
+					<dt><%= t("jobs.professional.have_job.title") %></dt>
+			    	<dd><%= yes_or_no @professional.have_job %></dd>
+				    
+				</div>
+			</div>
 		</div>
-
+		  
         <div class="row page-header">
 			<legend class="span2"><small><%=  t("jobs.professional.business_action.title") %></small></legend>
 
@@ -21,16 +23,14 @@
 			    <dh><%=  t("jobs.professional.business_action.title") %></dh>
 					<% @professional.vacancy_specification.roles.each do |b| %>
 						<%= b.business_action.name %><br>
+						<%= b.name %>
 					<% end %>
 					<dh><%=  t("jobs.professional.salary_requirements.title") %></dh>
 					<%= @professional.vacancy_specification.salary_requirements %>
 			</div>
 		</div>
-					
 
-
-
-        <div class="row page-header">
+		<div class="row page-header">
 			<legend class="span2"><small><%=  t("jobs.professional.formation.title") %></small></legend>
 
 		    <div class="span9 well">
@@ -67,26 +67,42 @@
 
 							<dh><%= t("jobs.professional.company_name.title") %></dh>
 							<%= e.company_name %><br>
-						
-							<dh><%= t("jobs.professional.role.title") %></dh>
-							<%= e.role %><br>
 							
 
-							<dh><%= t("jobs.professional.activities.title") %></dh>
-							<%= e.activities %><br>
-							
+						<% e.careers.each do |c| %>
+								<dh><%= t("jobs.professional.role.title") %></dh>
+								<%= c.role %><br>
+								
 
-							<dh><%= t("jobs.professional.date_admission.title") %></dh>
-							<%= e.date_admission %><br>
+								<dh><%= t("jobs.professional.activities.title") %></dh>
+								<%= c.activities %><br>
+								
+
+								<dh><%= t("jobs.professional.date_admission.title") %></dh>
+								<%= c.date_admission %><br>
 
 
-							<dh><%= t("jobs.professional.date_resignation.title") %></dh>
-							<%= e.date_resignation %><br>
-
+								<dh><%= t("jobs.professional.date_resignation.title") %></dh>
+								<%= c.date_resignation %><br>
+						<% end %>
 
 					<% end %>
 
 			</div>
+
+			<div class="row page-header">
+				<legend class="span2"><small><%=  t("jobs.professional.languages.title") %></small></legend>
+
+			    <div class="span9 well">
+				    <dh><%=  t("jobs.professional.languages.title") %></dh>
+						<% @professional.languages.each do |l| %>
+							<%= l.name %>
+						<% end %>
+				</div>
+			</div>
+					
+
+			<%= link_to t("helpers.forms.edit"), edit_customer_professional_path(@customer, @professional), :class => "btn btn-primary" %>
 		</div>
 					
 

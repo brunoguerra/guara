@@ -15,13 +15,13 @@
 			      </div> <!-- SEARCH SIMPLE -->
 
 
-			    <% if (mode == :advanced) then %>
+			    <% if (params[:mode]=="advanced") then %>
 						  <%= hidden_field_tag :search_mode_advanced, "true" %>
 
 						   <div class="control-group">
 		            <%= label_tag :salary_requirements, t("helpers.label.professional.search.salary_requirements.title"), :class => "control-label" %>
 	            	<div class="controls">
-		          		<%= f.text_field :vacancy_specification_salary_requirements_btw %>
+		          		<%= f.text_field :vacancy_specification_salary_requirements_less_than_or_equal_to %>
 	           		</div>
 		      		</div>
 
@@ -65,7 +65,7 @@
 					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
 					<% if (mode != :advanced) then %>
 					<!--  -->
-						<%= link_to t("searches.advanced"), professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
+						<%= link_to t("searches.advanced"),  professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
 					<% end  %>
 				</div><!-- BUTTON SEARCH SIMPLE OR ADVANCE -->
 

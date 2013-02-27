@@ -1,6 +1,11 @@
 <fieldset>
 <% inputs.each do |input,options| %>
+	<% if not options[:lambda].nil? %>
+		<%= options[:lambda].call(f, index || 0) %>
+	<% else %>
 	<%= f.input input, options %>
+	<% end %>
+
 <% end %>
 <%= f.hidden_field :_destroy %>
 

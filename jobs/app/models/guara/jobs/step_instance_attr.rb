@@ -6,6 +6,10 @@ class Guara::Jobs::StepInstanceAttr < ActiveRecord::Base
   belongs_to :step
   belongs_to :step_attr
   belongs_to :process_instance
+  #@deprecated use values
   has_many :step_instance_attr_multis, :dependent => :destroy
+  
+  #from step_instance_attr_multis
+  has_many :values, :dependent => :destroy, class_name: "Guara::Jobs::StepInstanceAttrMulti"
 
 end
