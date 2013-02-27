@@ -5,11 +5,9 @@ module Guara
       	def get_collection(alias_model, vals)
     		#Retornar Model de Clientes ou Empresas
             vals = [] if vals.class == String
-    		if alias_model == 'role'
+    		    if alias_model == 'role'
                 Guara::Jobs::Role.all.map{ |c| [c.name, c.id] }
                 options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
-            elsif alias_model == '*****'
-                options_for_select(Guara::Jobs::Professional.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
             elsif alias_model == 'consultant'
                 options_for_select(Guara::Jobs::Consultant.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
             else
@@ -33,8 +31,8 @@ module Guara
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val[rec.id]
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
-            elsif rec.type_field == 'section'
-                return render "guara/jobs/widgets/form_#{rec.widget}"
+            elsif rec.type_field == 'section' || rec.type_field == 'widget'
+                return render "guara/jobs/widgets/form_#{rec.widget}", field_form_name: process_instance_field_form_name(rec)
             else
                 @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level"
         	end
@@ -45,6 +43,10 @@ module Guara
     						#{@field}
     					</div>
     				</div>"
+        end
+        
+        def process_instance_field_form_name(step_attr)
+          "step_instance_attrs[#{step_attr.id}]"
         end
 
         def get_fields(form, steps, vals, column)
@@ -61,7 +63,7 @@ module Guara
             @required_fields = []
             step_attrs.each do |a,b|
                 b.each do |c|
-                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{c.id}').val())== '') {alert('Preencha o campo #{c.label}');return false;};" if c.type_field != 'section'
+                    @required_fields << "if(($('#step_instance_attrs_#{c.id}').length>0) && (jQuery.trim($('#step_instance_attrs_#{c.id}').val())== '')) {alert('Preencha o campo #{c.label}');return false;};" if c.type_field != 'section'
                 end
             end
 

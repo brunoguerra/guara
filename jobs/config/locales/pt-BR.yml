@@ -2,6 +2,11 @@
 
 pt-BR:
   
+  customers:
+    professional:    
+      search:
+        link: "Pesquisar por Professional"
+  
   jobs:
     title: "Recrutamento e Seleção"
     link: "Recrutamento e Seleção"
@@ -9,6 +14,9 @@ pt-BR:
     professional: &attr_professional
       index:
         link: "Dados Curriculares"
+        
+      search:
+        complete: "pesquisa por profissionais foi finalizada com suscesso!"
 
       names:
         title: "Nome"
@@ -76,6 +84,7 @@ pt-BR:
 
       business_action_roles:
         title: "Área de Atuação - Cargos"
+      
 
   jobs_business_actions:
     title: "Área de Atuação"

@@ -8,7 +8,13 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
   #@deprecated Utilizar o acesso por step
   has_many :step_instance_attrs, :dependent => :destroy
   
-
+  after_save :after_save
+  
+  def initialize(custom_process)
+    self.custom_process = custom_process
+    self.custom_process.call_hook_initialize(self)
+  end
+  
   def step_init
   	self.custom_process.step
   end
@@ -19,5 +25,11 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
 
   def steps_previous_current
     self.custom_process.steps.where("level <= ?", self.step.level).order('level DESC')
+  end
+  
+  def after_save
+    if (self.respond_to?(:hook_after_save))
+      self.hook_after_save()
+    end
   end
 end

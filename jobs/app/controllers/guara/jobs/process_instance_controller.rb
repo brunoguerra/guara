@@ -110,6 +110,7 @@ module Guara
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, true, true)
         @columns = set_columns(@step_attrs)
         @vals = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
+        
       end
 
       def set_columns(steps_attrs)
