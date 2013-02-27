@@ -6,13 +6,26 @@ module Guara
     		#Retornar Model de Clientes ou Empresas
             vals = [] if vals.class == String
    		    if alias_model == 'role'
-                options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
+                options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
             elsif alias_model == 'consultant'
-                options_for_select(Guara::Jobs::Consultant.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs.value })
+                options_for_select(Guara::Jobs::Consultant.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
             else
-                options_for_select(Guara::Jobs::Professional.all.collect { |ff| [ff.person.name, ff.id] }, vals.collect { |fs| fs.value })
+                options_for_select(Guara::Jobs::Professional.all.collect { |ff| [ff.person.name, ff.id] }, vals.collect { |fs| fs[:value] })
     		end
     	end
+
+        def get_value_model(alias_model, id)
+           if alias_model == 'role'
+                @model = Guara::Jobs::Role.find id
+                return @model.name
+            elsif alias_model == 'consultant'
+                @model = Guara::Jobs::Consultant.find id
+                return @model.name
+            else
+                @model = Guara::Jobs::Professional.find id
+                return @model.person.name
+            end 
+        end
 
     	def show_label_tag(label)
           label_tag label, label+":", :class => "strong"
@@ -31,7 +44,7 @@ module Guara
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
             elsif rec.type_field == 'section' || rec.type_field == 'widget'
-                return render "guara/jobs/widgets/form_#{rec.widget}", field_form_name: process_instance_field_form_name(rec)
+                return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
             else
                 @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level"
         	end
@@ -69,10 +82,21 @@ module Guara
             return @required_fields.join("").html_safe
         end
 
-        def show_value_field(rec, vals)
-            if rec.type_field == 'select'
-                #vals[rec.id] = getCollection
+        def show_values_select(val)
+            @label = []
+            if val.class == Array
+                val.each do |k|
+                    @label << content_tag(:span, get_value_model(k[:step_attr_option], k[:value]), :class => "strong")
+                end
+            elsif val.class == String
+                @label << val
             end
+
+            return @label.join(", ").html_safe
+        end
+
+        def get_value_select(val)
+            return get_value_model(val[:step_attr_option], val[:value])
         end
 
       end

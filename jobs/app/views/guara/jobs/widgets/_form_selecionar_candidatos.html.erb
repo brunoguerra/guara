@@ -18,8 +18,16 @@
 <script>
 
 $(function() {
-	$("#professionals_selecteds").attr('name',  '<%= field_form_name %>[]')
-})
+	$("#professionals_selecteds").attr('name',  '<%= field_form_name %>[]');
+	var sel = []
+	<% value.each do |k| %>
+	setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_select k %>", "");
+	sel.push(<%= k[:value] %>);
+	<% end %>
+	setTimeout(function(){
+		$("#professionals_selecteds").select2("val", sel);
+	},200);
+});
 
 function alertDialog(msg, error){
 	var dialog = jQuery('.alert-ajax');
