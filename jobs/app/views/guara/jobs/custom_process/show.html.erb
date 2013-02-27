@@ -230,7 +230,7 @@
 		getElsSaved(step_id);
 	});
 
-	jQuery('.step_widget_auto').click(function(e){
+	/*jQuery('.step_widget_auto').click(function(e){
 		var step_id = jQuery("#dropdown-menu-step").attr('step_id');
 		var widget  = jQuery(this).attr('type-widget');
 		jQuery.ajax({
@@ -242,11 +242,11 @@
 		  	'step[custom_process_id]': <%= @custom_process.id %>
 		  }
 		}).done(function( d ) {
-			
+			alert('Campos Salvos!');
 		}).fail(function(d){
-			
+			alert('Erro ao salvar Campos!');
 		});
-	});
+	});*/
 
 
 	jQuery('#delete-step').click(function(e){
@@ -359,7 +359,7 @@
 				n[:attrs].each do |at| 
 				%>
 				  	json_elements_saved["<%=n[:id]%>"].push({
-						title: "<%=at[:title]%>", widget: "<%=at[:widget]%>", required: <%= at[:required] == true ? 1 : 0 %>, resume: "<%= at[:resume] == true ? 1 : 0 %>", type: "<%=at[:type]%>", position: "<%=at[:position]%>", id: <%= @i %>, column: "<%=at[:column]%>",  options: "<%=at[:options]%>"
+						title: "<%=at[:title]%>", widget: "<%=at[:widget]%>", required: <%= at[:required] == true ? 1 : 0 %>, resume: "<%= at[:resume] == true ? 1 : 0 %>", type_field: "<%=at[:type_field]%>", position: "<%=at[:position]%>", id: <%= @i %>, column: "<%=at[:column]%>",  options: "<%=at[:options]%>"
 					});
 				<% @i = @i + 1
 				 end	
@@ -377,7 +377,7 @@
 			var count = elsaved[id].length;
 			for (var i=0; i < count; i++){
 				var el = elsaved[id][i];
-        		form_builder.insert_el(el.type);
+        		form_builder.insert_el(el.type_field);
         		form_builder.update_el(el);
 			}
 		}
@@ -416,14 +416,14 @@
 			  }
 			}).done(function( d ) {
 				json_elements_saved[step_id] = [];
-
-				for(var i = 0; i < d.attrs.length; i++){
-					d.attrs[i]['type'] = d.attrs[i]['type_field'];
-					json_elements_saved[step_id].push(d.attrs[i]);
+				if(d.attrs){
+					for(var i = 0; i < d.attrs.length; i++){
+						json_elements_saved[step_id].push(d.attrs[i]);
+					}
 				}
-
+				alert('Campos Salvos!');
 			}).fail(function(d){
-				
+				alert('Erro ao salvar Campos!');
 			});
 
         }

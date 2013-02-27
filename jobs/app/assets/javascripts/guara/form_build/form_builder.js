@@ -8,7 +8,7 @@ window.form_builder = {
         required: 0,
         position: 0,
         title: "",
-        type: "text",
+        type_field: "text",
         options: "",
         widget: ""
     },
@@ -19,66 +19,66 @@ window.form_builder = {
         text: {
             default_field: {
                 title: "Texto",
-                type: "text"
+                type_field: "text"
             },
             attrs_field: []
         },
         number: {
             default_field: {
                 title: "Número",
-                type: "number"
+                type_field: "number"
             },
             attrs_field: []
         },
         select: {
             default_field: {
                 title: "Caixa de Seleção",
-                type: "select",
+                type_field: "select",
                 options: "person_pf"
             },
-            attrs_field: [{type: "select_type", label: "Tipo"}]
+            attrs_field: [{type_field: "select_type", label: "Tipo"}]
         },
         date: {
             default_field: {
                 title: "Data",
-                type: "date"
+                type_field: "date"
             },
             attrs_field: []
         },
         time: {
             default_field: {
                 title: "Hora",
-                type: "time"
+                type_field: "time"
             },
             attrs_field: []
         },
         text_area: {
             default_field: {
                 title: "Caixa de Texto",
-                type: "text_area"
+                type_field: "text_area"
             },
             attrs_field: []
         },
         phone: {
             default_field: {
                 title: "Telefone",
-                type: "phone"
+                type_field: "phone"
             },
             attrs_field: []
         },
         price: {
             default_field: {
                 title: "Valor Monetário",
-                type: "price"
+                type_field: "price"
             },
             attrs_field: []
         },
         widget: {
             default_field: {
                 title: "Customização de Campo",
-                type: "widget"
+                type_field: "widget"
             },
-            attrs_field: [{type: "text_field_widget", label: "Widget"}]
+            attrs_field: [{type_field: "text_field_widget", label: "Widget"}]
         }
     },
 
@@ -217,11 +217,11 @@ window.form_builder = {
             me1.defaults.container('resume_and_required', 
                 me1.defaults['resume_and_required'], 'Regras');
 
-            var attr = me2.default_opts[config.type].attrs_field;
+            var attr = me2.default_opts[config.type_field].attrs_field;
             if(attr){
                 for(var i=0;i<attr.length;i++){
-                    me1.defaults.container(attr[i].type, 
-                        me1.defaults[attr[i].type], attr[i].label);
+                    me1.defaults.container(attr[i].type_field, 
+                        me1.defaults[attr[i].type_field], attr[i].label);
                 }
             }
 

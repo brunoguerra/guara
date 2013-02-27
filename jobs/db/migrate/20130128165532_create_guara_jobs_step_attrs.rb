@@ -1,9 +1,8 @@
 class CreateGuaraJobsStepAttrs < ActiveRecord::Migration
     def change
       create_table :guara_jobs_step_attrs do |t|
-        t.string   :label
+        t.string   :title
         t.string   :position
-        t.string   :guidelines
         t.string   :options
         t.string   :widget
         t.string   :type_field
