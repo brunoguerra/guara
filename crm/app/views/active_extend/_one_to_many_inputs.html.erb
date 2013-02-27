@@ -2,6 +2,11 @@
   <%= render 'active_extend/one_to_many_inputs_fields', f: builder, index: i, inputs: inputs %>
 <% end %>
 
-<%= link_to_add_fields "add", form, target, local_assigns[:options] do |builder| %>
+<%= link_to_add_fields( 
+				((local_assigns[:options].nil? || local_assigns[:options][:add_label].nil?) ?
+					"add" : local_assigns[:options][:add_label]),
+				form,
+				target,
+				local_assigns[:options]) do |builder| %>
 	<%= render 'active_extend/one_to_many_inputs_fields', f: builder, index: 0, inputs: inputs %>
 <% end  %>

@@ -5,7 +5,7 @@ pt-BR:
   jobs:
     title: "Jobs"
 
-    professional: &attr_professional
+    professional: &attrs_professional
       index:
         link: "Dados Curriculares"
         title: "Dados Curriculares"
@@ -56,7 +56,7 @@ pt-BR:
         title: "Experiência Profissional"
 
       company_name:
-        title:   "Nome da Empresa"
+        title:   "Empresa"
 
       role:
         title: "Cargo"
@@ -74,6 +74,10 @@ pt-BR:
         title: "Área de Atuação - Cargos"
       languages:
         title: "Idiomas"
+
+
+    careers: &attrs_career
+      role: "Cargo"
 
   jobs_business_actions:
     title: "Área de Atuação"
@@ -103,10 +107,13 @@ pt-BR:
   activerecord:
       attributes:
         "guara/jobs/professional":
-            <<: *attr_professional
+            <<: *attrs_professional
+        "guara/jobs/career":
+            <<: *attrs_career
       
       models:
         <<: *jobs_modules
+
 
   helpers:
     label:

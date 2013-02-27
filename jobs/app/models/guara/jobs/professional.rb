@@ -21,7 +21,7 @@ module Guara
 	  		has_many :formations, dependent: :destroy
 	  		has_many :professional_experiences, dependent: :destroy
 	  		has_one :vacancy_specification, dependent: :destroy
-	  		has_many :languages, dependent: :destroy
+	  		has_many :languages
 
 
 

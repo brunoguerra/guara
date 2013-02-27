@@ -5,42 +5,42 @@
 
 /* STYLE JOBS    */
 
-form.guara_jobs_professional {
+	.guara_jobs_professional {
 	
-	label[for=jobs_professional_have_job]{
-	  float: left;
-	}
+		label[for=jobs_professional_have_job]{
+		  float: left;
+		}
 
-	label[for=jobs_professional_have_job_sim]{
-	  float: left;
-	  margin: -5px -8px;
-	}
+		label[for=jobs_professional_have_job_sim]{
+		  float: left;
+		  margin: -5px -8px;
+		}
 
-	label[for=jobs_professional_have_job_no]{
-	  float: left;
-	}
+		label[for=jobs_professional_have_job_no]{
+		  float: left;
+		}
 
-	label{
-	  float: left;
-	  margin-right: 15px;
-	}
+		label{
+		  float: left;
+		  margin-right: 15px;
+		}
 	
-	legend { border-bottom: none; line-height: 30px;}
+		legend { border-bottom: none; line-height: 30px;}
 
-  ul {margin:0; overflow: hidden;}
+	  	ul {margin:0; overflow: hidden;}
 
-  ul li input{float: left; margin-right: 5px;}
+	  	ul li input{float: left; margin-right: 5px;}
 
-  #jobs_professional_vacancy_specification_attributes_salary_requirements_input{margin-top: 40px;float: left !important;}
+	   #jobs_professional_vacancy_specification_attributes_salary_requirements_input{margin-top: 40px;float: left !important;}
 
-   #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left !important; width: 350px; }
+	   #jobs_professional_vacancy_specification_attributes_salary_requirements { float: left !important; width: 350px; }
 
 		.control-group {
 			float: right;
 
-      .controls {
-				float: right; 
-       	
+	      .controls {
+					float: right; 
+	       	
 				select {
 					width: 500px;
 				}
@@ -57,24 +57,72 @@ form.guara_jobs_professional {
 
    .date_select { float: right; margin-right: 269px;}
 
-  fieldset {padding: 10px;}
+  fieldset {padding: 10px; position: relative;}
 
-  .remove_fields {
+  .formation .remove_fields {
     position: relative;
-    left: 682px;
-    top: -28px;
-    padding: 0px 4px;
+	left: 682px;
+	top: -4px;
+    padding: 3px 6px;
     line-height: 17px;
 	} 
+
+	.professional_experiences #guara_jobs_professional_experience_remove {
+		position: absolute;
+		right: -19px;
+		top: 6px;
+		padding: 3px 6px;
+		line-height: 17px;
+	} 
+
+
+
+	.business-action{
+		padding: 27px 12px 0px 45px !important;
+	}
+
+	.have_jobs {
+		padding: 21px 23px 0px 35px !important;
+	}
+	
+
+	.professional_experiences .add-careers {
+		position: relative;
+		top: -23px;
+		width: 681px;
+		margin-left: 0px;
+	}
+
+	.professional_experiences #guara_jobs_career_remove {
+		padding: 3px 6px;
+		line-height: 17px;
+		background: none;
+		float: right;
+	}
 
   .add_fields {
     position: relative;
     top: 34px;
-    width: 740px;
-    margin-left: -20px;
+    width: 761px;
+	margin-left: -28px;
   }
 
-   .well {padding: 19px 19px 0px 19px;}
+
+   .well {padding: 27px 33px 0px 25px; margin-left: 0px;}
+
+   .page-header { border: none;}
+
+   .guara_jobs_career_fields { 
+	  margin-bottom: 30px;
+	  font-size: 18px;
+	  font-weight: 200;
+	  line-height: 30px;
+	  color: inherit;
+	  background-color: #eeeeee;
+	  -webkit-border-radius: 6px;
+	     -moz-border-radius: 6px;
+	          border-radius: 6px;
+   }
 
 }
 
@@ -102,3 +150,16 @@ form.guara_jobs_professional {
  .back_jobs {margin-top: 10px;}
 
 .back_jobs .btn {margin-top: -160px !important;}
+
+
+/*  STYLE SHOW  */
+
+.show_professional { 
+
+	.have_jobs dt{ float: left; }
+
+
+
+
+
+ }

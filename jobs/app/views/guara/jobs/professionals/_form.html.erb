@@ -8,7 +8,7 @@
 			<legend class="span2"><small> <%=  t("jobs.professional.index.title") %></small></legend>
 			
 			<!-- HAVE JOB ? -->	
-			<div class="span9 well">
+			<div class="span9 well have_jobs">
 		    <%= f.input :have_job, :label => t("jobs.professional.have_job.title"),
 		    	:as => :radio, 
 		    	:collection => ["Sim", "Não"],
@@ -22,7 +22,7 @@
 	        <div class="row page-header">
 	        	<legend class="span2"><small><%=  t("jobs.professional.business_action.title") %></small></legend>
 
-	        	<div class="span9 well">
+	        	<div class="span9 well business-action">
 		        	<% Guara::Jobs::BusinessAction.all.each do |ba| %>
 			        	<ul>
 			        		<li><h3><%= ba.name %></h3></li>
@@ -82,7 +82,7 @@
 								:label => t("jobs.professional.description.title") }
 						},
 						:options => {
-							add_class: "btn btn-block"
+							add_class: "btn btn-block btn-inverse"
 						},
 
 				}
@@ -116,7 +116,7 @@
 						},
 
 						:options => {
-							add_class: "btn btn-block"
+							add_class: "btn btn-block btn-inverse"
 						}
 					}
 				%>

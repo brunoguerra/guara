@@ -1,18 +1,14 @@
-<section class="show guara_jobs_professional">
+<section class="show guara_jobs_professional show_professional">
 
 	<%= render :partial => "/guara/customers/navbar", :locals => { :active => :professional } %>
 	<%= render :partial => "/guara/customers/modules", :locals => { :active => :professional } %>
 
-		<div class="thumbnails">
-			<div class="caption">
-				<div class="span12">
-
-					<legend><%= t("jobs.professional.index.title") %></legend>
-
+		<div class="row page-header have_jobs">
+			<legend class="span2"><small><%=  t("jobs.professional.index.title") %></small></legend>
+				
+				<div class="span9 well">	
 					<dt><%= t("jobs.professional.have_job.title") %></dt>
 			    	<dd><%= yes_or_no @professional.have_job %></dd>
-				    
-				</div>
 			</div>
 		</div>
 		  
@@ -20,12 +16,11 @@
 			<legend class="span2"><small><%=  t("jobs.professional.business_action.title") %></small></legend>
 
 		    <div class="span9 well">
-			    <dh><%=  t("jobs.professional.business_action.title") %></dh>
 					<% @professional.vacancy_specification.roles.each do |b| %>
-						<%= b.business_action.name %><br>
-						<%= b.name %>
+						<dt><%= b.business_action.name %><br></dt>
+						<dd><%= b.name %></dd>
 					<% end %>
-					<dh><%=  t("jobs.professional.salary_requirements.title") %></dh>
+					<dt><%=  t("jobs.professional.salary_requirements.title") %></dt>
 					<%= @professional.vacancy_specification.salary_requirements %>
 			</div>
 		</div>
@@ -37,19 +32,19 @@
 
 		    			<% @professional.formations.each do |f| %>
 
-							<dh><%= t("jobs.professional.level_education.title") %></dh>
+							<dt><%= t("jobs.professional.level_education.title") %></dt>
 							<%= name_or_nothing f.level_education %><br>
 						
-							<dh><%= t("jobs.professional.course.title") %></dh>
+							<dt><%= t("jobs.professional.course.title") %></dt>
 							<%= f.course %><br>
 						
-							<dh><%= t("jobs.professional.name_institution.title") %></dh>
+							<dt><%= t("jobs.professional.name_institution.title") %></dt>
 							<%= f.name_institution %><br>
 						
-							<dh><%= t("jobs.professional.situation.title") %></dh>
+							<dt><%= t("jobs.professional.situation.title") %></dt>
 							<%= f.situation %><br>
 
-							<dh><%= t("jobs.professional.date_conclusion.title") %></dh>
+							<dt><%= t("jobs.professional.date_conclusion.title") %></dt>
 							<%= f.date_conclusion %><br>
 
  						<% end %>
@@ -65,24 +60,24 @@
 		    	
 					<% @professional.professional_experiences.each do |e| %>
 
-							<dh><%= t("jobs.professional.company_name.title") %></dh>
+							<dt><%= t("jobs.professional.company_name.title") %></dt>
 							<%= e.company_name %><br>
 							
 
 						<% e.careers.each do |c| %>
-								<dh><%= t("jobs.professional.role.title") %></dh>
+								<dt><%= t("jobs.professional.role.title") %></dt>
 								<%= c.role %><br>
 								
 
-								<dh><%= t("jobs.professional.activities.title") %></dh>
+								<dt><%= t("jobs.professional.activities.title") %></dt>
 								<%= c.activities %><br>
 								
 
-								<dh><%= t("jobs.professional.date_admission.title") %></dh>
+								<dt><%= t("jobs.professional.date_admission.title") %></dt>
 								<%= c.date_admission %><br>
 
 
-								<dh><%= t("jobs.professional.date_resignation.title") %></dh>
+								<dt><%= t("jobs.professional.date_resignation.title") %></dt>
 								<%= c.date_resignation %><br>
 						<% end %>
 
@@ -94,7 +89,7 @@
 				<legend class="span2"><small><%=  t("jobs.professional.languages.title") %></small></legend>
 
 			    <div class="span9 well">
-				    <dh><%=  t("jobs.professional.languages.title") %></dh>
+				    <dt><%=  t("jobs.professional.languages.title") %></dt>
 						<% @professional.languages.each do |l| %>
 							<%= l.name %>
 						<% end %>

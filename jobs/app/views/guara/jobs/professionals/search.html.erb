@@ -19,7 +19,8 @@
 				<tbody>
 					<% @professional.each do |p| %>
 						<tr>
-							<td><%= p.person.name %></td>
+							
+							<td><%= link_to p.person.name, customer_professional_path(p.person_id, p) %></td>
 							<td>
 								<ul><% business_action_last = nil %>
 									<% p.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
@@ -34,7 +35,6 @@
 								</ul>
 							</td>
 							<td>
-								<%= link_to t("helpers.forms.show"), customer_professional_path(p.person_id, p), :class => "btn" %>
 								<%= link_to t("helpers.forms.select"), 
 								'javascript:void(0);', :class => "btn btn-info",
 								:onClick=> "setProfessionalToSelect2(#{p.id}, '#{p.person.name}');" %>
