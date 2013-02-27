@@ -2399,14 +2399,10 @@ element_properties.prototype = {
     },
     size: function () {
         JJ("#prop_element_size")
-            .css("display", "block");
-        var a = ds.get(this.id, "size");
-        field_sizes = document.getElementById("field_size");
-        for (var i = 0; i < field_sizes.options.length; i++) {
-            if (field_sizes.options[i].value == a) {
-                field_sizes.selectedIndex = i
-            }
-        }
+            .css("display", "block")
+            .css('margin-top','4px');
+        JJ("#prop_element_size input")
+            .val(ds.get(this.id, "size"));
     },
     choices: function () {
         JJ("#prop_choices")
