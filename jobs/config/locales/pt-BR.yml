@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 pt-BR:
-  
   customers:
     professional:    
       search:
@@ -14,6 +13,7 @@ pt-BR:
     professional: &attr_professional
       index:
         link: "Dados Curriculares"
+        title: "Dados Curriculares"
         
       search:
         complete: "pesquisa por profissionais foi finalizada com suscesso!"
@@ -26,10 +26,6 @@ pt-BR:
 
       selecteds:
         title: "Selecionados"
-
-      index:
-        title: "Cadastro de Profissional"
-        link: "Profissional"
 
       business_action_roles:
         title: "Área de Atuação - Cargos"
@@ -84,7 +80,9 @@ pt-BR:
 
       business_action_roles:
         title: "Área de Atuação - Cargos"
-      
+
+      languages:
+        title: "Idiomas"
 
   jobs_business_actions:
     title: "Área de Atuação"
@@ -97,6 +95,9 @@ pt-BR:
 
   jobs_consultants:
     title: "Consultor"
+
+  jobs_languages:
+    title: "Idiomas"
 
 
   search:
@@ -131,3 +132,6 @@ pt-BR:
 
           names:
             title: "Nome"
+
+    forms:
+      select: "Selecionar"

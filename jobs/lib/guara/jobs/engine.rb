@@ -21,7 +21,8 @@ module Guara
             :jobs_business_actions,
             :jobs_roles,
             :jobs_level_educations,
-            :jobs_consultants
+            :jobs_consultants,
+            :jobs_languages
           ]
         
       end

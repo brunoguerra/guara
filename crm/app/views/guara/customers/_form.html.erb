@@ -74,19 +74,18 @@
 						:width => 220 
 					} %>
 					
-					          <%= select_tag :activities,
-																	options_for_select( 
-																											Guara::BusinessActivity.joins(:business_segment).all.map do |a|
-																												[[(a.business_segment || Guara::BusinessSegment.first).name ,a.name].join(": "), a.id]
-																											end,
-																											params[:activities] || @person.activities.map { |a| a.id }
-																										), 
-																	{ :multiple => true, 
-																		:style => "width: 200px;", 
-																		:placeholder => t("customer_pjs.segments"), 
-																		:class => "multiselect" 
-																	}
-					%>
+		          <%= select_tag :activities,	options_for_select( 
+							Guara::BusinessActivity.joins(:business_segment).all.map do |a|
+								[[(a.business_segment || Guara::BusinessSegment.first).name ,a.name].join(": "), a.id]
+							end,
+							params[:activities] || @person.activities.map { |a| a.id }
+						), 
+					{ :multiple => true, 
+						:style => "width: 200px;", 
+						:placeholder => t("customer_pjs.segments"), 
+						:class => "multiselect" 
+					}
+				%>
 	            </div>
 	          </div>
 					

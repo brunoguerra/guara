@@ -5,7 +5,7 @@
 	<fieldset>
 
 		<div class="row page-header">
-			<legend class="span2"><small> <%=  t("jobs.professional.title") %></small></legend>
+			<legend class="span2"><small> <%=  t("jobs.professional.index.title") %></small></legend>
 			
 			<!-- HAVE JOB ? -->	
 			<div class="span9 well">
@@ -96,6 +96,7 @@
 			<legend class="span2"><small><%=  t("jobs.professional.professional_experience.title") %></small></legend>
 				
 			<div class="span9 well">
+
 	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
 					:locals => { 
 						:values => @professional.professional_experiences, 
@@ -106,29 +107,36 @@
 								:label => t("jobs.professional.company_name.title")
 								},
 
-							:role => { 
-								:label => t("jobs.professional.role.title")
-								},
+							:career => {
+								:lambda => lambda do |experiences_f, index|
 
-							:activities => {:input_html => {:rows => 5, :maxlength => 300}, 
-								:label => t("jobs.professional.activities.title") },
+										render :partial => "guara/jobs/professionals/form_professional_experiences_career", :locals => { form: experiences_f, index: index }		
+								end
+							},
+						},
 
-							:date_admission => { 
-								:input_html => { 'data-behaviour' => 'datetimepicker', 
-													:select => {:class => "teste"} }, 
-								:label => t("jobs.professional.date_admission.title") },
-
-							:date_resignation => { 
-								:input_html => { 'data-behaviour' => 'datetimepicker' },
-								:label => t("jobs.professional.date_resignation.title")}
-								},	
-							:options => {
-								add_class: "btn btn-block"
-						}							
+						:options => {
+							add_class: "btn btn-block"
+						}
 					}
 				%>
 			</div>
 		</div><!-- END EXPERIENCE PROFESSIONAL-->
+
+
+		<div class="row page-header">
+			<legend class="span2"><small> <%=  t("jobs.professional.languages.title") %></small></legend>
+			
+			<div class="span9 well">
+	        	<% Guara::Jobs::Language.all.each do |l| %>
+		        	<ul>
+		        		<li>
+	        				<%= check_box_tag "languages[]", l.id, @professional.languages.include?(l), :id => "language_%d" % l.id  %>
+	        				<%= label_tag "language_%d" % l.id, l.name %>
+		        		</li>
+		        	</ul>
+		        <% end %>
+			</div><!-- LANGUAGES -->
 
 		<%= f.submit class: "btn  btn-primary" %> 
 
