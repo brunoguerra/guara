@@ -12,6 +12,12 @@ module Guara
   		
   	end
 
+    def index_btn_select(path, title="", action="")
+
+      link_to raw('<i  class="icon-ok"></i>'), path, :class => "btn btn-info", :title => title, :onClick=> action
+      
+    end
+
 
     def show_label_tag(label)
       label_tag label, label+":", :class => "strong"

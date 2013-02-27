@@ -8,6 +8,7 @@ module Guara
     	include Select2Helper
 
     	helper CustomersHelper
+    	helper CrudHelper
 
 
     	def index

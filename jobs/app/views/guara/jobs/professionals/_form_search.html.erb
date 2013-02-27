@@ -33,7 +33,7 @@
 						options_from_collection_for_select([] + Guara::Jobs::BusinessAction.all, :id, :name, params[:search][:vacancy_specification_roles_business_action_id_in]), 
 						{}, 
 						{ :multiple => true, 
-							:style => "width: 200px;", 
+							:style => "width: 220px;", 
 							:placeholder => t("customer_pjs.segments"), 
 							:class => "multiselect" 
 						})
@@ -50,7 +50,7 @@
 								options_from_collection_for_select([] + Guara::Jobs::LevelEducation.all, :id, :name, params[:search][:formations_level_education_id_in]), 
 								{}, 
 								{ :multiple => true, 
-									:style => "width: 200px;", 
+									:style => "width: 220px;", 
 									:placeholder => t("customer_pjs.segments"), 
 									:class => "multiselect" 
 								})

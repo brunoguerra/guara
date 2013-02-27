@@ -9,13 +9,12 @@
 		  <table class="table table-bordered table-striped">
 		    <thead>
 		      <tr>
-		        <th><%= t("contacts.name") %></th>
-		        <th><%= t("contacts.department") %></th>
-		        <th><%= t("contacts.business_function") %></th>
-		        <th><%= t("contacts.phone") %></th>
-		        <th><%= t("contacts.cell") %></th>
-		        <th><%= t("contacts.emails") %></th>
-		        <th><%= t("helpers.forms.actions") %></th>
+		        <th class="span3"><%= t("contacts.name") %></th>
+		        <th class="span2"><%= t("contacts.department") %></th>
+		        <th class="span2"><%= t("contacts.business_function") %></th>
+		        <th class="span2"><%= t("contacts.phone") %> / <%= t("contacts.cell") %></th>
+		        <th class="span3"><%= t("contacts.emails") %></th>
+		        <th class="span1"><%= t("helpers.forms.actions") %></th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -24,11 +23,10 @@
 		      <td><%= contact.name %></td>
 		      <td><%= name_or_empty contact.department %></td>
 		      <td><%= contact.business_function %></td>
-		      <td><%= contact.phone %></td>
-		      <td><%= contact.cell %></td>
+		      <td><%= contact.phone %></br><%= contact.cell %></td>
 		      <td><%= concat_emails(contact.emails) %></td>
-		      <td></td>
-		      <td><%= link_to t('helpers.forms.show'), [contact.customer, contact] %></td>
+		      
+		      <td><%= index_btn_view [contact.customer, contact], "Exibir Contato" %></td>
 		      </tr>
 		    <% end %>
 		    </tbody>
