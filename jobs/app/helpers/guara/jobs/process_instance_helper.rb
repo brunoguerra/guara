@@ -61,7 +61,7 @@ module Guara
             @required_fields = []
             step_attrs.each do |a,b|
                 b.each do |c|
-                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{c.id}').val())== '') {alert('Preencha o campo #{c.label}');return false;};"
+                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{c.id}').val())== '') {alert('Preencha o campo #{c.label}');return false;};" if c.type_field != 'section'
                 end
             end
 

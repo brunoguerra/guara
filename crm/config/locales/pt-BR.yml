@@ -87,6 +87,8 @@ pt-BR:
       title: "Exibindo Contato"
     search:
         title: "Filtro Contatos"
+    all:
+        title: "Todos os Contatos"
 
   searches:
       advanced: "Avançado"
