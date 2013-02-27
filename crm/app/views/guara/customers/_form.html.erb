@@ -1,68 +1,68 @@
 <%= semantic_form_for @customer, :html => {:class => "well"}  do |f| %>
 <%= f.semantic_fields_for @customer.customer do |person_f| %>
 <%= render 'shared/guara/error_messages', object: f.object %>
-	<fieldset>
-	  <legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
-	  <div class="row">
-	  	
-	  	<%= f.input :complete, :label => false %>
+<fieldset>
+	<legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
+	<div class="row">
+
+		<%= f.input :complete, :label => false %>
 
 		<div class="span4">
 			<%= f.input :doc, :label => t("customers.cnpj") , :input_html => { :class => "cnpj" } %>
-            <%= f.input :doc_rg, :label => t('customers.inscricao_estadual') %>
-	        <%= f.input :name_sec %>
-	        <%= f.input :name %>
-	        <%= f.input :address %>
-		
-		  <div class="control-group">
-            <%= f.label :state_id, :class => "control-label" %>
-            <div class="controls">
-	          <%= f.collection_select(:state_id, Guara::State.all, :id, :acronym, :include_blank => true) %>
-            </div>
-          </div>
+			<%= f.input :doc_rg, :label => t('customers.inscricao_estadual') %>
+			<%= f.input :name_sec %>
+			<%= f.input :name %>
+			<%= f.input :address %>
 
-		  <div class="control-group">
-            <%= f.label :city_id, :class => "control-label" %>
-            <div class="controls">
-	          <%= f.collection_select(:city_id, Guara::City.all, :id, :name, :include_blank => true) %>
-            </div>
-          </div>
+			<div class="control-group">
+				<%= f.label :state_id, :class => "control-label" %>
+				<div class="controls">
+					<%= f.collection_select(:state_id, Guara::State.all, :id, :acronym, :include_blank => true) %>
+				</div>
+			</div>
 
-		  <div class="control-group">
-            <%= f.label :district_id, :class => "control-label" %>
-            <div class="controls">
-	          <%= f.collection_select(:district_id, Guara::District.all, :id, :name, :include_blank => true) %>
-            </div>
-          </div>
+			<div class="control-group">
+				<%= f.label :city_id, :class => "control-label" %>
+				<div class="controls">
+					<%= f.collection_select(:city_id, Guara::City.all, :id, :name, :include_blank => true) %>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<%= f.label :district_id, :class => "control-label" %>
+				<div class="controls">
+					<%= f.collection_select(:district_id, Guara::District.all, :id, :name, :include_blank => true) %>
+				</div>
+			</div>
 
 
-	          <%= f.input :postal, :input_html => { :class => "postal" } %>
+			<%= f.input :postal, :input_html => { :class => "postal" } %>
 
-		   
+
 		</div>
 		<div class="span4 column2">
-						
-	          <%= f.input :phone, :class => "phone" %>
 
-	          <%= person_f.input :fax, :class => "phone" %>
+			<%= f.input :phone, :class => "phone" %>
 
-	          <%= f.input :site %>
+			<%= person_f.input :fax, :class => "phone" %>
 
-	          <%= f.input :social_link %>
-	
-	          <%= f.input :other_contacts %>
+			<%= f.input :site %>
 
-	          <%= person_f.input :total_employes %>
+			<%= f.input :social_link %>
 
-	          <%= f.input :notes, :as => :text, :input_html => { rows: 2  } %>
+			<%= f.input :other_contacts %>
+
+			<%= person_f.input :total_employes %>
+
+			<%= f.input :notes, :as => :text, :input_html => { rows: 2  } %>
 
 		</div>
 		
 		<div class="span3 column2">	
-			  <div class="control-group">
-	            <%= person_f.label :activities, :class => "control-label" %>
-	            <div class="controls">
-		          <!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
+			<div class="control-group">
+				<%= person_f.label :activities, :class => "control-label" %>
+				<div class="controls">
+					<!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
 					<% render :partial => 'shared/guara/multi_selection', 
 					:locals => { 
 						:form => person_f, 
@@ -74,24 +74,25 @@
 						:width => 220 
 					} %>
 					
-		          <%= select_tag :activities,	options_for_select( 
-							Guara::BusinessActivity.joins(:business_segment).all.map do |a|
-								[[(a.business_segment || Guara::BusinessSegment.first).name ,a.name].join(": "), a.id]
-							end,
-							params[:activities] || @person.activities.map { |a| a.id }
+					<%= select_tag :activities,
+					options_for_select( 
+						Guara::BusinessActivity.joins(:business_segment).all.map do |a|
+							[[(a.business_segment || Guara::BusinessSegment.first).name ,a.name].join(": "), a.id]
+						end,
+						params[:activities] || @person.activities.map { |a| a.id }
 						), 
 					{ :multiple => true, 
 						:style => "width: 200px;", 
 						:placeholder => t("customer_pjs.segments"), 
 						:class => "multiselect" 
 					}
-				%>
-	            </div>
-	          </div>
-					
-			  <div class="control-group">
-	            <%= person_f.label :associateds, :class => "control-label" %>
-	            <div class="controls">
+					%>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<%= person_f.label :associateds, :class => "control-label" %>
+				<div class="controls">
 					<%= render :partial => 'shared/guara/multi_selection', 
 					:locals => {
 						:form => person_f,
@@ -102,39 +103,46 @@
 						:field_store => :id,
 						:width => 220
 					} %>
-	            </div>
-	          </div>
-	
-				<div class="thumbnail emails_custumer">
-					<legend><small><%= t("customers.emails").titleize %></small></legend>
-			  <%= render :partial => 'active_extend/one_to_many_inputs', 
-					:locals => { 
-						:values => @customer.emails, 
-						:form => f, 
-						:target => :emails,
-						:inputs => { 
-							:email => { 
-								:as => :string, 
-								:class => "span2", 
-								:label => false, 
-								:placeholder => "e-mail", 
-								:glyph => "icon-envelope" 
-							} 
-						} 
-			} %>
-				</div>
 
-	
+					
+				</div>
 			</div>
+
+			<div class="thumbnail emails_custumer">
+				<%= t("customers.emails").titleize %>
+				<%= render :partial => 'active_extend/one_to_many_inputs', 
+				:locals => { 
+					:values => @customer.emails, 
+					:form => f, 
+					:target => :emails,
+					:inputs => { 
+						:email => { 
+							:as => :string, 
+							:class => "span2", 
+							:label => false, 
+							:placeholder => "e-mail", 
+							:glyph => "icon-envelope" 
+						} 
+					},
+					:options => {
+							add_class: "btn btn-block"
+					}
+				} %>
+			</div>
+
+
+		</div>
 		
 		<div class="span8">
 			<div class="form-actions">
-			<%= f.submit :class => "btn btn-primary" %>
-            <button type="reset" class="btn"><%= t("helpers.forms.cancel") %></button>
-          </div>
+				<%= f.submit :class => "btn btn-primary" %>
+
+				<%= link_to_function t("helpers.forms.cancel"), "history.back()", :class => "btn" %>
+
+			</div>
 		</div>
-	  </div>
-	</fieldset>
+	</div>
+</fieldset>
 <% end %>
 <% end %>
 
@@ -165,7 +173,7 @@ $(function(){
 	});
 	
 	$("form.customer").submit(function() {
-	  $("input.postal").val($("input.postal").val().replace(/\D/g, "")).unmask();
+		$("input.postal").val($("input.postal").val().replace(/\D/g, "")).unmask();
 	})
 });
 

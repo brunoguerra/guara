@@ -17,13 +17,14 @@
 
 		<div class="selects_professionals">
 			<div class="page-header"><%= t("jobs.professional.selecteds_candidates.title") %></div>
-				
+				<%= form_for :select_professionals, :html => { :class => "well form-search", :method => :get } do |f|  %>
 
 					<div class="control-group">
 				        <%= label_tag :professionals_selecteds, t("jobs.professional.selecteds.title"), :class => "control-label" %>
 				            <div class="controls">
-					          <%= select_tag(:professionals_selecteds,
+					          <%= f.select(:professionals_selecteds,
 								options_from_collection_for_select([], :id, :name), 
+								{}, 
 								{ :multiple => true, 
 									:style => "width: 200px;", 
 									:placeholder => t("jobs.professional.selecteds.title"), 
@@ -31,18 +32,18 @@
 								}) %>
 				            </div>
 
-				    </div>
-				  
+				    </div>  
+				<% end %>
 		</div>
 	</div> <!-- SEARCH PROFESSIONAL -->
 
 <%= will_paginate @professionals %>
 
 	<script type="text/javascript">
-		function setProfessionalToSelect2(id, name, btn){
+		function setProfessionalToSelect2(id, name){
 			var noadd = false,
-			select    = $('#professionals_selecteds'),
-			options   = $('#professionals_selecteds option');
+			select    = $('#select_professionals_professionals_selecteds'),
+			options   = $('#select_professionals_professionals_selecteds option');
 
 			for (var i=0; i<options.length;i++){
 				if(options[i].value==id){
@@ -61,7 +62,6 @@
 			var sels = select.select2("val");
 			sels.push(id);
 			select.select2("val", sels); 	
-			$(btn).fadeOut("slow");
 		}
 
   $("form[id$=professional_search]").bind('ajax:success', function(evt, data, status, xhr){
