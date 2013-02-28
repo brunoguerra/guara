@@ -4,8 +4,8 @@
 <fieldset>
   <legend><%= title %></legend>
 
-<div class="row">
-  <div class="span6 offset1">
+<div class="container">
+  <div class="span6 ">
     <div class="control-group">
       <%= f.label :name %>	  
       <div class="control">
@@ -14,21 +14,18 @@
     </div>
 
     <div class="control-group">
-    <%= f.label :business_function %>
-	  <div class="control-group">
-      <%= f.text_field :business_function %>		
+      <%= f.label :business_function %>
+  	  <div class="control-group">
+        <%= f.text_field :business_function %>		
+  	  </div>
 	  </div>
-	</div>
 
     <div class="control-group">
       <div class="control-group">
         <%= f.input :department %>	  
       </div>
 		</div>
-		
 
-
-	
     <div class="control-group">
       <%= f.label :birthday %>	  
 	    <div class="control">
@@ -56,10 +53,13 @@
           <%= f.text_field :birthday %>		
         </div>
       </div>
+
     </div>
-		<div class="span2">
-			<div class="thumbnail" id="emails">
-				<legend><small><%= t("contacts.emails").titleize %></small></legend>
+
+		<div class="span4">
+			
+      <div class="thumbnail" id="emails">
+				<%= t("contacts.emails").titleize %>
 			  <%= render :partial => 'active_extend/one_to_many_inputs', 
 					:locals => { 
 						:values => @contact.emails, 
@@ -73,16 +73,18 @@
 								:placeholder => "e-mail", 
 								:glyph => "icon-envelope" 
 							} 
-						} 
-			} %>
-				</div>
+						},
+            :options => {
+              add_class: "btn btn-block"
+            } 
+  			   } %>
+			</div>
+      
 		</div>
+</div>
 
-  </div>
-
-  <%= f.submit class: "btn btn-large btn-primary" %>
-	</div>
-
+<div>
+    <%= f.submit class: "btn btn-primary" %>
 </div>
 
 </fieldset>
