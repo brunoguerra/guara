@@ -10,8 +10,8 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
   
   after_save :after_save
   
-  def initialize(custom_process)
-    self.custom_process = custom_process
+  def process_id=(process_id)
+    write_attribute(:process_id, process_id)
     self.custom_process.call_hook_initialize(self)
   end
   

@@ -41,4 +41,4 @@ module Guara
   end
 end
 
-
+require "guara/jobs/process_instance/vacancy_process_hook" 
