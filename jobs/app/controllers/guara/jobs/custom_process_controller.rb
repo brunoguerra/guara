@@ -50,7 +50,13 @@ module Guara
               @attrs << a
             end
 
-            @jsonNext << {:id=>s.id, :next=> s.next, :attrs=> @attrs, :attrs_size=> @attrs.size}
+            @jsonNext << {
+              :id=>s.id, 
+              :next=> s.next, 
+              :attrs=> @attrs, 
+              :attrs_size=> @attrs.size
+            }
+            
             if s.next != nil
               getAllNextSteps(s.next)
             end
