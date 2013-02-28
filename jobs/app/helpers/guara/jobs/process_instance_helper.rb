@@ -3,7 +3,6 @@ module Guara
       module ProcessInstanceHelper
 
       	def get_collection(alias_model, vals)
-    		#Retornar Model de Clientes ou Empresas
             vals = [] if vals.class == String
    		    if alias_model == 'role'
                 options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
@@ -28,11 +27,11 @@ module Guara
         end
 
     	def show_label_tag(label)
-          label_tag label, label+":", :class => "strong"
+            label_tag label, label+":", :class => "strong"
         end
 
         def show_span_tag(text)
-        	content_tag(:span, text+":", :class => "strong")
+        	content_tag :span, text+":", :class => "strong"
         end
 
         def get_field(form, rec, val)
