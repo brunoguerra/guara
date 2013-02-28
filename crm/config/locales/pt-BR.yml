@@ -1,10 +1,6 @@
 
 pt-BR:
   customers: &attr_customer
-    professional:    
-      search:
-        link: "Pesquisar por Professional"
-        
     title: "Cadastro de Clientes"
     link: "Clientes"
     general: "Geral"
@@ -79,6 +75,7 @@ pt-BR:
     index: 
       title: "%{customer}"
       link: "Contatos"
+      edit: "Editar"
     show:
       title: "Exibindo Contato"
     search:

@@ -1,14 +1,22 @@
 # encoding: UTF-8
 
 pt-BR:
+  customers:
+    professional:    
+      search:
+        link: "Pesquisar por Professional"
   
   jobs:
-    title: "Jobs"
+    title: "Recrutamento e Seleção"
+    link: "Recrutamento e Seleção"
 
     professional: &attrs_professional
       index:
         link: "Dados Curriculares"
         title: "Dados Curriculares"
+        
+      search:
+        complete: "pesquisa por profissionais foi finalizada com suscesso!"
 
       names:
         title: "Nome"
@@ -72,6 +80,7 @@ pt-BR:
 
       business_action_roles:
         title: "Área de Atuação - Cargos"
+
       languages:
         title: "Idiomas"
 

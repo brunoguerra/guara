@@ -2,6 +2,7 @@
 	<%= render :partial => "/guara/customers/navbar", :locals => { active: :search_professional } %>
 </navbar>
 
+<<<<<<< HEAD
 <div class="row">
 	<div class="span9 search_fast9">	  
 		<section id="search">
@@ -18,8 +19,7 @@
 				</thead>	
 				<tbody>
 					<% @professional.each do |p| %>
-						<tr>
-							
+						<tr>			
 							<td><%= link_to p.person.name, customer_professional_path(p.person_id, p) %></td>
 							<td>
 								<ul><% business_action_last = nil %>
@@ -104,3 +104,6 @@
 </div>
 
 
+=======
+<%= render :partial => "search_results" %>
+>>>>>>> upstream/master

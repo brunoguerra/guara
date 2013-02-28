@@ -2399,14 +2399,10 @@ element_properties.prototype = {
     },
     size: function () {
         JJ("#prop_element_size")
-            .css("display", "block");
-        var a = ds.get(this.id, "size");
-        field_sizes = document.getElementById("field_size");
-        for (var i = 0; i < field_sizes.options.length; i++) {
-            if (field_sizes.options[i].value == a) {
-                field_sizes.selectedIndex = i
-            }
-        }
+            .css("display", "block")
+            .css('margin-top','4px');
+        JJ("#prop_element_size input")
+            .val(ds.get(this.id, "size"));
     },
     choices: function () {
         JJ("#prop_choices")
@@ -2797,13 +2793,13 @@ data_source.prototype = {
                 title = "Carregar um Arquivo";
                 break;
             case "section":
-                title = "quebra de seção";
+                title = "Campo Personalizado";
                 break
         }
         this.data["elements"].push({
             "title": title,
             "guidelines": "",
-            "size": "medium",
+            "size": "",
             "is_required": "0",
             "is_unique": "0",
             "is_private": "0",
@@ -2931,9 +2927,9 @@ form.prototype = {
     }
 };
 var components = {
-    "text": ["types", "size", "required", "unique", "is_private", "text_default"],
-    "textarea": ["types", "size", "required", "unique", "is_private", "text_default"],
-    "select": ["types", "size", "required", "choices", "is_private"],
+    "text": ["types", "required", "unique", "is_private", "text_default"],
+    "textarea": ["types", "required", "unique", "is_private", "text_default"],
+    "select": ["types", "required", "choices", "is_private"],
     "radio": ["types", "choices", "required", "randomize", "is_private"],
     "checkbox": ["types", "choices", "required", "is_private"],
     "name": ["types", "required", "is_private", "name"],
@@ -2945,11 +2941,11 @@ var components = {
     "simple_phone": ["types", "required", "unique", "is_private", "phone", "text_default"],
     "address": ["types", "required", "is_private", "address_default"],
     "money": ["types", "required", "unique", "is_private", "currency"],
-    "url": ["types", "size", "required", "unique", "is_private", "text_default"],
-    "email": ["types", "size", "required", "unique", "is_private", "text_default"],
-    "number": ["types", "size", "required", "unique", "is_private", "text_default"],
+    "url": ["types", "required", "unique", "is_private", "text_default"],
+    "email": ["types", "required", "unique", "is_private", "text_default"],
+    "number": ["types", "required", "unique", "is_private", "text_default"],
     "file": ["types", "required", "is_private"],
-    "section": ["types", "is_private"]
+    "section": ["types", "size", "is_private"]
 };
 var redirect_url = "http://";
 var tmp_form_password = "";
@@ -3110,7 +3106,7 @@ function display_properties() {
     element_view.render()
 }
 function set_properties(a, b, c) {
-    if (b != "choices") {
+    if (b != "choices" && b!= "choices_widget") {
         ds.set(active_element, b, a)
     } else {
         ds.set_option(active_element, a, c)
@@ -3191,6 +3187,9 @@ live_preview = {
     },
     choices: function () {
         this.redraw()
+    },
+    choices_widget: function(){
+        this.redraw();
     },
     constraint: function () {
         this.redraw()

@@ -12,7 +12,6 @@ module Guara
         @steps = Step.find(:all, :conditions => ["custom_process_id = ?", params[:id]])
         @jsonNext = [{:id=>'process', :next=> @custom_process.step_init, :attrs=> []}]
         getAllNextSteps(@custom_process.step_init)
-        #render :show, :layout => false
       end
 
       def new
@@ -48,17 +47,7 @@ module Guara
         @steps.each do |s|
           if s.id == id
             s.step_attrs.each do |a|
-              @attrs << {
-                :label => a[:label], 
-                :name => a[:name], 
-                :required => a[:required], 
-                :type_field => a[:type_field], 
-                :position => a[:position], 
-                :column => a[:column], 
-                :step_id => a[:step_id], 
-                :guidelines => a[:guidelines], 
-                :options => a[:options]
-              }
+              @attrs << a
             end
 
             @jsonNext << {:id=>s.id, :next=> s.next, :attrs=> @attrs, :attrs_size=> @attrs.size}
@@ -83,31 +72,26 @@ module Guara
       end
 
       def add_attr_to_steps
-        @json = JSON.parse(params[:elements])['elements']
+        @json = JSON.parse(params[:elements])
         StepAttr.destroy_all(:step_id=> params[:step_id])
-
+        @attrs = []
+        @i = 0
         @json.each do |j|
-          StepAttr.create({
-            :column => j['default_value'], 
-            :options=> j['options'], 
-            :guidelines=> j['guidelines'], 
-            :label=> j['title'], 
-            :required=> j['is_required'], 
-            :resume => j['is_private'], 
-            :type_field=> j['type'], 
-            :step_id=> params[:step_id],
-            :position=> j['position']
-          })
+          j['step_id'] = params[:step_id]
+          @attr = StepAttr.create(j)
+          j['id'] = @i
+          @i += 1
+          @attrs << j
         end
         
-        render :json => {:success=> true}
+        render :json => {:success=> true, :attrs=> @attrs}
       end
 
       def delete_step
         Step.destroy(params[:step_id])
         render :json => @json
       end
-    
+      
     end
   end
 end

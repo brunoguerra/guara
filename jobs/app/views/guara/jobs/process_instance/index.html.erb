@@ -33,7 +33,7 @@
                         <td><%= link_to p.id, process_instance_path(p) %></td>
                         <td><%= p.date_start.strftime("%d/%m/%Y")  %></td>
                         <td><%= !p.date_finish.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
-                        <td><%= p.step.name  %></td>
+                        <td><%= name_or_nothing p.step  %></td>
                         <td>
                           <%= link_to t("helpers.forms.show"), process_instance_path(p), :class => "btn" %>
                           <%= link_to t("helpers.forms.edit"), edit_process_instance_path(p), :class => "btn" %>
@@ -43,7 +43,7 @@
                   </tbody>
                 </table>
 
-                <%= link_to t('helpers.forms.new'), new_process_instance_path(:process_id=>13), :class => "btn" %>
+                <%= link_to t('helpers.forms.new'), new_process_instance_path(:process_id=>@process_instance.first.process_id), :class => "btn" %>
 
               </div>
             </div>

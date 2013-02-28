@@ -3,7 +3,7 @@
 <div class="page-header"><%= t("customers.index.title") %></div>
 
 	<%= form_for @search,:url => professionals_search_path ,
-		:html => { :class => "well form-search", :method => :get } do |f|  %>
+		:html => { :class => "well form-search", :method => :get }, :remote => true do |f|  %>
 		
 				<fieldset>
 				  <div class="row">
@@ -15,7 +15,7 @@
 			      </div> <!-- SEARCH SIMPLE -->
 
 
-			      <% if (mode == :advanced) then %>
+			    <% if (params[:mode]=="advanced") then %>
 						  <%= hidden_field_tag :search_mode_advanced, "true" %>
 
 						   <div class="control-group">
@@ -64,13 +64,12 @@
 		          <div class="form-actions span3">
 					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
 					<% if (mode != :advanced) then %>
-						<%= link_to t("searches.advanced"), professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
+					<!--  -->
+						<%= link_to t("searches.advanced"),  professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
 					<% end  %>
 				</div><!-- BUTTON SEARCH SIMPLE OR ADVANCE -->
 
 					 </div>
 				</fieldset>
-	
-
 	<% end %>
 

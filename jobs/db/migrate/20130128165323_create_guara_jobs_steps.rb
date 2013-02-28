@@ -3,7 +3,6 @@ class CreateGuaraJobsSteps < ActiveRecord::Migration
 	    create_table :guara_jobs_steps do |t|
 	      t.string 	 :name
 	      t.integer  :next
-	      t.string 	 :type
 	      t.integer  :level
 	      t.integer  :custom_process_id
 

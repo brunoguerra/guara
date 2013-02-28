@@ -44,14 +44,19 @@ module Guara
         else
           @current_step = Step.find params[:edit_step]
         end
-
+        
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
         @columns = set_columns(@step_attrs)
-        @vals      = attrValues(@step_attrs, @step_init.step_instance_attrs)
+        @vals      = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
         @current_step_attrs = @current_step.step_attrs
-        @vals_edit = attrValues(@current_step_attrs, @current_step.step_instance_attrs)
-        @current_columns = set_columns(@current_step_attrs)
-        
+        @vals_edit = attrValues(@current_step_attrs, @current_step.step_attrs_vals(params[:id]))
+        @current_columns = set_columns(@current_step_attrs)        
+      end
+
+      def get_step_attr_cache(step_attr_id)
+        @current_step_attrs.each do |a|
+          return a if a.id == step_attr_id
+        end
       end
 
       def attrValues(step_attrs, step_instance_attrs)
@@ -62,7 +67,12 @@ module Guara
 
         step_instance_attrs.each do |a|
           if a.value.nil?
-            @attr_vals[a.step_attr_id] = a.step_instance_attr_multis
+            @temp = []
+            a.step_instance_attr_multis.each do |s|
+              @temp << { :value=> s.value, :step_attr_option=> get_step_attr_cache(a.step_attr_id).options }
+            end
+            @attr_vals[a.step_attr_id] = @temp
+
           else
             @attr_vals[a.step_attr_id] = a.value
           end  
@@ -104,14 +114,14 @@ module Guara
 
       def show_step
         edit
-
       end
       
       def show
         @process_instance = ProcessInstance.find params[:id]
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, true, true)
         @columns = set_columns(@step_attrs)
-        @vals = attrValues(@step_attrs, @step_init.step_attrs_vals)
+        @vals = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
+        
       end
 
       def set_columns(steps_attrs)

@@ -36,6 +36,11 @@
 			          	<%= t('custom_process.link.save_steps') %>
 			          </a> 
 			        </div>
+
+			        <div id="position_steps_connecteds" class="span4" style="height:300px;padding:10px;">
+			        	
+			        </div>
+
 			    </div>
 			</div>
 		</li>
@@ -60,18 +65,7 @@
 
 
 <ul id="dropdown-menu-step" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-	<li class="dropdown-submenu">
-        <a tabindex="-1" href="#">Editar</a>
-        <ul class="dropdown-menu">
-          <li>
-          	<a id="edit-step" tabindex="-1" href="javascript:void(0);">
-          		Informar Campos
-          	</a>
-          </li>
-          <li><a tabindex="-1" href="#">Campos Automatizados</a></li>
-        </ul>
-   	</li>
-
+	<li><a id="edit-step" tabindex="-1" href="javascript:void(0);">Editar</a></li>
 	<li><a id="delete-step" tabindex="-1" href="javascript:void(0);">Deletar</a></li>
 </ul>
 
@@ -81,13 +75,14 @@
 	    <h3>Customizar Campos da Etapa</h3>
 	  </div>
 	  
-	  <div class="modal-body" id="form_builder">
+	  <div class="modal-body" id="form_build">
 	    <%= render :partial => 'panel_build_form' %>
 	  </div>
 	  
 	  <div class="modal-footer">
-	    <a id="save_attr_step" href="javascript:void(0);" class="btn btn-primary">Salvar</a>
+	    <a id="save_steps" href="javascript:void(0);" class="btn btn-primary">Salvar</a>
 	  </div>
+
 </div>
 
 <script type="text/javascript">
@@ -100,6 +95,7 @@
 	    return this;
 	}
 
+	//pega os filhos da Etapa Informada
 	function son(id, con_id){
 		cons = jsPlumb.getConnections({source: id});
 		var sons = [];
@@ -134,8 +130,63 @@
 		return sons;
 	}
 
+	function setPositionStepsConnecteds(call){
+		var container = $('#position_steps_connecteds'),
+		position 	  = container.position();
+		position.top += 20;
+		var params	  = {
+			padding: 70,
+			position: (container.position()),
+			maxLeft: (container.width() + position.left + 70),
+			current: position,
+			isOrverflow: function(a){
+				var me = this;
+				if(me.getLeft(a) > me.maxLeft){
+					return true;
+				}
+				else{
+					return false;
+				}
+			},
+
+			getLeft: function(a){
+				var me = this;
+				if(me.current.left == me.position.left){
+					return me.current.left + 100;
+				}
+				else{
+					return me.current.left + a.width() + 100;
+				}
+			},
+
+			setLeft: function(a){
+				var me = this;
+				if(me.current.left == me.position.left){
+					me.current.left += me.padding - 20;
+				}
+				else{
+					me.current.left += a.width() + me.padding;
+				}
+			},
+
+			setPosition: function(a){
+				var me = this;
+				if(a.hasClass('step')){
+					if(me.isOrverflow(a)){
+						me.current.top  = me.current.top + a.height() + me.padding; 
+						me.current.left = me.position.left;
+					}
+					me.setLeft(a);
+					a.offset(me.current);
+				}
+			}
+		};
+
+		call(params);
+	}
+
 	function alertDialog(msg, error){
-		var dialog = jQuery('#message-step');
+		var dialog = jQuery('.alert-ajax');
 		if(error){
 			dialog
 				.removeClass('alert-success')
@@ -146,14 +197,12 @@
 				.removeClass('alert-error')
 				.addClass('alert-success');
 		}
-		jQuery('#message-step-body').html(msg);
 		dialog
-			.center()
-			.css("top", 20)
+			.html(msg)
 			.show();
 			setTimeout(function(){
 				dialog.fadeOut(400);
-			}, 1500);
+			}, 2000);
 	}
 
 	jQuery(document).bind("click", function(e){
@@ -179,18 +228,45 @@
 		$('#dialog_attr_step').modal('show');
 		jQuery('#dialog_attr_step').css('display', 'block', 'important');
 		getElsSaved(step_id);
-		return true;
-
-		var nome;
-		nome = prompt ("Digite o Nome");
-		if(nome != null && nome != "")
-			jQuery('#'+step_id+' span').html(nome);	
 	});
+
+	/*jQuery('.step_widget_auto').click(function(e){
+		var step_id = jQuery("#dropdown-menu-step").attr('step_id');
+		var widget  = jQuery(this).attr('type-widget');
+		jQuery.ajax({
+		  type: "POST",
+		  url: "/custom_process/step_set_widget",
+		  data: { 
+		  	'step[id]': step_id,
+		  	'step[widget]': widget,
+		  	'step[custom_process_id]': <%= @custom_process.id %>
+		  }
+		}).done(function( d ) {
+			alert('Campos Salvos!');
+		}).fail(function(d){
+			alert('Erro ao salvar Campos!');
+		});
+	});*/
+
 
 	jQuery('#delete-step').click(function(e){
 		window.step_id = jQuery(jQuery(this).closest("ul")[0]).attr('step_id');
-		jsPlumb.detachAllConnections(step_id);
-		jQuery('#'+step_id).remove();
+
+		if(jsPlumb.select({target: step_id}).length==0){
+			jQuery.ajax({
+			  type: "DELETE",
+			  url: "/step/"+step_id
+			}).done(function( d ) {
+				jsPlumb.detachAllConnections(step_id);
+				jQuery('#'+step_id).remove();
+				alert('Etapa Deletada!');
+			}).fail(function(d){
+				alert('Erro ao deletar etapa!');
+			});
+		}
+		else{
+			alert('Etapa Não pode ser Deletada por ter Conexões');
+		}
 	});
 
 	jQuery('#custom_steps').click(function(e){
@@ -209,7 +285,15 @@
 				  	'custom_process[custom_process_id]': <%= @custom_process.id %>
 				  }
 				}).done(function( d ) {
-					
+					alertDialog('Etapas Salvas!', false);
+					if(!json_elements_saved[d.attrs[0].step_id]){
+						json_elements_saved[d.attrs[0].step_id] = [];
+					}
+
+					for(var i = 0; i < d.attrs; i++){
+						json_elements_saved[d.attrs[i].step_id].push(d.attrs[i]);
+					}
+
 				}).fail(function(d){
 					
 				});
@@ -222,7 +306,6 @@
 
 	jQuery('#add_step').click(function(e){
 		$('#dialog_step').modal('show');
-		jQuery('#dialog_step').offset({ top: 315});
 	});
 
 	jQuery('#save_step').click(function(){
@@ -230,7 +313,7 @@
 		if (name != ""){
 			jQuery.ajax({
 				  type: "POST",
-				  url: "/step",
+				  url: "<%= step_index_path %>",
 				  data: { 
 				  	'step[name]': name,
 				  	'step[custom_process_id]': <%= @custom_process.id %>
@@ -244,7 +327,7 @@
 						.appendTo(jQuery('.container_steps'));
 
 					$('#dialog_step').modal('hide');
-					alertDialog('Salvo');
+					alertDialog('Etapa Salva', false);
 					jQuery('#name').val('');
 					jsPlumbDemo.init();
 
@@ -254,6 +337,7 @@
 				});
 		} 
 	});
+
 	window.json_elements_saved = {};
 	<%
 		if @jsonNext.size > 0 and @jsonNext[0][:next] != nil %>
@@ -264,23 +348,21 @@
 			#criando conexão de steps 
 			if n[:next] != nil%>
 			jsPlumb.connect({source:"<%=n[:id]%>", target:"<%=n[:next]%>"});
+			<% end %>
+			if(!json_elements_saved["<%=n[:id]%>"]){
+				json_elements_saved["<%=n[:id]%>"] = [];
+			}
 			<%
-			end
-			
 			#atribuindo attrs ao step
 			if n[:attrs].size > 0 
 				@i = 0
 				n[:attrs].each do |at| 
-				@i = @i + 1
 				%>
-					if(!json_elements_saved["<%=n[:id]%>"]){
-						json_elements_saved["<%=n[:id]%>"] = [];
-					}
-					
-					json_elements_saved["<%=n[:id]%>"].push({
-						title: "<%=at[:label]%>", guidelines: "<%=at[:guidelines]%>", size: "medium", is_required: "<%=at[:required]%>", is_unique: 0,is_private: 0, type: "<%=at[:type_field]%>", object: "", position: "<%=at[:position]%>", id: <%= @i %>, is_db_live: 0, default_value: "<%=at[:column]%>", constraint: "", options: "<%=at[:options]%>"
+				  	json_elements_saved["<%=n[:id]%>"].push({
+						title: "<%=at[:title]%>", widget: "<%=at[:widget]%>", required: <%= at[:required] == true ? 1 : 0 %>, resume: "<%= at[:resume] == true ? 1 : 0 %>", type_field: "<%=at[:type_field]%>", position: "<%=at[:position]%>", id: <%= @i %>, column: "<%=at[:column]%>",  options: "<%=at[:options]%>"
 					});
-				<% end	
+				<% @i = @i + 1
+				 end	
 			end
 		end %>
 		}, 500);
@@ -288,37 +370,63 @@
 	%>
 
 	function getElsSaved(id){
-		for (var i=0; i< ds.data["elements"].length; i++){
-			delete_element(ds.data["elements"][i].id);
-		}
-
 		var elsaved = json_elements_saved;
+		form_builder.clear_fields();
+
 		if(elsaved[id]){
-			for (var i=0; i< elsaved[id].length; i++){
+			var count = elsaved[id].length;
+			for (var i=0; i < count; i++){
 				var el = elsaved[id][i];
-				insert_element(el.type);
-				var a = ds.data["elements"];
-				b = a[a.length - 1];
-				ds.data["elements"][a.length - 1].title = el.title;
-				ds.data["elements"][a.length - 1].is_required = el.is_required;
-				ds.data["elements"][a.length - 1].default_value = el.default_value;
-				ds.data["elements"][a.length - 1].options = el.options;
+        		form_builder.insert_el(el.type_field);
+        		form_builder.update_el(el);
 			}
 		}
 	}
 
-	var json_form = {
-        "id": 0,
-        "name": "Formulário sem título",
-        "description": "Esta é a sua descrição do formulário. Clique aqui para editar.",
-        "redirect": "",
-        "success_message": "Sucesso! Sua apresentação foi salva!",
-        "password": "",
-        "frame_height": 0,
-        "unique_ip": 0,
-        "captcha": 0
-    };
-    var json_elements = {
-        "elements": []
-    };
+    setPositionStepsConnecteds(function(a){
+    	<% @jsonNext.each do |n| %>
+    		a.setPosition($("#<%=n[:id]%>"));
+    	<% end %>
+    });
+
+    //START BUILD FORM
+    $('.insert_elements').click(function(e){
+        var type_field = $(e.currentTarget).attr('type-el');
+        form_builder.insert_el(type_field);
+    });
+
+    $( "#container_form_fields" ).sortable({ 
+        axis: "y",
+        update: function( event, ui ) {
+            form_builder.updatePositions();
+        }
+    });
+    $( "#container_form_fields" ).disableSelection();
+    $( ".datepicker" ).datepicker();
+
+    $('#save_attrs_to_step').click(function(){
+        if(form_builder.elements_inserteds.length>0){
+            var json = form_builder.getJSON();
+            jQuery.ajax({
+			  type: "POST",
+			  url: "add_attr_to_steps",
+			  data: { 
+			  	elements: json,
+	        	step_id: step_id
+			  }
+			}).done(function( d ) {
+				json_elements_saved[step_id] = [];
+				if(d.attrs){
+					for(var i = 0; i < d.attrs.length; i++){
+						json_elements_saved[step_id].push(d.attrs[i]);
+					}
+				}
+				alert('Campos Salvos!');
+			}).fail(function(d){
+				alert('Erro ao salvar Campos!');
+			});
+
+        }
+    });
+    
 </script>

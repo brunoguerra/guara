@@ -1,0 +1,71 @@
+<div class="row">
+	<div class="span8 search_fast9">	  
+		<section id="search">
+			<div class="page-header">
+				<%= t("search.results")%>
+			</div>
+			<div id="professional_search_list">
+				<%= render :partial => 'guara/jobs/professionals/list_professionals' %><!-- FIM 
+			EXIBIÇÃO PROFESSIONAL -->
+			</div>
+		</section>   
+	</div>
+	<div class="span4 search_fast3">
+		<%= render :partial => "guara/jobs/professionals/form_search", 
+			:locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } 
+		%>
+
+		<div class="selects_professionals">
+			<div class="page-header"><%= t("jobs.professional.selecteds_candidates.title") %></div>
+				
+
+					<div class="control-group">
+				        <%= label_tag :professionals_selecteds, t("jobs.professional.selecteds.title"), :class => "control-label" %>
+				            <div class="controls">
+					          <%= select_tag(:professionals_selecteds,
+								options_from_collection_for_select([], :id, :name), 
+								{ :multiple => true, 
+									:style => "width: 200px;", 
+									:placeholder => t("jobs.professional.selecteds.title"), 
+									:class => "multiselect" 
+								}) %>
+				            </div>
+
+				    </div>
+				  
+		</div>
+	</div> <!-- SEARCH PROFESSIONAL -->
+
+<%= will_paginate @professionals %>
+
+	<script type="text/javascript">
+		function setProfessionalToSelect2(id, name, btn){
+			var noadd = false,
+			select    = $('#professionals_selecteds'),
+			options   = $('#professionals_selecteds option');
+
+			for (var i=0; i<options.length;i++){
+				if(options[i].value==id){
+					noadd = true;
+				}
+			}
+
+			if(!noadd){
+				select.append(
+					$('<option></option>')
+						.text(name)
+						.val(id)
+				);	
+			}
+
+			var sels = select.select2("val");
+			sels.push(id);
+			select.select2("val", sels); 	
+			$(btn).fadeOut("slow");
+		}
+
+  $("form[id$=professional_search]").bind('ajax:success', function(evt, data, status, xhr){
+    $("#professional_search_list").html(xhr.responseText);
+  });
+	</script>
+</div>

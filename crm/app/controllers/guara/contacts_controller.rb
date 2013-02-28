@@ -21,6 +21,15 @@ module Guara
           end
       end
     end
+    
+    def multi
+      @customer = Customer.find params[:customer_id]
+      if @customer.update_attributes params[:customer]
+        redirect_to :controller => :contacts, :action => :index
+      else
+        render "_list_editable"
+      end
+    end
   
     def self.select_departments
       BusinessDepartment.all
