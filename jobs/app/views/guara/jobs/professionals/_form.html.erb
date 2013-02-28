@@ -1,6 +1,6 @@
 <%= semantic_form_for [@customer, @professional], 
 :url => @professional.new_record? ? customer_professionals_path(@customer) : customer_professional_path(@customer, @professional), 
-:html => {:class => ""}  do |f| %>
+:html => {:onsubmit => "return validate()"}  do |f| %>
 
 	<fieldset>
 
@@ -9,9 +9,8 @@
 			
 			<!-- HAVE JOB ? -->	
 			<div class="span9 well have_jobs">
-		    <%= f.input :have_job, :label => t("jobs.professional.have_job.title"),
+		    <%= f.input :have_job, :label => t("jobs.professional.have_job"),
 		    	:as => :radio, 
-		    	:collection => ["Sim", "Não"],
 		    	:class => "well" %><!-- END DIV HAVE JOB ? -->
 		    </div>
 		</div>
@@ -20,7 +19,7 @@
 	    <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification do |specification_f| %>
 
 	        <div class="row page-header">
-	        	<legend class="span2"><small><%=  t("jobs.professional.business_action.title") %></small></legend>
+	        	<legend class="span2"><small><%=  t("jobs.professional.business_action") %></small></legend>
 
 	        	<div class="span9 well business-action">
 		        	<% Guara::Jobs::BusinessAction.all.each do |ba| %>
@@ -38,9 +37,9 @@
 	        	
 
 	        	<%= specification_f.input :salary_requirements,
+	        		:label => t("jobs.professional.salary_requirements"),
 	        		:as => :string,
-	        		:label => t("jobs.professional.salary_requirements.title"),
-	        		:input_html => {:class => "control-label"}%>
+	        		:input_html => {:class => "control-label", :maxlength => 15 } %>
 
 	        	</div>
 
@@ -49,7 +48,7 @@
 
 	    <!-- FORMATION -->
 		<div class="row page-header formation">
-			<legend class="span2"><small><%=  t("jobs.professional.formation.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.formation") %></small></legend>
 			
 			<div class="span9 well">
 	  			<%= render :partial => 'active_extend/one_to_many_inputs', 
@@ -59,27 +58,27 @@
 						:target => :formations, 
 						:inputs => { 
 							:level_education => {
-								:label => t("jobs.professional.level_education.title"),
+								:label => t("jobs.professional.level_education"),
 								:collection => Guara::Jobs::LevelEducation.all,
 								:class => "span2",
 							},
 
-							:course => { :label => t("jobs.professional.course.title") },
+							:course => { :label => t("jobs.professional.course") },
 
 							:name_institution => { 
-								:label => t("jobs.professional.name_institution.title")},
+								:label => t("jobs.professional.name_institution")},
 
 							:situation => {
 								:collection => ["Concluído","Andamento", "Cancelado","Trancado"],
-								:label => t("jobs.professional.situation.title")},
+								:label => t("jobs.professional.situation")},
 
 							:date_conclusion => { 
 								:input_html => { 'data-behaviour' => 'datetimepicker' },
-								:label => t("jobs.professional.date_conclusion.title") },
+								:label => t("jobs.professional.date_conclusion") },
 
 							:description => {
 								:input_html => { :rows => 5,  :maxlength => 300, },
-								:label => t("jobs.professional.description.title") }
+								:label => t("jobs.professional.description") }
 						},
 						:options => {
 							add_class: "btn btn-block btn-inverse"
@@ -93,7 +92,7 @@
 		<!--EXPERIENCE PROFESSIONAL-->
 
 		<div class="row page-header professional_experiences">
-			<legend class="span2"><small><%=  t("jobs.professional.professional_experience.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.professional_experience") %></small></legend>
 				
 			<div class="span9 well">
 
@@ -104,7 +103,7 @@
 						:target => :professional_experiences, 
 						:inputs => { 
 							:company_name => { 
-								:label => t("jobs.professional.company_name.title")
+								:label => t("jobs.professional.company_name")
 								},
 
 							:career => {
@@ -125,7 +124,7 @@
 
 
 		<div class="row page-header">
-			<legend class="span2"><small> <%=  t("jobs.professional.languages.title") %></small></legend>
+			<legend class="span2"><small> <%=  t("jobs.professional.languages") %></small></legend>
 			
 			<div class="span9 well language">
 	        	<% Guara::Jobs::Language.all.each do |l| %>
@@ -148,7 +147,20 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#jobs_professional_vacancy_specification_attributes_salary_requirements").maskMoney({symbol:'R$ '});
-    })
+    	$('#jobs_professional_vacancy_specification_attributes_salary_requirements').priceFormat({
+		    prefix: 'R$ '
+		});
+   	})
+
+    function validate(){
+    	var salary_requirements = $("#jobs_professional_vacancy_specification_attributes_salary_requirements");
+    	salary_requirements.val($.trim(salary_requirements.val().replace(/,/g, '').replace('R$', '')));
+    	return true;
+    }
+
+
+
+
+
     </script>
 

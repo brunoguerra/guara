@@ -8,18 +8,14 @@
 					<% if signed_in? %>
 
 						<%= build_menu_modules() %>
-
-						<%= build_menu_maintence() %>
 						
 						<%= build_menu_admin() %>
 
-						<% if signed_in? and current_user.admin? %>
-						<li><%= link_to t("administration.link"), users_path %></li>
-						<% end %>
+						<%= build_menu_maintence() %>
 
 						<div class="btn-group pull-right">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-user"></i> <%=t("account.link", :user => firstname(current_user))%>  
+								<i class="icon-cog"></i> <!--%=t("account.link", :user => firstname(current_user))%-->  
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">

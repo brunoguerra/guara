@@ -2,24 +2,16 @@
 
 <%= render :partial => "header" %>
 
-
 <div class="row">
 	<div class="span12">
 	  <%= form_tag customer_contacts_path, :class => "well form-search", :method => :get, :name => :search do  %>
 		<fieldset>
 		  <legend><%= t("contacts.search.title") %></legend>
-		  <div class="row all-search">
-			<div class="span4">
-			
-			  <div class="form-search">
-			  	<div class="input-append">
-	              <%= text_field_tag :name, params[:name], :class => "span2 search-query" %>
+		  <div class="container">
+			  <div class="form-inline">
+	              <%= text_field_tag :name, params[:name], :class => "input-large" %>
 		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
-	            </div>
 	          </div>
-				
-			</div>
-				
 		  </div>
 		</fieldset>
 	  <% end %>
@@ -28,5 +20,5 @@
 
 <%= render :partial => "list_contacts" %>
 
-<%= link_to t('helpers.forms.new')+' '+t('activerecord.models.contact'), new_customer_contact_path(params[:customer_id]), :class => "btn" %>
+<%= link_to t('helpers.forms.new')+' '+t('activerecord.models.contact'), new_customer_contact_path(params[:customer_id]), :class => "btn btn-primary" %>
 

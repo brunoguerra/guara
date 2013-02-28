@@ -11,6 +11,8 @@ module Guara
     
     include BaseHelper
     include Select2Helper
+
+    helper CrudHelper
   
     def index
       @sels = params["sels"] || []
@@ -46,7 +48,7 @@ module Guara
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
-      render "show."+@customer.customer.prefix
+      render "show2."+@customer.customer.prefix
     end
   
     def disable

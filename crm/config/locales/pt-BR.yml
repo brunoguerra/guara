@@ -1,6 +1,10 @@
 
 pt-BR:
   customers: &attr_customer
+    professional:    
+      search:
+        link: "Pesquisa de Professionais"
+        
     title: "Cadastro de Clientes"
     link: "Clientes"
     general: "Geral"
@@ -31,12 +35,15 @@ pt-BR:
     district: "Bairro"
     city: "Cidade"
     state: "Estado"
-    emails: "e-mails"
+    emails: "E-mails"
     notes: "Notas"
     phone: "Fone"
     fax: fax
-    site: site
-    social_link: "Redes sociais" 
+    site: "Site"
+    social_link: "Redes Sociais"
+    other_contacts: "Outros Contatos"
+    associateds: "Associados"
+
   
     city_id: "Cidade"
     state_id: "Estado"
@@ -63,7 +70,7 @@ pt-BR:
     phone: "Fone"
     cell: "Celular"
     birthday: "Aniversário"
-    emails: "e-mails"
+    emails: "E-mails"
     side:
       title: "Contatos"
     edit:
@@ -77,9 +84,11 @@ pt-BR:
       link: "Contatos"
       edit: "Editar"
     show:
-      title: "Exibindo Contato"
+      title: "Dados do Contato"
     search:
-        title: "Filtro Contatos"
+        title: "Pesquisar Contato"
+    all:
+        title: "Todos os Contatos"
 
   searches:
       advanced: "Avançado"
@@ -197,9 +206,11 @@ pt-BR:
         search:
           <<: *attr_customer
           <<: *attr_customer_pj
-          names: "Nome: (Razão social, Nome Fantasia)"
+          names: "Nome/Razão Social"
           type: "Tipo"
           type_fisica: "Física"
           type_juridica: "Jurídica"
           submit: "Pesquisar"
           cancel: "Cancelar"
+          inscricao_estadual: "Incrição Estadual"
+

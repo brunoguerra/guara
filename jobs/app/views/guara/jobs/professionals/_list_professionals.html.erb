@@ -1,9 +1,9 @@
 <table class="table table-bordered table-striped">
 				<thead>
 					<tr>
-					<th><%= t("jobs.professional.names.title") %></th>
-					<th><%= t("jobs.professional.business_action_roles.title") %></th>
-					<th><%= t("helpers.forms.actions") %></th>
+					<th class="span3"><%= t("jobs.professional.names.title") %></th>
+					<th class="span3"><%= t("jobs.professional.business_action_roles.title") %></th>
+					<th class="span2"><%= t("helpers.forms.actions") %></th>
 					</tr>
 				</thead>	
 				<tbody>
@@ -24,10 +24,10 @@
 								</ul>
 							</td>
 							<td>
-								<%= link_to t("helpers.forms.show"), customer_professional_path(p.person_id, p), :class => "btn" %>
-								<%= link_to t("helpers.forms.select"), 
-								'javascript:void(0);', :class => "btn btn-info",
-								:onClick=> "setProfessionalToSelect2(#{p.id}, '#{p.person.name}', 'btn_professional_select_#{p.id}');", :id => "btn_professional_select_#{p.id}" %>
+								
+								<%= index_btn_view customer_professional_path(p.person_id, p), "Exibir Profissional" %>
+
+								<%= index_btn_select 'javascript:void(0);', :title => "Selecionar Profissional", :onClick=> "setProfessionalToSelect2(#{p.id}, '#{p.person.name}', 'btn_professional_select_#{p.id}');", :id => "btn_professional_select_#{p.id}" %>
 							</td>
 						</tr>
 					<% end %>

@@ -11,12 +11,13 @@
 		  float: left;
 		}
 
-		label[for=jobs_professional_have_job_sim]{
+		label[for=jobs_professional_have_job_true]{
 		  float: left;
-		  margin: -5px -8px;
+		  margin: -5px 0px;
 		}
+			#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px;}
 
-		label[for=jobs_professional_have_job_no]{
+		label[for=jobs_professional_have_job_false]{
 		  float: left;
 		}
 
@@ -59,6 +60,7 @@
 
 	fieldset {padding: 10px; position: relative;}
 
+
 	.formation .remove_fields {
 		position: relative;
 		left: 682px;
@@ -74,6 +76,23 @@
 	padding: 3px 6px;
 	line-height: 17px;
 	} 
+
+  .remove_fields {
+  	float: right;
+    position: relative;
+    left: 682px;
+    top: -28px;
+    padding: 0px 4px;
+    line-height: 17px;
+	} 
+
+  .add_fields {
+    position: relative;
+    top: 34px;	
+    width: 740px;
+    margin-left: -20px;
+  }
+
 
 	.business-action{
 		padding: 27px 30px 0px 28px !important;

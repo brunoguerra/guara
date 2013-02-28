@@ -18,71 +18,49 @@ pt-BR:
       search:
         complete: "pesquisa por profissionais foi finalizada com suscesso!"
 
-      names:
-        title: "Nome"
+      names: "Nome"
 
-      selecteds_candidates:
-        title: "Seleção de Candidatos"
+      selecteds_candidates: "Seleção de Candidatos"
 
-      selecteds:
-        title: "Selecionados"
+      selecteds: "Selecionados"
 
-      business_action_roles:
-        title: "Área de Atuação - Cargos"
+      business_action_roles: "Área de Atuação - Cargos"
 
-      have_job:
-         title: "Empregado atualmente ?"
+      have_job: "Empregado atualmente ?"
 
-      business_action:
-        title: "Área de Atuação" 
+      business_action: "Área de Atuação" 
 
-      formation:
-        title: "Formação Acadêmica"  
+      formation: "Formação Acadêmica"  
 
-      salary_requirements:
-        title: "Pretensão Salarial"
+      salary_requirements: "Pretensão Salarial"
 
-      level_education:
-        title: "Grau de Formação"
+      level_education: "Grau de Formação"
 
-      course:
-        title: "Curso"
+      course: "Curso"
 
-      name_institution:
-        title: "Nome Instituição"
+      name_institution: "Nome Instituição"
 
-      situation:
-        title: "Situação"
+      situation: "Situação"
 
-      date_conclusion:
-        title: "Data de Conclusão"
+      date_conclusion: "Data de Conclusão"
 
-      description:
-        title: "Descrição"
+      description: "Descrição"
 
-      professional_experience:
-        title: "Experiência Profissional"
+      professional_experience: "Experiência Profissional"
 
-      company_name:
-        title:   "Empresa"
+      company_name:   "Empresa"
 
-      role:
-        title: "Cargo"
+      role: "Cargo"
 
-      activities:
-        title: "Atividades"
+      activities: "Atividades"
 
-      date_admission:
-        title: "Data de Admissão"
+      date_admission: "Data de Admissão"
 
-      date_resignation:
-        title: "Data de Demissão"
+      date_resignation: "Data de Demissão"
 
-      business_action_roles:
-        title: "Área de Atuação - Cargos"
+      business_action_roles: "Área de Atuação - Cargos"
 
-      languages:
-        title: "Idiomas"
+      languages: "Idiomas"
 
 
     careers: &attrs_career
