@@ -40,8 +40,8 @@ pt-BR:
     phone: "Fone"
     fax: fax
     site: "Site"
-    social_link: "Redes sociais"
-    other_contacts: "Outros contatos"
+    social_link: "Redes Sociais"
+    other_contacts: "Outros Contatos"
     associateds: "Associados"
 
   
@@ -70,7 +70,7 @@ pt-BR:
     phone: "Fone"
     cell: "Celular"
     birthday: "Aniversário"
-    emails: "e-mails"
+    emails: "E-mails"
     side:
       title: "Contatos"
     edit:
@@ -84,9 +84,9 @@ pt-BR:
       link: "Contatos"
       edit: "Editar"
     show:
-      title: "Exibindo Contato"
+      title: "Dados do Contato"
     search:
-        title: "Filtro Contatos"
+        title: "Pesquisar Contato"
     all:
         title: "Todos os Contatos"
 
@@ -212,3 +212,5 @@ pt-BR:
           type_juridica: "Jurídica"
           submit: "Pesquisar"
           cancel: "Cancelar"
+          inscricao_estadual: "Incrição Estadual"
+

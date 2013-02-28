@@ -4,6 +4,7 @@ module Guara
     load_and_authorize_resource :through => :customer, :class => Guara::Contact
   
     helper CustomersHelper
+    helper CrudHelper
 
     # GET customers/1/contacts
     # GET customers/1/contacts.json

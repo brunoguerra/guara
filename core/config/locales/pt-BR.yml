@@ -16,7 +16,7 @@ pt-BR:
   user_groups:
     title: "Grupos"
   home:
-    link: "Painel Pricipal"
+    link: "Visão Geral"
     feed: "Mensagens"
     notifies: "Alertas"
   
@@ -273,7 +273,7 @@ pt-BR:
   
 
   administration:
-    link: "Painel Administrativo"
+    link: "Administradores"
   
 
   search:

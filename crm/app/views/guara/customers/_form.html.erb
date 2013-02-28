@@ -9,7 +9,7 @@
 
 		<div class="span4">
 			<%= f.input :doc, :label => t("customers.cnpj") , :input_html => { :class => "cnpj" } %>
-			<%= f.input :doc_rg, :label => t('customers.inscricao_estadual') %>
+			<%= f.input :doc_rg, :label => t('customers.search.inscricao_estadual') %>
 			<%= f.input :name_sec %>
 			<%= f.input :name %>
 			<%= f.input :address %>
@@ -91,7 +91,7 @@
 			</div>
 
 			<div class="control-group">
-				<%= person_f.label :associateds, :class => "control-label" %>
+				<%= person_f.label t("customers.associateds"), :class => "control-label" %>
 				<div class="controls">
 					<%= render :partial => 'shared/guara/multi_selection', 
 					:locals => {
