@@ -11,7 +11,7 @@ module Guara
         @custom_process = CustomProcess.find params[:id]
         @steps = Step.find(:all, :conditions => ["custom_process_id = ?", params[:id]])
         @jsonNext = [{:id=>'process', :next=> @custom_process.step_init, :attrs=> []}]
-        getAllNextSteps(@custom_process.step_init)
+        get_all_next_steps(@custom_process.step_init)
       end
 
       def new
@@ -42,7 +42,7 @@ module Guara
         end
       end
 
-      def getAllNextSteps(id)
+      def get_all_next_steps(id)
         @attrs = []
         @steps.each do |s|
           if s.id == id
@@ -61,9 +61,15 @@ module Guara
               }
             end
 
-            @jsonNext << {:id=>s.id, :next=> s.next, :attrs=> @attrs, :attrs_size=> @attrs.size}
+            @jsonNext << {
+              :id=>s.id, 
+              :next=> s.next, 
+              :attrs=> @attrs, 
+              :attrs_size=> @attrs.size
+            }
+            
             if s.next != nil
-              getAllNextSteps(s.next)
+              get_all_next_steps(s.next)
             end
           end
         end
