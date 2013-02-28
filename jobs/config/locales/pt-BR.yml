@@ -14,7 +14,10 @@ pt-BR:
       index:
         link: "Dados Curriculares"
         title: "Dados Curriculares"
-        
+
+      announcement_of_vacancies:
+        title: "Anúncio de Vagas"
+
       search:
         complete: "pesquisa por profissionais foi finalizada com suscesso!"
 
@@ -31,7 +34,7 @@ pt-BR:
         title: "Área de Atuação - Cargos"
 
       have_job:
-         title: "Empregado atualmente ?"
+         title: "Empregado atualmente?"
 
       business_action:
         title: "Área de Atuação" 
@@ -83,6 +86,16 @@ pt-BR:
 
       languages:
         title: "Idiomas"
+
+    custom_process: &attr_custom_process
+      title: "Customização do Processo"
+      index: "Customização do Processo"
+      name: "Nome do Processo"
+      id: "Id"
+      new: "Novo Processo"
+      edit: "Editar Processo"
+      save_steps: "Salvar Etapas"
+      steps: "Etapas"
 
   jobs_business_actions:
     title: "Área de Atuação"

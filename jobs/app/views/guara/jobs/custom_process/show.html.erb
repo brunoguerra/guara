@@ -7,48 +7,44 @@
   		<li class="span9">
 		    <div class="thumbnail">
 		      <div class="caption">
-				<legend><%= t('custom_process.show.title') %></legend>
-				<div class="row">
-					<div class="span4">
+				<legend><%= @custom_process.name %></legend>
+				<div class="container">
+					
 
-					  <div class="control-group">
-			            <%= t('custom_process.id') %>
-						<%= @custom_process.id %>
-			          </div>
-
-			          <div class="control-group">
+			          <div class="box-gray-data span4">
 			            
 			            <div class="widthAuto" id="process">
-			            	<span style="float:left;">
-			            		<b><%= t('custom_process.name') %>:</b> 
-			            		<%= @custom_process.name %>
-			            	</span>
-			            	<div class="ep"></div>
+			            	
+			            		<b><%= t('jobs.custom_process.name') %></b> 
+			            		<%= @custom_process.name %></br>
+
+			            		<b><%= t('jobs.custom_process.id') %></b>
+								<%= @custom_process.id %>
+			            		
+			            		<div class="ep"></div>
 			            </div>
-			            &nbsp;
 			          </div>
 
-			          <a id="custom_steps" href="javascript:void(0);" class="btn">
-			          	<%= t('custom_process.link.custom_steps') %>
-			          </a>
-
-			          <a id="save_steps" href="javascript:void(0);" class="btn" disabled="disabled">
-			          	<%= t('custom_process.link.save_steps') %>
-			          </a> 
-			        </div>
 
 			        <div id="position_steps_connecteds" class="span4" style="height:300px;padding:10px;">
 			        	
 			        </div>
 
 			    </div>
+			    <a id="custom_steps" href="javascript:void(0);" class="btn">
+		          	<%= t('jobs.custom_process.edit') %>
+		        </a>
+
+		        <a id="save_steps" href="javascript:void(0);" class="btn" disabled="disabled">
+		          	<%= t('jobs.custom_process.save_steps') %>
+		        </a>
 			</div>
 		</li>
 
 		<li class="span3">
 			<div class="thumbnail">
-				<legend><%= t('products.show.steps') %></legend>
-				<a id="add_step" href="javascript:void(0);" class="btn" >add step</a>
+				<legend><%= t('jobs.custom_process.step') %></legend>
+				<a id="add_step" href="javascript:void(0);" class="btn" >Nova Etapa</a>
 				<div class="container_steps">
 					<%  @steps.collect { |f| %>
 						<div class="w step widthAuto step_click" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
@@ -78,14 +74,7 @@
 	  <div class="modal-body" id="form_build">
 	    <%= render :partial => 'panel_build_form' %>
 	  </div>
-<<<<<<< HEAD
-	  
-	  <div class="modal-footer">
-	    <a id="save_steps" href="javascript:void(0);" class="btn btn-primary">Salvar</a>
-	  </div>
 
-=======
->>>>>>> 7aaa4d231a37a8aa98fe5c4ab3ce18f5d23dfe0c
 </div>
 
 <script type="text/javascript">

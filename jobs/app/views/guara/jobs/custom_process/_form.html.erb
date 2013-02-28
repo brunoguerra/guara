@@ -1,15 +1,15 @@
 <%= semantic_form_for @custom_process, 
-:url => custom_process_path(@custom_process), 
-:html => {:class => "well"}  do |f| %>
+    :url => custom_process_path(@custom_process), 
+    :html => {:class => "well"}  do |f| %>
+  
   <fieldset>
     <legend>
-      <%= @custom_process.new_record? ? t("custom_process.new.title") : t("custom_process.edit.title") %>
+      
     </legend>
 
     <div class="control-group">   
-      <%= f.input :name, :class=> "span6" %>
-      <%= f.input :enabled, :class=> "span6" %>
-
+      <%= f.input :name, :class => "span6" %>
+      <%= f.input :enabled, :class => "span6" %>
       <%= f.submit class: "btn btn-primary" %>
     </div>
 
