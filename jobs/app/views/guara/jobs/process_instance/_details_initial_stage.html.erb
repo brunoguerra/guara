@@ -1,7 +1,7 @@
 <% @columns.each do |k, cols| %>
 	<% cols.each do |c| %>
 	<div class="control-group">
-        <%= show_span_tag c.label %>
+        <%= show_span_tag c.title %>
 		<%= vals[c.id] %>
     </div>
 	<% end %>

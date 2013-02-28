@@ -53,6 +53,12 @@ module Guara
         @current_columns = set_columns(@current_step_attrs)        
       end
 
+      def get_step_attr_cache(step_attr_id)
+        @current_step_attrs.each do |a|
+          return a if a.id == step_attr_id
+        end
+      end
+
       def attrValues(step_attrs, step_instance_attrs)
         @attr_vals = {}
         step_attrs.each do |s|
@@ -61,7 +67,12 @@ module Guara
 
         step_instance_attrs.each do |a|
           if a.value.nil?
-            @attr_vals[a.step_attr_id] = a.step_instance_attr_multis
+            @temp = []
+            a.step_instance_attr_multis.each do |s|
+              @temp << { :value=> s.value, :step_attr_option=> get_step_attr_cache(a.step_attr_id).options }
+            end
+            @attr_vals[a.step_attr_id] = @temp
+
           else
             @attr_vals[a.step_attr_id] = a.value
           end  
