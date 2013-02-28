@@ -1,22 +1,22 @@
-<div class="page-header"><%= t("process_instance.filter") %></div>
+<div class="page-header"><%= t("jobs.process_instance.filters") %></div>
 
 <%= semantic_form_for :search, :html => { :class => "well form-search", :method => :get } do |f| %>
 		
       		<div class="control-group">
-		        <%= label_tag "state_eq", t('process_instance.step'), :class => "control-label" %>
+		        <%= label_tag "state_eq", t('jobs.process_instance.step'), :class => "control-label" %>
 		        <div class="controls">
 		          <%= f.select "state_eq", Guara::Jobs::Step.where(:custom_process_id=> @process_instance.first.process_id).map{ |c| [c.name, c.id] }, {:include_blank => true} %>
 		        </div>
 		    </div>
 		        
       		<div class="control-group">
-		        <%= label_tag "date_start_gteq", t('process_instance.date'), :class => "control-label" %>
+		        <%= label_tag "date_start_gteq", t('jobs.process_instance.date'), :class => "control-label" %>
 		        <div class="controls">
 		          <%= f.text_field "date_start_gteq", :class=>"input-small date_format" %> à 
 		          <%= f.text_field "date_finish_lteq", :class=>"input-small date_format" %>
 		        </div>
 		    </div>
 
-		<%= submit_tag "Search", :class => "btn btn-primary" %>
+		<%= submit_tag "Buscar", :class => "btn btn-primary" %>
 		<div style="clear:both;"></div>
 <% end %>

@@ -13,16 +13,16 @@
             <div class="thumbnail">
               <div class="caption">
                 <div class="page-header">
-                  <%=t('process_instance.process_started')%>
+                  <%=t('jobs.process_instance.processes_starteds')%>
                 </div>
 
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th><%= t("process_instance.id") %></th>
-                      <th><%= t("process_instance.date_start") %></th>
-                      <th><%= t("process_instance.date_finish") %></th>
-                      <th><%= t("process_instance.step") %></th>
+                      <th><%= t("jobs.process_instance.id") %></th>
+                      <th><%= t("jobs.process_instance.date_start") %></th>
+                      <th><%= t("jobs.process_instance.date_finish") %></th>
+                      <th><%= t("jobs.process_instance.step") %></th>
                       <th><%= t("helpers.forms.actions") %></th>
                     </tr>
                   </thead>
@@ -36,7 +36,6 @@
                         <td><%= p.step.name  %></td>
                         <td>
                           <%= link_to t("helpers.forms.show"), process_instance_path(p), :class => "btn" %>
-                          <%= link_to t("helpers.forms.edit"), edit_process_instance_path(p), :class => "btn" %>
                         </td>
                       </tr>
                     <% end %>

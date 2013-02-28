@@ -12,9 +12,11 @@ module Guara
   		
   	end
 
-    def index_btn_select(path, title="", action="")
-
-      link_to raw('<i  class="icon-ok"></i>'), path, :class => "btn btn-info", :title => title, :onClick=> action
+    def index_btn_select(path, options = {})
+      
+      options[:class] = "btn btn-info" if options[:class].nil? 
+      
+      link_to raw('<i  class="icon-ok"></i>'), path, options
       
     end
 

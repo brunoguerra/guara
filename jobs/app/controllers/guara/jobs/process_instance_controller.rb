@@ -14,14 +14,17 @@ module Guara
       end
 
       def new
-        @process_instance = ProcessInstance.create({
+        @custom_process = CustomProcess.find(params[:process_id])
+        @process_instance = ProcessInstance.new 
+        
+        @process_instance.update_attributes({
           :process_id=> params[:process_id],
           :date_start=> Time.now.to_s(:db),
           :user_using_process=> 1,
-          :state=> CustomProcess.find(params[:process_id]).step_init
+          :state=> @custom_process.step_init
         })
 
-        if @process_instance
+        if @process_instance.save
           redirect_to edit_process_instance_path(@process_instance)
         else
           render :index
