@@ -10,6 +10,27 @@ pt-BR:
     title: "Recrutamento e Seleção"
     link: "Recrutamento e Seleção"
 
+    announcement_of_vacancies:
+      index:
+        title: "Anúncio de Vagas"
+        link: "Anúncio de Vagas"
+
+    custom_process:
+      index:
+        title: "Customização de Processo"
+        link: "Customização de Processo"
+    
+    process_instance:
+      date_start: "Data Inicial"
+      date_finish: "Data Final"
+      step: "Etapa"
+      steps: "Etapas"
+
+      processes_starteds: "Processos Iniciados"
+      filters: "Filtros"
+      date: "Data"
+
+
     professional: &attr_professional
       index:
         link: "Dados Curriculares"
