@@ -434,32 +434,6 @@ window.form_builder = {
         }
     },
 
-    getConfigEl: function(id){
-        var els = this.elements_inserteds;
-        var config = null;
-        for(var i=0;i< els.length;i++){
-            if(els[i].id == id){
-                config = els[i];
-            }
-        }
-
-        return config;
-    },
-
-    select_element: function(el) {
-        var me = this;
-        me.unselect_elements();
-        $(el).addClass("current_edit");
-        var config = me.getConfigEl($(el).attr('id'));
-        if(config){
-            me.options_elements_attributes.startProperties(config);
-        }
-    },
-
-    unselect_elements: function() {
-        $('#container_form_fields li').removeClass("current_edit");
-    },
-
     templates_insert_field: {
         
         container: function(type, text){
@@ -489,20 +463,33 @@ window.form_builder = {
                     )
             )
         }
-        /*<li>
-            <a class="insert_elements" type-el="text" href="javascript:void(0);" title="text_field">
-                <div class="helper-font-24">
-                    <i class="text_field">
-                        <img src="img/text_field.gif">
-                    </i>
-                </div>
-                <span class="sidebar-text">Caixa de Texto</span>
-            </a>
-        </li>*/
     },
 
-    init: function(){
+    getEl: function(id){
+        var me  = this,
+        element = null;
+        if(!isNaN(parseInt(id))){
+            id = "li_"+id;
+        }
 
+        for(var i=0; i < me.elements_inserteds.length;i++){
+            if(id==me.elements_inserteds[i].id){
+                element = i;
+            }
+        }
+        return me.elements_inserteds[element];
+    },
+
+    getConfigEl: function(id){
+        var els = this.elements_inserteds;
+        var config = null;
+        for(var i=0;i< els.length;i++){
+            if(els[i].id == id){
+                config = els[i];
+            }
+        }
+
+        return config;
     },
 
     getFieldConfig: function(type, position){
@@ -511,6 +498,20 @@ window.form_builder = {
         me.elements_inserteds.push(opts);
         form_builder.id_seq++;
         return opts;
+    },
+
+    select_element: function(el) {
+        var me = this;
+        me.unselect_elements();
+        $(el).addClass("current_edit");
+        var config = me.getConfigEl($(el).attr('id'));
+        if(config){
+            me.options_elements_attributes.startProperties(config);
+        }
+    },
+
+    unselect_elements: function() {
+        $('#container_form_fields li').removeClass("current_edit");
     },
 
     insert_el: function(type, config){
@@ -547,22 +548,7 @@ window.form_builder = {
             console.info(b[i].id);
             me.setPosition(b[i].id, i);
         }
-    },
-
-    getEl: function(id){
-        var me  = this,
-        element = null;
-        if(!isNaN(parseInt(id))){
-            id = "li_"+id;
-        }
-
-        for(var i=0; i < me.elements_inserteds.length;i++){
-            if(id==me.elements_inserteds[i].id){
-                element = i;
-            }
-        }
-        return me.elements_inserteds[element];
-    },
+    },    
 
     setPosition: function(id, position){
         var me  = this,

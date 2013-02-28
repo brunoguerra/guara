@@ -10,8 +10,8 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
   
   after_save :after_save
   
-  def initialize(custom_process)
-    self.custom_process = custom_process
+  def process_id=(process_id)
+    write_attribute(:process_id, process_id)
     self.custom_process.call_hook_initialize(self)
   end
   
@@ -19,8 +19,21 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
   	self.custom_process.step
   end
 
+  def steps_connecteds(id)
+      @steps.each do |s|
+        if s.id == id
+          @steps_conn << s
+          steps_connecteds(s.next) if !s.next.nil?
+        end
+      end
+  end
+
   def steps_order
-  	self.custom_process.steps.order(:level)
+  	@steps = self.custom_process.steps.order(:level)
+
+    @steps_conn = []
+    self.steps_connecteds(self.custom_process.step_init)
+    @steps = @steps_conn
   end
 
   def steps_previous_current

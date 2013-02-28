@@ -11,9 +11,11 @@ class Guara::Jobs::CustomProcess < ActiveRecord::Base
   
   
   def call_hook_initialize(object)
-    self.hook_instanciate.split(" ").each do |hook_s|
-      class_hook = eval hook_s
-      class_hook.new(object)
+    if !self.hook_instanciate.nil?
+      self.hook_instanciate.split(" ").each do |hook_s|
+        class_hook = eval hook_s
+        class_hook.new(object)
+      end
     end
   end
 
