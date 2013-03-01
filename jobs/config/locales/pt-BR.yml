@@ -31,7 +31,7 @@ pt-BR:
       date: "Data"
 
 
-    professional: &attr_professional
+    professional: &attrs_professional
       index:
         link: "Dados Curriculares"
         title: "Dados Curriculares"
