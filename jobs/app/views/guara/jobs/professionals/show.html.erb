@@ -1,56 +1,61 @@
-<section class="show guara_jobs_professional">
+<section class="show guara_jobs_professional show_professional">
 
 	<%= render :partial => "/guara/customers/navbar", :locals => { :active => :professional } %>
 	<%= render :partial => "/guara/customers/modules", :locals => { :active => :professional } %>
 
-		<div class="thumbnails">
-			<div class="caption">
-				<div class="span12">
-
-					<legend><%= t("jobs.professional.index.title") %></legend>
-
-					<dt><%= t("jobs.professional.have_job.title") %></dt>
+		<div class="row page-header have_jobs">
+			<legend class="span2"><small><%=  t("jobs.professional.index.title") %></small></legend>
+				
+				<div class="span9 well">	
+					<dt><%= t("jobs.professional.have_job") %>	 </dt>
 			    	<dd><%= yes_or_no @professional.have_job %></dd>
-				    
-				</div>
 			</div>
 		</div>
 		  
         <div class="row page-header">
-			<legend class="span2"><small><%=  t("jobs.professional.business_action.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.business_action") %></small></legend>
 
 		    <div class="span9 well">
-			    <dh><%=  t("jobs.professional.business_action.title") %></dh>
-					<% @professional.vacancy_specification.roles.each do |b| %>
-						<%= b.business_action.name %><br>
-						<%= b.name %>
+		    	<% business_action_last = nil %>
+					<% @professional.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
+						
+						<% if (business_action_last.nil? || business_action_last.id != r.business_action.id)%>
+							<li><dt><%= r.business_action.name %> :</dt></li><br />
+						<% end %>
+		
+						<li>- <%= r.name %></li>
+
+						<% business_action_last = r.business_action %>
 					<% end %>
-					<dh><%=  t("jobs.professional.salary_requirements.title") %></dh>
-					<%= @professional.vacancy_specification.salary_requirements %>
+				
+
+
+				<li><dt><%=  t("jobs.professional.salary_requirements") %>: </dt>
+				<%= number_to_currency(@professional.vacancy_specification.salary_requirements) %></li>
 			</div>
 		</div>
 
 		<div class="row page-header">
-			<legend class="span2"><small><%=  t("jobs.professional.formation.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.formation") %></small></legend>
 
 		    <div class="span9 well">
 
 		    			<% @professional.formations.each do |f| %>
 
-							<dh><%= t("jobs.professional.level_education.title") %></dh>
-							<%= name_or_nothing f.level_education %><br>
+							<li><dt><%= t("jobs.professional.level_education") %>: </dt>
+							<%= name_or_nothing f.level_education %><br /></li>
 						
-							<dh><%= t("jobs.professional.course.title") %></dh>
-							<%= f.course %><br>
+							<li><dt><%= t("jobs.professional.course") %>: </dt>
+							<%= f.course %><br /></li>
 						
-							<dh><%= t("jobs.professional.name_institution.title") %></dh>
-							<%= f.name_institution %><br>
+							<li><dt><%= t("jobs.professional.name_institution") %>: </dt>
+							<%= f.name_institution %><br /></li>
 						
-							<dh><%= t("jobs.professional.situation.title") %></dh>
-							<%= f.situation %><br>
+							<li><dt><%= t("jobs.professional.situation") %>: </dt>
+							<%= f.situation %><br /></li>
 
-							<dh><%= t("jobs.professional.date_conclusion.title") %></dh>
-							<%= f.date_conclusion %><br>
+							<li><dt><%= t("jobs.professional.date_conclusion") %>: </dt>
+							<%= f.date_conclusion %><br /></li>
 
  						<% end %>
 
@@ -59,44 +64,46 @@
 
 
         <div class="row page-header">
-			<legend class="span2"><small><%=  t("jobs.professional.professional_experience.title") %></small></legend>
+			<legend class="span2"><small><%=  t("jobs.professional.professional_experience") %></small></legend>
 
 		    <div class="span9 well">
 		    	
 					<% @professional.professional_experiences.each do |e| %>
 
-							<dh><%= t("jobs.professional.company_name.title") %></dh>
-							<%= e.company_name %><br>
+							<div class="careers">
+								<li class="company_name"><dt><%= t("jobs.professional.company_name") %>:</dt>
+									<%= e.company_name %><br /></li>
 							
 
 						<% e.careers.each do |c| %>
-								<dh><%= t("jobs.professional.role.title") %></dh>
-								<%= c.role %><br>
+								<ul><li><dt><%= t("jobs.professional.role") %>:</dt>
+								<%= c.role %><br /></li>
 								
 
-								<dh><%= t("jobs.professional.activities.title") %></dh>
-								<%= c.activities %><br>
+								<li><dt><%= t("jobs.professional.activities") %>:</dt>
+								<%= c.activities %><br /></li>
 								
 
-								<dh><%= t("jobs.professional.date_admission.title") %></dh>
-								<%= c.date_admission %><br>
+								<li><dt><%= t("jobs.professional.date_admission") %>:</dt>
+								<%= c.date_admission %><br /></li>
 
 
-								<dh><%= t("jobs.professional.date_resignation.title") %></dh>
-								<%= c.date_resignation %><br>
+								<li><dt><%= t("jobs.professional.date_resignation") %>:</dt>
+								<%= c.date_resignation %><br /></li></ul>	
 						<% end %>
+						</div>
 
 					<% end %>
 
 			</div>
 
 			<div class="row page-header">
-				<legend class="span2"><small><%=  t("jobs.professional.languages.title") %></small></legend>
+				<legend class="span2"><small><%=  t("jobs.professional.languages") %></small></legend>
 
-			    <div class="span9 well">
-				    <dh><%=  t("jobs.professional.languages.title") %></dh>
+			    <div class="span9 well language-show">
+				    <dt><%=  t("jobs.professional.languages") %>:</dt>
 						<% @professional.languages.each do |l| %>
-							<%= l.name %>
+							<ul><%= l.name %></ul>
 						<% end %>
 				</div>
 			</div>
