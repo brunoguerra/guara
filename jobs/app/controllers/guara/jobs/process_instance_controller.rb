@@ -2,7 +2,11 @@
 module Guara
   module Jobs
     class ProcessInstanceController < Guara::BaseController
-      skip_authorization_check
+      load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance"
+
+
+      helper CrudHelper
+
       def index
         @search = ProcessInstance.search(params[:search])
         if class_exists?("Ransack")
