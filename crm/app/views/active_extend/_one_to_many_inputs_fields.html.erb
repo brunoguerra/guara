@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset class="<%= f.model_name.underscore.gsub!(/\//, '_').concat("_fields") %>">
 <% inputs.each do |input,options| %>
 	<% if not options[:lambda].nil? %>
 		<%= options[:lambda].call(f, index || 0) %>
@@ -9,7 +9,7 @@
 <% end %>
 <%= f.hidden_field :_destroy %>
 
-<%= link_to '#', class: "remove_fields btn btn-small" do %>
+<%= link_to '#', id:f.model_name.underscore.gsub!(/\//, '_').concat("_remove") , class: "remove_fields btn btn-small" do %>
 	<i class="icon-remove"></i>
-<% end  %></span>
+<% end  %>
 </fieldset>

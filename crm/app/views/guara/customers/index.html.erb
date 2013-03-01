@@ -13,13 +13,13 @@
 		  <table class="table table-bordered table-striped">
 		    <thead>
 		      <tr>
-		        <th><%= t("search.select") %></th>
-		        <th><%= t("customers.code") %></th>
-		        <th><%= t("customers.names") %></th>
-		        <th><%= t("customers.a_customer") %></th>
-		        <th><%= t("customers.enabled") %></th>
-		        <th><%= t("customers.complete") %></th>
-		        <th><%= t("helpers.forms.actions") %></th>
+		        <th></th>
+		        <th class="span1"><%= t("customers.code") %></th>
+		        <th><%= t("helpers.label.customers.search.names") %></th>
+		        <th class="span1"><%= t("customers.a_customer") %></th>
+		        <th class="span1"><%= t("customers.enabled") %></th>
+		        <th class="span1"><%= t("customers.complete") %></th>
+		        <th class="span1"><%= t("helpers.forms.actions") %></th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -31,7 +31,7 @@
 		        <td><span class="badge <%= c.a_customer? ? "badge-success" : "badge-important" %>"><%= format_boolean c.a_customer? %></td>
 		        <td><span class="badge <%= c.enabled ? "badge-success" : "badge-important" %>"><%= format_boolean c.enabled %></span></td>
 		        <td><span class="badge <%= c.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean c.complete %></span></td>
-		        <td><%= link_to t("helpers.forms.show"), customer_path(c), :class => "btn" %></td>
+		        <td><%= index_btn_view customer_path(c), "Exibir Contato" %></td>
 		      </tr>
 		    <% end %>
 
