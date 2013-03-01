@@ -41,7 +41,7 @@
                     <% end %>
                   </tbody>
                 </table>
-
+                <%= will_paginate %>
                 <%= link_to t('helpers.forms.new'), new_process_instance_path(:process_id=>@process_instance.first.process_id), :class => "btn" %>
 
               </div>
