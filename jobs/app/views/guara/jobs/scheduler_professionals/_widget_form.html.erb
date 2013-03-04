@@ -1,0 +1,18 @@
+<section id="vacancy_scheduler_professionals">
+		<div>
+			<ul>
+				<% (@unscheduleds || []).each do |professional|  %>
+				<li><%= link_to "javascript:void();", professional.name, :onClick => "schedule_professional(this, #{professional.id});", :class => "btn" %></li>
+				<% end %>
+			</ul>
+		</div>
+</section>
+
+<script language="javascript">
+
+function schedule_professional(id) {
+	
+}
+
+
+</script>

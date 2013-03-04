@@ -37,4 +37,6 @@ group :test do
   # gem 'debugger'
 end
 
+gem 'active_extend', :path => "../../active_extend/"
+
 gemspec

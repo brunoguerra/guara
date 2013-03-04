@@ -12,12 +12,11 @@
         <%= link_to defined?(:navbar_title) ? t("customers.title") : navbar_title, "#", :class => "brand" %>
         <div class="nav-collapse">
           <ul class="nav">
-          <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
-          <li <%= 'class=active' if active == :new %> ><%= link_to t("customers.new.link"), new_customer_path %></li>
+	          <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
+	          <li <%= 'class=active' if active == :new %> ><%= link_to t("customers.new.link"), new_customer_path %></li>
 
-          <li <%= 'class=active' if active == :search_professional %> >
-              <%= link_to t("customers.professional.search.link"), professionals_search_path %></li>
-        </ul>
+	          <%= customer_nav_modules_build_tabs(@customer, active) %>
+        	</ul>
           
         </div><!-- /.nav-collapse -->
       </div>

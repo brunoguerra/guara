@@ -1,4 +1,5 @@
 require 'rails3-jquery-autocomplete'
+require 'active_extend'
 
 module Guara
   module Crm    

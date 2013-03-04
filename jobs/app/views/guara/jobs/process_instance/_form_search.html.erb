@@ -5,7 +5,7 @@
       		<div class="control-group">
 		        <%= label_tag "state_eq", t('jobs.process_instance.step'), :class => "control-label" %>
 		        <div class="controls">
-		          <%= f.select "state_eq", Guara::Jobs::Step.where(:custom_process_id=> @process_instance.first.process_id).map{ |c| [c.name, c.id] }, {:include_blank => true} %>
+		          <%= f.select "state_eq", Guara::Jobs::Step.where(:custom_process_id => Guara::Jobs::Vacancy.custom_process_id).map{ |c| [c.name, c.id] }, {:include_blank => true} %>
 		        </div>
 		    </div>
 		        
