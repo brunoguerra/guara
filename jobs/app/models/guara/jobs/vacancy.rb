@@ -4,15 +4,7 @@ module Guara
       attr_accessible :process_instance
       belongs_to :process_instance
       
-      
-      def unscheduled_professionals()
-      end
-      
-      def scheduled_professionals()
-        
-      end
-      
-      def selection_professionals_values()
+      def selection_professionals_selecteds()
         @step_profs = ProcessInstance.first.custom_process.steps.joins(:step_attrs).where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
         raise "Unkow step with professionals selection" if @step_profs.nil?
         @step_attr = @step_profs.attrs.where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
