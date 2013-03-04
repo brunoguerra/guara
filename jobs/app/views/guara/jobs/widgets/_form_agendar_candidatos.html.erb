@@ -1,9 +1,67 @@
-
 <style type="text/css">
 .control-group .row{
 	margin-left: 0px!important;
 }
+.control-group .thumbnail{
+	background: #FFF;
+	margin-top: 10px;
+}
 </style>
 <div class="control-group">
-	<%= render :partial => "guara/jobs/professionals/search_results" %>
+	<div class="row-fluid">
+        <ul class="thumbnails">
+
+
+      	<li class="span3">
+	        <div class="thumbnail">
+	          <div id="candidates_unscheduled" class="caption">
+	            <button type="button" class="btn btn-block">
+	            	<i class="icon-user"></i>Maciel Sousa
+	            </button>
+			  	<button type="button" class="btn btn-block">
+			  		<i class="icon-user"></i>Felipe Maguin
+			  	</button>
+			  	<button type="button" class="btn btn-block">
+			  		<i class="icon-user"></i>Bruno Guerra
+			  	</button>
+			  	<button type="button" class="btn btn-block">
+			  		<i class="icon-user"></i>Igor Pitinha
+			  	</button>
+	          </div>
+	        </div>
+	    </li>
+
+	    <li class="span6">
+	        <div class="thumbnail">
+	          <div id="form_candidate_selected" class="caption">
+	            
+	          </div>
+	        </div>
+	    </li>
+
+
+      	<li class="span3">
+	        <div class="thumbnail">
+	          <div id="candidates_scheduled" class="caption">
+
+	              <button type="button" class="btn btn-block">
+	              	<i class="icon-user"></i>Felipe Baxin
+	              </button>
+
+	          </div>
+	        </div>
+      	</li>
+      
+    </ul>
+  </div>	
 </div>
+
+<script type="text/javascript">
+	$('#candidates_unscheduled button').each(function(btn){
+		var btn = $(btn),
+		form    = $('#form_candidate_selected');
+		btn.addClass('active');
+		form.load('<%= new_vacancy_scheduler_professional_path(@vacancy) %>');
+		//$(btn).attr('candidate_id');
+	});
+</script>

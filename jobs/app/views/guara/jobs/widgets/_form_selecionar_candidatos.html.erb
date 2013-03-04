@@ -19,6 +19,67 @@
 <script>
 	$(function() {
 		$("#professionals_selecteds").attr('name',  '<%= field_form_name %>[]');
+		var sel = [];
+		<%  if value.class == Array 
+				value.each do |k| %>
+					setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_select k %>", "");
+					sel.push(<%= k[:value] %>);
+		<% 		end 
+			end 
+		%>
+		setTimeout(function(){
+			$("#professionals_selecteds").select2("val", sel);
+		},200);
+	});
+
+	function alertDialog(msg, error){
+		var dialog = jQuery('.alert-ajax');
+		if(error){
+			dialog
+				.removeClass('alert-success')
+				.addClass('alert-error');
+		}
+		else{
+			dialog
+				.removeClass('alert-error')
+				.addClass('alert-success');
+		}
+		dialog
+			.html(msg)
+			.show();
+			setTimeout(function(){
+				dialog.fadeOut(400);
+			}, 2000);
+	}
+
+	function professionals_ajax_form_complete(data, status) {
+		$("#professional_search_list").html(data.responseText);
+		alertDialog('<%= t("jobs.professionals.search.complete") %>');
+	}
+</script>
+<div class="control-group">
+	<%= form_ajax("select_professional", render(:partial => "guara/jobs/professionals/search_results"), "professionals_ajax_form_complete") %>
+</div><%
+	
+	#field_form_name nome que deve estar no form
+	@controller = Guara::Jobs::ProfessionalsController.new
+	@controller.request = request
+	@controller.response = response
+	@controller.params = params
+	res = @controller.search
+	@professionals = @controller.searched_professionals
+	@search = @controller.searched_search
+	params[:mode] = "advanced"
+%>
+<style type="text/css">
+	.control-group .row{
+		margin-left: 0px!important;
+	}
+</style>
+
+<script>
+	$(function() {
+		$("#professionals_selecteds").attr('name',  '<%= field_form_name %>[]');
 		var sel = []
 		<%  if value.class == Array 
 				value.each do |k| %>
