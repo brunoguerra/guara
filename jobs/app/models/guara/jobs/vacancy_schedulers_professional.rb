@@ -4,8 +4,6 @@ module Guara
       attr_accessible :date_time, :local, :consultant_id, :vacancy_id, :professional_id
 
 
-
-
       belongs_to :process_instance
       belongs_to :consultant
       belongs_to :vacancy
