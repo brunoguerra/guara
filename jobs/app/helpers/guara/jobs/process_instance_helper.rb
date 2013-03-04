@@ -1,7 +1,7 @@
 module Guara
     module Jobs
       module ProcessInstanceHelper
-
+        #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(alias_model, vals)
             vals = [] if vals.class == String
    		    if alias_model == 'role'
