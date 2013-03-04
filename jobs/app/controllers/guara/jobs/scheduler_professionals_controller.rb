@@ -11,9 +11,9 @@ module Guara
       end
       
       def load_selecteds_professionals()
-        @vacancy = @vacancy || Vacancy.find_by_process_instance(params[:process_instance_id])
-        @unscheduleds = @vacancy.unscheduled_professionals()
-        @scheduleds = @vacancy.scheduled_professionals()
+        @vacancy      = @vacancy || Vacancy.find_by_process_instance(params[:process_instance_id])
+        @unscheduleds = VacancySchedulingProfessional.unscheduled_professionals(@vacancy)
+        @scheduleds   = VacancySchedulingProfessional.scheduled_professionals(@vacancy)
       end
       
       def index
