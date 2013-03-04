@@ -1,4 +1,4 @@
-
+ 
 module Guara
   module Jobs
     module ActiveProcess
