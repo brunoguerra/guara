@@ -34,7 +34,7 @@ window.form_builder = {
             default_field: {
                 title: "Caixa de Seleção",
                 type_field: "select",
-                options: "person_pf"
+                options: "cargo"
             },
             attrs_field: [{type_field: "select_type", label: "Tipo"}]
         },
@@ -281,7 +281,12 @@ window.form_builder = {
 
         getProperties: function(config){
             for( var i in config){
-                var input = $('#prop_'+i);
+                if(i=='options'){
+                    var input = $('#prop_select_type');
+                }
+                else{
+                    var input = $('#prop_'+i);
+                }
                 if((i=='required' || i=='resume') && (input.prop)){
                     if(config[i]=='1'){
                         input.prop('checked', true);

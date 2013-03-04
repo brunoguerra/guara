@@ -1,7 +1,7 @@
 module Guara
     module Jobs
       module ProcessInstanceHelper
-
+        #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(alias_model, vals)
             vals = [] if vals.class == String
    		    if alias_model == 'role'
@@ -43,7 +43,11 @@ module Guara
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
             elsif rec.type_field == 'section' || rec.type_field == 'widget'
-                return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
+                if rec.options == 'component'
+                    eval(rec.widget).new
+                else
+                    return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
+                end
             else
                 @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level"
         	end
