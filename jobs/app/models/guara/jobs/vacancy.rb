@@ -22,7 +22,21 @@ module Guara
         @attr_inst.values.map { |v| Professional.find v.value }
 
       end
+      
+      def self.custom_process
+        CustomProcess.where(name: 'vacancy').order(:created_at).last
+      end
         
+        
+      def self.custom_process_id
+        cp = self.custom_process
+        unless cp.nil?
+          cp.id
+        else
+          -1
+        end
+        
+      end
     end
   end
 end

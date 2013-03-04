@@ -22,11 +22,10 @@ module Guara
     end
 
     def customer_nav_modules_build_tabs(customer, active)
-
+      
       res = ""
-
       puts Guara::Customer.modules.inspect
-
+      
       Guara::Customer.modules.each do |md| 
         md[:tabs].each do |tab|
           res = "<li "
@@ -34,7 +33,6 @@ module Guara
           res += ">"
           res += link_to tab[:title], tab[:url].call(customer)
           res += "</li>"
-
        end
       end
 

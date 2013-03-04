@@ -41,8 +41,9 @@
                     <% end %>
                   </tbody>
                 </table>
+                <%= will_paginate %>
 
-                <%= link_to t('helpers.forms.new'), new_process_instance_path(:process_id=>@process_instance.first.process_id), :class => "btn" %>
+                <%= link_to t('helpers.forms.new'), new_process_instance_path(:process_id => Guara::Jobs::Vacancy.custom_process), :class => "btn" %>
 
               </div>
             </div>

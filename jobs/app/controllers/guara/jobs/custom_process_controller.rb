@@ -51,18 +51,7 @@ module Guara
         @steps.each do |s|
           if s.id == id
             s.step_attrs.each do |a|
-              @attrs << {
-                :title => a[:label], 
-                :name => a[:name], 
-                :widget => a[:widget],
-                :required => a[:required], 
-                :resume => a[:resume], 
-                :type => a[:type_field], 
-                :position => a[:position], 
-                :column => a[:column], 
-                :step_id => a[:step_id], 
-                :options => a[:options]
-              }
+              @attrs << a
             end
 
             @jsonNext << {
@@ -98,21 +87,11 @@ module Guara
         @attrs = []
 
         @json.each do |j|
-          @a = {
-            :column => j['column'], 
-            :options=> j['options'], 
-            :label=> j['title'], 
-            :widget=> j['widget'], 
-            :required=> j['required'], 
-            :resume => j['resume'], 
-            :type_field=> j['type'], 
-            :step_id=> params[:step_id],
-            :position=> j['position']
-          } 
-
-          @attr = StepAttr.create(@a)
-          @a[:id] = @attr.id
-          @attrs << @a
+          j['step_id'] = params[:step_id]
+          
+          @attr = StepAttr.create(j)
+          j['id'] = @attr.id
+          @attrs << j
         end
         
         render :json => {:success=> true, :attrs=> @attrs}

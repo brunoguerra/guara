@@ -25,6 +25,10 @@ Guara::Core::Engine.routes.prepend do
 		resources :process_instance
 
 		match "/professionals/search", to: "professionals#search"
+		
+		resources :vacancies do
+		  resource :scheduler_professional, controller: "SchedulerProfessionals"
+	  end
 
 	end
   

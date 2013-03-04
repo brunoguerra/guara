@@ -2,7 +2,12 @@
 module Guara
   module Jobs
     class ProcessInstanceController < Guara::BaseController
-      skip_authorization_check
+      load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance"
+      load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
+
+
+      helper CrudHelper
+
       def index
         @search = ProcessInstance.search(params[:search])
         if class_exists?("Ransack")
@@ -11,6 +16,12 @@ module Guara
             @process_instance = @search.paginate(page: params[:page], :per_page => 10)
         end
         params[:search] = {} if params[:search].nil?
+        
+        if @process_instance.size == 0
+          @custom_process = CustomProcess.first 
+        else  
+          @custom_process = @process_instance.first
+        end
       end
 
       def new
@@ -20,7 +31,7 @@ module Guara
         @process_instance.update_attributes({
           :process_id=> params[:process_id],
           :date_start=> Time.now.to_s(:db),
-          :user_using_process=> 1,
+          :user_using_process=> current_user.id,
           :state=> @custom_process.step_init
         })
 

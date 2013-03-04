@@ -5,8 +5,8 @@ load Rails.root.join('../../../crm/spec/factories.rb')
 
 FactoryGirl.define do
 
-  factory :category, :class => Guara::JobsCategory do
-    sequence(:name) { |n|   "#{Faker::Name.name}#{n}" }
+  factory :custom_process, :class => Guara::Jobs::CustomProcess do
+    sequence(:name) { |n| "#{Faker::Name.name}#{n}" }
   end
   
 end
