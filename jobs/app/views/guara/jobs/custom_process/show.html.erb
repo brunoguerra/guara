@@ -222,6 +222,7 @@
 	jQuery('#edit-step').click(function(e){
 		window.step_id = jQuery("#dropdown-menu-step").attr('step_id');
 		$('#dialog_attr_step').modal('show');
+		$('#myTab a[href="#add_field"]').tab('show'); 
 		jQuery('#dialog_attr_step').css('display', 'block', 'important');
 		getElsSaved(step_id);
 	});
@@ -263,15 +264,7 @@
 				  	'custom_process[custom_process_id]': <%= @custom_process.id %>
 				  }
 				}).done(function( d ) {
-					alertDialog('Etapas Salvas!', false);
-					if(!json_elements_saved[d.attrs[0].step_id]){
-						json_elements_saved[d.attrs[0].step_id] = [];
-					}
-
-					for(var i = 0; i < d.attrs; i++){
-						json_elements_saved[d.attrs[i].step_id].push(d.attrs[i]);
-					}
-
+					alert('Etapas Salvas!');
 				}).fail(function(d){
 					
 				});
