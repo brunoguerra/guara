@@ -532,16 +532,17 @@ window.form_builder = {
         var els = me.elements_inserteds;
         var att = me.options_elements_attributes;
         
-        att.current_field_selected = els[els.length - 1];
-        att.setProperties(config.title, 'title');
-        att.setProperties(config.required, 'required');
-
         els[els.length - 1].title = config.title;
         els[els.length - 1].column = config.column;
         els[els.length - 1].resume = config.resume;
         els[els.length - 1].required = config.required;
-        els[els.length - 1].select_type = config.select_type;
+        els[els.length - 1].options = config.options;
         els[els.length - 1].widget = config.widget;
+
+        att.current_field_selected = els[els.length - 1];
+        att.setProperties(config.title, 'title');
+        att.setProperties(config.required, 'required');
+
     },
 
     updatePositions: function(){

@@ -81,12 +81,12 @@ module Guara
         @json = JSON.parse(params[:elements])
         StepAttr.destroy_all(:step_id=> params[:step_id])
         @attrs = []
-
+        @i = -1;
         @json.each do |j|
+          @i += 1
           j['step_id'] = params[:step_id]
-          
           @attr = StepAttr.create(j)
-          j['id'] = @attr.id
+          j['id'] = @i
           @attrs << j
         end
         

@@ -44,7 +44,13 @@ module Guara
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
             elsif rec.type_field == 'section' || rec.type_field == 'widget'
                 if rec.options == 'component'
-                    eval(rec.widget).new
+                    @component = eval(rec.widget).new()
+                    params[:process_instance_id] = params[:id]
+                    @component.request = request
+                    @component.response = response
+                    @component.params = params
+
+                    return @component.index
                 else
                     return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
                 end
