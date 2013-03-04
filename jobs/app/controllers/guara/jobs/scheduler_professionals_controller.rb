@@ -1,10 +1,9 @@
-
 module Guara
   module Jobs
     class SchedulerProfessionalsController < BaseController
       load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy"
       load_and_authorize_resource :schedulers, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
-      include ActiveProcess::ProcessStepComponent
+      include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
       
       def initialize()
         @widget_request = true
