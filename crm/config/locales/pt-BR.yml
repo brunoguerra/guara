@@ -71,6 +71,7 @@ pt-BR:
     cell: "Celular"
     birthday: "Aniversário"
     emails: "E-mails"
+    emails_concat: "E-mails"
     side:
       title: "Contatos"
     edit:

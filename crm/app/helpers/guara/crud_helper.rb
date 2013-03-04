@@ -8,7 +8,7 @@ module Guara
 
   	def index_btn_edit(path, title="")
 
-  		link_to raw('<i  class="icon-envelope"></i>'), path, :class => "btn ", :title => title
+  		link_to raw('<i  class="icon-pencil"></i>'), path, :class => "btn ", :title => title
   		
   	end
 
