@@ -89,6 +89,16 @@ pt-BR:
       good: "Bom"
       great: "Ótimo"
 
+    custom_process: &attr_custom_process
+      title: "Customização do Processo"
+      index: "Customização do Processo"
+      name: "Nome do Processo"
+      id: "Id"
+      new: "Novo Processo"
+      edit: "Editar Processo"
+      save_steps: "Salvar Etapas"
+      steps: "Etapas"
+
     careers: &attrs_career
       role: "Cargo"
 

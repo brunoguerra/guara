@@ -2,7 +2,11 @@
 module Guara
   module Jobs
     class CustomProcessController < Guara::BaseController
+
       skip_authorization_check
+
+      helper CrudHelper
+
       def index
         @custom_process = CustomProcess.all
       end

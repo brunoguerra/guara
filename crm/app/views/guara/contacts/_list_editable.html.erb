@@ -11,7 +11,7 @@
   first = true
 
 	options = local_assigns[:options] || {}
-	options.merge!(:add_class => "btn btn-block btn-primary")
+	options.merge!(:add_class => "btn btn-primary span4 pull-center")
 %>
 
 <%= semantic_form_for @customer, :url => multi_customer_contacts_path(@customer), :method => :post do |f| %>
@@ -25,7 +25,9 @@
 		<% first = @customer.contacts.size==0 %>
 		<%= render 'active_extend/one_to_many_inputs_fields_grid', f: builder, inputs: inputs %>
 	<% end  %>
-	<p>
-		<%= f.actions :label => t("helpers.submit"), :button_html => { :class => "btn btn-block" } %>
-	</p>
+	
+	
+	<%= f.actions :label => t("helpers.submit"), :button_html => { :class => "btn" } %>
+	
+
 <% end %>
