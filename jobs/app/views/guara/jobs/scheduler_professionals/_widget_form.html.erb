@@ -1,18 +1,12 @@
-<section id="vacancy_scheduler_professionals">
-		<div>
-			<ul>
-				<% (@unscheduleds || []).each do |professional|  %>
-				<li><%= link_to "javascript:void();", professional.name, :onClick => "schedule_professional(this, #{professional.id});", :class => "btn" %></li>
-				<% end %>
-			</ul>
-		</div>
-</section>
+<%= semantic_form_for @vacancy_scheduling, 
+:url => vacancy_scheduler_professional_path(@vacancy), 
+:html => {:class => "well"}  do |f| %>
+  <fieldset>
+    <div class="control-group">
+      <%= f.input :date_time, :as => :string, :input_html=> {"data-behaviour" => "datetimepicker"} %>
+      <%= f.input :local %>
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
 
-<script language="javascript">
-
-function schedule_professional(id) {
-	
-}
-
-
-</script>
+  </fieldset>
+<% end %>

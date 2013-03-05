@@ -16,20 +16,14 @@ module Guara
             @process_instance = @search.paginate(page: params[:page], :per_page => 10)
         end
         params[:search] = {} if params[:search].nil?
-        
-        if @process_instance.size == 0
-          @custom_process = CustomProcess.first 
-        else  
-          @custom_process = @process_instance.first
-        end
       end
 
       def new
-        @custom_process = CustomProcess.find(params[:process_id])
+        @custom_process = CustomProcess.first
         @process_instance = ProcessInstance.new 
         
         @process_instance.update_attributes({
-          :process_id=> params[:process_id],
+          :process_id=> @custom_process.id,
           :date_start=> Time.now.to_s(:db),
           :user_using_process=> current_user.id,
           :state=> @custom_process.step_init
