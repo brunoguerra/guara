@@ -7,48 +7,44 @@
   		<li class="span9">
 		    <div class="thumbnail">
 		      <div class="caption">
-				<legend><%= t('custom_process.show.title') %></legend>
-				<div class="row">
-					<div class="span4">
+				<legend><%= @custom_process.name %></legend>
+				<div class="container">
+					
 
-					  <div class="control-group">
-			            <%= t('custom_process.id') %>
-						<%= @custom_process.id %>
-			          </div>
-
-			          <div class="control-group">
+			          <div class="box-gray-data span4">
 			            
 			            <div class="widthAuto" id="process">
-			            	<span style="float:left;">
-			            		<b><%= t('custom_process.name') %>:</b> 
-			            		<%= @custom_process.name %>
-			            	</span>
-			            	<div class="ep"></div>
+			            	
+			            		<b><%= t('jobs.custom_process.name') %></b> 
+			            		<%= @custom_process.name %></br>
+
+			            		<b><%= t('jobs.custom_process.id') %></b>
+								<%= @custom_process.id %>
+			            		
+			            		<div class="ep"></div>
 			            </div>
-			            &nbsp;
 			          </div>
 
-			          <a id="custom_steps" href="javascript:void(0);" class="btn">
-			          	<%= t('custom_process.link.custom_steps') %>
-			          </a>
-
-			          <a id="save_steps" href="javascript:void(0);" class="btn" disabled="disabled">
-			          	<%= t('custom_process.link.save_steps') %>
-			          </a> 
-			        </div>
 
 			        <div id="position_steps_connecteds" class="span4" style="height:300px;padding:10px;">
 			        	
 			        </div>
 
 			    </div>
+			    <a id="custom_steps" href="javascript:void(0);" class="btn">
+		          	<%= t('jobs.custom_process.edit') %>
+		        </a>
+
+		        <a id="save_steps" href="javascript:void(0);" class="btn" disabled="disabled">
+		          	<%= t('jobs.custom_process.save_steps') %>
+		        </a>
 			</div>
 		</li>
 
 		<li class="span3">
 			<div class="thumbnail">
-				<legend><%= t('products.show.steps') %></legend>
-				<a id="add_step" href="javascript:void(0);" class="btn" >add step</a>
+				<legend><%= t('jobs.custom_process.step') %></legend>
+				<a id="add_step" href="javascript:void(0);" class="btn" >Nova Etapa</a>
 				<div class="container_steps">
 					<%  @steps.collect { |f| %>
 						<div class="w step widthAuto step_click" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
@@ -225,6 +221,24 @@
 		jQuery('#dialog_attr_step').css('display', 'block', 'important');
 		getElsSaved(step_id);
 	});
+
+	/*jQuery('.step_widget_auto').click(function(e){
+		var step_id = jQuery("#dropdown-menu-step").attr('step_id');
+		var widget  = jQuery(this).attr('type-widget');
+		jQuery.ajax({
+		  type: "POST",
+		  url: "/custom_process/step_set_widget",
+		  data: { 
+		  	'step[id]': step_id,
+		  	'step[widget]': widget,
+		  	'step[custom_process_id]': <%= @custom_process.id %>
+		  }
+		}).done(function( d ) {
+			alert('Campos Salvos!');
+		}).fail(function(d){
+			alert('Erro ao salvar Campos!');
+		});
+	});*/
 
 
 	jQuery('#delete-step').click(function(e){

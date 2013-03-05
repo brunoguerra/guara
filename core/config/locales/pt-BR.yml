@@ -207,6 +207,7 @@ pt-BR:
     password_confirmation: "Confirmação da Senha"
     title: "Usuários"
     link: "Usuários"
+    all: "Todos os Usuários"
     edit:
       title: "Edição do Usuário"
       link: "Editar"

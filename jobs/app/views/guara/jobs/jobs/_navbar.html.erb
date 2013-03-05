@@ -12,15 +12,15 @@
         <div class="nav-collapse">
           <ul class="nav">
 			      <li <%= 'class=active' if active == :professional %> >
-              <%= link_to t("jobs.index.professional"), professional_index_path %>
+              <%= link_to t("jobs.link"), professional_index_path %>
             </li>
 
             <li <%= 'class=active' if active == :announcement_of_vacancies %> >
-              <%= link_to t("jobs.announcement_of_vacancies.index.link"), process_instance_index_path %>
+              <%= link_to t("jobs.professional.announcement_of_vacancies.title"), process_instance_index_path %>
             </li>
 
             <li <%= 'class=active' if active == :custom_process %> >
-              <%= link_to t("jobs.custom_process.index.link"), custom_process_path %>
+              <%= link_to t("jobs.custom_process.title"), custom_process_path %>
             </li>
           </ul>
           

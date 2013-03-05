@@ -2,17 +2,15 @@
 
 <% provide(:title, 'All users') %>		
 
-<%= render :partial => "navbar", :locals => { :active => :new } %>
-
-
 <table class="table table-bordered table-striped">
 <thead>
   <tr>
   	
     <th><%= t("users.title") %></th>
     <th><%= t("users.email") %></th>
-    <th>Último Acesso</th>
-    <th>Administrador</th>
+    <th class="span2">Último Acesso</th>
+    <th class="span1">Administrador</th>
+    <th class="span1">Ações</th>
   </tr>
 </thead>
 <tbody>
@@ -26,6 +24,7 @@
 	    		<%= c.admin == true ? "Sim" : "Não"%>
 	    	</span>
 	    </td>
+	    <td><%= index_btn_edit edit_user_path(c), "Exibir Usuário" %></td>
 	</tr>  
 	<% end %>
 </table>
