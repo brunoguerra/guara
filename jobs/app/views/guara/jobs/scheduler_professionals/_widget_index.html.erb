@@ -11,12 +11,11 @@
 		<div class="row-fluid">
 	        <ul class="thumbnails">
 
-
 	      	<li class="span3">
 		        <div class="thumbnail">
 		          <div id="candidates_unscheduled" class="caption">
 		            <% (@scheduleds || []).each do |professional|  %>
-					<button type="button" class="btn btn-block" 
+					<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
 					onClick="schedule_professional(<%= professional.id %>); ">
 		            	<i class="icon-user"></i><%= professional.name %>
 		            </button>
@@ -32,7 +31,6 @@
 		          </div>
 		        </div>
 		    </li>
-
 
 	      	<li class="span3">
 		        <div class="thumbnail">
@@ -55,7 +53,15 @@
 
 function schedule_professional(id, edit_path) {
 	form = $('#form_candidate_selected');
-	form.load('<%= new_vacancy_scheduler_professional_path(vacancy)%>?professional_id='+id);
+	if(edit_path){
+		form.load('<%= edit_vacancy_scheduler_professional_path(vacancy)%>?professional_id='+id);	
+	}
+	else{
+		form.load('<%= new_vacancy_scheduler_professional_path(vacancy)%>?professional_id='+id, function(){
+			$('#jobs_vacancy_scheduling_professional_vacancy_id').val(<%= vacancy.id %>);
+			$('#jobs_vacancy_scheduling_professional_professional_id').val(id);
+		});		
+	}
 }
 
 </script>

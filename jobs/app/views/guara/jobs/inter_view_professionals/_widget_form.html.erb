@@ -1,0 +1,43 @@
+<%= semantic_form_for @vacancy_scheduling, 
+:url => vacancy_inter_view_professional_path(@vacancy), 
+:html => {:class => "well", :onsubmit=> "return vacancy_inter_view_professional_submit();"}  do |f| %>
+		<%= f.input :date_time_interviewee, :as=> :string,
+		:input_html=> {
+      		"data-behaviour" => "datetimepicker",
+      		:value=> !@vacancy_scheduling.date_time_interviewee.nil? ? @vacancy_scheduling.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : ""
+      	} %>
+	<%= f.input :avaliate, :as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
+	<%= f.input :description, :as=> :text, :input_html => {:rows => 5, :cols => 20, :maxlength => 255  } %>
+		<%= f.input :vacancy_id, :as=> :hidden %>
+      	<%= f.input :professional_id, :as=> :hidden %>
+	<%= f.submit "Salvar", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+	function vacancy_inter_view_professional_submit(){
+		var data  = {_method: 'put'},
+		form      = '#form_candidate_selected form',
+		inputs    = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
+		select    = $(form + ' select[name*=jobs_vacancy_scheduling_professional]'),
+		text_area = $(form + ' textarea[name*=jobs_vacancy_scheduling_professional]');
+		data[$(select).attr('name')] = $(select).val();
+		data[$(text_area).attr('name')] = $(text_area).val();
+		
+		for(var i=0; i< inputs.length;i++){
+			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
+		}
+
+		$.ajax({
+		  type: "POST",
+		  url: $(form).attr('action'),
+		  data: data,
+		}).done(function( data ) {
+			if(data.success==true){
+				alert('Entrevista Atualizada');
+		  		$('#form_candidate_selected').empty();
+			}			
+		});
+
+		return false;
+	}
+</script>

@@ -1,0 +1,71 @@
+<style type="text/css">
+.control-group .row{
+	margin-left: 0px!important;
+}
+#inter_view_professionals .thumbnail{
+	background: #FFF;
+	margin-top: 10px;
+}
+</style>
+<section id="inter_view_professionals">
+	<div class="row-fluid">
+        <ul class="thumbnails">
+
+        <li class="span8">
+	        <div class="thumbnail">
+	          <div id="candidates_scheduled" class="caption">
+	          	
+	          	<table class="table table-bordered table-striped">
+				    <thead>
+				      <tr>
+				        <th><%= t("inter_view_professionals.id") %></th>
+				        <th><%= t("inter_view_professionals.consultant_id") %></th>
+				        <th><%= t("inter_view_professionals.professional_id") %></th>
+				        <th><%= t("inter_view_professionals.local") %></th>
+				        <th><%= t("inter_view_professionals.date_time") %></th>
+				        <th><%= t("inter_view_professionals.date_time_interviewee") %></th>
+				        <th><%= t("helpers.forms.actions") %></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+					<% @inter_view_professionals.each do |p| %>
+				      <tr>
+				      	 <th><%= p.id %></th>
+				      	 <th><%= p.consultant.name %></th>
+				      	 <th><%= p.professional.person.name %></th>
+				      	 <th><%= p.local %></th>
+				      	 <th><%= p.date_time.strftime("%d/%m/%Y %H:%M:%S") %></th>
+				      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+				      	 <th>
+		        			<%= link_to t("helpers.forms.edit"), 'javascript:void(0);', :class => "btn", :onClick=>"inter_view_professional(#{p.professional_id}); " %>
+				      	 </th>
+				      </tr>
+				    <% end %>
+
+				    </tbody>
+				 </table>
+
+	          	<% (@inter_view_professionals).each do |p|  %>
+				
+				<% end %>
+	          </div>
+	        </div>
+      	</li>
+
+      	<li class="span4">
+	        <div class="thumbnail">
+	          <div id="form_candidate_selected" class="caption">
+	            
+	          </div>
+	        </div>
+	    </li>      
+    </ul>
+  </div>
+</section>
+
+<script type="text/javascript">
+	function inter_view_professional(id) {
+		form = $('#form_candidate_selected');
+		form.load('<%= edit_vacancy_inter_view_professional_path(vacancy)%>?professional_id='+id);
+	}
+</script>

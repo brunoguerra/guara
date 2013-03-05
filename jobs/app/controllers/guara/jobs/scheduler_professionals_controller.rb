@@ -43,15 +43,36 @@ module Guara
       end
       
       def create()
-        
+        @vacancy_scheduling = VacancySchedulingProfessional.new(params[:jobs_vacancy_scheduling_professional])
+
+        if @vacancy_scheduling.save
+          render :json => {:data=> @vacancy_scheduling, :success=> true}
+        else
+          render :json => {:data=> @vacancy_scheduling.errors, :success=> false} 
+        end
       end
       
       def edit()
-        
+        @vacancy_scheduling = VacancySchedulingProfessional.find(:first, :conditions=> ['vacancy_id = ? AND professional_id = ?', params[:vacancy_id], params[:professional_id]])
+        if @widget_request
+          render :partial => "guara/jobs/scheduler_professionals/widget_edit", :locals => { vacancy: @vacancy}
+        else
+          render
+        end
       end
       
       def update()
         
+      end
+
+      def destroy()
+        @a = params[:jobs_vacancy_scheduling_professional]
+        @vacancy_scheduling = VacancySchedulingProfessional.destroy_all(['vacancy_id = ? AND professional_id = ?', @a[:vacancy_id], @a[:professional_id]])
+        if @vacancy_scheduling
+          render :json => {:data=> @a, :success=> true}
+        else
+          render :json => {:data=> @vacancy_scheduling.errors, :success=> false} 
+        end
       end
          
     end
