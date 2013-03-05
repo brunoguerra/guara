@@ -41,6 +41,5 @@ module Guara
   end
 end
 
-require "guara/jobs/process_instance/vacancy_process_hook" 
-puts File.expand_path("../active_process/*.rb", __FILE__)
+Dir[File.expand_path("../process_instance/*.rb", __FILE__)].each {|f| require f; puts f; }
 Dir[File.expand_path("../active_process/*.rb", __FILE__)].each {|f| require f; puts f; }
