@@ -16,8 +16,18 @@
 							<% @current_columns.each do |k, v| 
 								v.each do |c|  %>
 									<div class="control-group">
-										<%= show_span_tag c.title %>
-										<%= show_values_select @vals_edit[c.id] %>
+										<% if c.options == 'component' 
+											@component = eval(c.widget).new()
+						                    params[:process_instance_id] = params[:id]
+						                    @component.request = request
+						                    @component.response = response
+						                    @component.params = params
+
+						                    @component.show
+										else %>	
+											<%= show_span_tag c.title %>
+											<%= show_values_select @vals_edit[c.id] %>
+										<% end %>
 									</div>
 							<%  end 
 							end %>
