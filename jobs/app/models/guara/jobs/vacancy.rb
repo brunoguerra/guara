@@ -12,7 +12,7 @@ module Guara
         @attr_inst = StepInstanceAttr.where(process_instance_id: self.process_instance.id, step_attr_id: @step_attr.id).first
         raise "Unkow attrs with professionals selection" if @attr_inst.nil?
         @attr_inst.values.map { |v| Professional.find v.value }
-
+        
       end
       
       def self.custom_process

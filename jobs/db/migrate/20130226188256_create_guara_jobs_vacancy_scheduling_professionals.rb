@@ -1,4 +1,4 @@
-class CreateGuaraJobsVacancySchedulersProfessionals < ActiveRecord::Migration
+class CreateGuaraJobsVacancySchedulingProfessionals < ActiveRecord::Migration
   def change
     create_table :guara_jobs_vacancy_scheduling_professionals do |t|
       
@@ -11,6 +11,6 @@ class CreateGuaraJobsVacancySchedulersProfessionals < ActiveRecord::Migration
 
       t.timestamps 
     end
-    add_index :guara_jobs_vacancy_scheduleing_professionals, :vancacy_id
+    add_index :guara_jobs_vacancy_scheduling_professionals, :vacancy_id, :name=> "guara_jobs_vacancy_sch_profs"
   end
 end

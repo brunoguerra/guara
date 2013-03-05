@@ -9,13 +9,13 @@ module Guara
       has_many :professionals
      
       def self.unscheduled_professionals(vacancy)
-        vacancy.selection_professionals_selecteds().reject! do |p|
+        return vacancy.selection_professionals_selecteds().reject do |p|
           VacancySchedulingProfessional.where(vacancy_id: vacancy.id, professional_id: p.id).count()==0
         end
       end
       
       def self.scheduled_professionals(vacancy)
-        vacancy.selection_professionals_selecteds().reject! do |p|
+        return vacancy.selection_professionals_selecteds().reject do |p|
           VacancySchedulingProfessional.where(vacancy_id: vacancy.id, professional_id: p.id).count()>0
         end
       end
