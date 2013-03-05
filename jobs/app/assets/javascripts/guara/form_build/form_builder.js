@@ -34,9 +34,9 @@ window.form_builder = {
             default_field: {
                 title: "Caixa de Seleção",
                 type_field: "select",
-                options: "cargo"
+                options: ""
             },
-            attrs_field: [{type_field: "select_type", label: "Tipo"}]
+            attrs_field: [{type_field: "select_type", label: "Valores"}]
         },
         date: {
             default_field: {
@@ -396,6 +396,15 @@ window.form_builder = {
 
             select_type: function(){
                 var me = form_builder;
+                return $('<input />')
+                    .attr('type', 'text')
+                    .attr('id', 'prop_select_type')
+                    .addClass('text_field')
+                    .keyup(function(){
+                        me.options_elements_attributes.
+                        setProperties($(this).val(), 'select_type');
+                    });
+                /*
                 return $('<select></select>')
                     .attr('id', 'prop_select_type')
                     .addClass('select')
@@ -418,7 +427,7 @@ window.form_builder = {
                         $("<option></option>")
                             .attr("value", 'person_pj')
                             .text("Empresas")
-                    ); 
+                    ); */
             },
 
             text_field_widget: function(){

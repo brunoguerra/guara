@@ -1,0 +1,113 @@
+<style type="text/css">
+.control-group .row{
+	margin-left: 0px!important;
+}
+#vacancy_sended_professionals .thumbnail{
+	background: #FFF;
+	margin-top: 10px;
+}
+</style>
+<section id="vacancy_sended_professionals">
+	<div class="row-fluid">
+        <ul class="thumbnails">
+
+        <li class="span9">
+	        <div class="thumbnail">
+	          <div id="candidates_scheduled" class="caption">
+	          	Selecionar para Enviar
+	          	<table id="table-scheduleds" class="table table-bordered table-striped">
+				    <thead>
+				      <tr>
+				        <th><%= t("inter_view_professionals.id") %></th>
+				        <th><%= t("inter_view_professionals.consultant_id") %></th>
+				        <th><%= t("inter_view_professionals.professional_id") %></th>
+				        <th><%= t("inter_view_professionals.description") %></th>
+				        <th><%= t("inter_view_professionals.avaliate") %></th>
+				        <th><%= t("helpers.forms.actions") %></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+					<% @scheduleds.each do |p| %>
+				      <tr id="tr_<%= p.id %>" name-professional="<%= p.professional.person.name %>">
+				      	 <th><%= p.id %></th>
+				      	 <th><%= p.consultant.name %></th>
+				      	 <th><%= p.professional.person.name %></th>
+				      	 <th><%= p.description %></th>
+				      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
+				      	 <th>
+		        			<%= link_to t("vacancy_sended_professionals.send"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_sended_professional(#{p.id}); " %>
+				      	 </th>
+				      </tr>
+				    <% end %>
+
+				    </tbody>
+				 </table>
+	          </div>
+	        </div>
+      	</li>
+
+      	<li class="span3">
+	        <div class="thumbnail">
+	          <div id="form_candidate_selected" class="caption">
+	          	Enviar ao Cliente
+	            <% @unscheduleds.each do |p| %>
+		            <button  id="button_<%= p.id %>" type="button" class="btn btn-block" onClick="remove_vacancy_sended_professional(<%=p.id%>);">
+		            	<i class="icon-trash"></i><%= p.professional.person.name %>
+		            </button>
+	            <% end %>
+	          </div>
+	        </div>
+	    </li>      
+    </ul>
+  </div>
+</section>
+
+<script type="text/javascript">
+	function vacancy_sended_professional(id) {
+		$.ajax({
+		  type: "POST",
+		  url: "<%=vacancy_vacancy_sended_professional_path(vacancy)%>?vacancy_scheduling_professionals_id="+id,
+		}).done(function( data ) {
+			if(data.success == true){
+				console.info($('#tr_'+id));
+				var name = $('#tr_'+id).attr('name-professional');
+				$('#tr_'+id).remove();
+				$('#form_candidate_selected').append('<button name-professional="'+name+'" id="button_'+id+'" type="button" class="btn btn-block" onClick="remove_vacancy_sended_professional('+id+');"> <i class="icon-trash"></i>'+name+'</button>');
+			}	
+		});
+	}
+
+	function remove_vacancy_sended_professional(id){
+		if(confirm("Deseja remover o profissional da seleção?")){
+			$.ajax({
+			  type: "POST",
+			  url: "<%=vacancy_vacancy_sended_professional_path(vacancy)%>?vacancy_scheduling_professionals_id="+id,
+			  data: {
+			  	_method: 'delete'
+			  },
+			}).done(function( data ) {
+				if(data.success == true){
+					var d = data.data;
+					$('#button_'+id).remove();
+					$('#table-scheduleds tbody').append(
+						$('<tr></tr>')
+							.attr('id', 'tr_'+id)
+							.attr('name-professional', d.professional.name)
+							.append($('<th></th>').html(id))
+							.append($('<th></th>').html(d.consultant.name))
+							.append($('<th></th>').html(d.professional.name))
+							.append($('<th></th>').html(d.description))
+							.append($('<th></th>').html(d.avaliate))
+							.append($('<th></th>').append(
+								$('<a></a>')
+									.attr('href', 'javascript:void(0);')
+									.addClass('btn')
+									.attr('onClick', 'vacancy_sended_professional('+id+')')
+									.html('<%=t("vacancy_sended_professionals.send")%>')
+							))
+					);
+				}			
+			});
+		}
+	}
+</script>

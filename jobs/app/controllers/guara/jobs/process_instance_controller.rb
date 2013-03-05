@@ -19,7 +19,7 @@ module Guara
       end
 
       def new
-        @custom_process = CustomProcess.first
+        @custom_process = Vacancy.custom_process
         @process_instance = ProcessInstance.new 
         
         @process_instance.update_attributes({

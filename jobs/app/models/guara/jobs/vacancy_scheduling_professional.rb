@@ -20,10 +20,6 @@ module Guara
           VacancySchedulingProfessional.where(vacancy_id: vacancy.id, professional_id: p.id).count()>0
         end
       end
-
-      def selection_professionals_selecteds(vacancy_id)
-        self.where(:vacancy_id=> vacancy_id).order('avaliate DESC')
-      end
      
     end
   end
