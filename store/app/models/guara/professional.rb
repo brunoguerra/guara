@@ -7,6 +7,8 @@ module Guara
 
     has_many :formations
     has_many :formations, through: :professional_formations
+
+    delegate :name, to: :person
     
   end
 end

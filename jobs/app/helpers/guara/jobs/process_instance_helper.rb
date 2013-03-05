@@ -2,28 +2,42 @@ module Guara
     module Jobs
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
-      	def get_collection(alias_model, vals)
-            vals = [] if vals.class == String
-   		    if alias_model == 'role'
-                options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
-            elsif alias_model == 'consultant'
-                options_for_select(Guara::Jobs::Consultant.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
+      	def get_collection(vals, sels)
+            sels = [] if vals.class == String
+            vals.strip!
+            if !(vals.nil? && vals.empty?) && vals[0]=='$'
+                model = vals[1..1000]
+                model = eval model
+                if (model.respond_to?(:select_options))
+                    options = model.select_options
+                else
+                    options = model.all
+                end
+       		    
+                options_for_select(options.map { |ff| [ff.name, ff.id] }, sels.collect { |fs| fs[:value] })
             else
-                options_for_select(Guara::Jobs::Professional.all.collect { |ff| [ff.person.name, ff.id] }, vals.collect { |fs| fs[:value] })
-    		end
+                index = -1
+                options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
+            end
     	end
 
-        def get_value_model(alias_model, id)
-           if alias_model == 'role'
-                @model = Guara::Jobs::Role.find id
-                return @model.name
-            elsif alias_model == 'consultant'
-                @model = Guara::Jobs::Consultant.find id
-                return @model.name
+        def get_value_model(vals, id)
+            vals = [] if vals.class == String
+            vals.strip!
+
+            if !(vals.nil? && vals.empty?) && vals[0]=='$'
+                model = vals[1..1000]
+                model = eval model
+              
+                record = model.find id
+                
+                
+                return name_or_nothing record.name
             else
-                @model = Guara::Jobs::Professional.find id
-                return @model.person.name
-            end 
+                vals.split(',')[id]
+            end
+
+           
         end
 
     	def show_label_tag(label)
