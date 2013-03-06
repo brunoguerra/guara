@@ -3,7 +3,7 @@ module Guara
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(vals, sels)
-            sels = [] if vals.class == String
+            sels = [] if sels.class == String
             vals.strip!
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
@@ -22,22 +22,18 @@ module Guara
     	end
 
         def get_value_model(vals, id)
-            vals = [] if vals.class == String
             vals.strip!
 
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
                 model = eval model
               
-                record = model.find id
+                record = model.find id               
                 
-                
-                return name_or_nothing record.name
+                return record.name
             else
                 vals.split(',')[id]
             end
-
-           
         end
 
     	def show_label_tag(label)
@@ -56,7 +52,7 @@ module Guara
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val[rec.id]
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
-            elsif rec.type_field == 'section' || rec.type_field == 'widget'
+            elsif rec.type_field == 'widget'
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
                     params[:process_instance_id] = params[:id]
@@ -69,7 +65,7 @@ module Guara
                     return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
                 end
             else
-                @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level"
+                @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level #{rec.type_field}"
         	end
 
         	return "<div class=\"control-group\">

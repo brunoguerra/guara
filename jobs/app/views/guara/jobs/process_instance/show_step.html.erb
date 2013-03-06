@@ -1,4 +1,8 @@
-
+<navbar>
+			<%= render :partial => "guara/jobs/jobs/navbar", 
+      :locals => { active: :announcement_of_vacancies } %>
+		</navbar>
+		
 <section class="show">
 	<div class="">
 		<ul class="thumbnails">
@@ -22,8 +26,9 @@
 						                    @component.request = request
 						                    @component.response = response
 						                    @component.params = params
-
-						                    @component.show
+						                    %>
+						                    <%= @component.show.join("").html_safe %>
+						                    <%
 										else %>	
 											<%= show_span_tag c.title %>
 											<%= show_values_select @vals_edit[c.id] %>
@@ -36,6 +41,7 @@
 
 					<%= link_to 'Voltar', process_instance_path(@process_instance), :class=> "btn" %> 
 					<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> @current_step.id), :class=> "btn" %> 
+					<%= link_to 'Próxima Etapa', edit_process_instance_path(@process_instance.id), :class=> "btn" %> 
 				</div>
 			</li>
 		</ul>
