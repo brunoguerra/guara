@@ -23,7 +23,9 @@ module Guara
 
         def get_value_model(vals, id)
             vals.strip!
-
+            puts '------------'
+            puts vals.to_yaml
+            puts id
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
                 model = eval model
@@ -32,7 +34,8 @@ module Guara
                 
                 return record.name
             else
-                vals.split(',')[id]
+                #vals.split(',')[id]
+                id
             end
         end
 
