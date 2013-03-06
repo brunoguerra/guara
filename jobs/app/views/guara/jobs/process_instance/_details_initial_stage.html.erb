@@ -2,7 +2,7 @@
 	<% cols.each do |c| %>
 	<div class="control-group">
         <%= show_span_tag c.title %>
-		<%= vals[c.id] %>
+		<%= show_values_select vals[c.id] %>
     </div>
 	<% end %>
 <% end %>	

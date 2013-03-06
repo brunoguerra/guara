@@ -30,7 +30,8 @@ module Guara
       end
       
       def show()
-        
+        load_selecteds_professionals
+        render :partial => "guara/jobs/scheduler_professionals/widget_show"
       end
       
       def new()

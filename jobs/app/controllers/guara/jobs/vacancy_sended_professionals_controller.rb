@@ -41,7 +41,8 @@ module Guara
       end
 
       def show
-        
+        load_selecteds_professionals
+        render :partial => "guara/jobs/vacancy_sended_professionals/widget_show"
       end
 
       def destroy
