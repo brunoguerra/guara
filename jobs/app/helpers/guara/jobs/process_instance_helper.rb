@@ -23,7 +23,6 @@ module Guara
 
         def get_value_model(vals, id)
             vals.strip!
-
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
                 model = eval model
@@ -32,7 +31,7 @@ module Guara
                 
                 return record.name
             else
-                vals.split(',')[id]
+                id
             end
         end
 
