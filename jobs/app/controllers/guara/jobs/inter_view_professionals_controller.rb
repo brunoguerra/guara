@@ -17,7 +17,8 @@ module Guara
 	    end
 
       def show
-        
+        load_selecteds_professionals
+        render :partial => "guara/jobs/inter_view_professionals/widget_show"
       end
 
     	def index

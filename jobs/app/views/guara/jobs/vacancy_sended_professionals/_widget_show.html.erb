@@ -1,0 +1,32 @@
+<style type="text/css">
+	table thead tr th{
+		text-align: left !important;
+	}
+	table tbody tr th{
+		font-weight: normal !important;
+	}
+</style>
+
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th class="text-left"><%= t("inter_view_professionals.id") %></th>
+        <th><%= t("inter_view_professionals.consultant_id") %></th>
+        <th><%= t("inter_view_professionals.professional_id") %></th>
+        <th><%= t("inter_view_professionals.description") %></th>
+        <th><%= t("inter_view_professionals.avaliate") %></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @unscheduleds.each do |p| %>
+      <tr>
+      	 <th><%= p.id %></th>
+      	 <th><%= p.consultant.name %></th>
+      	 <th><%= p.professional.person.name %></th>
+      	 <th><%= p.description %></th>
+      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
+      </tr>
+    <% end %>
+
+    </tbody>
+ </table>

@@ -24,14 +24,15 @@ module Guara
 
       def create
         @custom_process = CustomProcess.new
-          @custom_process.attributes = params[:jobs_custom_process]
+        params[:jobs_custom_process][:hook_instanciate] = 'Guara::Jobs::VacancyProcessHook'
+        @custom_process.attributes = params[:jobs_custom_process]
 
-          if @custom_process.save
-            flash[:success] = t("helpers.forms.new_sucess")
-            redirect_to custom_proces_path(@custom_process)
-          else
-            render :new
-          end
+        if @custom_process.save
+          flash[:success] = t("helpers.forms.new_sucess")
+          redirect_to custom_proces_path(@custom_process)
+        else
+          render :new
+        end
       end
 
       def custom_process_steps

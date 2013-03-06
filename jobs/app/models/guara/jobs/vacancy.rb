@@ -1,7 +1,7 @@
 module Guara
   module Jobs
     class Vacancy < ActiveRecord::Base
-      attr_accessible :process_instance
+      attr_accessible :process_instance, :process_instance_id
       belongs_to :process_instance
       
       def selection_professionals_selecteds()

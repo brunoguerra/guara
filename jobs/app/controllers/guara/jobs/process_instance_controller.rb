@@ -55,9 +55,9 @@ module Guara
         
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
         @columns = set_columns(@step_attrs)
-        @vals      = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
+        @vals      = attr_values(@step_attrs, @step_init.step_attrs_vals(params[:id]))
         @current_step_attrs = @current_step.step_attrs
-        @vals_edit = attrValues(@current_step_attrs, @current_step.step_attrs_vals(params[:id]))
+        @vals_edit = attr_values(@current_step_attrs, @current_step.step_attrs_vals(params[:id]))
         @current_columns = set_columns(@current_step_attrs)        
       end
 
@@ -67,7 +67,7 @@ module Guara
         end
       end
 
-      def attrValues(step_attrs, step_instance_attrs)
+      def attr_values(step_attrs, step_instance_attrs)
         @attr_vals = {}
         step_attrs.each do |s|
           @attr_vals[s.id] = ""
@@ -109,15 +109,15 @@ module Guara
 
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
-        if @next_step.nil?
+        @next_step_valid = StepAttr.where(:step_id=> @next_step).count()
+        if @next_step.nil? or @next_step_valid == 0
           @process_instance.update_attributes :date_finish=> Time.now.to_s(:db)
           @process_instance.save
-          redirect_to process_instance_index_path
         else
           @process_instance.update_attributes :state=> @next_step
           @process_instance.save
-          redirect_to edit_process_instance_path(params[:id])
         end    
+          redirect_to process_instance_show_step_path(:id=> params[:id], :edit_step=> @step_id)
       end
 
       def show_step
@@ -128,7 +128,7 @@ module Guara
         @process_instance = ProcessInstance.find params[:id]
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, true, true)
         @columns = set_columns(@step_attrs)
-        @vals = attrValues(@step_attrs, @step_init.step_attrs_vals(params[:id]))
+        @vals = attr_values(@step_attrs, @step_init.step_attrs_vals(params[:id]))
         
       end
 

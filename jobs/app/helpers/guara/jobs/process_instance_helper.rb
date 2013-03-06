@@ -3,7 +3,7 @@ module Guara
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(vals, sels)
-            sels = [] if vals.class == String
+            sels = [] if sels.class == String
             vals.strip!
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
@@ -28,8 +28,7 @@ module Guara
                 model = vals[1..1000]
                 model = eval model
               
-                record = model.find id
-                
+                record = model.find id               
                 
                 return record.name
             else
