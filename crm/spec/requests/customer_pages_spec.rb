@@ -17,8 +17,8 @@ module Guara
   
     describe "customer pj" do
     
-      let(:customer) { Factory(:customer_pj).person }  
-      let(:customers) { Array.new(5) { Factory(:customer_pj).customer } }
+      let(:customer) { Factory(:customer_pj).customer }  
+      let(:customers) { Array.new(5) { Factory(:customer_pj).person } }
       let(:state) { Factory(:state) }
       let(:city) { Factory(:city, state: state) }
       let(:district) { Factory(:district, city: city) }

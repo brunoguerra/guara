@@ -7,10 +7,10 @@ class CreateGuaraJobsVacancySchedulersProfessionals < ActiveRecord::Migration
       t.string :description
       t.references :consultant
       t.references :professional
-      t.references :vancacy      
+      t.references :vacancy
 
       t.timestamps 
     end
-    add_index :guara_jobs_vacancy_scheduleing_professionals, :vancacy_id
+    add_index :guara_jobs_vacancy_sch_profs, :vancacy_id
   end
 end
