@@ -1,4 +1,8 @@
-
+<style type="text/css">
+input, textarea, select {
+	text-transform: none!important;
+}
+</style>
 <%= render :partial => "guara/jobs/jobs/navbar", 
       :locals => { active: :custom_process } %>
 
@@ -47,7 +51,7 @@
 				<a id="add_step" href="javascript:void(0);" class="btn" >Nova Etapa</a>
 				<div class="container_steps">
 					<%  @steps.collect { |f| %>
-						<div class="w step widthAuto step_click" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
+						<div class="w step widthAuto step_click" is-db="1" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
 							<span class="step_click" step_id="<%=f.send(:id)%>"><%=f.send(:name)%></span>
 							<div class="ep"></div>
 						</div>
@@ -289,6 +293,7 @@
 				}).done(function( d ) {
 					jQuery('<div></div>')
 						.attr('id', d.id)
+						.attr('is-db', 0)
 						.addClass('w step widthAuto')
 						.append(jQuery('<span></span>').html(d.name))
 						.append(jQuery('<div></div>').addClass('ep'))
