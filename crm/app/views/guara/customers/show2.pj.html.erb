@@ -63,13 +63,14 @@
 							<br><%= nbsp @customer.phone %>
 						</p>
 					</div>
-
-					<div class="box-gray-data">					
-						<p>
-							<b><%=  t("customers.emails") %></b>
-							<br><%= nbsp inline_list @customer.emails, :email %>
-						</p>
-					</div>
+					
+				<div class="span4 box-gray-data">					
+					<p>
+						<b><%=  t("customer_pjs.segments") %></b>
+						
+					 <%= nbsp inline_list @customer.customer.activities, :name %>
+					</p>
+				</div>
 
 					<div class="box-gray-data">					
 						<p>

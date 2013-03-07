@@ -1,14 +1,15 @@
 # encoding: UTF-8
 
 pt-BR:
-  customers:
-    professional:    
-      search:
-        link: "Pesquisar por Professional"
-  
+
   jobs:
     title: "Recrutamento e Seleção"
     link: "Recrutamento e Seleção"
+
+    professional:    
+      search:
+        link: "Pesquisar por Professional"
+
 
     announcement_of_vacancies:
       index:

@@ -15,7 +15,7 @@
 		  float: left;
 		  margin: -5px 0px;
 		}
-			#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px;}
+			#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px; height: 15px;}
 
 		label[for=jobs_professional_have_job_false]{
 		  float: left;
@@ -62,19 +62,19 @@
 
 
 	.formation .remove_fields {
-		position: relative;
-		left: 682px;
-		top: -40px;
-		padding: 3px 6px;
-		line-height: 17px;
+ 		left: 628px;
+	    line-height: 17px;
+	    padding: 3px 6px;
+	    position: relative;
+	    top: -213px;
 	} 
 
 	.professional_experiences #guara_jobs_professional_experience_remove {
-	position: absolute;
-	right: -19px;
-	top: 6px;
-	padding: 3px 6px;
-	line-height: 17px;
+		left: 693px;
+	    line-height: 17px;
+	    padding: 5px 8px;
+	    position: absolute;
+	    top: 10px;
 	} 
 
   .remove_fields {
@@ -113,6 +113,8 @@
 	line-height: 17px;
 	background: none;
 	float: right;
+	left: 0;
+	top: 0;
 	}
 
 	.add_fields {

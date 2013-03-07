@@ -26,10 +26,10 @@ module Guara
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
                 model = eval model
-              
-                record = model.find id               
                 
-                return record.name
+                record = model.find i                                
+                return name_or_nothing record.name
+                
             else
                 id
             end

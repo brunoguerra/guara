@@ -16,7 +16,7 @@
 
 
 			    <% if (params[:mode]=="advanced") then %>
-						  <%= hidden_field_tag :search_mode_advanced, "true" %>
+						  <%= hidden_field_tag :mode, params[:mode] %>
 
 						   <div class="control-group">
 		            <%= label_tag :salary_requirements, t("helpers.label.professional.search.salary_requirements.title"), :class => "control-label" %>
@@ -63,9 +63,9 @@
 
 		          <div class="form-actions span3">
 					<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
-					<% if (mode != :advanced) then %>
+					<% if (mode != :advanced) && (params[:mode] != "advanced") %>
 					<!--  -->
-						<%= link_to t("searches.advanced"),  professionals_search_path(:search_mode_advanced => true), :class => "btn" %>
+						<%= link_to t("searches.advanced"),  professionals_search_path(:mode => "advanced"), :class => "btn" %>
 					<% end  %>
 				</div><!-- BUTTON SEARCH SIMPLE OR ADVANCE -->
 

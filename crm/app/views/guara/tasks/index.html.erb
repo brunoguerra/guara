@@ -5,25 +5,21 @@
 
 <div class="row">
 	<div class="span12">
-	  <%= form_tag customer_tasks_path, :class => "well form-search", :method => :get, :name => :search do  %>
+
+	 <%= form_for @search,:url => customer_tasks_path, :html => { :class => "well form-search", :method => :get } do |f|  %>
+
 		<fieldset>
-		  <legend><%= t("tasks.search.title") %></legend>
-		  
-		  <div class="container">
-			
-			
-			  <div class="form-inline">
-			  	
-	              <%= text_field_tag :name, params[:name], :class => "input-large" %>
-		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
-	            
-	          </div>
-				
-			
-				
-		  </div>
-		</fieldset>
-	  <% end %>
+			<legend><%= t("tasks.search.title") %></legend>
+		 	<div class="container">
+			 	<div class="form-inline">
+	        		<%= f.text_field :name_contains, :class => "input-large" %>
+	        		<%= submit_tag t("helpers.forms.search"), :class => "btn" %>
+	      		</div>
+	      	</div>
+	 	</fieldset>
+
+	<% end %>
+
 	</div>
 </div>
 
