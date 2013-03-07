@@ -89,7 +89,7 @@ window.form_builder = {
 
         delete_element: function(i){
             var element = form_builder.getEl(i);
-            $('#li_'+i).remove();
+            $('#'+i).remove();
             form_builder.elements_inserteds.splice(element, 1);
             form_builder.updatePositions();
         },
@@ -97,7 +97,7 @@ window.form_builder = {
         container_field: function(id_el, field, label){
             var me = this;
             $('<li></li>')
-                .attr('id', 'li_'+id_el)
+                .attr('id', id_el)
                 .addClass('drag')
                 .click(function(e){
                     form_builder.select_element(this);
@@ -533,7 +533,7 @@ window.form_builder = {
         var position = me.elements_inserteds.length;
         var config  = me.getFieldConfig(type, position);
         var field    = me.templates_fields[type](config);
-        me.templates_fields.container_field(position, field, config.title);
+        me.templates_fields.container_field(config.id, field, config.title);
     },
 
     update_el: function(config){

@@ -222,24 +222,6 @@
 		getElsSaved(step_id);
 	});
 
-	/*jQuery('.step_widget_auto').click(function(e){
-		var step_id = jQuery("#dropdown-menu-step").attr('step_id');
-		var widget  = jQuery(this).attr('type-widget');
-		jQuery.ajax({
-		  type: "POST",
-		  url: "/custom_process/step_set_widget",
-		  data: { 
-		  	'step[id]': step_id,
-		  	'step[widget]': widget,
-		  	'step[custom_process_id]': <%= @custom_process.id %>
-		  }
-		}).done(function( d ) {
-			alert('Campos Salvos!');
-		}).fail(function(d){
-			alert('Erro ao salvar Campos!');
-		});
-	});*/
-
 
 	jQuery('#delete-step').click(function(e){
 		window.step_id = jQuery(jQuery(this).closest("ul")[0]).attr('step_id');
@@ -278,6 +260,8 @@
 				  }
 				}).done(function( d ) {
 					alert('Etapas Salvas!');
+					document.location.reload(true);
+
 				}).fail(function(d){
 					
 				});
