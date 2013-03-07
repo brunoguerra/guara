@@ -110,11 +110,11 @@
 						</br>
 						<ul class="span3">
 							<% @customer.person.associateds.each do |pj_assoc| %>
-							<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+							<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 							<% end %>
 
 							<% @customer.person.associates.each do |pj_assoc| %>
-							<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+							<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 							<% end %>
 						</ul>
 					</p>

@@ -15,6 +15,8 @@ Guara::Core::Engine.routes.prepend do
     resources :contacts do
       post :multi, :on => :collection
     end
+
+    get :customer_association, :on => :member
     
     resources :tasks do
       resources :feedbacks

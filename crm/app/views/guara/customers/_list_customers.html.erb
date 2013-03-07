@@ -1,0 +1,43 @@
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="span1"><%= t("customers.code") %></th>
+        <th><%= t("helpers.label.customers.search.names") %></th>
+        <th class="span1"><%= t("customers.a_customer") %></th>
+        <th class="span1"><%= t("customers.enabled") %></th>
+        <th class="span1"><%= t("customers.complete") %></th>
+        <th class="span1"><%= t("helpers.forms.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @customer.person.associates.each do |c| 
+		c = c.person
+		%>
+      <tr>
+        <td><%= check_box_tag 'sels[]', c.id, @sels[c.id] %></td>
+        <td><%= c.id %></td>
+        <td><%= link_to c.name, customer_path(c)  %></td>
+        <td><span class="badge <%= c.a_customer? ? "badge-success" : "badge-important" %>"><%= format_boolean c.a_customer? %></td>
+        <td><span class="badge <%= c.enabled ? "badge-success" : "badge-important" %>"><%= format_boolean c.enabled %></span></td>
+        <td><span class="badge <%= c.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean c.complete %></span></td>
+        <td><%= index_btn_view customer_path(c), "Exibir Contato" %></td>
+      </tr>
+    <% end %>
+
+    <% @customer.person.associateds.each do |c| 
+		c = c.person
+		%>
+      <tr>
+        <td><%= check_box_tag 'sels[]', c.id, @sels[c.id] %></td>
+        <td><%= c.id %></td>
+        <td><%= link_to c.name, customer_path(c)  %></td>
+        <td><span class="badge <%= c.a_customer? ? "badge-success" : "badge-important" %>"><%= format_boolean c.a_customer? %></td>
+        <td><span class="badge <%= c.enabled ? "badge-success" : "badge-important" %>"><%= format_boolean c.enabled %></span></td>
+        <td><span class="badge <%= c.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean c.complete %></span></td>
+        <td><%= index_btn_view customer_path(c), "Exibir Contato" %></td>
+      </tr>
+    <% end %>
+
+    </tbody>
+</table>
