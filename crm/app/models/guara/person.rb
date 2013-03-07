@@ -32,6 +32,9 @@ module Guara
     belongs_to :state
     belongs_to :city
     belongs_to :district
+
+    scope :pair_or_odd_id, lambda {|id| where("id::char ILIKE '%#{id.to_s}'")}
+    search_methods :pair_or_odd_id
     
   
     #============================ 

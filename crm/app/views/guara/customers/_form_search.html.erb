@@ -67,7 +67,18 @@
 							</div>
 						</div>
 					
-
+						<div class="control-group">
+							<%= label_tag :id, t("helpers.label.customers.search.code"), :class => "control-label" %>
+							<div class="controls">
+								<%= radio_button_tag(:view, "pair", true) %>
+								<%= label_tag(:view_pair, "Pares") %>
+								<%= radio_button_tag(:view, "odd") %>
+								<%= label_tag(:view_odd, "Impares") %>
+								<%= f.select(:pair_or_odd_id,
+							options_for_select([nil, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+							{}, {:class => 'span1'}) %>
+							</div>
+						</div>
 
 						<div class="control-group">
 							<%= label_tag :is_customer, t("helpers.label.customers.search.is_customer"), :class => "control-label" %>
@@ -128,4 +139,34 @@
 		$(".multiselect").select2({
 			maximumInputLength: 10
 		});
+
+		function setOptions(i){
+			$('#search_pair_or_odd_id option').each(function(k, v){
+				if($(v).val()!=""){
+					if(i==false){
+						$(v).css('display', 'block');
+						i = true;
+					}
+					else{
+						$(v).css('display', 'none');
+						i = false;
+					}
+				}	
+			});
+		}
+
+		var radio = $('#view_pair');
+		radio.change(function(){
+			if(radio.prop('checked')){
+				setOptions(false);
+			}
+		});
+
+		var radio2 = $('#view_odd');
+		radio2.change(function(){
+			if(radio2.prop('checked')){
+				setOptions(true);
+			}
+		});
+		setOptions(false);
 		</script>
