@@ -13,6 +13,7 @@ module Guara
     include Select2Helper
 
     helper CrudHelper
+    helper CustomersHelper
   
     def index
       @sels = params["sels"] || []
@@ -28,12 +29,13 @@ module Guara
       end
       
       @search = Customer.search(param_search)
+      #@search = Customer.search(param_search)
       
       #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
       if class_exists?("Ransack")
         @customers = @search.result().paginate(page: params[:page], :per_page => 10)
       else
-        @customers = @search.paginate(page: params[:page], :per_page => 10)
+        @customers = @search.paginate(page: params[:page], :per_page => 50)
       end
       params[:search] = {} if params[:search].nil?
     end

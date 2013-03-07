@@ -4,11 +4,14 @@
 
 
 <div class="row">
+
+	
 	<div class="span9 search_fast9">
 		<section id="index">
 		  <div class="page-header">
 			<%= t("search.results")%>
 		  </div>
+		  
 
 		  <table class="table table-bordered table-striped">
 		    <thead>
@@ -44,5 +47,9 @@
 		
 		<%= render :partial => "form_search", :locals => { :mode => (params[:search_mode_advanced] ? :advanced : :simple)  } %>
 	</div>
-	<%= will_paginate %>
+	<div class="span12">
+		<div class="text-center">
+			<%= will_paginate %>
+		</div>
+	</div>
 </div>
