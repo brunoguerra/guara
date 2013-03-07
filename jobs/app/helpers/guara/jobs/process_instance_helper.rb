@@ -1,29 +1,39 @@
 module Guara
     module Jobs
       module ProcessInstanceHelper
-
-      	def get_collection(alias_model, vals)
-            vals = [] if vals.class == String
-   		    if alias_model == 'role'
-                options_for_select(Guara::Jobs::Role.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
-            elsif alias_model == 'consultant'
-                options_for_select(Guara::Jobs::Consultant.all.collect { |ff| [ff.name, ff.id] }, vals.collect { |fs| fs[:value] })
+        #include Guara::Jobs::ActiveProcess::ProcessStepComponent
+      	def get_collection(vals, sels)
+            sels = [] if sels.class == String
+            vals.strip!
+            if !(vals.nil? && vals.empty?) && vals[0]=='$'
+                model = vals[1..1000]
+                model = eval model
+                if (model.respond_to?(:select_options))
+                    options = model.select_options
+                else
+                    options = model.all
+                end
+       		    
+                options_for_select(options.map { |ff| [ff.name, ff.id] }, sels.collect { |fs| fs[:value] })
             else
-                options_for_select(Guara::Jobs::Professional.all.collect { |ff| [ff.person.name, ff.id] }, vals.collect { |fs| fs[:value] })
-    		end
+                index = -1
+                options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
+            end
     	end
 
-        def get_value_model(alias_model, id)
-           if alias_model == 'role'
-                @model = Guara::Jobs::Role.find id
-                return @model.name
-            elsif alias_model == 'consultant'
-                @model = Guara::Jobs::Consultant.find id
-                return @model.name
+        def get_value_model(vals, id)
+            vals.strip!
+
+            if !(vals.nil? && vals.empty?) && vals[0]=='$'
+                model = vals[1..1000]
+                model = eval model
+              
+                record = model.find id               
+                
+                return record.name
             else
-                @model = Guara::Jobs::Professional.find id
-                return @model.person.name
-            end 
+                vals.split(',')[id]
+            end
         end
 
     	def show_label_tag(label)
@@ -42,10 +52,20 @@ module Guara
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val[rec.id]
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
-            elsif rec.type_field == 'section' || rec.type_field == 'widget'
-                return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
+            elsif rec.type_field == 'widget'
+                if rec.options == 'component'
+                    @component = eval(rec.widget).new()
+                    params[:process_instance_id] = params[:id]
+                    @component.request = request
+                    @component.response = response
+                    @component.params = params
+
+                    return @component.index
+                else
+                    return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
+                end
             else
-                @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level"
+                @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level #{rec.type_field}"
         	end
 
         	return "<div class=\"control-group\">

@@ -1,18 +1,79 @@
-<section id="vacancy_scheduler_professionals">
-		<div>
-			<ul>
-				<% (@unscheduleds || []).each do |professional|  %>
-				<li><%= link_to "javascript:void();", professional.name, :onClick => "schedule_professional(this, #{professional.id});", :class => "btn" %></li>
-				<% end %>
-			</ul>
-		</div>
-</section>
+<%= semantic_form_for @vacancy_scheduling, 
+:url => vacancy_scheduler_professional_path(@vacancy), 
+:html => {:class => "well", :onsubmit=> "return vacancy_scheduler_professional_submit();"}  do |f| %>
+  <fieldset>
+    <div class="control-group">
+      <%= f.input :date_time, :as => :string, 
+      	:input_html=> {
+      		"data-behaviour" => "datetimepicker",
+      		:value=> !@vacancy_scheduling.new_record? ? @vacancy_scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") : ""
+      	} %>
+      <%= f.input :local %>
+      <%= f.input :consultant_id, :as => :select, :collection => Guara::Jobs::Consultant.all %>
+      <%= f.input :vacancy_id, :as=> :hidden %>
+      <%= f.input :professional_id, :as=> :hidden %>
+      <%= link_to 'delete', 'javascript:void(0);', :onClick=>"vacancy_scheduler_professional_remove();", :class=>"btn" if !@vacancy_scheduling.new_record? %>
+      <%= f.submit "Salvar", class: "btn btn-primary" %>
+    </div>
 
-<script language="javascript">
+  </fieldset>
+<% end %>
 
-function schedule_professional(id) {
-	
-}
+<script type="text/javascript">
+	function vacancy_scheduler_professional_submit(){
+		var data = {},
+		form     = '#form_candidate_selected form',
+		inputs   = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
+		combo    = $(form + ' select[name*=jobs_vacancy_scheduling_professional]');
+		for(var i=0; i< inputs.length;i++){
+			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
+		}
+		data[$(combo).attr('name')] = $(combo).val();
 
+		$.ajax({
+		  type: "POST",
+		  url: $(form).attr('action'),
+		  data: data,
+		}).done(function( data ) {
 
+		  	if(data.success == true){
+		  		var btn = $('#button_'+data.data.professional_id);
+		  		btn.clone()
+		  			.attr('onClick', "schedule_professional("+data.data.professional_id+", true); ")
+		  			.appendTo('#candidates_scheduled');
+		  		btn.remove();
+		  		alert('Agendamento Salvo');
+		  		$('#form_candidate_selected').empty();
+		  	}
+		});
+
+		return false;
+	}
+
+	function vacancy_scheduler_professional_remove(){
+		var data = {_method: 'delete'},
+		form     = '#form_candidate_selected form',
+		inputs   = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
+		combo    = $(form + ' select[name*=jobs_vacancy_scheduling_professional]');
+		for(var i=0; i< inputs.length;i++){
+			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
+		}
+		data[$(combo).attr('name')] = $(combo).val();
+		console.info(data);
+		$.ajax({
+		  type: "POST",
+		  url: "<%= vacancy_scheduler_professional_path(@vacancy) %>",
+		  data: data,
+		}).done(function( data ) {
+			if(data.success == true){
+				var btn = $('#button_'+data.data.professional_id);
+		  		btn.clone()
+		  			.attr('onClick', "schedule_professional("+data.data.professional_id+"); ")
+		  			.appendTo('#candidates_unscheduled');
+		  		btn.remove();
+		  		alert('Agendamento Excluido');
+		  		$('#form_candidate_selected').empty();
+			}
+		});
+	}
 </script>

@@ -2,7 +2,11 @@
 module Guara
   module Jobs
     class CustomProcessController < Guara::BaseController
+
       skip_authorization_check
+
+      helper CrudHelper
+
       def index
         @custom_process = CustomProcess.all
       end
@@ -20,14 +24,15 @@ module Guara
 
       def create
         @custom_process = CustomProcess.new
-          @custom_process.attributes = params[:jobs_custom_process]
+        params[:jobs_custom_process][:hook_instanciate] = 'Guara::Jobs::VacancyProcessHook'
+        @custom_process.attributes = params[:jobs_custom_process]
 
-          if @custom_process.save
-            flash[:success] = t("helpers.forms.new_sucess")
-            redirect_to custom_proces_path(@custom_process)
-          else
-            render :new
-          end
+        if @custom_process.save
+          flash[:success] = t("helpers.forms.new_sucess")
+          redirect_to custom_proces_path(@custom_process)
+        else
+          render :new
+        end
       end
 
       def custom_process_steps
@@ -81,12 +86,12 @@ module Guara
         @json = JSON.parse(params[:elements])
         StepAttr.destroy_all(:step_id=> params[:step_id])
         @attrs = []
-
+        @i = -1;
         @json.each do |j|
+          @i += 1
           j['step_id'] = params[:step_id]
-          
           @attr = StepAttr.create(j)
-          j['id'] = @attr.id
+          j['id'] = @i
           @attrs << j
         end
         

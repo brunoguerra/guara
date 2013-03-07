@@ -19,15 +19,16 @@
 <script>
 	$(function() {
 		$("#select_professionals_professionals_selecteds").attr('name',  '<%= field_form_name %>[]');
-		var sel = []
+		window.sel = []
 		<%  if value.class == Array 
 				value.each do |k| %>
 					setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_select k %>", "");
 					sel.push(<%= k[:value] %>);
 		<% 		end 
 			end %>
+			
 		setTimeout(function(){
-			$("#professionals_selecteds").select2("val", sel);
+			$("#select_professionals_professionals_selecteds").select2("val", sel);
 		},200);
 	});
 

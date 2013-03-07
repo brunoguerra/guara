@@ -64,7 +64,7 @@ module Guara
     end
   
     def name
-      customer.name
+      person.name
     end
   
   end

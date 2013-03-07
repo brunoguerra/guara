@@ -28,6 +28,8 @@ Guara::Core::Engine.routes.prepend do
 		
 		resources :vacancies do
 		  resource :scheduler_professional, controller: "SchedulerProfessionals"
+		  resource :inter_view_professional, controller: "InterViewProfessionals"
+		  resource :vacancy_sended_professional, controller: "VacancySendedProfessionals"
 	  end
 
 	end

@@ -327,7 +327,7 @@ fieldset.actions {
 
 
  .controls input {
-  padding: 12px 8px !important;
+  height: 30px;
 }
 
 .emails_custumer {
@@ -408,6 +408,11 @@ fieldset.actions {
   margin-left: 10px;
 }
 
+
+.remove_fields{
+  margin-top: -22px;
+  padding: 4px 12px;
+}
 
 input[type="text"], input[type="text"].search-query{
   height: 30px;
