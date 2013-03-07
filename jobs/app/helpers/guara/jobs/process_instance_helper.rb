@@ -22,15 +22,13 @@ module Guara
     	end
 
         def get_value_model(vals, id)
-            vals = [] if vals.class == String
             vals.strip!
 
             if !(vals.nil? && vals.empty?) && vals[0]=='$'
                 model = vals[1..1000]
                 model = eval model
               
-                record = model.find id
-                
+                record = model.find i                
                 
                 return name_or_nothing record.name
             else
