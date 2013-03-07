@@ -5,8 +5,8 @@ module Guara
       	def get_collection(vals, sels)
             sels = [] if sels.class == String
             vals.strip!
-            if !(vals.nil? && vals.empty?) && vals[0]=='$'
-                model = vals[1..1000]
+            if (vals =~ /^\$/) == 0
+                model = vals.gsub(/^\$/)
                 model = eval model
                 if (model.respond_to?(:select_options))
                     options = model.select_options
