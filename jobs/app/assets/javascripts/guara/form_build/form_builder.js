@@ -36,7 +36,10 @@ window.form_builder = {
                 type_field: "select",
                 options: ""
             },
-            attrs_field: [{type_field: "select_type", label: "Valores"}]
+            attrs_field: [
+                {type_field: "type_value", label: "Tipo"},
+                {type_field: "select_type", label: "Valores"}
+            ]
         },
         date: {
             default_field: {
@@ -89,7 +92,7 @@ window.form_builder = {
 
         delete_element: function(i){
             var element = form_builder.getEl(i);
-            $('#li_'+i).remove();
+            $('#'+i).remove();
             form_builder.elements_inserteds.splice(element, 1);
             form_builder.updatePositions();
         },
@@ -97,7 +100,7 @@ window.form_builder = {
         container_field: function(id_el, field, label){
             var me = this;
             $('<li></li>')
-                .attr('id', 'li_'+id_el)
+                .attr('id', id_el)
                 .addClass('drag')
                 .click(function(e){
                     form_builder.select_element(this);
@@ -234,7 +237,7 @@ window.form_builder = {
             var me = this,
             field  = me.current_field_selected;
             config = me.me().getEl(field.id);
-            if(!val){
+            if(val!=0 && !val){
                 return true;
             }
             if (val.replace) {
@@ -242,8 +245,12 @@ window.form_builder = {
             }
 
             if(type == 'title'){
-                $('#'+field.id+' label.desc').html(val);
                 config.title = val;
+                $('#'+field.id+' label.desc').html(val);
+                if($('#prop_required').prop('checked')){
+                    config.required = 1;
+                    me.set_required(field.id, 1);
+                }
             }
             else if(type == 'column'){
                 config.column = parseInt(val);
@@ -283,6 +290,12 @@ window.form_builder = {
             for( var i in config){
                 if(i=='options'){
                     var input = $('#prop_select_type');
+                    if(config[i] == 'component'){
+                        $('#prop_type_value').val('component');
+                    }
+                    else{
+                        $('#prop_type_value').val('');
+                    }
                 }
                 else{
                     var input = $('#prop_'+i);
@@ -404,30 +417,28 @@ window.form_builder = {
                         me.options_elements_attributes.
                         setProperties($(this).val(), 'select_type');
                     });
-                /*
+            },
+
+            type_value: function(){
+                var me = form_builder;
                 return $('<select></select>')
-                    .attr('id', 'prop_select_type')
+                    .attr('id', 'prop_type_value')
                     .addClass('select')
                     .addClass('full')
                     .change(function(){
                         me.options_elements_attributes.
-                        setProperties($(this).val(), 'select_type');
+                        setProperties($(this).val(), 'type_value');
                     })
                     .append(
                         $("<option></option>")
-                            .attr("value", 'role')
-                            .text("Cargo")
+                            .attr("value", '')
+                            .text("Widget")
                     )
                     .append(
                         $("<option></option>")
-                            .attr("value", 'person_pf')
-                            .text("Clientes")
-                    )
-                    .append(
-                        $("<option></option>")
-                            .attr("value", 'person_pj')
-                            .text("Empresas")
-                    ); */
+                            .attr("value", 'component')
+                            .text("Component")
+                    );
             },
 
             text_field_widget: function(){
@@ -533,7 +544,7 @@ window.form_builder = {
         var position = me.elements_inserteds.length;
         var config  = me.getFieldConfig(type, position);
         var field    = me.templates_fields[type](config);
-        me.templates_fields.container_field(position, field, config.title);
+        me.templates_fields.container_field(config.id, field, config.title);
     },
 
     update_el: function(config){

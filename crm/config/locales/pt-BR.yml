@@ -107,6 +107,11 @@ pt-BR:
     link: "Atividades" 
     
     
+  customer_association:
+    index: 
+      link: "Empresas Relacionadas"
+
+
   tasks: &attr_tasks
     title: "Histórico do Cliente"
     link: "Histórico"

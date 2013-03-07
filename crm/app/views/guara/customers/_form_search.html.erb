@@ -66,8 +66,23 @@
 								<%= f.multiparameter_field :customer_guara_customer_pj_type_total_employes_btw, {:field_type => :number_field, :placeholder => t("commons.min"), :style => "width: 103px" }, {:field_type => :number_field, :placeholder => t("commons.max"), :style => "width: 103px"  }, :size => 5 %>
 							</div>
 						</div>
-					
+						
+						<div class="control-group">
+							<%= label_tag :view_pair, t("helpers.label.customers.search.pairs_or_odds"), :class => "control-label" %>
+							<div class="controls">
+								<%= f.radio_button :pair_or_odd_id, "2" %>
+								<%= label_tag(:pair_or_odd_id_pair, "Pares") %>
+								<%= f.radio_button :pair_or_odd_id, "1" %>
+								<%= label_tag(:pair_or_odd_id_odd, "Impares") %>
+							</div>
+						</div>
 
+						<div class="control-group">
+							<%= label_tag :id, t("helpers.label.customers.search.finished_in"), :class => "control-label" %>
+							<div class="controls">
+								<%= f.text_field :finished_id, :class => 'span3' %>
+							</div>
+						</div>
 
 						<div class="control-group">
 							<%= label_tag :is_customer, t("helpers.label.customers.search.is_customer"), :class => "control-label" %>

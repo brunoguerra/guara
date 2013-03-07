@@ -37,8 +37,11 @@ module Guara
       end
       params[:search] = {} if params[:search].nil?
     end
-    
-    
+
+    def customer_association
+      @sels = params["sels"] || []
+      @customer = Guara::Customer.find params[:id]
+    end
   
     def show
       @task = @customer.tasks.build

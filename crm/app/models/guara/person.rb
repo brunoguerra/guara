@@ -32,6 +32,20 @@ module Guara
     belongs_to :state
     belongs_to :city
     belongs_to :district
+
+    scope :finished_id, lambda {|id| where("id::char ILIKE '%#{id.to_s}'")}
+    search_methods :finished_id
+
+    scope :pair_or_odd_id, lambda {|id| 
+      if id == '2'
+        where("((id%2) = 0 )")
+      else  
+        where("((id%2) = 1 )")
+      end
+    }
+    
+    search_methods :pair_or_odd_id
+    
     
   
     #============================ 
