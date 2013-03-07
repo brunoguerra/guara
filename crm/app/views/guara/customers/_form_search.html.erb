@@ -14,20 +14,20 @@
 		</div>
 		<% if (mode == :advanced) then %>
 		<%= hidden_field_tag :search_mode_advanced, "true" %>
-		<!--div class="control-group">
+		<div class="control-group">
 			<%= label_tag :segment, t("helpers.label.customers.search.segment"), :class => "control-label" %>
 			<div class="controls">
 				<%= f.select(:customer_guara_customer_pj_type_activities_business_segment_id_in,
 				options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:customer_guara_customer_pj_type_activities_business_segment_id_in]), 
 				{}, 
 				{ :multiple => true, 
-					:style => "width: 200px;", 
+					:style => "width: 206px;", 
 					:placeholder => t("customer_pjs.segments"), 
 					:class => "multiselect" 
 					})
 					%>
 			</div>
-		</div-->
+		</div>
 
 				<div class="control-group">
 					<%= label_tag :activity, t("helpers.label.customers.search.activity"), :class => "control-label" %>
@@ -39,7 +39,7 @@
 								:name		),
 							{}, 
 							{ :multiple => true, 
-								:style => "width: 200px;", 
+								:style => "width: 206px;", 
 								:placeholder => t("customer_pjs.activities"), 
 								:class => "multiselect"  
 								})
@@ -59,6 +59,7 @@
 								<%= f.text_field :district_name_contains, :class => "span3" %>
 							</div>
 						</div>
+						
 
 						<div class="control-group">
 							<%= label_tag :total_employes, t("helpers.label.customers.search.employes_count"), :class => "control-label" %>
@@ -102,7 +103,7 @@
 		        	<div class="controls">
 		        		<%= f.text_field :doc_equals, :class => "span3" %>
 		        	</div>
-		        </div>
+		        </div>		        
 
 		        <% end %>
 		        <div class="form-actions span3">
