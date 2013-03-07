@@ -154,6 +154,14 @@ module Guara
       render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
     end
   
+    def multiselect_business_activities
+      render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
+    end
+  
+    def multiselect_customers
+      render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
+    end
+  
     def custom_load_creator
       params[:customer_pj] = params[:customer][:customer_pj]
       params[:customer].delete :customer_pj

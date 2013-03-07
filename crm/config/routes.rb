@@ -4,8 +4,12 @@ Guara::Core::Engine.routes.prepend do
     get :autocomplete_business_segment_name, :on => :collection
     get :autocomplete_business_activity_name, :on => :collection
     
+    get :autocomplete_customers_name, :on => :collection
+    
     get :multiselect_business_segments, :on => :collection
     get :multiselect_business_activities, :on => :collection
+    get :multiselect_customers, :on => :collection
+    
     
     get :customer_pj, :on => :collection
     

@@ -26,6 +26,8 @@ module Guara
     has_many :associates, through: :reverse_associations, source: :from          
   
     #many-to-many helpers <-----------------------------------
+    
+    delegate :name, to: :person
   
     def new_customer_segments_attributes=(segment_attributes)
       segment_attributes.each do |attributes|
