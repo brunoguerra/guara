@@ -5,8 +5,8 @@
 				<%= t("search.results")%>
 			</div>
 			<div id="professional_search_list">
-				<%= render :partial => 'guara/jobs/professionals/list_professionals' %><!-- FIM 
-			EXIBIÇÃO PROFESSIONAL -->
+				<%= render :partial => 'guara/jobs/professionals/list_professionals' %>
+				<!-- FIM EXIBIÇÃO PROFESSIONAL -->
 			</div>
 		</section>   
 	</div>
@@ -63,9 +63,10 @@
 			sels.push(id);
 			select.select2("val", sels); 	
 		}
-
-  $("form[id$=professional_search]").bind('ajax:success', function(evt, data, status, xhr){
-    $("#professional_search_list").html(xhr.responseText);
-  });
+  $(function() {
+	  $("form[id$=professional_search]").bind('ajax:complete', function(evt, xhr, settings){
+	    $("#professional_search_list").html(xhr.responseText);
+	  });
+  })
 	</script>
 </div>

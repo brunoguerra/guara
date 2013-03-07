@@ -13,6 +13,10 @@ module Guara
     end
   
     def index
+      @search = @tasks.search(params[:search])
+      @tasks = @search.paginate(page: params[:page], :per_page => 20)
+
+
       respond_to do |format|
         format.html { render "index", :layout => "guara/base.html.erb" }
         format.json do

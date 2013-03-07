@@ -69,7 +69,10 @@
 				<div class="span4 box-gray-data">					
 					<p>
 						<b><%=  t("customer_pjs.segments") %></b>
-						</br><%= nbsp inline_list @customer.person.segments, :name %>
+						</br><% 
+						@customer.person.activities.each do |s|  %>
+							<%= s.business_segment.name %>
+						<% end %>
 					</p>
 				</div>
 

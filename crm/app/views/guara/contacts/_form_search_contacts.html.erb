@@ -1,0 +1,14 @@
+<%= form_for @search,:url => customer_contacts_path ,
+	:html => { :class => "well form-search", :method => :get } do |f|  %>
+
+	<fieldset>
+		<legend><%= t("contacts.search.title") %></legend>
+	 	<div class="container">
+		 	<div class="form-inline">
+        		<%= f.text_field :name_contains, :class => "input-large" %>
+        		<%= submit_tag t("helpers.forms.search"), :class => "btn" %>
+      		</div>
+      	</div>
+ 	</fieldset>
+
+<% end %>

@@ -2,21 +2,7 @@
 
 <%= render :partial => "header" %>
 
-<div class="row">
-	<div class="span12">
-	  <%= form_tag customer_contacts_path, :class => "well form-search", :method => :get, :name => :search do  %>
-		<fieldset>
-		  <legend><%= t("contacts.search.title") %></legend>
-		  <div class="container">
-			  <div class="form-inline">
-	              <%= text_field_tag :name, params[:name], :class => "input-large" %>
-		          <%= submit_tag t("helpers.forms.search"), :class => "btn" %>
-	          </div>
-		  </div>
-		</fieldset>
-	  <% end %>
-	</div>
-</div>
+<%= render 'form_search_contacts' %>
 
 <%= render :partial => "list_contacts" %>
 
