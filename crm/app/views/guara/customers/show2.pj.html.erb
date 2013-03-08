@@ -19,6 +19,13 @@
 							<br><%= nbsp @customer.doc %>
 						</p>
 					</div>
+					
+					<div class="box-gray-data">
+						<p>
+							<b><%=  t("customer_#{@customer.person.prefix}s.doc_rg") %></b>
+							</br><%= nbsp @customer.doc_rg %>
+						</p>
+					</div>
 
 					<div class="box-gray-data">					
 						<p>
@@ -50,10 +57,6 @@
 						</div>
 					</div>
 
-
-
-					
-					
 				</div>
 
 				<div class="span4">
@@ -64,13 +67,12 @@
 						</p>
 					</div>
 					
-				<div class="span4 box-gray-data">					
-					<p>
-						<b><%=  t("customer_pjs.segments") %></b>
-						
-					 <%= nbsp inline_list @customer.customer.activities, :name %>
-					</p>
-				</div>
+					<div class="box-gray-data">					
+						<p>
+							<b><%=  t("customers.emails") %></b>
+							<br><%= nbsp inline_list @customer.emails, :email %>
+						</p>
+					</div>
 
 					<div class="box-gray-data">					
 						<p>
@@ -111,11 +113,11 @@
 							<br> <br>
 							<ul>
 								<% @customer.person.associateds.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 								<% end %>
 
 								<% @customer.person.associates.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 								<% end %>
 							</ul>
 						</p>
@@ -137,10 +139,6 @@
 						
 					</div>
 
-					
-
-					
-				
 				</div>
 
 			</div>
