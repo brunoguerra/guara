@@ -10,7 +10,7 @@ customer_module = {
 		:title => I18n.t("jobs.professional.index.link"),
 		:url => lambda do |customer|
 			unless customer.nil? || customer.new_record?
-				customer.professional.nil? ? Guara::Core::Engine.routes.url_helpers.new_customer_professional_path(customer) : customer.professional.base_uri
+				customer.professional.nil? ? Guara::Core::Engine.routes.url_helpers.new_jobs_customer_professional_path(customer) : customer.professional.base_uri
 			end
 		end
 	}]
