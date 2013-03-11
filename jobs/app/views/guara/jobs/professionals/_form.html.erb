@@ -1,6 +1,6 @@
 <%= semantic_form_for [@customer, @professional], 
 :url => @professional.new_record? ? customer_professionals_path(@customer) : customer_professional_path(@customer, @professional), 
-:html => {:onsubmit => "return validate()"}  do |f| %>
+:html => {:onsubmit => "return validate()", :multipart => true }  do |f| %>
 
 	<fieldset>
 
@@ -10,8 +10,15 @@
 			<!-- HAVE JOB ? -->	
 			<div class="span9 well have_jobs">
 		    <%= f.input :have_job, :label => t("jobs.professional.have_job"),
-		    	:as => :radio, 
+		    	:as => :radio, :collection => [t("commons.yes"), t("commons.no")],
 		    	:class => "well" %><!-- END DIV HAVE JOB ? -->
+		    <%= f.semantic_fields_for :attachment do |attach_fields| %>
+		    <%= attach_fields.input :curriculum, :label => t("jobs.professional.curriculum"),
+		    	:as => :file %>
+
+		    <%= attach_fields.input :avatar, :label => t("jobs.professional.avatar"),
+		    	:as => :file %>
+		    <% end %>
 		    </div>
 		</div>
 
@@ -108,14 +115,15 @@
 
 							:career => {
 								:lambda => lambda do |experiences_f, index|
-
-										render :partial => "guara/jobs/professionals/form_professional_experiences_career", :locals => { form: experiences_f, index: index }		
+							experiences_f.object.careers.build if experiences_f.object.careers.size==0
+							render :partial => "guara/jobs/professionals/form_professional_experiences_career", :locals => { form: experiences_f, index: index }		
 								end
 							},
 						},
 
 						:options => {
-							add_class: "btn btn-block btn-inverse"
+							add_class: "btn btn-block btn-inverse",
+							add_label: "%s %s" % [t("helpers.forms.add"), t("activerecord.models.guara/jobs/professional_experience")]
 						}
 					}
 				%>
@@ -124,18 +132,33 @@
 
 
 		<div class="row page-header">
-			<legend class="span2"><small> <%=  t("jobs.professional.languages") %></small></legend>
-			
+			<legend class="span2"><small><%= t("jobs.professional.languages") %></small></legend>
+					
 			<div class="span9 well language">
-	        	<% Guara::Jobs::Language.all.each do |l| %>
-		        	<ul>
-		        		<li>
-	        				<%= check_box_tag "languages[]", l.id, @professional.languages.include?(l), :id => "language_%d" % l.id  %>
-	        				<%= label_tag "language_%d" % l.id, l.name %>
-		        		</li>
-		        	</ul>
-		        <% end %>
-			</div><!-- LANGUAGES -->
+				<%= render :partial => 'active_extend/one_to_many_inputs',
+					:locals => {
+						:values => @professional.professional_languages,
+						:form => f,
+						:target => :professional_languages,
+						:inputs => {
+							:language => {
+								:label => t('jobs.professional.languages'),
+								:collection => Guara::Jobs::Language.all,
+								:class => "span4 multiselect"
+							},
+
+							:level_knowledge => {
+								:label => t('jobs.professional.level_knowledge'),
+								:collection => Guara::Jobs::LevelKnowledge.all,
+								:class => "span4  multiselect",
+							},
+							
+						},
+					},
+
+				 %>
+			</div>
+		</div>
 
 		<%= f.submit class: "btn  btn-primary" %> 
 

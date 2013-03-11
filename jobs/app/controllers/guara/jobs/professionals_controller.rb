@@ -49,9 +49,11 @@ module Guara
 	  	
 	  	def new
 	  		@professional.formations.build
+	  		@professional.professional_languages.build 
 	  		@professional.professional_experiences.build
 	  		@professional.professional_experiences.each {|e| e.careers.build }
-	  		@professional.vacancy_specification = VacancySpecification.new
+	  		@professional.build_attachment
+	  		@professional.build_vacancy_specification
 	  	end
 
 	    def show
@@ -63,21 +65,13 @@ module Guara
 
 	    	roles_id = params[:roles] || []
 	    	@professional.vacancy_specification.roles = roles_id.map { |r_id| Role.find r_id }.uniq
-
-
-	    	@professional.languages = Language.new(params[:jobs_professional][:languages_attributes]) if @professional.languages.nil?
-
-	    	languages_id = params[:languages] || []
-	    	@professional.languages = languages_id.map { |l_id| Language.find l_id }.uniq
-
-
+	    	
 	    end # MÉTODO PARA SELEÇÃO DE VÁRIOS CHECKBOX
 
 
 	    def create
 	    	@professional = Professional.new(params[:jobs_professional])
 	    	@professional.person = @customer
-	    	#@professional.vacancy_specification = VacancySpecification.new(params[:professional][:vacancy_specification]) 
 	    	manage_advanced_fields()
 
 	    	respond_to do |format|

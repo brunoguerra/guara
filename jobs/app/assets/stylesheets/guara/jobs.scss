@@ -6,16 +6,26 @@
 /* STYLE JOBS    */
 
 .guara_jobs_professional {
-	
+		/* ATTACHMENTS*/
+
+		#jobs_professional_attachment_attributes_curriculum, #jobs_professional_attachment_attributes_avatar {
+			height: 32px !important;
+			padding: 0 0 0 3px;
+			margin-top: -5px;
+		}
+
+
+
+
 		label[for=jobs_professional_have_job]{
 		  float: left;
 		}
 
-		label[for=jobs_professional_have_job_true]{
+		label[for=jobs_professional_have_job_sim]{
 		  float: left;
 		  margin: -5px 0px;
 		}
-			#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px; height: 15px;}
+			#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px;}
 
 		label[for=jobs_professional_have_job_false]{
 		  float: left;
@@ -46,7 +56,7 @@
 					width: 500px;
 				}
 				
-       	input { width: 500px; }
+       	input { width: 500px; height: 27px !important;}
         input[name=""]{ width: 500px; }
        	select.span1 { width: auto; }
     
@@ -60,30 +70,31 @@
 
 	fieldset {padding: 10px; position: relative;}
 
-
+	/*  FORMATION */
 	.formation .remove_fields {
- 		left: 628px;
-	    line-height: 17px;
-	    padding: 3px 6px;
-	    position: relative;
-	    top: -213px;
+		left: 628px;
+		line-height: 17px;
+		padding: 3px 6px;
+		position: relative;
+		top: -183px;
 	} 
 
+	/* EXPERIENCE PROFESSIONAL */
 	.professional_experiences #guara_jobs_professional_experience_remove {
 		left: 693px;
-	    line-height: 17px;
-	    padding: 5px 8px;
-	    position: absolute;
-	    top: 10px;
+		line-height: 17px;
+		padding: 3px 6px;
+		position: absolute;
+		top: 32px;
 	} 
 
   .remove_fields {
-  	float: right;
-    position: relative;
-    left: 682px;
-    top: -28px;
-    padding: 0px 4px;
-    line-height: 17px;
+	float: right;
+	position: relative;
+	left: 682px;
+	top: -15px;
+	padding: 3px 6px;
+	line-height: 17px
 	} 
 
   .add_fields {
@@ -169,9 +180,20 @@
 		margin-left: 8px;
 	}
 
-	#jobs_professional_have_job_input {float: left !important;}
-	#jobs_professional_have_job_sim {float: left; width: 25px !important;}
-	#jobs_professional_have_job_no {float: left; margin: 4px 0px;; width: 25px !important;}
+	#jobs_professional_have_job_input {
+		float: left !important;
+	}
+	#jobs_professional_have_job_sim {
+		float: left;
+		width: 14px !important;
+		height: 14px !important;
+
+	}
+	#jobs_professional_have_job_no {
+		float: left;
+		margin: -3px 5px;
+		width: 15px !important;
+	}
 
 	.formation, .professional_experiences { overflow: hidden; padding-bottom: 50px;}
 
@@ -188,4 +210,12 @@
 
 	li {text-decoration: none; margin-top: 10px; list-style-type: none;}
 
+	.language-show {
+		ul {
+			li {
+				float: left;
+				margin: 0 2px;
+			}
+		}
+	}
 }

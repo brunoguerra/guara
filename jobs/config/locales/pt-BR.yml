@@ -10,7 +10,6 @@ pt-BR:
       search:
         link: "Pesquisar por Professional"
 
-
     announcement_of_vacancies:
       index:
         title: "Anúncio de Vagas"
@@ -49,6 +48,10 @@ pt-BR:
       business_action_roles: "Área de Atuação - Cargos"
 
       have_job: "Empregado atualmente ?"
+
+      curriculum: "Currículo"
+
+      avatar: "Foto"
 
       business_action: "Área de Atuação" 
 
@@ -128,6 +131,7 @@ pt-BR:
       "guara/jobs/custom_process": "Processo Personalizado"
       "guara/jobs/process_instance": "Intância de Processos"
       "guara/jobs/step": "Etapa"
+      "guara/jobs/professional_experience": "Experiência"
 
   activerecord:
       attributes:
