@@ -33,7 +33,7 @@ module Guara
 
 
 	  		def base_uri
-			    self.new_record? ? new_customer_professional_path(self.customer, self) : customer_professional_path(self.customer, self)
+			    self.new_record? ? new_jobs_customer_professional_path(self.customer, self) : jobs_customer_professional_path(self.customer, self)
 			end
 
 		end

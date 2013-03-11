@@ -173,7 +173,7 @@ module Guara
     end
   
     def multiselect_customers_pj
-      render :json => CustomerPj.includes(:customer).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.customer.name } }
+      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.person.name } }
     end
   end
 end

@@ -3,10 +3,10 @@ Guara::Core::Engine.routes.prepend do
 
 
 	scope module: 'jobs' do
-		resources :customers do
+		
+		resources :jobs_customers, contoller: "Guara::CustomersController" do
 			resources :professionals
 		end
-
 
 		resources :professional
 
