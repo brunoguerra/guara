@@ -20,7 +20,7 @@ module Guara
 
       def new
         @custom_process = Vacancy.custom_process
-        @process_instance = ProcessInstance.new 
+        @process_instance = ProcessInstance.new
         
         @process_instance.update_attributes({
           :process_id=> @custom_process.id,
@@ -53,12 +53,24 @@ module Guara
           @current_step = Step.find params[:edit_step]
         end
         
-        get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
-        @columns = set_columns(@step_attrs)
-        @vals      = attr_values(@step_attrs, @step_init.step_attrs_vals(params[:id]))
-        @current_step_attrs = @current_step.step_attrs
-        @vals_edit = attr_values(@current_step_attrs, @current_step.step_attrs_vals(params[:id]))
-        @current_columns = set_columns(@current_step_attrs)        
+        load_grouped_columned_attrs()
+        load_step_init()
+      end
+      
+      def load_grouped_columned_attrs()
+        @grouped_attrs = @current_step.attrs.group_by(&:group).sort()
+        
+        @grouped_column_attrs = {}
+        
+        @grouped_attrs.each do |group, attrs|
+          @grouped_column_attrs[group] = attrs.group_by(&:column)
+        end
+        
+        if @grouped_column_attrs.include? ''
+          @grouped_column_attrs[:default] = @grouped_column_attrs['']
+          @grouped_column_attrs.delete('')
+        end
+        
       end
 
       def get_step_attr_cache(step_attrs, step_attr_id)
@@ -132,16 +144,23 @@ module Guara
         
       end
 
-      def set_columns(steps_attrs)
-        @set_columns = {}
+      def get_columns(steps_attrs)
+        @columns = {}
         steps_attrs.each do |s|
-          @set_columns[s.column] = [] if @set_columns[s.column].nil?
-          @set_columns[s.column] << s
+          @columns[s.column] = [] if @columns[s.column].nil?
+          @columns[s.column] << s
         end
 
-        return @set_columns
+        return @columns
       end
-
+      
+      
+      def load_step_init
+        get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
+        @columns = get_columns(@step_attrs)
+        @vals      = attr_values(@step_attrs, @step_init.step_attrs_vals(params[:id]))
+      end
+      
       def get_step_init_and_steps_order_and_step_resume(process_instance, step_init=false, step_order=false, step_attrs=false)
         @step_init  = process_instance.step_init if step_init == true
         @step_order = process_instance.steps_previous_current if step_order == true
