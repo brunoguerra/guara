@@ -4,7 +4,7 @@ module Guara
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(vals, sels)
       	    vals = vals.dup
-            sels = [] if sels.class == String
+            sels = [] if sels.class == String || sels.nil?
             vals.strip!
             if (vals =~ /^\$/) == 0
                 vals.gsub!(/^\$/)
@@ -21,6 +21,7 @@ module Guara
                 
               end
             else
+                puts sels.to_yaml
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
             end
@@ -32,8 +33,8 @@ module Guara
                 model = vals[1..1000]
                 model = eval model
                 
-                record = model.find i                                
-                return name_or_nothing record.name
+                record = model.find id                                
+                return record.name
                 
             else
                 id
@@ -108,7 +109,13 @@ module Guara
         
         def instance_process_field(form, process_instance, step_attr)
             attr_value = get_attr_value(process_instance, step_attr)
-            raw get_field(form, step_attr, attr_value).join("").html_safe
+            response = get_field(form, step_attr, attr_value)
+
+            if response.class == Array
+                raw response.join("").html_safe
+            else
+                raw response
+            end    
         end
 
         
@@ -162,10 +169,6 @@ module Guara
             end
 
             return @label.join(", ").html_safe
-        end
-
-        def get_value_select(val)
-            return get_value_model(val[:step_attr_option], val[:value])
         end
 
       end
