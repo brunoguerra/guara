@@ -37,7 +37,6 @@ window.form_builder = {
                 options: ""
             },
             attrs_field: [
-                {type_field: "type_value", label: "Tipo"},
                 {type_field: "select_type", label: "Valores"}
             ]
         },
@@ -81,7 +80,10 @@ window.form_builder = {
                 title: "Customização de Campo",
                 type_field: "widget"
             },
-            attrs_field: [{type_field: "text_field_widget", label: "Widget"}]
+            attrs_field: [
+                {type_field: "type_value", label: "Tipo"},
+                {type_field: "text_field_widget", label: "Widget"}
+            ]
         }
     },
 
@@ -262,7 +264,7 @@ window.form_builder = {
                 config.required = val;
                 me.set_required(config.id, val);
             }
-            else if(type == 'select_type'){
+            else if(type == 'select_type' || type == 'options'){
                 config.options = val;
             }
             else if(type == 'widget'){
@@ -562,7 +564,6 @@ window.form_builder = {
         att.current_field_selected = els[els.length - 1];
         att.setProperties(config.title, 'title');
         att.setProperties(config.required, 'required');
-
     },
 
     updatePositions: function(){
@@ -588,12 +589,19 @@ window.form_builder = {
         var me = this;
         var a  = me.elements_inserteds;
         var b  = [];
+        var c  = [];
 
         for(var i=0;i<a.length;i++){
             b[a[i].position] = a[i];
         }
 
-        return JSON.stringify(b);
+        for(var i=0;i<b.length;i++){
+            if(a[i]){
+                c.push(a[i]);                
+            }
+        }
+
+        return JSON.stringify(c);
     },
 
     clear_fields: function(){
