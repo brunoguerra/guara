@@ -93,7 +93,7 @@ window.form_builder = {
         },
 
         delete_element: function(i){
-            var element = form_builder.getEl(i);
+            var element = form_builder.getEl(i, true);
             $('#'+i).remove();
             form_builder.elements_inserteds.splice(element, 1);
             form_builder.updatePositions();
@@ -492,7 +492,7 @@ window.form_builder = {
         }
     },
 
-    getEl: function(id){
+    getEl: function(id, return_index){
         var me  = this,
         element = null;
         if(!isNaN(parseInt(id))){
@@ -504,7 +504,13 @@ window.form_builder = {
                 element = i;
             }
         }
-        return me.elements_inserteds[element];
+
+        if(return_index){
+            return element;
+        }
+        else{
+            return me.elements_inserteds[element];            
+        }
     },
 
     getConfigEl: function(id){
