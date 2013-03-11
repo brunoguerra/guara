@@ -12,30 +12,41 @@
 					<%= render :partial => 'details_initial_stage', :locals=> {:vals=> @vals} %>
 				</div>
 			</li>
+
 	  		<li class="span12">
 			    <div class="thumbnail">
 			    	<h2><%=@current_step.name%></h2>
 			    	<div class="row-fluid">
 						<div class="span12">
-							<% @current_columns.each do |k, v| 
-								v.each do |c|  %>
-									<div class="control-group">
-										<% if c.options == 'component' 
-											@component = eval(c.widget).new()
-						                    params[:process_instance_id] = params[:id]
-						                    @component.request = request
-						                    @component.response = response
-						                    @component.params = params
-						                    %>
-						                    <%= @component.show.join("").html_safe %>
-						                    <%
-										else %>	
-											<%= show_span_tag c.title %>
-											<%= show_values_select @vals_edit[c.id] %>
-										<% end %>
-									</div>
-							<%  end 
-							end %>
+							<% @grouped_column_attrs.each do |group, column_attrs| 
+								group = 'default' if group.nil?
+							%>
+							<fieldset>
+								<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
+								<% column_attrs.each do |column, attrs| %>
+									<% attrs.each do |step_attr| %>
+										<div class="control-group">
+											<% if step_attr.options == 'component'  
+												@component = eval(step_attr.widget).new()
+							                    params[:process_instance_id] = params[:id]
+							                    @component.request = request
+							                    @component.response = response
+							                    @component.params = params 
+							                    %>
+												<%= @component.show.join("").html_safe %>
+							                    <%
+											 else %>
+												<%= show_span_tag step_attr.title %>
+												<%= show_attr_value(@process_instance, step_attr) %>
+											<% end %>
+										</div>
+									<% end %>
+								<% end %>
+							</fieldset>
+
+							<% end %>
+
+							
 						</div>
 					</div>
 
