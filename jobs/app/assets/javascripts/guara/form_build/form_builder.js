@@ -10,7 +10,8 @@ window.form_builder = {
         title: "",
         type_field: "text",
         options: "",
-        widget: ""
+        widget: "",
+				group: ""
     },
 
     elements_inserteds: [],
@@ -230,6 +231,8 @@ window.form_builder = {
                 }
             }
 
+            me1.defaults.container('group', me1.defaults['group'], 'Grupo');
+
             $('<br>').appendTo($('#properties_fields'));
 
             me1.getProperties(config);
@@ -256,6 +259,9 @@ window.form_builder = {
             }
             else if(type == 'column'){
                 config.column = parseInt(val);
+            }
+            else if(type == 'group'){
+                config.group = val;
             }
             else if(type == 'resume'){
                 config.resume = val;
@@ -367,6 +373,18 @@ window.form_builder = {
                         setProperties($(this).val(), 'title');
                     });
             },
+
+						group: function() {
+              var me = form_builder;
+              return $('<input />')
+                  .attr('type', 'text')
+                  .attr('id', 'prop_group')
+                  .addClass('text_field')
+                  .keyup(function(){
+                      me.options_elements_attributes.
+                      setProperties($(this).val(), 'group');
+                  });
+						},
 
             resume_and_required: function(){
                 var me = form_builder;
@@ -566,6 +584,7 @@ window.form_builder = {
         els[els.length - 1].required = config.required;
         els[els.length - 1].options = config.options;
         els[els.length - 1].widget = config.widget;
+        els[els.length - 1].group = config.group;
 
         att.current_field_selected = els[els.length - 1];
         att.setProperties(config.title, 'title');

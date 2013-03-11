@@ -30,6 +30,9 @@ pt-BR:
       processes_starteds: "Processos Iniciados"
       filters: "Filtros"
       date: "Data"
+      
+      attrs_group:
+        default: ""
 
 
     professional: &attrs_professional

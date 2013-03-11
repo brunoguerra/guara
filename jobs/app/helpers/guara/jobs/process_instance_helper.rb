@@ -3,18 +3,23 @@ module Guara
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(vals, sels)
+      	    vals = vals.dup
             sels = [] if sels.class == String
             vals.strip!
             if (vals =~ /^\$/) == 0
-                model = vals.gsub(/^\$/)
-                model = eval model
+                vals.gsub!(/^\$/)
+                model = eval vals
                 if (model.respond_to?(:select_options))
                     options = model.select_options
                 else
                     options = model.all
                 end
        		    
-                options_for_select(options.map { |ff| [ff.name, ff.id] }, sels.collect { |fs| fs[:value] })
+                options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
+            elsif (vals =~ /url:([^\s]*)/)==0
+              vals.scan /url:([^\s])/ do |url|
+                
+              end
             else
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
@@ -46,11 +51,11 @@ module Guara
         def get_field(form, rec, val)
         	@field = ""
         	if rec.type_field == 'date'
-    		    @field = form.text_field rec.id, :class=> "input-block-level date_format", :value=> val[rec.id]
+    		    @field = form.text_field rec.id, :class=> "input-block-level date_format", :value=> val
     		elsif rec.type_field == 'textarea'
-    		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val[rec.id]
+    		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
+                @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
             elsif rec.type_field == 'widget'
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
@@ -61,10 +66,10 @@ module Guara
 
                     return @component.index
                 else
-                    return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
+                    return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val, :field_form_name=> process_instance_field_form_name(rec)}
                 end
             else
-                @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level #{rec.type_field}"
+                @field = form.text_field rec.id, :value=> val, :class=> "input-block-level #{rec.type_field}"
         	end
 
         	return "<div class=\"control-group\">
@@ -88,12 +93,37 @@ module Guara
         	end
         	return @steps_attrs_column.join("").html_safe
         end
+        
+        def instance_process_field(form, process_instance, step_attr)
+          attr_value = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
+          
+          if attr_value.nil?
+            value =  process_instance_field_multi_values(step_attr, attr_value)
+          else
+            value = attr_value.value
+          end
+          
+          raw get_field(form, step_attr, value)
+        end
 
-        def get_required_fields(step_attrs)
+        
+        def process_instance_field_multi_values(step_attr, attr_instance)
+         return nil if attr_instance.nil?
+         
+         ret = []
+         
+          attr_instance.values.each do |v|
+            ret << { :value=> v.value, :step_attr_option=> step_attr.options }
+          end
+          
+          return ret
+        end
+
+        def process_instance_js_required_fields(step)
             @required_fields = []
-            step_attrs.each do |a,b|
-                b.each do |c|
-                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{c.id}').val())== '') {alert('Preencha o campo #{c.title}');return false;};" if c.type_field != 'widget' and c.required == true
+            step.attrs.each do |step_attr|
+                if step_attr.type_field != 'widget' and step_attr.required == true
+                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{step_attr.id}').val())== '') {alert('Preencha o campo #{step_attr.title}');return false;};"
                 end
             end
 
