@@ -93,9 +93,9 @@ module Guara
         	end
         	return @steps_attrs_column.join("").html_safe
         end
-        
-        def instance_process_field(form, process_instance, step_attr)
-          attr_value = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
+
+        def get_attr_value(process_instance, step_attr)
+            attr_value = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
           
           if attr_value.nil?
             value =  process_instance_field_multi_values(step_attr, attr_value)
@@ -103,7 +103,12 @@ module Guara
             value = attr_value.value
           end
           
-          raw get_field(form, step_attr, value)
+          return value
+        end
+        
+        def instance_process_field(form, process_instance, step_attr)
+            attr_value = get_attr_value(process_instance, step_attr)
+            raw get_field(form, step_attr, attr_value).join("").html_safe
         end
 
         
@@ -130,6 +135,22 @@ module Guara
             return @required_fields.join("").html_safe
         end
 
+        def show_attr_value(process_instance, step_attr)
+            attr_value = get_attr_value(process_instance, step_attr)
+
+            @label = []
+            if attr_value.class == Array
+                attr_value.each do |attr|
+                    @label << content_tag(:span, get_value_model(attr[:step_attr_option], attr[:value]), :class => "strong")
+                end
+            elsif attr_value.class == String
+                @label << attr_value
+            end
+
+            return @label.join(", ").html_safe
+        end
+
+        #DEPRECATED
         def show_values_select(val)
             @label = []
             if val.class == Array
