@@ -15,11 +15,11 @@
 		        <div class="thumbnail">
 		          <div id="candidates_unscheduled" class="caption">
 		            <% (@scheduleds || []).each do |professional|  %>
-					<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
-					onClick="schedule_professional(<%= professional.id %>); ">
+									<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
+									onClick="schedule_professional(<%= professional.id %>); ">
 		            	<i class="icon-user"></i><%= professional.name %>
-		            </button>
-					<% end %>
+			            </button>
+								<% end %>
 		          </div>
 		        </div>
 		    </li>

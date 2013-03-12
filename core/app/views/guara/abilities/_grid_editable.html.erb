@@ -1,0 +1,16 @@
+
+<ul>
+<% Guara::SystemModule.all.each do |mdl| %>
+	<li>
+	<h3><%=t("system.modules.%s" % mdl.name.downcase)%></h3>
+	<ul class="inline">
+		<% Guara::SystemAbility.all.each do |ab| %>
+		<li class="inline">
+		  <%= label_tag abilities_name_checkbox(mdl, ab), t("system.abilities.%s" % ab.name) %>
+		  <%= check_box_tag abilities_name_checkbox(mdl, ab), ab.id, skilled.able?(mdl, ab)  %>
+		</li>
+		<% end %>
+	</ul>
+	</li>
+<% end %>
+</ul>

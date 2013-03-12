@@ -1,4 +1,4 @@
-
+GuaraUserGroup = Guara::UserGroup
 
 MetaSearch::Where.add :between, :btw,
   {

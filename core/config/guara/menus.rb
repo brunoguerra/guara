@@ -21,7 +21,7 @@ module Guara
         :prefix =>  "admin_guara",
         :items =>   [
                       [:users, "users_path()"],
-                      :user_groups,
+                      [:user_groups, "user_groups_path()"]
                     ]
        }
     

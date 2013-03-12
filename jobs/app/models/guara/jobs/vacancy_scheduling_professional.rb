@@ -9,7 +9,6 @@ module Guara
       belongs_to :consultant
       belongs_to :vacancy
       belongs_to :professional
-      has_many :professionals
 
       def self.unscheduled_professionals(vacancy)
         return vacancy.selection_professionals_selecteds().reject do |p|
