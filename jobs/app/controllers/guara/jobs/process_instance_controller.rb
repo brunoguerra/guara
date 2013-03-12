@@ -134,62 +134,7 @@ module Guara
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
       end
-
-      ##DEPRECATED
-      def get_step_attr_cache(step_attrs, step_attr_id)
-        step_attrs.each do |a|
-          return a if a.id == step_attr_id
-        end
-      end
-
-      #DEPRECATED
-      def attr_values(step_attrs, step_instance_attrs)
-        @attr_vals = {}
-        step_attrs.each do |s|
-          @attr_vals[s.id] = ""
-        end
-
-        step_instance_attrs.each do |a|
-          if a.value.nil?
-            @temp = []
-            a.step_instance_attr_multis.each do |s|
-              @temp << { :value=> s.value, :step_attr_option=> get_step_attr_cache(step_attrs, a.step_attr_id).options }
-            end
-            @attr_vals[a.step_attr_id] = @temp
-
-          else
-            @attr_vals[a.step_attr_id] = a.value
-          end  
-        end
-
-        return @attr_vals
-      end
-
-      #DEPRECATED
-      def get_columns(steps_attrs)
-        @columns = {}
-        steps_attrs.each do |s|
-          @columns[s.column] = [] if @columns[s.column].nil?
-          @columns[s.column] << s
-        end
-
-        return @columns
-      end
-      
-      #DEPRECATED
-      def load_step_init
-        get_step_init_and_steps_order_and_step_resume(@process_instance, true, false, true)
-        @columns = get_columns(@step_attrs)
-        @vals    = attr_values(@step_attrs, @step_init.step_attrs_vals(params[:id]))
-      end
-      
-      ##DEPRECATED
-      def get_step_init_and_steps_order_and_step_resume(process_instance, step_init=false, step_order=false, step_attrs=false)
-        @step_init  = process_instance.step_init if step_init == true
-        @step_order = process_instance.steps_previous_current if step_order == true
-        @step_attrs = @step_init.step_attrs_resume if step_attrs == true
-      end
-    
+         
     end
   end
 end

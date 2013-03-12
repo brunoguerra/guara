@@ -11,16 +11,16 @@
 	<table class="table table-bordered table-striped">
 	    <thead>
 	      <tr>
-	        <th><%= t("inter_view_professionals.id") %></th>
-	        <th><%= t("inter_view_professionals.consultant_id") %></th>
-	        <th><%= t("inter_view_professionals.professional_id") %></th>
-	        <th><%= t("inter_view_professionals.local") %></th>
-	        <th><%= t("inter_view_professionals.date_time") %></th>
-	        <th><%= t("inter_view_professionals.date_time_interviewee") %></th>
+	        <th><%= t("interviewer_professionals.id") %></th>
+	        <th><%= t("interviewer_professionals.consultant_id") %></th>
+	        <th><%= t("interviewer_professionals.professional_id") %></th>
+	        <th><%= t("interviewer_professionals.local") %></th>
+	        <th><%= t("interviewer_professionals.date_time") %></th>
+	        <th><%= t("interviewer_professionals.date_time_interviewee") %></th>
 	      </tr>
 	    </thead>
 	    <tbody>
-		<% @inter_view_professionals.each do |p| %>
+		<% @interviewer_professionals.each do |p| %>
 	      <tr>
 	      	 <th><%= p.id %></th>
 	      	 <th><%= p.consultant.name %></th>
