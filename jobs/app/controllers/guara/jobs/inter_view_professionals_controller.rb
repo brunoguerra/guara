@@ -28,11 +28,12 @@ module Guara
 
     	def edit
     		@vacancy_scheduling = VacancySchedulingProfessional.find(:first, :conditions=> ['vacancy_id = ? AND professional_id = ?', params[:vacancy_id], params[:professional_id]])
-	        if @widget_request
-	          render :partial => "guara/jobs/inter_view_professionals/widget_edit", :locals => { vacancy: @vacancy}
-	        else
-	          render
-	        end
+        
+        if @widget_request
+          render :partial => "guara/jobs/inter_view_professionals/widget_edit", :locals => { vacancy: @vacancy}
+        else
+          render
+        end
     	end
 
       def update
