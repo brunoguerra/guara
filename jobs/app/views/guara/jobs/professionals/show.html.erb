@@ -7,17 +7,18 @@
 			<legend class="span2"><small><%=  t("jobs.professional.index.title") %></small></legend>
 				
 				<div class="span9 well">	
-					<dt><%= t("jobs.professional.have_job") %>	 </dt>
-
 					<dt>
-						<% @professional.attachment do |at| %>
-							<%= image_tag at.avatar.url(:thumb) %>
-							<%= link_to 'Visualizar Currículo', at.curriculum.url %>
-						<% end %> 
-					</dt>
+						<dd><%= image_tag @professional.attachment.avatar.url(:thumb), :class => "avatar" %></dd>
 					
-			    	<dd><%= yes_or_no @professional.have_job %></dd>
-			    	<dd><%=  %></dd>
+						<dt><%= t("jobs.professional.resume_professional") %></dt><br />
+						<dd><%= @professional.resume_professional %></dd>
+					</dt>
+
+					<dt><%= t("jobs.professional.have_job") %></dt>
+					
+			    	<dd class="have_job_yes_no"><%= yes_or_no @professional.have_job %></dd>
+
+			    	<dd><%= link_to t('jobs.professional.attachment.curriculum.view'), @professional.attachment.curriculum.url, :target => '_blank' %></dd>
 			</div>
 		</div>
 		  

@@ -9,7 +9,8 @@ module Guara
 							:vacancy_specifications, :vacancy_specification_attributes,
 							:formations_attributes,  :professional_languages_attributes,
 							:professional_experiences_attributes, 
-							:attachment, :attachment_attributes
+							:attachment, :attachment_attributes,
+							:resume_professional, :resume_professional_attributes
 
 
 

@@ -91,7 +91,7 @@
   .remove_fields {
 	float: right;
 	position: relative;
-	left: 682px;
+	left: 660px;
 	top: -15px;
 	padding: 3px 6px;
 	line-height: 17px
@@ -109,7 +109,19 @@
 		padding: 27px 30px 0px 28px !important;
 	}
 
-	.have_jobs {}
+	.have_jobs {
+
+		.have_job_yes_no {
+			float: left;
+			margin-right: 50px;
+		}
+
+		.avatar {
+			float: left;
+			margin-right: 10px;
+			margin-bottom: 10px;	
+		}
+	}
 
 
 	.professional_experiences .add-careers {
@@ -141,16 +153,44 @@
 			margin-bottom: 30px;
 		}
 
-		.well ul {
-			padding: 10px;
-			margin-bottom: 10px;
-			background-color: #eeeeee;
-			-webkit-border-radius: 6px;
-			-moz-border-radius: 6px;
-			border-radius: 6px;
+		.well {
+
+			#scroll_business {
+				overflow: auto;
+				height: 281px;
+
+				.business_role {
+					width: 44%;
+					float: left;
+					margin: 3px 5px;
+
+					label {
+						float: none;
+					}
+				}
+			}
+
+			
+			
+			ul {
+				padding: 10px;
+				margin-bottom: 10px;
+				background-color: #eeeeee;
+				-webkit-border-radius: 6px;
+				-moz-border-radius: 6px;
+				border-radius: 6px;
+			}
 		}
 
-	.language ul {float: left; margin: 0 10px 10px 0;}
+	.language {
+		margin-bottom: 70px;
+		
+		 ul {
+		 	float: left; 
+		 	margin: 0 10px 10px 0;
+		 }
+	}
+
 	.language-show ul {float: left; margin: -10px 10px 10px 0;}
 
 	.page-header { border: none; margin: 10px 0 0px;}
@@ -183,13 +223,13 @@
 	#jobs_professional_have_job_input {
 		float: left !important;
 	}
-	#jobs_professional_have_job_sim {
+	#jobs_professional_have_job_true {
 		float: left;
 		width: 14px !important;
 		height: 14px !important;
 
 	}
-	#jobs_professional_have_job_no {
+	#jobs_professional_have_job_false {
 		float: left;
 		margin: -3px 5px;
 		width: 15px !important;
@@ -208,7 +248,13 @@
 
 	dt{ float: left; display: block; margin-right: 5px;}
 
-	li {text-decoration: none; margin-top: 10px; list-style-type: none;}
+	.span9 {
+		li {
+			text-decoration: none;
+			margin-top: 10px; 
+			list-style-type: none;
+		}
+	}
 
 	.language-show {
 		ul {
