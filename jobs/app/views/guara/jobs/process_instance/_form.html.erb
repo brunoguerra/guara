@@ -5,24 +5,29 @@
 	:html => {:class => "well", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
 	
 	<div class="row-fluid">
-	<div class="span3" id="form_sidebar">
-		
-		<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
-		<% @grouped_column_attrs.each do |group, column_attrs| 
-			puts group
-			group = ' ' if group.nil?  %>
-		  <li><a href="#form_group_<%= group.to_s.gsub(/[^A-z]/, '').tableize() %>"><i class="icon-chevron-right"></i> <%= t("jobs.process_instance.attrs_group.#{group}") %></a></li>
+		<% total_spans = 12 %>
+		<% if @grouped_column_attrs_current_step.size > 1 %>
+			<% total_spans = 8 %>
+			<div class="span3" id="form_sidebar">
+				<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
+				<% @grouped_column_attrs_current_step.each do |group, column_attrs| 
+					if group.to_s.gsub(/[^A-z]/, '').tableize() != 'defaults'
+				%>
+				  <li><a href="#form_group_<%= group.to_s.gsub(/[^A-z]/, '').tableize() %>"><i class="icon-chevron-right"></i> <%= t("jobs.process_instance.attrs_group.#{group}") %></a></li>
+				<% 
+					end
+				end %>
+				</ul>
+			</div>
 		<% end %>
-		</ul>
-	</div>
-		<div class="span9" id="form_fields">
-		<% @grouped_column_attrs.each do |group, column_attrs| 
+		<div class="span<%=total_spans%>" id="form_fields">
+		<% @grouped_column_attrs_current_step.each do |group, column_attrs| 
 			group = ' ' if group.nil? %>
 			<a id="form_group_<%= group.to_s.gsub(/[^A-z]/, '').tableize() %>"></a>
 			<fieldset>
 				<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
 				<% column_attrs.each do |column, attrs| %>
-					<div class="span<%= 12/column_attrs.size() %>">
+					<div class="span<%= total_spans/column_attrs.size() %>">
 					<% attrs.each do |step_attr| %>
 						<%= instance_process_field(f, @process_instance, step_attr) %>
 					<% end %>
@@ -43,14 +48,12 @@
 		$('.date_format').datepicker($.datepicker.regional['pt-BR']);
 
 		var offset = {
-      top: $('#form_navbar').offset().top - $('#form_navbar').height(),
+	      	top: $('#form_navbar').offset().top - 30,
 			bottom: 400
-    };
-    $('#form_navbar').affix({
-      offset: offset
-    });
-		console.log(offset);
-		
+	    };
+	    $('#form_navbar').affix({
+	      offset: offset
+	    });
 		
 		$(document.body).scrollspy({
 			target: "#form_sidebar"
