@@ -139,7 +139,7 @@ module Guara
       def show
         @process_instance = ProcessInstance.find params[:id]
         get_step_init_and_steps_order_and_step_resume(@process_instance, true, true, true)
-        @columns = set_columns(@step_attrs)
+        @columns = get_columns(@step_attrs)
         @vals = attr_values(@step_attrs, @step_init.step_attrs_vals(params[:id]))
         
       end

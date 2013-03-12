@@ -5,22 +5,24 @@
 	:html => {:class => "well", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
 	
 	<div class="row-fluid">
+	<div class="span3" id="form_sidebar">
 		
-		<div class="span3" id="form_sidebar">	
-			<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
-			<% @grouped_column_attrs.each do |group, column_attrs| %>
-			  <li><a href="#form_group_<%= group.gsub(/[^A-z]/, '').tableize() %>"><i class="icon-chevron-right"></i> <%= t("jobs.process_instance.attrs_group.#{group}") %></a></li>
-			<% end %>
-			</ul>
-		</div>
-	
-		<div class="span8" id="form_fields">
-		<% @grouped_column_attrs.each do |group, column_attrs| %>
-			<a id="form_group_<%= group.gsub(/[^A-z]/, '').tableize() %>"></a>
+		<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
+		<% @grouped_column_attrs.each do |group, column_attrs| 
+			puts group
+			group = ' ' if group.nil?  %>
+		  <li><a href="#form_group_<%= group.to_s.gsub(/[^A-z]/, '').tableize() %>"><i class="icon-chevron-right"></i> <%= t("jobs.process_instance.attrs_group.#{group}") %></a></li>
+		<% end %>
+		</ul>
+	</div>
+		<div class="span9" id="form_fields">
+		<% @grouped_column_attrs.each do |group, column_attrs| 
+			group = ' ' if group.nil? %>
+			<a id="form_group_<%= group.to_s.gsub(/[^A-z]/, '').tableize() %>"></a>
 			<fieldset>
 				<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
 				<% column_attrs.each do |column, attrs| %>
-					<div class="span<%= 8/column_attrs.size() %>">
+					<div class="span<%= 12/column_attrs.size() %>">
 					<% attrs.each do |step_attr| %>
 						<%= instance_process_field(f, @process_instance, step_attr) %>
 					<% end %>

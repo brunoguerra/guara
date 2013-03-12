@@ -223,6 +223,9 @@ input, textarea, select {
 		window.step_id = jQuery("#dropdown-menu-step").attr('step_id');
 		$('#dialog_attr_step').modal('show');
 		jQuery('#dialog_attr_step').css('display', 'block', 'important');
+		setTimeout(function(){
+			$('#myTab a[href="#add_field"]').tab('show'); 
+		},200);
 		getElsSaved(step_id);
 	});
 

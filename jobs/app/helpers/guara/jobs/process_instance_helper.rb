@@ -4,7 +4,7 @@ module Guara
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(vals, sels)
       	    vals = vals.dup
-            sels = [] if sels.class == String
+            sels = [] if sels.class == String || sels.nil?
             vals.strip!
             if (vals =~ /^\$/) == 0
                 vals.gsub!(/^\$/)
@@ -21,6 +21,7 @@ module Guara
                 
               end
             else
+                puts sels.to_yaml
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
             end
@@ -32,8 +33,8 @@ module Guara
                 model = vals[1..1000]
                 model = eval model
                 
-                record = model.find i                                
-                return name_or_nothing record.name
+                record = model.find id                                
+                return record.name
                 
             else
                 id
@@ -93,9 +94,9 @@ module Guara
         	end
         	return @steps_attrs_column.join("").html_safe
         end
-        
-        def instance_process_field(form, process_instance, step_attr)
-          attr_value = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
+
+        def get_attr_value(process_instance, step_attr)
+            attr_value = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
           
           if attr_value.nil?
             value =  process_instance_field_multi_values(step_attr, attr_value)
@@ -103,7 +104,18 @@ module Guara
             value = attr_value.value
           end
           
-          raw get_field(form, step_attr, value)
+          return value
+        end
+        
+        def instance_process_field(form, process_instance, step_attr)
+            attr_value = get_attr_value(process_instance, step_attr)
+            response = get_field(form, step_attr, attr_value)
+
+            if response.class == Array
+                raw response.join("").html_safe
+            else
+                raw response
+            end    
         end
 
         
@@ -130,6 +142,22 @@ module Guara
             return @required_fields.join("").html_safe
         end
 
+        def show_attr_value(process_instance, step_attr)
+            attr_value = get_attr_value(process_instance, step_attr)
+
+            @label = []
+            if attr_value.class == Array
+                attr_value.each do |attr|
+                    @label << content_tag(:span, get_value_model(attr[:step_attr_option], attr[:value]), :class => "strong")
+                end
+            elsif attr_value.class == String
+                @label << attr_value
+            end
+
+            return @label.join(", ").html_safe
+        end
+
+        #DEPRECATED
         def show_values_select(val)
             @label = []
             if val.class == Array
@@ -141,10 +169,6 @@ module Guara
             end
 
             return @label.join(", ").html_safe
-        end
-
-        def get_value_select(val)
-            return get_value_model(val[:step_attr_option], val[:value])
         end
 
       end
