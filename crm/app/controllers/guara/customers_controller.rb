@@ -21,12 +21,18 @@ module Guara
       #@query = Customer.search(params[:search])
       #@search = @query.result
       
-      param_search = params[:search]
+      param_search = params[:search] || session[:customers_search]
+      session[:customers_search] = param_search
+      params[:search] = param_search
       
       if !param_search.nil? && param_search.size>0 
         filter_multiselect param_search, :customer_guara_customer_pj_type_activities_business_segment_id_in
         filter_multiselect param_search, :customer_guara_customer_pj_type_activities_id_in
       end
+      
+      param_search = param_search.dup
+      
+      mode = param_search.delete :mode_advanced
       
       @search = Customer.search(param_search)
       #@search = Customer.search(param_search)

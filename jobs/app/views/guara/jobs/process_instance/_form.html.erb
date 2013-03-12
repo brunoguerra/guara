@@ -5,14 +5,15 @@
 	:html => {:class => "well", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
 	
 	<div class="row-fluid">
-	<div class="span3" id="form_sidebar">
 		
-		<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
-		<% @grouped_column_attrs.each do |group, column_attrs| %>
-		  <li><a href="#form_group_<%= group.gsub(/[^A-z]/, '').tableize() %>"><i class="icon-chevron-right"></i> <%= t("jobs.process_instance.attrs_group.#{group}") %></a></li>
-		<% end %>
-		</ul>
-	</div>
+		<div class="span3" id="form_sidebar">	
+			<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
+			<% @grouped_column_attrs.each do |group, column_attrs| %>
+			  <li><a href="#form_group_<%= group.gsub(/[^A-z]/, '').tableize() %>"><i class="icon-chevron-right"></i> <%= t("jobs.process_instance.attrs_group.#{group}") %></a></li>
+			<% end %>
+			</ul>
+		</div>
+	
 		<div class="span8" id="form_fields">
 		<% @grouped_column_attrs.each do |group, column_attrs| %>
 			<a id="form_group_<%= group.gsub(/[^A-z]/, '').tableize() %>"></a>
