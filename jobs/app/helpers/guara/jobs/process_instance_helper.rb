@@ -96,12 +96,12 @@ module Guara
         end
 
         def get_attr_value(process_instance, step_attr)
-            attr_value = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
+            instance_attr = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
           
-          if attr_value.nil?
-            value =  process_instance_field_multi_values(step_attr, attr_value)
+          if instance_attr.nil? || instance_attr.value.nil?
+            value =  process_instance_field_multi_values(step_attr, instance_attr)
           else
-            value = attr_value.value
+            value = instance_attr.value
           end
           
           return value
