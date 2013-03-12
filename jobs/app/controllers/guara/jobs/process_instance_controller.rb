@@ -5,7 +5,6 @@ module Guara
       load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance"
       load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
 
-
       helper CrudHelper
 
       attr_accessor :embedded
@@ -57,11 +56,6 @@ module Guara
         
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@current_step)
         @grouped_column_attrs_step_init    = load_grouped_columned_attrs(@process_instance.custom_process.step)
-
-        respond_to do |format|
-          format.json {  }
-          format.html { render }
-        end
       end
       
       def load_grouped_columned_attrs(step)
@@ -80,35 +74,54 @@ module Guara
         return grouped_column_attrs
       end
 
-      def update
-        @a = params[:step_instance_attrs]
-        @step_id = @a.delete(:step_id)
-        StepInstanceAttr.delete_all("step_id = #{@step_id}")
-        
-        @a.each do |k,v|
-          @atr = {:process_instance_id=> params[:id], :step_attr_id=> k, :step_id=>@step_id, :value=> nil}
-          if v.class == Array
-            @step_instance_attr = StepInstanceAttr.create(@atr)
-            v.each do |a|
-              @step_instance_attr.step_instance_attr_multis.create :value=> a
+      def create_step_instance_attrs
+        @step_instance_attrs.each do |key, value|
+          step_attr_val = {
+            :process_instance_id=> params[:id], 
+            :step_attr_id=> key, 
+            :step_id=>@step_id, 
+            :value=> nil
+          }
+
+          if value.class == Array
+            @step_instance_attr = StepInstanceAttr.create(step_attr_val)
+            attrs.each do |attr|
+              @step_instance_attr.step_instance_attr_multis.create :value=> attr
             end
           else
-            @atr[:value] = v
-            @step_instance_attr = StepInstanceAttr.create(@atr)
+            step_attr_val[:value] = value
+            @step_instance_attr = StepInstanceAttr.create(step_attr_val)
           end
-        end  
+        end
+      end
 
+      def update
+        @step_instance_attrs = params[:step_instance_attrs]
+        @step_id = @step_instance_attrs.delete(:step_id)
+        StepInstanceAttr.delete_all("step_id = #{@step_id}")
+
+        create_step_instance_attrs()
+        set_next_step_to_process_instance()
+
+        redirect_to process_instance_show_step_path(:id=> params[:id], :edit_step=> @step_id)
+      end
+
+      def load_next_step_to_process_instance
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
         @next_step_valid = StepAttr.where(:step_id=> @next_step).count()
+      end
+
+      def set_next_step_to_process_instance
+        load_next_step_to_process_instance()
+
         if @next_step.nil? or @next_step_valid == 0
           @process_instance.update_attributes :date_finish=> Time.now.to_s(:db)
           @process_instance.save
         else
           @process_instance.update_attributes :state=> @next_step
           @process_instance.save
-        end    
-          redirect_to process_instance_show_step_path(:id=> params[:id], :edit_step=> @step_id)
+        end 
       end
 
       def show_step

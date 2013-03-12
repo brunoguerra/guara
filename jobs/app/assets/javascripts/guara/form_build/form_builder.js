@@ -270,7 +270,7 @@ window.form_builder = {
                 config.required = val;
                 me.set_required(config.id, val);
             }
-            else if(type == 'select_type' || type == 'options'){
+            else if(type == 'select_type' || type == 'options' || type == 'type_value'){
                 config.options = val;
             }
             else if(type == 'widget'){
