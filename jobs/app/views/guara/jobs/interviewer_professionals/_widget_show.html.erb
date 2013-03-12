@@ -1,0 +1,36 @@
+<style type="text/css">
+	table thead tr th{
+		text-align: left !important;
+	}
+	table tbody tr th{
+		font-weight: normal !important;
+	}
+</style>
+
+<div style="padding:10px;">
+	<table class="table table-bordered table-striped">
+	    <thead>
+	      <tr>
+	        <th><%= t("inter_view_professionals.id") %></th>
+	        <th><%= t("inter_view_professionals.consultant_id") %></th>
+	        <th><%= t("inter_view_professionals.professional_id") %></th>
+	        <th><%= t("inter_view_professionals.local") %></th>
+	        <th><%= t("inter_view_professionals.date_time") %></th>
+	        <th><%= t("inter_view_professionals.date_time_interviewee") %></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+		<% @inter_view_professionals.each do |p| %>
+	      <tr>
+	      	 <th><%= p.id %></th>
+	      	 <th><%= p.consultant.name %></th>
+	      	 <th><%= p.professional.person.name %></th>
+	      	 <th><%= p.local %></th>
+	      	 <th><%= p.date_time.strftime("%d/%m/%Y %H:%M:%S") %></th>
+	      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+	      </tr>
+	    <% end %>
+
+	    </tbody>
+	 </table>
+</div>	 

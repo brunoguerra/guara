@@ -30,9 +30,10 @@ module Guara
         filter_multiselect param_search, :customer_guara_customer_pj_type_activities_id_in
       end
       
-      param_search = param_search.dup
-      
-      mode = param_search.delete :mode_advanced
+      unless param_search.nil?
+        param_search = param_search.dup
+        mode = param_search.delete :mode_advanced
+      end
       
       @search = Customer.search(param_search)
       #@search = Customer.search(param_search)

@@ -217,12 +217,12 @@ pt-BR:
     settings:
       title: "Preferencias do Usuário"
       link: "Preferências"
-    abilities: &attr_user_abilities
-      module: "Módulo"
-      ability: "Permissão"
-      user: "Usuário"
-      link: "Permissões de Acesso"
-      title: "Permissões de Acesso para %{user}"
+      
+  abilities: &attr_user_abilities
+    module: "Módulo"
+    ability: "Permissão"
+    link: "Permissões de Acesso"
+    title: "Permissões de Acesso para %{skilled}"
     new:
       link: "Novo Usuário"
     edit:
@@ -319,6 +319,7 @@ pt-BR:
       customer: "Cliente"
       contact: "Contato"
       user: "Usuário"
+      "guara/user_group": "Grupo de Usuários"
       task: "Tarefa"
       task_type: "Tipo de Tarefa"
       

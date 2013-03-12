@@ -1,0 +1,35 @@
+<% provide(:title, @user_group.name) %>
+<p/>&nbsp;<p/>
+<div class="row">
+  <aside class="span4">
+    <section>
+				<table class="table table-bordered table-striped">
+				<thead>
+					<th><%= t("user_groups.title") %> <%= @user_group.name %></th>
+				</thead>
+				<tbody>
+					<tr><td><% if current_user.admin? %>
+					  <%= link_to t("abilities.link"), user_group_abilities_path(@user_group), class: "btn btn-primary"  %>
+					<% end %>
+					</td></tr>
+				</tbody>
+			 </table>
+    </section>
+  </aside>
+	
+	<section class="span6 pull-right">
+		<table class="table table-bordered table-striped">
+		<thead>
+			<th><%= t("users.title") %></th>
+		</thead>
+		<tbody>
+			<% @user_group.primary_users.order(:name).each do |u|  %>
+			<tr>
+			<td><%= link_to u.name, u %></td>
+			</tr>
+			<% end %>
+		</tbody>
+		</table>
+	</section>
+
+</div>

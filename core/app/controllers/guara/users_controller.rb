@@ -8,11 +8,10 @@ module Guara
     helper CrudHelper
     
     def index
-      @users = User.paginate(page: params[:page])
+      @users = @users.paginate(page: params[:page])
     end
   
     def show
-      @user = User.find(params[:id])
       @microposts = @user.microposts.paginate(page: params[:page])
     end
 
@@ -23,8 +22,6 @@ module Guara
     def create
       @user = User.new(params[:user])
       if @user.save
-        sign_in @user
-        flash[:success] = "Welcome to the Sample App!"
         redirect_to @user
       else
         render 'new'
@@ -33,9 +30,12 @@ module Guara
   
     def update
       #@user = User.find(params[:id])
+      if params[:user][:password].nil? || params[:user][:password].empty?
+        params[:user].delete :password
+        params[:user].delete :password_confirmation
+      end
+      
       if @user.update_attributes(params[:user])
-        flash[:success] = "Profile updated"
-        sign_in @user
         redirect_to @user
       else
         render 'edit'

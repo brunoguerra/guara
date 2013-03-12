@@ -1,0 +1,27 @@
+<% provide(:title, t('user_groups.title')) %>		
+
+<p/>&nbsp;<p/>
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th><%= t("user_groups.name") %></th>
+    <th class="span1"><%= t("helpers.forms.actions") %></th>
+  </tr>
+</thead>
+<tbody>
+	<% @user_groups.each do |c| %>
+	<tr>
+	    <td><%= link_to c.name, user_group_path(c)  %></td>
+	    <td><% if can? Guara::UserGroup, :edit %>
+						<%= index_btn_edit edit_user_group_path(c), t("helpers.forms.edit") %>
+					<% end %>
+			</td>
+	</tr>
+	<% end %>
+</table>
+</tbody>
+
+
+<%= link_to [t("helpers.forms.new"), t("activerecord.models.guara/user_group")].join(" "), new_user_group_path(), :class => "btn btn-primary" if can? Guara::UserGroup, :create %>
+
+<%= will_paginate %>
