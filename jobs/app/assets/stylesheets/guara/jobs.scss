@@ -14,9 +14,6 @@
 			margin-top: -5px;
 		}
 
-
-
-
 		label[for=jobs_professional_have_job]{
 		  float: left;
 		}
@@ -25,7 +22,8 @@
 		  float: left;
 		  margin: -5px 0px;
 		}
-			#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px;}
+		
+		#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px;}
 
 		label[for=jobs_professional_have_job_false]{
 		  float: left;
@@ -111,6 +109,11 @@
 
 	.have_jobs {
 
+		.resume_professional {
+			margin-bottom: 20px;
+			text-align: justify;
+		}
+		
 		.have_job_yes_no {
 			float: left;
 			margin-right: 50px;
@@ -253,6 +256,7 @@
 			text-decoration: none;
 			margin-top: 10px; 
 			list-style-type: none;
+			text-align: justify;
 		}
 	}
 

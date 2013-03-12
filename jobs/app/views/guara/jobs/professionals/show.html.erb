@@ -11,11 +11,13 @@
 						<dd><%= image_tag @professional.attachment.avatar.url(:thumb), :class => "avatar" %></dd>
 					
 						<dt><%= t("jobs.professional.resume_professional") %></dt><br />
-						<dd><%= @professional.resume_professional %></dd>
+						<dd class= "resume_professional">
+							<%= nbsp @professional.resume_professional %>
+						</dd>
 					</dt>
 
 					<dt><%= t("jobs.professional.have_job") %></dt>
-					
+
 			    	<dd class="have_job_yes_no"><%= yes_or_no @professional.have_job %></dd>
 
 			    	<dd><%= link_to t('jobs.professional.attachment.curriculum.view'), @professional.attachment.curriculum.url, :target => '_blank' %></dd>
