@@ -56,6 +56,12 @@ module Guara
         
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@current_step)
         @grouped_column_attrs_step_init    = load_grouped_columned_attrs(@process_instance.custom_process.step)
+
+        if @embedded
+          render :partial => "guara/jobs/process_instance/form"
+        else
+
+        end
       end
       
       def load_grouped_columned_attrs(step)
@@ -134,7 +140,25 @@ module Guara
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
       end
-         
+      
+
+      def embeded_call(action, process_instance, params, request, response)
+
+        params = params.dup
+        params[:id] = process_instance.id
+        params[:action] = action
+        params[:process_instance] = nil
+        params[:edit_step] = nil
+
+        self.params = params
+        self.request = request
+        self.response = response
+
+        self.embedded = true
+
+        return self.send(action)
+
+      end
     end
   end
 end

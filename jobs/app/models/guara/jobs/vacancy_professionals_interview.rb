@@ -1,11 +1,12 @@
 module Guara
   module Jobs
     class VacancyProfessionalsInterview < ActiveRecord::Base
-      attr_accessible :date, :vacancy_scheduling_professsional, :process_instance, :step
+      attr_accessible :date, :vacancy_scheduling_professsional, :step,
+                      :interview_process_instance, :interview_process_instance_id, :scheduling_id, :vacancy_step_id
       
-      belongs_to :vacancy_scheduling_professsional
-      belings_to :process_instance
-      belongs_to :step
+      belongs_to :scheduling, class_name: "Guara::Jobs::VacancySchedulingProfessional"
+      belongs_to :interview_process_instance, class_name: "Guara::Jobs::ProcessInstance"
+      belongs_to :vacancy_step, class_name: "Guara::Jobs::Step"
       
       
       def self.custom_process

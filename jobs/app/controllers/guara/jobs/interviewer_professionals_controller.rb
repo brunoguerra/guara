@@ -1,6 +1,6 @@
 module Guara
   module Jobs
-    class InterViewProfessionalsController < BaseController
+    class InterviewerProfessionalsController < BaseController
     	load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy"
       	load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
       	include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
@@ -26,14 +26,37 @@ module Guara
     	end
 
     	def edit
-    		@vacancy_scheduling = VacancySchedulingProfessional.find(:first, :conditions=> ['vacancy_id = ? AND professional_id = ?', params[:vacancy_id], params[:professional_id]])
+    		@scheduling = VacancySchedulingProfessional.find(:first, :conditions=> ['vacancy_id = ? AND professional_id = ?', params[:vacancy_id], params[:professional_id]])
         
+        @step = @step || Guara::Jobs::Step.find(params[:edit_step])
+
+        @interview = VacancyProfessionalsInterview.find_by_scheduling_id(@scheduling.id) ||
+                      VacancyProfessionalsInterview.create(scheduling_id: @scheduling.id, vacancy_step_id: @step.id)
+
+        
+        initialize_interview()
+
+        @interview_process_instance = @interview.interview_process_instance
+
         if @widget_request
-          render :partial => "guara/jobs/interviewer_professionals/widget_edit", :locals => { vacancy: @vacancy}
+          render :partial => "guara/jobs/interviewer_professionals/widget_edit", :locals => { vacancy: @vacancy, embedded: edit_embeded_process()}
         else
           render
         end
     	end
+
+      def initialize_interview
+        unless @interview.interview_process_instance
+          @custom_process = VacancyProfessionalsInterview.custom_process
+          
+          @interview.interview_process_instance = ProcessInstance.create({
+            :process_id=> @custom_process.id,
+            :date_start=> Time.now.to_s(:db),
+            :user_using_process=> current_user.id,
+            :state=> @custom_process.step_init
+          })  
+        end
+      end
 
       def update
           @a = params[:jobs_vacancy_scheduling_professional]
@@ -44,6 +67,11 @@ module Guara
           else
             render :json => {:data=> @vacancy_scheduling.errors, :success=> false} 
           end
+      end
+
+
+      def edit_embeded_process()
+          ProcessInstanceController.new.embeded_call(:edit, @interview.interview_process_instance, params, request, response)
       end
 
 

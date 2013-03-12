@@ -61,9 +61,14 @@ module Guara
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
                     params[:process_instance_id] = params[:id]
+                    @component.widget_request = true
+                    @component.step = rec.step
+                    @component.process_instance = Guara::Jobs::ProcessInstance.find params[:process_instance_id]
+
                     @component.request = request
                     @component.response = response
                     @component.params = params
+                    
 
                     return @component.index
                 else
