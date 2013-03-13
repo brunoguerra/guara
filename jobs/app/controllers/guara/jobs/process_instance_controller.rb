@@ -54,6 +54,7 @@ module Guara
         
         if params[:edit_step].nil?
           @current_step = @process_instance.step
+          params[:edit_step] = @current_step.id
         else
           @current_step = Step.find params[:edit_step]
         end
