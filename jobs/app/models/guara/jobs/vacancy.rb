@@ -5,7 +5,7 @@ module Guara
       belongs_to :process_instance
       
       def selection_professionals_selecteds()
-        @step_profs = ProcessInstance.first.custom_process.steps.joins(:step_attrs).where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
+        @step_profs = self.process_instance.custom_process.steps.joins(:step_attrs).where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
         raise "Unkow step with professionals selection" if @step_profs.nil?
         @step_attr = @step_profs.attrs.where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
         
