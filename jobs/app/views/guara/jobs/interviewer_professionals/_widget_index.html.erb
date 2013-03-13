@@ -67,11 +67,7 @@
 		form.load("<%= edit_vacancy_interviewer_professional_path(vacancy, edit_step: params[:edit_step])%>&professional_id="+id+'');
 
 		$("form.guara_jobs_vacancy_scheduling_professional .row-fluid", function(data){
-			var html = $("form.guara_jobs_vacancy_scheduling_professional .row-fluid");
-			$("form.guara_jobs_vacancy_scheduling_professional").remove();
-			setTimeout(function(){
-				$('#jobs_vacancy_scheduling_professional_date_time_interviewee').after($(html));
-			},200);
+			
 		});
 	}
 </script>

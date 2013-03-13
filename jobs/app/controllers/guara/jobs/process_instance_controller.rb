@@ -10,13 +10,15 @@ module Guara
       attr_accessor :embedded
 
       def index
+        params[:search] = {} if params[:search].nil?
+        params[:search][:process_id_eq] = Vacancy.custom_process.id
+
         @search = ProcessInstance.search(params[:search])
         if class_exists?("Ransack")
             @process_instance = @search.result().paginate(page: params[:page], :per_page => 10)
         else
             @process_instance = @search.paginate(page: params[:page], :per_page => 10)
         end
-        params[:search] = {} if params[:search].nil?
       end
 
       def new
@@ -91,7 +93,7 @@ module Guara
 
           if value.class == Array
             @step_instance_attr = StepInstanceAttr.create(step_attr_val)
-            attrs.each do |attr|
+            value.each do |attr|
               @step_instance_attr.step_instance_attr_multis.create :value=> attr
             end
           else
@@ -109,7 +111,9 @@ module Guara
         create_step_instance_attrs()
         set_next_step_to_process_instance()
 
-        redirect_to process_instance_show_step_path(:id=> params[:id], :edit_step=> @step_id)
+        if !@embedded
+          redirect_to process_instance_show_step_path(:id=> params[:id], :edit_step=> @step_id)
+        end  
       end
 
       def load_next_step_to_process_instance
@@ -139,9 +143,14 @@ module Guara
         @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
+
+        if @embedded
+          render :partial => "guara/jobs/process_instance/details_current_stage"
+        else
+
+        end
       end
       
-
       def embeded_call(action, process_instance, params, request, response)
 
         params = params.dup
@@ -157,7 +166,6 @@ module Guara
         self.embedded = true
 
         return self.send(action)
-
       end
     end
   end

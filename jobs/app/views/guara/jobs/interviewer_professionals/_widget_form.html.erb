@@ -1,6 +1,6 @@
 <%= semantic_form_for @scheduling, 
 :url => vacancy_interviewer_professional_path(@vacancy), 
-:html => {:class => "well", :onsubmit=> "return vacancy_inter_view_professional_submit();"}  do |f| %>
+:html => {:class => "well", :onsubmit=> "return vacancy_interviewer_professional_submit();"}  do |f| %>
 		
 	<%= f.input :date_time_interviewee, :as=> :string,
 		:input_html=> {
@@ -8,7 +8,7 @@
       		:value=> !@scheduling.date_time_interviewee.nil? ? @scheduling.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : ""
       	} %>
 
-    <%= embedded.join("").html_safe %>  	
+    <%= embedded %>  	
 	
 	<%= f.input :avaliate, :as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
 	
@@ -20,12 +20,17 @@
 <% end %>
 
 <script type="text/javascript">
-	function vacancy_inter_view_professional_submit(){
+	function vacancy_interviewer_professional_submit(){
 		var data  = {_method: 'put'},
 		form      = '#form_candidate_selected form',
 		inputs    = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
 		select    = $(form + ' select[name*=jobs_vacancy_scheduling_professional]'),
-		text_area = $(form + ' textarea[name*=jobs_vacancy_scheduling_professional]');
+		text_area = $(form + ' textarea[name*=jobs_vacancy_scheduling_professional]'),
+
+		inputs_ebd    = $(form + ' input[name*=step_instance_attrs]'),
+		select_ebd    = $(form + ' select[name*=step_instance_attrs]'),
+		text_area_ebd = $(form + ' textarea[name*=step_instance_attrs]');
+
 		data[$(select).attr('name')] = $(select).val();
 		data[$(text_area).attr('name')] = $(text_area).val();
 		
@@ -33,6 +38,20 @@
 			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
 		}
 
+		for(var i=0; i< inputs_ebd.length;i++){
+			data[$(inputs_ebd[i]).attr('name')] = $(inputs_ebd[i]).val();
+		}
+
+		for(var i=0; i< select_ebd.length;i++){
+			data[$(select_ebd[i]).attr('name')] = $(select_ebd[i]).val();
+		}
+
+		for(var i=0; i< text_area_ebd.length;i++){
+			data[$(text_area_ebd[i]).attr('name')] = $(text_area_ebd[i]).val();
+		}
+
+		validate();
+		
 		$.ajax({
 		  type: "POST",
 		  url: $(form).attr('action'),

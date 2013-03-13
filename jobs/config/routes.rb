@@ -25,7 +25,8 @@ Guara::Core::Engine.routes.prepend do
 		resources :process_instance
 
 		match "/professionals/search", to: "professionals#search"
-		
+		match "/interviewer_professional/show_embeded_process", :to => "interviewer_professionals#show_embeded_process"
+
 		resources :vacancies do
 		  resource :scheduler_professional, controller: "SchedulerProfessionals"
 		  resource :interviewer_professional, controller: "InterviewerProfessionals"

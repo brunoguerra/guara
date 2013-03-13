@@ -28,7 +28,7 @@
 			<fieldset>
 				<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
 				<% column_attrs.each do |column, attrs| %>
-					<div class="span<%= total_spans/column_attrs.size() %>">
+					<div class="span12">
 					<% attrs.each do |step_attr| %>
 						<%= instance_process_field(f, @process_instance, step_attr) %>
 					<% end %>
@@ -40,12 +40,14 @@
 		
 	</div>
 
-    <%= f.hidden_field "step_id", :value => @current_step.id %>
-    <%= f.submit 'Salvar', class: "btn btn-large btn-primary" %>
+	<%= f.hidden_field "step_id", :value => @current_step.id %>
+    <% unless @embedded %>
+	    <%= f.submit 'Salvar', class: "btn btn-large btn-primary" %>
+    <% end %>
 <% end %>
 
 <script type="text/javascript">
-	$(function() {
+	//$(function() {
 		$('.date_format').datepicker($.datepicker.regional['pt-BR']);
 
 		var offset = {
@@ -65,8 +67,10 @@
 			return true;
 		}
 		
-
-	});
+	//});
+	setTimeout(function(){
+		$(".multiselect").select2();
+	}, 200);
 </script>
 <style>
 	#form_navbar.affix {

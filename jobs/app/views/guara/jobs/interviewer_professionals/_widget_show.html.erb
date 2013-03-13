@@ -17,6 +17,7 @@
 	        <th><%= t("interviewer_professionals.local") %></th>
 	        <th><%= t("interviewer_professionals.date_time") %></th>
 	        <th><%= t("interviewer_professionals.date_time_interviewee") %></th>
+	        <th class="span1"><%= t("helpers.forms.actions") %></th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -27,10 +28,27 @@
 	      	 <th><%= p.professional.person.name %></th>
 	      	 <th><%= p.local %></th>
 	      	 <th><%= p.date_time.strftime("%d/%m/%Y %H:%M:%S") %></th>
-	      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+	      	 <th>
+	      	 	<%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %>
+	      	 </th>
+	      	 <td>
+              <%= link_to t("helpers.forms.show"), 'javascript:void(0);', :class => "btn", :onClick=>"show_interviewer_professional(#{p.professional_id}); " %>
+            </td>
 	      </tr>
 	    <% end %>
 
 	    </tbody>
-	 </table>
+	</table>
+
+	<div id="show_candidate_selected" class="caption" style="padding:10px;">
+		            
+	</div>
 </div>	 
+
+<script type="text/javascript">
+	function show_interviewer_professional(professional_id){
+		show = $('#show_candidate_selected');
+		show.load("<%= interviewer_professional_show_embeded_process_path(vacancy_id: @vacancy.id, edit_step: params[:edit_step])%>&professional_id="+professional_id);
+	}
+
+</script>
