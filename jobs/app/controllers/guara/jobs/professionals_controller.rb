@@ -6,6 +6,7 @@ module Guara
 
     	include CustomersHelper
     	include Select2Helper
+    	include CrudHelper
 
     	helper CustomersHelper
     	helper CrudHelper
@@ -48,12 +49,18 @@ module Guara
 	    end
 	  	
 	  	def new
-	  		@professional.formations.build
-	  		@professional.professional_languages.build 
-	  		@professional.professional_experiences.build
-	  		@professional.professional_experiences.each {|e| e.careers.build }
-	  		@professional.build_attachment
-	  		@professional.build_vacancy_specification
+	  		build_professional()
+	  	end
+
+
+
+	  	def build_professional()
+	  		build_empty_many_relation(@professional.formations)
+	  		build_empty_many_relation(@professional.professional_languages)
+	  		build_empty_many_relation(@professional.professional_experiences)
+	  		@professional.professional_experiences.each {|e| build_empty_many_relation(e.careers) }
+	  		build_empty_one_relation(@professional, :attachment)
+	  		build_empty_one_relation(@professional, :vacancy_specification)
 	  	end
 
 	    def show
@@ -79,6 +86,7 @@ module Guara
 	              format.html { redirect_to(customer_professional_path(@customer, @professional), :notice => 'Contact was successfully created.') }
 	              format.json { render :json => @professional, :status => :created, :location => @professional}
 	            else
+	            	build_professional()
 	              format.html { render :action => "new" }
 	              format.json { render :json => @professional.errors, :status => :unprocessable_entity }
 	            end

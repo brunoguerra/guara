@@ -6,9 +6,9 @@ pt-BR:
     title: "Recrutamento e Seleção"
     link: "Recrutamento e Seleção"
 
-    professional:    
-      search:
-        link: "Pesquisar por Professional"
+    vacancies:
+      widget:
+        title: "Widget"
 
     announcement_of_vacancies:
       index:
@@ -30,16 +30,17 @@ pt-BR:
       filters: "Filtros"
       date: "Data"
 
-
     professional: &attrs_professional
       index:
         link: "Dados Curriculares"
         title: "Dados Curriculares"
         
       search:
+        link: "Pesquisar por Profissional"
         complete: "pesquisa por profissionais foi finalizada com suscesso!"
 
-      names: "Nome"
+      name: "Nome"
+      business_action_roles: "Áreas de Atuação e Cargos"
 
       selecteds_candidates: "Seleção de Candidatos"
 
@@ -175,3 +176,5 @@ pt-BR:
 
     forms:
       select: "Selecionar"
+
+

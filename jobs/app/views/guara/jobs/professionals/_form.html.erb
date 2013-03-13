@@ -17,13 +17,12 @@
 		    <%= attach_fields.input :avatar, :label => t("jobs.professional.avatar"),:as => :file %>
 
 		     <%= f.input :have_job, :label => t("jobs.professional.have_job"),
-		    	:as => :radio,
+		    	:as => :radio, :collection => {  t("commons.yes") => 1, t("commons.no") => 0 },
 
 		    	:class => "well" %><!-- END DIV HAVE JOB ? -->
 
-
 		    <%= f.input :resume_professional,
-				:input_html => {:rows => 10, :maxlength => 300}, 
+				:input_html => {:rows => 10, :maxlength => 550}, 
 		    	:label => t("jobs.professional.resume_professional") %>
 
 		    <% end %>

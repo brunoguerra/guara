@@ -18,14 +18,14 @@
 		  float: left;
 		}
 
-		label[for=jobs_professional_have_job_sim]{
+		label[for=jobs_professional_have_job_1]{
 		  float: left;
 		  margin: -5px 0px;
 		}
 		
 		#jobs_professional_have_job_true, #jobs_professional_have_job_false {width: 30px;}
 
-		label[for=jobs_professional_have_job_false]{
+		label[for=jobs_professional_have_job_0]{
 		  float: left;
 		}
 
@@ -170,6 +170,10 @@
 					label {
 						float: none;
 					}
+
+					li {
+						text-align: left;
+					}
 				}
 			}
 
@@ -226,13 +230,13 @@
 	#jobs_professional_have_job_input {
 		float: left !important;
 	}
-	#jobs_professional_have_job_true {
+	#jobs_professional_have_job_1 {
 		float: left;
 		width: 14px !important;
 		height: 14px !important;
 
 	}
-	#jobs_professional_have_job_false {
+	#jobs_professional_have_job_0 {
 		float: left;
 		margin: -3px 5px;
 		width: 15px !important;

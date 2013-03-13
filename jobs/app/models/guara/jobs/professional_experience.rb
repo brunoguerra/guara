@@ -4,7 +4,7 @@ class Guara::Jobs::ProfessionalExperience < ActiveRecord::Base
 	    	attr_accessible :company_name, :careers, :careers_attributes, 
 	    					:professional_experiences_id
 
-	    	validates :company_name, :presence => true
+	    	#validates :company_name, :presence => true
 
 	    	has_many :careers, dependent: :destroy 
 
