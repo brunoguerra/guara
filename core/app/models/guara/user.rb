@@ -13,10 +13,11 @@ module Guara
   
   class User < ActiveRecord::Base
     include ActiveExtend::ActiveDisablable
+    include Skilled
   
     #attr_readonly :admin
     attr_accessible :name, :email, :password, :password_confirmation, :admin, :remember_me, :users_has_groups, 
-                    :primary_group, :secundary_groups, :primary_company_business, :primary_company_business_id,
+                    :primary_group, :primary_group_id, :secundary_groups, :secundary_group_ids, :primary_company_business, :primary_company_business_id,
                     :type_id
   
     # Include default devise modules. Others available are:
@@ -94,24 +95,6 @@ module Guara
         abilities << self.abilities  if (self.abilities)
         abilities << self.groups.collect { |g| g.abilities } if (self.groups)
         abilities.flatten.flatten.uniq
-      end
-    
-      def able?(module_, ability)
-        all_abilities.select { |ab| ab.module.id == module_.id && ab.ability.id == ability.id }.count > 0 
-      end
-    
-      def define_abilities(modules_and_abilities)
-        self.abilities.each do |u_ability|
-          u_ability.delete
-        end
-        labilities = []
-      
-        modules_and_abilities.each do |module_and_ability|
-          labilities << abilities.build(module_and_ability)
-        end
-      
-        self.abilities = labilities
-      
       end
   
     private

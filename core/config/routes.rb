@@ -39,7 +39,11 @@ Guara::Core::Engine.routes.draw do
   #resources
   resources :users do
   #  resources :sessions
-    resources :abilities
+    resources :abilities, controller: "UsersAbilities"
+  end
+  
+  resources :user_groups do
+    resources :abilities, controller: "UserGroupsAbilities"
   end
   #resources :sessions #,   only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]

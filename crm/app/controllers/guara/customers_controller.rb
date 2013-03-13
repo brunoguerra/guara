@@ -18,25 +18,39 @@ module Guara
     def index
       @sels = params["sels"] || []
       
-      #@query = Customer.search(params[:search])
-      #@search = @query.result
       
-      param_search = params[:search]
+      peform_search
+      
+      if class_exists?("Ransack")
+        @customers = @search.result().paginate(page: params[:page], :per_page => 10)
+      else
+        @customers = @search.paginate(page: params[:page], :per_page => 50)
+      end
+    end
+    
+    def peform_search
+      
+      if !params[:search].nil? && params[:search].include?(:none) 
+        params[:search] = {:mode_advanced => true}
+      end
+      
+      param_search = params[:search] || session[:customers_search]
+      session[:customers_search] = param_search
+      params[:search] = param_search
       
       if !param_search.nil? && param_search.size>0 
         filter_multiselect param_search, :customer_guara_customer_pj_type_activities_business_segment_id_in
         filter_multiselect param_search, :customer_guara_customer_pj_type_activities_id_in
       end
       
+      unless param_search.nil?
+        param_search = param_search.dup
+        mode = param_search.delete :mode_advanced
+      end
+      
       @search = Customer.search(param_search)
       #@search = Customer.search(param_search)
       
-      #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
-      if class_exists?("Ransack")
-        @customers = @search.result().paginate(page: params[:page], :per_page => 10)
-      else
-        @customers = @search.paginate(page: params[:page], :per_page => 50)
-      end
       params[:search] = {} if params[:search].nil?
     end
 
@@ -173,7 +187,7 @@ module Guara
     end
   
     def multiselect_customers_pj
-      render :json => CustomerPj.includes(:customer).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.customer.name } }
+      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.person.name } }
     end
   end
 end

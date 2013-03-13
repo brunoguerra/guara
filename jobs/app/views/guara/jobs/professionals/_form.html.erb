@@ -1,6 +1,8 @@
 <%= semantic_form_for [@customer, @professional], 
-:url => @professional.new_record? ? customer_professionals_path(@customer) : customer_professional_path(@customer, @professional), 
-:html => {:onsubmit => "return validate()", :multipart => true }  do |f| %>
+
+:url => @professional.new_record? ? jobs_customer_professionals_path(@customer) :jobs_customer_professional_path(@customer, @professional), 
+:html => {:onsubmit => "return validate()", :multipart => true}  do |f| %>
+
 
 	<fieldset>
 
@@ -178,7 +180,7 @@
 
 		<%= f.submit class: "btn  btn-primary" %> 
 
-		<%= link_to t('helpers.forms.back'), @professional.new_record? ? customer_path(@customer) : customer_professional_path(@customer), :class => "btn back_jobs" %>
+		<%= link_to t('helpers.forms.back'), @professional.new_record? ? customer_path(@customer) :jobs_customer_professional_path(@customer), :class => "btn back_jobs" %>
 
 	</fieldset>
 

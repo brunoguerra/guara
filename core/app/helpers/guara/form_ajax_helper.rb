@@ -12,7 +12,7 @@ module Guara
       r.gsub!(/<\/form/, '</div')
       r.gsub!(/type="submit"/, "type='button' id='form_ajax_#{name.to_s}_submit'")
       r += form_ajax_script(name, function_callback)
-      return raw r
+      return r.html_safe
     end
     
     def form_ajax_script(name, javascript_callback)

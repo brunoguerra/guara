@@ -3,19 +3,25 @@ module Guara
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
       	def get_collection(vals, sels)
-            sels = [] if sels.class == String
+      	    vals = vals.dup
+            sels = [] if sels.class == String || sels.nil?
             vals.strip!
             if (vals =~ /^\$/) == 0
-                model = vals.gsub(/^\$/)
-                model = eval model
+                vals.gsub!(/^\$/)
+                model = eval vals
                 if (model.respond_to?(:select_options))
                     options = model.select_options
                 else
                     options = model.all
                 end
        		    
-                options_for_select(options.map { |ff| [ff.name, ff.id] }, sels.collect { |fs| fs[:value] })
+                options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
+            elsif (vals =~ /url:([^\s]*)/)==0
+              vals.scan /url:([^\s])/ do |url|
+                
+              end
             else
+                puts sels.to_yaml
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
             end
@@ -27,8 +33,8 @@ module Guara
                 model = vals[1..1000]
                 model = eval model
                 
-                record = model.find i                                
-                return name_or_nothing record.name
+                record = model.find id                                
+                return record.name
                 
             else
                 id
@@ -46,25 +52,30 @@ module Guara
         def get_field(form, rec, val)
         	@field = ""
         	if rec.type_field == 'date'
-    		    @field = form.text_field rec.id, :class=> "input-block-level date_format", :value=> val[rec.id]
-    		elsif rec.type_field == 'textarea'
-    		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val[rec.id]
+    		    @field = form.text_field rec.id, :class=> "input-block-level date_format", :value=> val
+    		elsif rec.type_field == 'text_area'
+    		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                @field = form.select rec.id, get_collection(rec.options, val[rec.id]), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
+                @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
             elsif rec.type_field == 'widget'
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
                     params[:process_instance_id] = params[:id]
+                    @component.widget_request = true
+                    @component.step = rec.step
+                    @component.process_instance = Guara::Jobs::ProcessInstance.find params[:process_instance_id]
+
                     @component.request = request
                     @component.response = response
                     @component.params = params
+                    
 
                     return @component.index
                 else
-                    return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val[rec.id], :field_form_name=> process_instance_field_form_name(rec)}
+                    return render :partial=> "guara/jobs/widgets/form_#{rec.widget}", :locals=> {:value=> val, :field_form_name=> process_instance_field_form_name(rec)}
                 end
             else
-                @field = form.text_field rec.id, :value=> val[rec.id], :class=> "input-block-level #{rec.type_field}"
+                @field = form.text_field rec.id, :value=> val, :class=> "input-block-level #{rec.type_field}"
         	end
 
         	return "<div class=\"control-group\">
@@ -89,17 +100,69 @@ module Guara
         	return @steps_attrs_column.join("").html_safe
         end
 
-        def get_required_fields(step_attrs)
+        def get_attr_value(process_instance, step_attr)
+            instance_attr = StepInstanceAttr.where(process_instance_id: process_instance.id, step_attr_id: step_attr.id).first
+          
+          if instance_attr.nil? || instance_attr.value.nil?
+            value =  process_instance_field_multi_values(step_attr, instance_attr)
+          else
+            value = instance_attr.value
+          end
+          
+          return value
+        end
+        
+        def instance_process_field(form, process_instance, step_attr)
+            attr_value = get_attr_value(process_instance, step_attr)
+            response = get_field(form, step_attr, attr_value)
+
+            if response.class == Array
+                raw response.join("").html_safe
+            else
+                raw response
+            end    
+        end
+
+        
+        def process_instance_field_multi_values(step_attr, attr_instance)
+         return nil if attr_instance.nil?
+         
+         ret = []
+         
+          attr_instance.values.each do |v|
+            ret << { :value=> v.value, :step_attr_option=> step_attr.options }
+          end
+          
+          return ret
+        end
+
+        def process_instance_js_required_fields(step)
             @required_fields = []
-            step_attrs.each do |a,b|
-                b.each do |c|
-                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{c.id}').val())== '') {alert('Preencha o campo #{c.title}');return false;};" if c.type_field != 'widget' and c.required == true
+            step.attrs.each do |step_attr|
+                if step_attr.type_field != 'widget' and step_attr.required == true
+                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{step_attr.id}').val())== '') {alert('Preencha o campo #{step_attr.title}');return false;};"
                 end
             end
 
             return @required_fields.join("").html_safe
         end
 
+        def show_attr_value(process_instance, step_attr)
+            attr_value = get_attr_value(process_instance, step_attr)
+
+            @label = []
+            if attr_value.class == Array
+                attr_value.each do |attr|
+                    @label << content_tag(:span, get_value_model(attr[:step_attr_option], attr[:value]), :class => "strong")
+                end
+            elsif attr_value.class == String
+                @label << attr_value
+            end
+
+            return @label.join(", ").html_safe
+        end
+
+        #DEPRECATED
         def show_values_select(val)
             @label = []
             if val.class == Array
@@ -111,10 +174,6 @@ module Guara
             end
 
             return @label.join(", ").html_safe
-        end
-
-        def get_value_select(val)
-            return get_value_model(val[:step_attr_option], val[:value])
         end
 
       end

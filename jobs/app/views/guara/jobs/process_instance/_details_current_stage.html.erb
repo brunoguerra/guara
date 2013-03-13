@@ -1,0 +1,26 @@
+<% @grouped_column_attrs_current_step.each do |group, column_attrs| 
+								group = 'default' if group.nil?
+							%>
+							<fieldset>
+								<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
+								<% column_attrs.each do |column, attrs| %>
+									<% attrs.each do |step_attr| %>
+										<div class="control-group">
+											<% if step_attr.options == 'component'  
+												@component = eval(step_attr.widget).new()
+							                    params[:process_instance_id] = params[:id]
+							                    @component.request = request
+							                    @component.response = response
+							                    @component.params = params 
+							                    %>
+												<%= @component.show.join("").html_safe %>
+							                    <%
+											 else %>
+												<%= show_span_tag step_attr.title %>
+												<%= show_attr_value(@process_instance, step_attr) %>
+											<% end %>
+										</div>
+									<% end %>
+								<% end %>
+							</fieldset>
+							<% end %>

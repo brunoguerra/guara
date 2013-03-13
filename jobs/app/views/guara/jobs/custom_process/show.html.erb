@@ -223,6 +223,9 @@ input, textarea, select {
 		window.step_id = jQuery("#dropdown-menu-step").attr('step_id');
 		$('#dialog_attr_step').modal('show');
 		jQuery('#dialog_attr_step').css('display', 'block', 'important');
+		setTimeout(function(){
+			$('#myTab a[href="#add_field"]').tab('show'); 
+		},200);
 		getElsSaved(step_id);
 	});
 
@@ -332,7 +335,7 @@ input, textarea, select {
 				n[:attrs].each do |at| 
 				%>
 				  	json_elements_saved["<%=n[:id]%>"].push({
-						title: "<%=at[:title]%>", widget: "<%=at[:widget]%>", required: <%= at[:required] == true ? 1 : 0 %>, resume: "<%= at[:resume] == true ? 1 : 0 %>", type_field: "<%=at[:type_field]%>", position: "<%=at[:position]%>", id: <%= @i %>, column: "<%=at[:column]%>",  options: "<%=at[:options]%>"
+						title: "<%=at[:title]%>", widget: "<%=at[:widget]%>", group: "<%= at[:group] %>", required: <%= at[:required] == true ? 1 : 0 %>, resume: "<%= at[:resume] == true ? 1 : 0 %>", type_field: "<%=at[:type_field]%>", position: "<%=at[:position]%>", id: <%= @i %>, column: "<%=at[:column]%>",  options: "<%=at[:options]%>"
 					});
 				<% @i = @i + 1
 				 end	

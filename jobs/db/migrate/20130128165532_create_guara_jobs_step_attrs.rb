@@ -5,6 +5,7 @@ class CreateGuaraJobsStepAttrs < ActiveRecord::Migration
         t.string   :position
         t.string   :options
         t.string   :widget
+        t.string   :group
         t.string   :type_field
         t.boolean  :resume
         t.boolean  :required

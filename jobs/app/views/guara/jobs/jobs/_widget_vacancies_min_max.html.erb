@@ -1,18 +1,31 @@
-<%= javascript_include_tag "flot/jquery.flot", "flot/jquery.flot.selection" %>
+<%= javascript_include_tag "flot/jquery.flot", "flot/jquery.flot.selection", "flot/jquery.flot.categories" %>
 
 <h3><%= raw t("jobs.vacancies.widget.title") %></h3>
 <div id="vacancies_overview" style="width:600px;height:300px"></div>
 <script language="javascript">
 
-  d = [{ label: "<%= raw t("jobs.vacancies.widget.title") %>", data: <%= 
+  d = <%= 
   	raw Guara::Jobs::ProcessInstance
   		.select('max(date_finish-date_start) max, avg(date_finish-date_start) avg, min(date_finish-date_start) min')
-  		.where(date_finish: 30.days.ago...Date.today,
+  		.where(date_finish: 30.days.ago...(Date.today+1.day),
   				process_id: Guara::Jobs::Vacancy.custom_process.id)
   		.first.attributes.map {|a,v| [a,v] }.inspect
 
- %>
-  }];
+ %>;
 
-  $.plot($("#vacancies_overview"), d, { xaxis: { mode: "time" } });
+  options = {
+  			series: {
+				bars: {
+					show: true,
+					barWidth: 0.6,
+					align: "center"
+				}
+			},
+			xaxis: {
+				mode: "categories",
+				tickLength: 0
+			}
+		};
+
+  $.plot($("#vacancies_overview"), [d], options);
 </script>

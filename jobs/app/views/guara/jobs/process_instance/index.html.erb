@@ -23,7 +23,7 @@
                       <th><%= t("jobs.process_instance.date_start") %></th>
                       <th><%= t("jobs.process_instance.date_finish") %></th>
                       <th><%= t("jobs.process_instance.step") %></th>
-                      <th><%= t("helpers.forms.actions") %></th>
+                      <th class="span1"><%= t("helpers.forms.actions") %></th>
                     </tr>
                   </thead>
 
@@ -31,11 +31,11 @@
                     <% @process_instance.each do |p| %>
                       <tr class="<%= p.custom_process.enabled == false ? 'warning' : '' %>">
                         <td><%= link_to p.id, process_instance_path(p) %></td>
-                        <td><%= p.date_start.strftime("%d/%m/%Y")  %></td>
-                        <td><%= !p.date_finish.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
+                        <td><%= !p.date_start.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
+                        <td><%= !p.date_finish.nil? ? p.date_finish.strftime("%d/%m/%Y") : ''  %></td>
                         <td><%= p.step.name  %></td>
                         <td>
-                          <%= link_to t("helpers.forms.show"), process_instance_path(p), :class => "btn" %>
+                          <%= index_btn_view process_instance_path(p), "Exibir Processo" %>
                         </td>
                       </tr>
                     <% end %>

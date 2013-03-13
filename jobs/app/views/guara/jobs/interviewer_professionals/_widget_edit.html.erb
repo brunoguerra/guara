@@ -1,0 +1,22 @@
+
+<div class="control-group">
+	<%= content_tag :span, t('interviewer_professionals.consultant_id')+":", :class => "strong"  %>
+	<%= @scheduling.consultant.name %>
+</div>
+
+<div class="control-group">
+	<%= content_tag :span, t('interviewer_professionals.professional_id')+":", :class => "strong"  %>
+	<%= @scheduling.professional.person.name %>
+</div>
+
+<div class="control-group">
+	<%= content_tag :span, t('interviewer_professionals.local')+":", :class => "strong"  %>
+	<%= @scheduling.local %>
+</div>
+
+<div class="control-group">
+	<%= content_tag :span, t('interviewer_professionals.date_time')+":", :class => "strong"  %>
+	<%= @scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") %>
+</div>
+
+<%= render :partial => "guara/jobs/interviewer_professionals/widget_form", :locals => { vacancy: vacancy, embedded: embedded } %>

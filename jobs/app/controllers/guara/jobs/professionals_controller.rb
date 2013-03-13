@@ -1,8 +1,9 @@
 module Guara
 	module Jobs
 	  class ProfessionalsController < BaseController
-	    load_and_authorize_resource :customer, :class => ::Guara::Customer
-    	load_and_authorize_resource :through => :customer, :class => Guara::Jobs::Professional, :singleton => true, :except => :search
+	  	before_filter :find_customers_by_jobs_customer_id_and_professional, :except => :search
+	  	load_and_authorize_resource :customer, :except => :search
+    	load_and_authorize_resource :class => Guara::Jobs::Professional, :singleton => true, :except => :search
 
     	include CustomersHelper
     	include Select2Helper
@@ -38,6 +39,8 @@ module Guara
 	            format.json { render "guara/jobs/professionals/_list_professionals.html.erb" }
 	            format.html { render "search" }
             end
+
+            authorize! Guara::Jobs::Professional, :read
 	    end
 
 	    def searched_professionals
@@ -83,7 +86,7 @@ module Guara
 
 	    	respond_to do |format|
 	            if @professional.save
-	              format.html { redirect_to(customer_professional_path(@customer, @professional), :notice => 'Contact was successfully created.') }
+	              format.html { redirect_to(jobs_customer_professional_path(@customer, @professional), :notice => 'Contact was successfully created.') }
 	              format.json { render :json => @professional, :status => :created, :location => @professional}
 	            else
 	            	build_professional()
@@ -104,7 +107,7 @@ module Guara
 
 		     respond_to do |format|
 		        if @professional.update_attributes(params[:jobs_professional])
-		          format.html { redirect_to(customer_professional_path(@customer, @professional), :notice => t('forms.update.sucess')) }
+		          format.html { redirect_to(jobs_customer_professional_path(@customer, @professional), :notice => t('forms.update.sucess')) }
 		          format.json { head :ok }
 		        else
 		          format.html { render :action => "edit" }
@@ -113,7 +116,17 @@ module Guara
 		      end
 	    end# UPDATE
 
- 
+ 		
+	    def find_customers_by_jobs_customer_id_and_professional
+	    	@customer = Guara::Customer.find params[:jobs_customer_id]
+
+	    	if [:new, :create].include? params[:action]
+	    		@professional = Professional.new(params[:professional])
+	    	else  
+	    		@professional = Professional.where(person_id: @customer.id, id: params[:id]).first
+	    	end
+	    end
+
 	  end
 	end
 end

@@ -8,7 +8,7 @@
       </h1>
 
 	<% if current_user.admin? %>
-	  <%= link_to t("users.abilities.link"), user_abilities_path(@user), class: "btn btn-primary"  %>
+	  <%= link_to t("abilities.link", skilled: @user.name), user_abilities_path(@user), class: "btn btn-primary"  %>
 	<% end %>
     </section>
   </aside>

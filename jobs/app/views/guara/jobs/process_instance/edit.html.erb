@@ -8,11 +8,11 @@
 		<ul class="thumbnails">
 			<li class="span12">
 			    <div class="thumbnail">
-					<%= render :partial => 'details_initial_stage', :locals=> {:vals=> @vals} %>
+					<%= render :partial => 'details_initial_stage', :locals=> {:grouped_column_attrs_step_init=> @grouped_column_attrs_step_init } %>
 				</div>
 			</li>
 	  		<li class="span12">
-			    <div class="thumbnail">
+			    <div class="thumbnail process_instance form">
 			    	<%= render :partial => 'form' %>
 				</div>
 			</li>

@@ -1,24 +1,20 @@
-<%= provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
-
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
+    <%= semantic_form_for(@user) do |f| %>
       <%= render 'shared/guara/error_messages', object: f.object %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.input :name %>
+      <%= f.input :email %>
 
-      <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.input :password, as: :password %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.input :password_confirmation, as: :password %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
+			<%= f.input :primary_group %>
+			
+			<%= f.input :secundary_groups, :input_html => { class: "multiselect btn-block" } %>
 
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+      <%= f.actions %>
     <% end %>
   </div>
 </div>

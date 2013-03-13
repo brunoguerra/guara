@@ -1,0 +1,11 @@
+<% provide(:title, t("abilities.title", :skilled => @user.name )) %>
+<h1><%=t("abilities.title", :skilled => @user.name ) %></h1>
+
+
+<%= form_tag  user_abilities_path(@user), :method => :post, :class => "well abilities"  do %>
+
+	<%= render :partial => "guara/abilities/grid_editable", :locals => { skilled: @user } %>
+	
+	<%= submit_tag t("helpers.forms.update"), class: "btn btn-large btn-primary" %>
+	
+<% end %>
