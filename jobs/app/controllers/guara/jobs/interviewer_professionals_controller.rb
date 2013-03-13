@@ -47,6 +47,7 @@ module Guara
           @interview.interview_process_instance = ProcessInstance.create({
             :process_id=> @custom_process.id,
             :date_start=> Time.now.to_s(:db),
+            :finished=> false,
             :user_using_process=> current_user.id,
             :state=> @custom_process.step_init
           })  
@@ -80,7 +81,7 @@ module Guara
       def show_embeded_process()
         load_vacancy_professionals_interview(params[:vacancy_id], params[:professional_id], params[:edit_step])
         @interview_process_instance = @interview.interview_process_instance
-        @show_emvedded_process = ProcessInstanceController.new.embeded_call(:show, @interview.interview_process_instance, params, request, response)
+        @show_embeded_process = ProcessInstanceController.new.embeded_call(:show, @interview.interview_process_instance, params, request, response)
       end
 
       def update_embeded_process()
