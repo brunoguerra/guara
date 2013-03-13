@@ -44,13 +44,16 @@ module Guara
         unless @interview.interview_process_instance
           @custom_process = VacancyProfessionalsInterview.custom_process
           
-          @interview.interview_process_instance = ProcessInstance.create({
+          @process = ProcessInstance.create({
             :process_id=> @custom_process.id,
             :date_start=> Time.now.to_s(:db),
             :finished=> false,
             :user_using_process=> current_user.id,
             :state=> @custom_process.step_init
           })  
+
+          @interview.update_attributes :interview_process_instance_id=> @process.id
+          @interview.save
         end
       end
 
@@ -64,6 +67,7 @@ module Guara
       def update
           @a = params[:jobs_vacancy_scheduling_professional]
           load_vacancy_professionals_interview(@a[:vacancy_id], @a[:professional_id], params[:step_instance_attrs][:step_id])
+          initialize_interview()
           @scheduling.update_attributes(@a)
           
           if @scheduling
@@ -75,12 +79,11 @@ module Guara
       end
 
       def edit_embeded_process()
-          ProcessInstanceController.new.embeded_call(:edit, @interview.interview_process_instance, params, request, response)
+        ProcessInstanceController.new.embeded_call(:edit, @interview.interview_process_instance, params, request, response)
       end
 
       def show_embeded_process()
         load_vacancy_professionals_interview(params[:vacancy_id], params[:professional_id], params[:edit_step])
-        @interview_process_instance = @interview.interview_process_instance
         @show_embeded_process = ProcessInstanceController.new.embeded_call(:show, @interview.interview_process_instance, params, request, response)
       end
 

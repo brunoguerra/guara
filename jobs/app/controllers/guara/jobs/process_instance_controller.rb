@@ -158,12 +158,11 @@ module Guara
         if @embedded
           render :partial => "guara/jobs/process_instance/details_current_stage"
         else
-
+          render
         end
       end
       
       def embeded_call(action, process_instance, params, request, response)
-
         params = params.dup
         params[:id] = process_instance.id
         params[:action] = action
