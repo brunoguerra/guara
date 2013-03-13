@@ -75,7 +75,7 @@ module Guara
 
 	    	roles_id = params[:roles] || []
 	    	@professional.vacancy_specification.roles = roles_id.map { |r_id| Role.find r_id }.uniq
-	    	
+
 	    end # MÉTODO PARA SELEÇÃO DE VÁRIOS CHECKBOX
 
 
