@@ -47,6 +47,7 @@ module Guara
           @interview.interview_process_instance = ProcessInstance.create({
             :process_id=> @custom_process.id,
             :date_start=> Time.now.to_s(:db),
+            :finished=> false,
             :user_using_process=> current_user.id,
             :state=> @custom_process.step_init
           })  

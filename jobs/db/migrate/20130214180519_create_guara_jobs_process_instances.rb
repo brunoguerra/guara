@@ -4,6 +4,7 @@ class CreateGuaraJobsProcessInstances < ActiveRecord::Migration
       t.integer :process_id
       t.date :date_start
       t.date :date_finish
+      t.boolean :finished
       t.integer :user_using_process
       t.integer :state
 
