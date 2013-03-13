@@ -65,9 +65,5 @@
 	function interviewer_professionals(id) {
 		form = $('#form_candidate_selected');
 		form.load("<%= edit_vacancy_interviewer_professional_path(vacancy, edit_step: params[:edit_step])%>&professional_id="+id+'');
-
-		$("form.guara_jobs_vacancy_scheduling_professional .row-fluid", function(data){
-			
-		});
 	}
 </script>
