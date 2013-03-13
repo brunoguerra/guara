@@ -70,8 +70,6 @@ module Guara
 
 	    	languages_id = params[:languages] || []
 	    	@professional.languages = languages_id.map { |l_id| Language.find l_id }.uniq
-
-
 	    end # MÉTODO PARA SELEÇÃO DE VÁRIOS CHECKBOX
 
 

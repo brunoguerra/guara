@@ -18,8 +18,21 @@ module Guara
     def index
       @sels = params["sels"] || []
       
-      #@query = Customer.search(params[:search])
-      #@search = @query.result
+      
+      peform_search
+      
+      if class_exists?("Ransack")
+        @customers = @search.result().paginate(page: params[:page], :per_page => 10)
+      else
+        @customers = @search.paginate(page: params[:page], :per_page => 50)
+      end
+    end
+    
+    def peform_search
+      
+      if !params[:search].nil? && params[:search].include?(:none) 
+        params[:search] = {:mode_advanced => true}
+      end
       
       param_search = params[:search] || session[:customers_search]
       session[:customers_search] = param_search
@@ -38,12 +51,6 @@ module Guara
       @search = Customer.search(param_search)
       #@search = Customer.search(param_search)
       
-      #@customers = Customer.search_by_name(@customers, params[:name]).paginate(page: params[:page], :per_page => 5)
-      if class_exists?("Ransack")
-        @customers = @search.result().paginate(page: params[:page], :per_page => 10)
-      else
-        @customers = @search.paginate(page: params[:page], :per_page => 50)
-      end
       params[:search] = {} if params[:search].nil?
     end
 

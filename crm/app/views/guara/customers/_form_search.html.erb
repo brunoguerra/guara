@@ -126,7 +126,9 @@
 		        <% end %>
 		        <div class="form-actions span3">
 		        	<%= submit_tag t("helpers.forms.search"), :class => "btn btn-primary" %>
-		        	<% if (mode != :advanced) then %>
+		        	<% if (mode == :advanced) then %>
+							<%= link_to t("helpers.forms.clear"), customers_path(:"search[none]" => true, :"search[mode_advanced]" => true), :class => "btn" %>
+							<% else %>
 		        	<%= link_to t("searches.advanced"), customers_path(:"search[mode_advanced]" => true), :class => "btn" %>
 		        	<% end  %>
 		        </div>

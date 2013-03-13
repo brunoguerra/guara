@@ -81,7 +81,7 @@ module Guara
       def show_embeded_process()
         load_vacancy_professionals_interview(params[:vacancy_id], params[:professional_id], params[:edit_step])
         @interview_process_instance = @interview.interview_process_instance
-        @show_emvedded_process = ProcessInstanceController.new.embeded_call(:show, @interview.interview_process_instance, params, request, response)
+        @show_embeded_process = ProcessInstanceController.new.embeded_call(:show, @interview.interview_process_instance, params, request, response)
       end
 
       def update_embeded_process()
