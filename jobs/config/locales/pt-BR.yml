@@ -6,10 +6,9 @@ pt-BR:
     title: "Recrutamento e Seleção"
     link: "Recrutamento e Seleção"
 
-    professional:    
-      search:
-        link: "Pesquisar por Professional"
-
+    vacancies:
+      widget:
+        title: "Widget"
 
     announcement_of_vacancies:
       index:
@@ -34,16 +33,17 @@ pt-BR:
       attrs_group:
         default: ""
 
-
     professional: &attrs_professional
       index:
         link: "Dados Curriculares"
         title: "Dados Curriculares"
         
       search:
+        link: "Pesquisar por Profissional"
         complete: "pesquisa por profissionais foi finalizada com suscesso!"
 
-      names: "Nome"
+      name: "Nome"
+      business_action_roles: "Áreas de Atuação e Cargos"
 
       selecteds_candidates: "Seleção de Candidatos"
 
@@ -52,6 +52,10 @@ pt-BR:
       business_action_roles: "Área de Atuação - Cargos"
 
       have_job: "Empregado atualmente ?"
+
+      curriculum: "Currículo"
+
+      avatar: "Foto"
 
       business_action: "Área de Atuação" 
 
@@ -86,6 +90,14 @@ pt-BR:
       business_action_roles: "Área de Atuação - Cargos"
 
       languages: "Idiomas"
+
+      level_knowledge: "Conhecimento"
+
+      attachment:
+        curriculum:
+          view: "Visualizar Currículo"
+
+      resume_professional: "Resumo Profissional"
 
     level_avaliation:
       bad: "Ruim"
@@ -131,6 +143,9 @@ pt-BR:
       "guara/jobs/custom_process": "Processo Personalizado"
       "guara/jobs/process_instance": "Intância de Processos"
       "guara/jobs/step": "Etapa"
+      "guara/jobs/professional_experience": "Experiência"
+      "guara/jobs/formation": "Formação"
+      "guara/jobs/language": "Idiomas"
 
   activerecord:
       attributes:
@@ -156,8 +171,13 @@ pt-BR:
           salary_requirements:
             title: "Pretensão Salarial"
 
+          jobs_level_knowledges:
+            title: "Nivel de Conhecimento"
+
           names:
             title: "Nome"
 
     forms:
       select: "Selecionar"
+
+

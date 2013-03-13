@@ -25,5 +25,15 @@ module Guara
       label_tag label, label+":", :class => "strong"
     end
 
+    def build_empty_many_relation(relation)
+      relation.build if relation.size==0
+    end
+
+    def build_empty_one_relation(object, relation_sym)
+      if (not object.nil?) && object.send(relation_sym).nil?
+        object.send("build_#{relation_sym.to_s}".to_sym)
+      end
+    end
+
   end
 end

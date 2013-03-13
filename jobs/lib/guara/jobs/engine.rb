@@ -22,7 +22,8 @@ module Guara
             :jobs_roles,
             :jobs_level_educations,
             :jobs_consultants,
-            :jobs_languages
+            :jobs_languages,
+            :jobs_level_knowledges
           ]
         
       end
