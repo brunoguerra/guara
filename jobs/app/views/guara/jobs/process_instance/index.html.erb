@@ -31,11 +31,10 @@
                     <% @process_instance.each do |p| %>
                       <tr class="<%= p.custom_process.enabled == false ? 'warning' : '' %>">
                         <td><%= link_to p.id, process_instance_path(p) %></td>
-                        <td><%= p.date_start.strftime("%d/%m/%Y")  %></td>
-                        <td><%= !p.date_finish.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
+                        <td><%= !p.date_start.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
+                        <td><%= !p.date_finish.nil? ? p.date_finish.strftime("%d/%m/%Y") : ''  %></td>
                         <td><%= p.step.name  %></td>
                         <td>
-                          
                           <%= index_btn_view process_instance_path(p), "Exibir Processo" %>
                         </td>
                       </tr>

@@ -8,6 +8,6 @@ class CreateGuaraVacancyProfessionalsInterviews < ActiveRecord::Migration
       
       t.timestamps
     end
-    add_index :guara_professionals_interviews, :vacancy_scheduling_professsional_id, name: "vacancy_schd_prf_id"
+    add_index :guara_vacnacy_professionals_interviews, :vacancy_scheduling_professsional_id, name: "vacancy_schd_prf_id"
   end
 end

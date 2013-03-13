@@ -53,7 +53,7 @@ module Guara
         	@field = ""
         	if rec.type_field == 'date'
     		    @field = form.text_field rec.id, :class=> "input-block-level date_format", :value=> val
-    		elsif rec.type_field == 'textarea'
+    		elsif rec.type_field == 'text_area'
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
                 @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
@@ -61,9 +61,14 @@ module Guara
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
                     params[:process_instance_id] = params[:id]
+                    @component.widget_request = true
+                    @component.step = rec.step
+                    @component.process_instance = Guara::Jobs::ProcessInstance.find params[:process_instance_id]
+
                     @component.request = request
                     @component.response = response
                     @component.params = params
+                    
 
                     return @component.index
                 else
