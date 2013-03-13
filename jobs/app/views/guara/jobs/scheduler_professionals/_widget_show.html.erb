@@ -1,6 +1,5 @@
 <div style="padding:10px;">
 	<% (@unscheduleds || []).each do |professional|  
-		puts professional.person.to_yaml
 		%>
 		<%= content_tag :div, professional.name, :class => "strong" %> 
 	<% end %>

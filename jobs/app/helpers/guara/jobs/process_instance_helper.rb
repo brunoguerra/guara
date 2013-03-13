@@ -21,7 +21,6 @@ module Guara
                 
               end
             else
-                puts sels.to_yaml
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
             end
@@ -140,7 +139,7 @@ module Guara
             @required_fields = []
             step.attrs.each do |step_attr|
                 if step_attr.type_field != 'widget' and step_attr.required == true
-                    @required_fields << "if(jQuery.trim($('#step_instance_attrs_#{step_attr.id}').val())== '') {alert('Preencha o campo #{step_attr.title}');return false;};"
+                    @required_fields << "if((jQuery('#step_instance_attrs_#{step_attr.id}')[0]) && jQuery.trim($('#step_instance_attrs_#{step_attr.id}').val())== '') {alert('Preencha o campo #{step_attr.title}');return false;};"
                 end
             end
 
