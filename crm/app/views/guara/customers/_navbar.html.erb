@@ -13,7 +13,18 @@
         <div class="nav-collapse">
           <ul class="nav">
 	          <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
-	          <li <%= 'class=active' if active == :new %> ><%= link_to t("customers.new.link"), new_customer_path %></li>
+						<li class="dropdown <%= 'active' if active == :new %>">
+						    <a class="dropdown-toggle"
+						       data-toggle="dropdown"
+						       href="#">
+						        <%= t("customers.new.link") %>
+						        <b class="caret"></b>
+						      </a>
+						    <ul class="dropdown-menu">
+						      <% if can? Guara::CustomerPj, :create %><li><%= link_to t("customer_pjs.new.link"), new_customer_path(:type => :com) %></li><% end %>
+						      <% if can? Guara::CustomerPf, :create %><li><%= link_to t("customer_pfs.new.link"), new_customer_path(:type => :per) %></li><% end %>
+						    </ul>
+						  </li>
 
 	          <!--%= customer_nav_modules_build_tabs(@customer, active) %-->
         	</ul>

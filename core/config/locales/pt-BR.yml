@@ -384,6 +384,7 @@ pt-BR:
       error: "erro"
       search: "Pesquisar"
       areyousure: "Tem certeza?"
+      clear: "Redefinir"
       
     label:
       customers:

@@ -3,7 +3,7 @@
 module Guara
   class CustomersController < BaseController
     load_and_authorize_resource :class => Guara::Customer, :except => [:create]
-    before_filter :custom_load_creator, :only => :create
+    before_filter :custom_load_creator, :only => [:create,:update]
     before_filter :filter_before_changes, :only => [:create,:update]
   
     autocomplete :business_segment, :name, :full => true
@@ -17,7 +17,6 @@ module Guara
   
     def index
       @sels = params["sels"] || []
-      
       
       peform_search
       
@@ -67,7 +66,7 @@ module Guara
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
-      render "show2."+@customer.customer.prefix
+      render "show2"
     end
   
     def disable
@@ -75,20 +74,40 @@ module Guara
     end
   
     def new
-      @person = CustomerPj.new
+      load_customer_type()
+      if @customer_type == "pj"
+        @person = CustomerPj.new
+      else
+        @person = CustomerPf.new
+      end
+      
       @customer.customer = @person
       @segments = BusinessSegment.all
-      render "new."+preferences_customer_type?.to_s
+      
+      render "new"
+    end
+    
+    def load_customer_type()
+      if !@person.nil? 
+        @customer_type = @person.prefix
+      elsif !params[:type].nil?
+        @customer_type = {
+                            "com" => "pj",
+                            "per" => "pf"
+                        }[params[:type]]
+      else
+        @customer_type = preferences_customer_type?.to_s
+      end
     end
   
     def update_advanced_fields
-                    
-      #@person.segments = params[:segments_select] ? params[:segments_select].collect { |bsid| BusinessSegment.find bsid }.uniq : []
-      activities = params[:activities] ? params[:activities].collect { |baid| BusinessActivity.find_by_id baid }.uniq : []
-      activities.delete nil
-      @person.activities = activities
+      if @person.is_a?(CustomerPj)
+        activities = params[:activities] ? params[:activities].collect { |baid| BusinessActivity.find_by_id baid }.uniq : []
+        activities.delete nil
+        @person.activities = activities
       
-      @person.associateds = params[:associateds_select] ? params[:associateds_select].collect { |assoc| CustomerPj.find assoc }.uniq : []    
+        @person.associateds = params[:associateds_select] ? params[:associateds_select].collect { |assoc| CustomerPj.find assoc }.uniq : []    
+      end
     end
     
     def create
@@ -96,8 +115,15 @@ module Guara
         return
       end
       
+      load_customer_type()
+      custom_load_creator() unless params[:customer][:customer_pj].nil? && params[:customer][:customer_pf].nil?
+      
       @customer = Guara::Customer.new(params[:customer])
-      @customer.customer = Guara::CustomerPj.new(params[:customer_pj])
+      if @customer_type == "pf"
+        @customer.customer = Guara::CustomerPf.new(params[:customer_pf])
+      else
+        @customer.customer = Guara::CustomerPj.new(params[:customer_pj])
+      end
       @person = @customer.customer
       
       update_advanced_fields
@@ -107,16 +133,16 @@ module Guara
         redirect_to customer_path(@customer)
       else
         valid = @customer.valid? && @person.valid?
+        params_restore
         Rails.logger.debug [@customer.errors.inspect, @person.errors.inspect].to_s
         authorize! :new, @customer, 'new.'+preferences_customer_type?.to_s
-        render 'new.'+preferences_customer_type?.to_s
+        render 'new'
       end
     end
     
     def save_customer
       res = false
       Guara::Customer.transaction do
-        debugger
         raise ActiveRecord::Rollback if !@person.save
         @customer.customer = @person
         raise ActiveRecord::Rollback if !@customer.save
@@ -152,7 +178,7 @@ module Guara
     def edit
       @customer = Customer.find params[:id]
       @person = @customer.customer 
-    
+      load_customer_type()
       @customer.emails.build
     end
   
@@ -182,8 +208,15 @@ module Guara
     end
   
     def custom_load_creator
-      params[:customer_pj] = params[:customer][:customer_pj]
-      params[:customer].delete :customer_pj
+      customer_param = params[:customer][:customer_pj].nil? ?  :customer_pf : :customer_pj
+      params[customer_param] = params[:customer][customer_param]
+      params[:customer].delete customer_param
+    end
+    
+    def params_restore
+      @person.is_a?(CustomerPf) ? customer_type = :customer_pf : :customer_pj
+      @customer_type = customer_type = :customer_pf ? "pf" : "pj"
+      params[:customer][customer_type] = params[customer_type]
     end
   
     def multiselect_customers_pj
