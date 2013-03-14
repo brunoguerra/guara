@@ -12,7 +12,7 @@ module Guara
       def index
         params[:search] = {} if params[:search].nil?
         params[:search][:process_id_eq] = Vacancy.custom_process.id
-        params[:search][:finished_eq] = false
+        #params[:search][:finished_eq] = false
 
         @search = ProcessInstance.search(params[:search])
         if class_exists?("Ransack")
@@ -109,7 +109,8 @@ module Guara
       def update
         @step_instance_attrs = params[:step_instance_attrs]
         @step_id = @step_instance_attrs.delete(:step_id)
-        StepInstanceAttr.delete_all("step_id = #{@step_id}")
+
+        StepInstanceAttr.delete_all("step_id = #{@step_id} AND process_instance_id = #{params[:id]}")
 
         create_step_instance_attrs()
         set_next_step_to_process_instance()
