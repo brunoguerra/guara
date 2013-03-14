@@ -5,7 +5,7 @@
 		<div class="tasks-list">
 			<%= render :partial => 'tasks/list', :locals => { items: @tasks } %>
 		</div>
-		<% if can? :create, :task  %>
+		<% if can? :create, Guara::Task  %>
 		<a class="new-link btn btn-primary" href="#"><%= t("tasks.new.link") %></a>
 		<% end %>
 	 	

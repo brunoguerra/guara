@@ -13,7 +13,7 @@
 		<div class="contacts-list">
 		<%= render :partial => 'guara/contacts/list', :locals => { items: @contacts } %>
 		</div>
-		<% if can? :create, :contact  %>
+		<% if can? :create, Guara::Contact  %>
 		<%= link_to t("contacts.new.link"), new_customer_contact_path(@customer), :class => "new-link btn btn-primary"  %>
 		<% end %>
 

@@ -19,27 +19,35 @@ module Guara
     end
     
     
+    def get_path_from_sym(sym, prefix)
+      item_title = sym
+      menu_path = []
+      menu_path << prefix if !prefix.nil? && !prefix.empty?
+      menu_path << sym
+      menu_path << "path"
+      eval(menu_path.join('_')+"()")
+    end
+    
     def build_menu_items(menu)
       returns = ""
       menu[:items].each do |item|
-        rails_model = item.to_s.titlecase.gsub(' ','').singularize.to_sym
+        
+        if item.is_a? Symbol
+          rails_model = item.to_s.titlecase.gsub(' ','').singularize.to_sym
+          item_name = rails_model
+          path = get_path_from_sym(item, menu[:prefix])
+        elsif item.is_a? Hash
+          item_name = item[:name]
+          rails_model = item[:resource]
+          path = item[:path].nil? ? get_path_from_sym(item[:name], menu[:prefix]) : item[:path]
+        elsif item.is_a? Array
+          rails_model = item[0]
+          item_name = rails_model
+          path = eval item[1]
+        end
         
         if can? :read, rails_model
-        
-          if (item.is_a? Array)
-            item_title = item[0]
-            path = eval item[1]
-          else
-            item_title = item
-            menu_path = []
-            menu_path << menu[:prefix] if !menu[:prefix].nil? && !menu[:prefix].empty?
-            menu_path << item
-            menu_path << "path"
-            path = eval(menu_path.join('_')+"()")
-    			end
-           			
-    			returns += %Q{ <li>#{ link_to t(item_title.to_s+".title"), path }</li> }
-
+    			returns += %Q{ <li>#{ link_to t(item_name.to_s+".title"), path }</li> }
         end
       end
       returns

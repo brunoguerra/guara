@@ -12,15 +12,17 @@ module Guara
       end
       
       initializer 'guara.menu.crm.items' do |app|
-        Guara::Menus::MODULES[:modules][:items] << :customers
+        Guara::Menus::MODULES[:modules][:items] << { name: :customers,
+                                                     resource: Guara::Customer
+                                                    }
         
         Guara::Menus::MAINTENCE[:items] +=
           [
-            :business_activities,
-            :business_segments,
-            :business_departments,
-            :company_businesses,
-            :task_types,
+            { name: :business_activities, resource: Guara::BusinessActivity },
+            { name: :business_segments, resource: Guara::BusinessSegment },
+            { name: :business_departments, resource: Guara::BusinessDepartment },
+            { name: :company_businesses, resource: Guara::CompanyBusiness },
+            { name: :task_types, resource: Guara::TaskType },
           ]
         
       end

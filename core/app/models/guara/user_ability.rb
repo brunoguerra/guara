@@ -4,13 +4,13 @@ module Guara
     attr_accessible :skilled, :ability, :module
   
     belongs_to :skilled, :polymorphic => true
-    belongs_to :module, class_name: "SystemModule"
-    belongs_to :ability, class_name: "SystemAbility"
+    belongs_to :module, class_name: "Guara::SystemModule"
+    belongs_to :ability, class_name: "Guara::SystemAbility"
   
     validates :module, presence: true
     validates :ability, presence: true
   
-    validates_uniqueness_of :ability_id, :scope => [:skilled_id, :module_id]
+    validates_uniqueness_of :ability_id, :scope => [:skilled_id, :skilled_type, :module_id]
     validates_associated :skilled, :module, :ability
   
     #<=========================================================

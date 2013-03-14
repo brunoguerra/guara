@@ -5,7 +5,7 @@
 		<div class="feedbacks-list">
 			<%= render :partial => 'task_feedbacks/list', :locals => { items: @feedbacks } %>
 		</div>
-		<% if false and can? :create, :feedback  %>
+		<% if  can? :create, Guara::Feedback  %>
 		<a class="new-link btn btn-primary" href="#"><%= t("feedbacks.new.link") %></a>
 		<% end %>
 	 	

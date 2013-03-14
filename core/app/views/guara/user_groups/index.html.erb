@@ -12,7 +12,7 @@
 	<% @user_groups.each do |c| %>
 	<tr>
 	    <td><%= link_to c.name, user_group_path(c)  %></td>
-	    <td><% if can? Guara::UserGroup, :edit %>
+	    <td><% if can? :edit, Guara::UserGroup %>
 						<%= index_btn_edit edit_user_group_path(c), t("helpers.forms.edit") %>
 					<% end %>
 			</td>

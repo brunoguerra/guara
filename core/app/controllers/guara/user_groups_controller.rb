@@ -16,5 +16,13 @@ module Guara
       end
     end
     
+    def update
+      if @user_group.save
+        redirect_to @user_group
+      else
+        render "edit"
+      end
+    end
+    
   end
 end
