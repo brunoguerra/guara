@@ -102,6 +102,8 @@ pt-BR:
     total_employes: "Total de Funcionários"
     segments: "Segmentos"
     activities: "Atividades"
+    new:
+      link: "Nova Empresa"
   
   customer_pfs: &attr_customer_pj
     doc: "CPF"
@@ -111,6 +113,8 @@ pt-BR:
     sex: "Sexo"
     country: "Nacionalidade"
     civil_status: "Estado civil"
+    new:
+      link: "Nova Pessoa Física"
     
   activities:
     title: "Atividades"

@@ -66,7 +66,7 @@ module Guara
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
-      render "show2"#+@customer.customer.prefix
+      render "show2"
     end
   
     def disable
@@ -74,7 +74,7 @@ module Guara
     end
   
     def new
-      @customer_type = get_customer_type()
+      load_customer_type()
       if @customer_type == "pj"
         @person = CustomerPj.new
       else
@@ -87,15 +87,16 @@ module Guara
       render "new"
     end
     
-    def get_customer_type()
-      unless params[:type].nil?
-        if (params[:type]=="com")
-          "pj"
-        else
-          "pf"
-        end
+    def load_customer_type()
+      if !@person.nil? 
+        @customer_type = @person.prefix
+      elsif !params[:type].nil?
+        @customer_type = {
+                            "com" => "pj",
+                            "per" => "pf"
+                        }[params[:type]]
       else
-        preferences_customer_type?.to_s
+        @customer_type = preferences_customer_type?.to_s
       end
     end
   
@@ -114,14 +115,14 @@ module Guara
         return
       end
       
-      @customer_type = get_customer_type()
+      load_customer_type()
       custom_load_creator() unless params[:customer][:customer_pj].nil? && params[:customer][:customer_pf].nil?
       
       @customer = Guara::Customer.new(params[:customer])
       if @customer_type == "pf"
-        @customer.customer = Guara::CustomerPj.new(params[:customer_pj])
-      else
         @customer.customer = Guara::CustomerPf.new(params[:customer_pf])
+      else
+        @customer.customer = Guara::CustomerPj.new(params[:customer_pj])
       end
       @person = @customer.customer
       
@@ -177,7 +178,7 @@ module Guara
     def edit
       @customer = Customer.find params[:id]
       @person = @customer.customer 
-    
+      load_customer_type()
       @customer.emails.build
     end
   
@@ -207,9 +208,9 @@ module Guara
     end
   
     def custom_load_creator
-      customer_type = params[:customer][:customer_pj].nil? ?  :customer_pf : :customer_pj
-      params[customer_type] = params[:customer][customer_type]
-      params[:customer].delete customer_type
+      customer_param = params[:customer][:customer_pj].nil? ?  :customer_pf : :customer_pj
+      params[customer_param] = params[:customer][customer_param]
+      params[:customer].delete customer_param
     end
     
     def params_restore

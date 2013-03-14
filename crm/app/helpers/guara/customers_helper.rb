@@ -28,6 +28,7 @@ module Guara
       
       Guara::Customer.modules.each do |md| 
         md[:tabs].each do |tab|
+          next if !tab[:visible].nil? && !tab[:visible].call(customer)
           res = "<li "
           res += 'class=active' if active == tab[:name]
           res += ">"
