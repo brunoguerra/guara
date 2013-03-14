@@ -8,10 +8,10 @@
 		<%= f.input :complete, :label => false %>
 
 		<div class="span4">
-			<%= f.input :doc, :label => t("customers.cnpj") , :input_html => { :class => "cnpj" } %>
-			<%= f.input :doc_rg, :label => t('customers.search.inscricao_estadual') %>
-			<%= f.input :name_sec %>
-			<%= f.input :name %>
+			<%= f.input :doc, :label => t("customer_#{@customer_type}s.doc") , :input_html => { :class => (@customer_type=="pj" ? "cnpj" : "cpf") } %>
+			<%= f.input :doc_rg, :label => t("customer_#{@customer_type}s.doc_rg") %>
+			<%= f.input :name_sec, :label => t("customer_#{@customer_type}s.name_sec") %>
+			<%= f.input :name, :label => t("customer_#{@customer_type}s.name") %>
 			<%= f.input :address %>
 
 			<div class="control-group">
@@ -44,21 +44,28 @@
 
 			<%= f.input :phone, :class => "phone" %>
 
-			<%= person_f.input :fax, :class => "phone" %>
-
 			<%= f.input :site %>
 
 			<%= f.input :social_link %>
 
 			<%= f.input :other_contacts %>
-
-			<%= person_f.input :total_employes %>
-
+			
+			<% if @customer_type == "pj" %>
+				<%= person_f.input :fax, :class => "phone" %>
+				<%= person_f.input :total_employes %>
+			<% else %>
+				<%= person_f.input :civil_state %>
+				<%= person_f.input :gender %>
+				<%= person_f.input :company %>
+			<% end %>
+			
 			<%= f.input :notes, :as => :text, :input_html => { rows: 2  } %>
 
 		</div>
 		
 		<div class="span3 column2">	
+			
+			<% if @customer_type == "pj" %>
 			<div class="control-group">
 				<%= person_f.label :activities, :class => "control-label" %>
 				<div class="controls">
@@ -109,6 +116,8 @@
 					
 				</div>
 			</div>
+			
+			<% end %>
 
 			<div class="thumbnail emails_custumer">
 				<%= t("customers.emails").titleize %>
@@ -145,6 +154,7 @@
 		</div>
 	</div>
 </fieldset>
+	<input type="hidden" name="type" value="<%= params[:type] %>">
 <% end %>
 <% end %>
 

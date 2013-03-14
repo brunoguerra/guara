@@ -102,6 +102,16 @@ pt-BR:
     total_employes: "Total de Funcionários"
     segments: "Segmentos"
     activities: "Atividades"
+  
+  customer_pfs: &attr_customer_pj
+    doc: "CPF"
+    doc_rg: "RG"
+    name: "Nome"
+    name_sec: "Como gosta de ser chamado?"
+    sex: "Sexo"
+    country: "Nacionalidade"
+    civil_status: "Estado civil"
+    
   activities:
     title: "Atividades"
     link: "Atividades" 

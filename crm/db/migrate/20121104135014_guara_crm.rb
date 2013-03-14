@@ -35,13 +35,14 @@ class GuaraCrm < ActiveRecord::Migration
     
     
     create_table :guara_customer_pfs do |t|
-      t.string	:gender             , :limit => 1
-      t.integer :company
+      t.char	  :gender             , :limit => 1
+      t.string  :company
       t.string	:business_address   , :limit => 120
       t.string	:department         , :limit => 20
       t.string	:corporate_function , :limit => 20
       t.string	:cellphone          , :limit => 15
       t.string	:graduated          , :limit => 30
+      t.integer :civil_state        , :limit => 2
       t.timestamps 
     end
     
