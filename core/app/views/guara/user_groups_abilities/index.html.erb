@@ -2,7 +2,7 @@
 <h1><%=t("abilities.title", :skilled => @user_group.name ) %></h1>
 
 
-<%= form_tag  user_abilities_path(@user_group), :method => :post, :class => "well abilities"  do %>
+<%= form_tag  user_group_abilities_path(@user_group), :method => :post, :class => "well abilities"  do %>
 
 	<%= render :partial => "guara/abilities/grid_editable", :locals => { skilled: @user_group } %>
 	

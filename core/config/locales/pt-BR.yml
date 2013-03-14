@@ -217,6 +217,9 @@ pt-BR:
     settings:
       title: "Preferencias do Usuário"
       link: "Preferências"
+    new:
+      title: "Novo Usuário"
+      link: "Novo Usuário"
       
   abilities: &attr_user_abilities
     module: "Módulo"

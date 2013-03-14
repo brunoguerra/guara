@@ -13,11 +13,11 @@ module Guara
     end
     
     
-    def get_grid_editable_abilities(param)
+    def get_grid_editable_abilities(module_params)
       
       abilities = []
       
-      (params[:module] || []).each do |mdl_id, abilities_arr|
+      (module_params[:module] || []).each do |mdl_id, abilities_arr|
         mdl = SystemModule.find(mdl_id)
         abilities_arr.each do |ab_id,ab_id2|
           ab = SystemAbility.find(ab_id)

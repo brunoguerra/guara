@@ -147,6 +147,7 @@
 			</div>
 		</li>
 <% end %>
+<%	if can? :read, Guara::Contact %>
 		<li class="container">
 			<div class="thumbnail contacts">
 				<div class="caption">
@@ -156,6 +157,8 @@
 				</div>
 			</div>
 		</li>
+<% end %>
+<%	if can? :read, Guara::Task %>
 		<li class="container">
 			<div class="thumbnail contacts">
 				<div class="caption">
@@ -164,7 +167,7 @@
 				</div>
 			</div>
 		</li>
-
+<% end %>
 	</ul>
 
 </section>

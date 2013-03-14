@@ -30,9 +30,9 @@ module Guara
         :title => "maintenances",
         :prefix => "maintence_guara",
         :items => [
-                    :districts,
-                    :cities,
-                    :states,
+                    { name: :districts, resource: Guara::District },
+                    { name: :cities, resource: Guara::City },
+                    { name: :states, resource: Guara::State },
                   ]
        }
   end

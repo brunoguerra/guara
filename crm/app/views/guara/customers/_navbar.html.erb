@@ -21,8 +21,8 @@
 						        <b class="caret"></b>
 						      </a>
 						    <ul class="dropdown-menu">
-						      <% if can? Guara::CustomerPj, :create %><li><%= link_to t("customer_pjs.new.link"), new_customer_path(:type => :com) %></li><% end %>
-						      <% if can? Guara::CustomerPf, :create %><li><%= link_to t("customer_pfs.new.link"), new_customer_path(:type => :per) %></li><% end %>
+						      <% if can? :create, Guara::CustomerPj %><li><%= link_to t("customer_pjs.new.link"), new_customer_path(:type => :com) %></li><% end %>
+						      <% if can? :create, Guara::CustomerPf %><li><%= link_to t("customer_pfs.new.link"), new_customer_path(:type => :per) %></li><% end %>
 						    </ul>
 						  </li>
 

@@ -14,16 +14,16 @@ module Guara
       
       
       initializer 'guara.menu.crm.items' do |config|
-        Guara::Menus::MODULES[:modules][:items] << :jobs
+        Guara::Menus::MODULES[:modules][:items] << { name: :jobs, resource: Guara::Jobs::Professional }
         
         Guara::Menus::MAINTENCE[:items] +=
           [
-            :jobs_business_actions,
-            :jobs_roles,
-            :jobs_level_educations,
-            :jobs_consultants,
-            :jobs_languages,
-            :jobs_level_knowledges
+            { name: :jobs_business_actions, resource: Guara::Jobs::BusinessAction},
+            { name: :jobs_roles, resource: Guara::Jobs::Role},
+            { name: :jobs_level_educations, resource: Guara::Jobs::LevelEducation },
+            { name: :jobs_consultants, resource: Guara::Jobs::Consultant },
+            { name: :jobs_languages, resource: Guara::Jobs::Language },
+            { name: :jobs_level_knowledges, resource: Guara::Jobs::LevelKnowledge },
           ]
         
       end
