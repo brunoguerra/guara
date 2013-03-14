@@ -74,10 +74,17 @@
 </script>
 <style>
 	#form_navbar.affix {
-		margin-top: -475px;
+		/*margin-top: -475px;*/
+		margin-top: -1110px;
 		width: 210px;
 	}
 </style>
-
+<script type="text/javascript">
+	$('.phone').mask('(99) 9999-9999');
+	$('.time').mask('99:99');
+	$('.price').priceFormat({
+	    prefix: 'R$ '
+	});
+</script>
 
 

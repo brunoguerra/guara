@@ -10,7 +10,7 @@ module Guara
       attr_accessor :embedded
 
       def index
-        params[:search] = {} if params[:search].nil?
+        params[:search] = {:finished_is_false=> true} if params[:search].nil?
         params[:search][:process_id_eq] = Vacancy.custom_process.id
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 

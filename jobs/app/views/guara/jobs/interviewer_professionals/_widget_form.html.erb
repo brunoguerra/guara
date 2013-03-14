@@ -7,15 +7,17 @@
       		"data-behaviour" => "datetimepicker",
       		:value=> !@scheduling.date_time_interviewee.nil? ? @scheduling.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : ""
       	} %>
-
     <%= embedded %>  	
-	
+	<div class="span3">
+
+	</div>
+	<div class="span8">
 	<%= f.input :avaliate, :as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
 	
 	<%= f.input :description, :as=> :text, :input_html => {:rows => 5, :cols => 20, :maxlength => 255  } %>
 	<%= f.input :vacancy_id, :as=> :hidden %>
     <%= f.input :professional_id, :as=> :hidden %>
-	
+	</div>
 	<%= f.submit "Salvar", class: "btn btn-primary" %>
 <% end %>
 
