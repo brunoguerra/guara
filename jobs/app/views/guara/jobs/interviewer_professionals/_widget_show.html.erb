@@ -17,6 +17,7 @@
 	        <th><%= t("interviewer_professionals.local") %></th>
 	        <th><%= t("interviewer_professionals.date_time") %></th>
 	        <th><%= t("interviewer_professionals.date_time_interviewee") %></th>
+	        <th><%= t("interviewer_professionals.interviewee") %>?</th>
 	        <th class="span1"><%= t("helpers.forms.actions") %></th>
 	      </tr>
 	    </thead>
@@ -30,6 +31,13 @@
 	      	 <th><%= p.date_time.strftime("%d/%m/%Y %H:%M:%S") %></th>
 	      	 <th>
 	      	 	<%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %>
+	      	 </th>
+	      	 <th>
+	      	 	<% if !Guara::Jobs::VacancyProfessionalsInterview.find_by_scheduling_id(p.id).nil? %>
+	      	 		<span class="badge badge-success">Sim</span>
+	      	 	<% else %>
+	      	 	<span class="badge badge-important">Não</span>
+	      	 	<% end %>
 	      	 </th>
 	      	 <td>
               <%= link_to t("helpers.forms.show"), 'javascript:void(0);', :class => "btn", :onClick=>"show_interviewer_professional(#{p.professional_id}); " %>
