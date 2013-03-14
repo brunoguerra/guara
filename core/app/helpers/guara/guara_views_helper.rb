@@ -9,7 +9,6 @@ module Guara
       value ? t("commons.yes"):t("commons.no")
     end
     ##
-    #
     # options
     #   - add_class format add button
     # 
@@ -21,7 +20,7 @@ module Guara
         #render(association.to_s + "/" + association.to_s.singularize + "_fields", f: builder)
         yield builder
       end
-      link_to(t("helpers.forms.#{name}"), '#', class: "add_fields " + options[:add_class].to_s , data: {id: id, fields: fields.gsub("\n", "")})
+      link_to(options[:add_label] || t("helpers.forms.#{name}"), '#', class: "add_fields " + options[:add_class].to_s , data: {id: id, fields: fields.gsub("\n", "")})
     end
   
     def nbsp(value)

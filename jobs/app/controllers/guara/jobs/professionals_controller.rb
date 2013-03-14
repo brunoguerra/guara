@@ -1,12 +1,13 @@
 module Guara
 	module Jobs
 	  class ProfessionalsController < BaseController
-	  	before_filter :find_customers_by_jobs_customer_id_and_professional
-	  	load_and_authorize_resource :customer
+	  	before_filter :find_customers_by_jobs_customer_id_and_professional, :except => :search
+	  	load_and_authorize_resource :customer, :except => :search
     	load_and_authorize_resource :class => Guara::Jobs::Professional, :singleton => true, :except => :search
 
     	include CustomersHelper
     	include Select2Helper
+    	include CrudHelper
 
     	helper CustomersHelper
     	helper CrudHelper
@@ -38,6 +39,8 @@ module Guara
 	            format.json { render "guara/jobs/professionals/_list_professionals.html.erb" }
 	            format.html { render "search" }
             end
+
+            authorize! Guara::Jobs::Professional, :read
 	    end
 
 	    def searched_professionals
@@ -49,10 +52,18 @@ module Guara
 	    end
 	  	
 	  	def new
-	  		@professional.formations.build
-	  		@professional.professional_experiences.build
-	  		@professional.professional_experiences.each {|e| e.careers.build }
-	  		@professional.vacancy_specification = VacancySpecification.new
+	  		build_professional()
+	  	end
+
+
+
+	  	def build_professional()
+	  		build_empty_many_relation(@professional.formations)
+	  		build_empty_many_relation(@professional.professional_languages)
+	  		build_empty_many_relation(@professional.professional_experiences)
+	  		@professional.professional_experiences.each {|e| build_empty_many_relation(e.careers) }
+	  		build_empty_one_relation(@professional, :attachment)
+	  		build_empty_one_relation(@professional, :vacancy_specification)
 	  	end
 
 	    def show
@@ -65,20 +76,12 @@ module Guara
 	    	roles_id = params[:roles] || []
 	    	@professional.vacancy_specification.roles = roles_id.map { |r_id| Role.find r_id }.uniq
 
-
-	    	@professional.languages = Language.new(params[:jobs_professional][:languages_attributes]) if @professional.languages.nil?
-
-	    	languages_id = params[:languages] || []
-	    	@professional.languages = languages_id.map { |l_id| Language.find l_id }.uniq
-
-
 	    end # MÉTODO PARA SELEÇÃO DE VÁRIOS CHECKBOX
 
 
 	    def create
 	    	@professional = Professional.new(params[:jobs_professional])
 	    	@professional.person = @customer
-	    	#@professional.vacancy_specification = VacancySpecification.new(params[:professional][:vacancy_specification]) 
 	    	manage_advanced_fields()
 
 	    	respond_to do |format|
@@ -86,6 +89,7 @@ module Guara
 	              format.html { redirect_to(jobs_customer_professional_path(@customer, @professional), :notice => 'Contact was successfully created.') }
 	              format.json { render :json => @professional, :status => :created, :location => @professional}
 	            else
+	            	build_professional()
 	              format.html { render :action => "new" }
 	              format.json { render :json => @professional.errors, :status => :unprocessable_entity }
 	            end

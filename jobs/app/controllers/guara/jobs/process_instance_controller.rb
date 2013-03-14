@@ -12,6 +12,7 @@ module Guara
       def index
         params[:search] = {} if params[:search].nil?
         params[:search][:process_id_eq] = Vacancy.custom_process.id
+        #params[:search][:finished_eq] = false
 
         @search = ProcessInstance.search(params[:search])
         if class_exists?("Ransack")
@@ -28,6 +29,7 @@ module Guara
         @process_instance.update_attributes({
           :process_id=> @custom_process.id,
           :date_start=> Time.now.to_s(:db),
+          :finished=> false,
           :user_using_process=> current_user.id,
           :state=> @custom_process.step_init
         })
@@ -52,6 +54,7 @@ module Guara
         
         if params[:edit_step].nil?
           @current_step = @process_instance.step
+          params[:edit_step] = @current_step.id
         else
           @current_step = Step.find params[:edit_step]
         end
@@ -106,7 +109,8 @@ module Guara
       def update
         @step_instance_attrs = params[:step_instance_attrs]
         @step_id = @step_instance_attrs.delete(:step_id)
-        StepInstanceAttr.delete_all("step_id = #{@step_id}")
+
+        StepInstanceAttr.delete_all("step_id = #{@step_id} AND process_instance_id = #{params[:id]}")
 
         create_step_instance_attrs()
         set_next_step_to_process_instance()
@@ -126,12 +130,20 @@ module Guara
         load_next_step_to_process_instance()
 
         if @next_step.nil? or @next_step_valid == 0
-          @process_instance.update_attributes :date_finish=> Time.now.to_s(:db)
-          @process_instance.save
+          #@process_instance.update_attributes :date_finish=> Time.now.to_s(:db)
+          #@process_instance.save
         else
           @process_instance.update_attributes :state=> @next_step
           @process_instance.save
         end 
+      end
+
+      def finish_process_instance
+        @process_instance = ProcessInstance.find params[:process_instance_id]
+        @process_instance.update_attributes :date_finish=> Time.now.to_s(:db), :finished=> true
+        @process_instance.save
+
+        redirect_to process_instance_index_path
       end
 
       def show_step
@@ -147,12 +159,11 @@ module Guara
         if @embedded
           render :partial => "guara/jobs/process_instance/details_current_stage"
         else
-
+          render
         end
       end
       
       def embeded_call(action, process_instance, params, request, response)
-
         params = params.dup
         params[:id] = process_instance.id
         params[:action] = action
