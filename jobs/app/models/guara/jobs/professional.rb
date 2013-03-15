@@ -34,13 +34,13 @@ module Guara
 
 	  		accepts_nested_attributes_for :attachment
 
-	  		accepts_nested_attributes_for :formations
+	  		accepts_nested_attributes_for :formations, :allow_destroy => true
 
-	  		accepts_nested_attributes_for :professional_experiences
+	  		accepts_nested_attributes_for :professional_experiences, :allow_destroy => true
 	  		 
 	  		accepts_nested_attributes_for :vacancy_specification
 
-	  		accepts_nested_attributes_for :professional_languages
+	  		accepts_nested_attributes_for :professional_languages, :reject_if => lambda { |a| a[:language_id].blank? }, :allow_destroy => true
 
 
 

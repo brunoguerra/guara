@@ -1,4 +1,6 @@
 
+require "paperclip"
+
 module Guara  
   module Jobs
     class Engine < ::Rails::Engine
