@@ -347,14 +347,14 @@ input, textarea, select {
 
 	function getElsSaved(id){
 		var elsaved = json_elements_saved;
-		form_builder.clear_fields();
+		form_builder.process.clear_fields();
 
 		if(elsaved[id]){
 			var count = elsaved[id].length;
 			for (var i=0; i < count; i++){
 				var el = elsaved[id][i];
-        		form_builder.insert_el(el.type_field);
-        		form_builder.update_el(el);
+        		form_builder.process.field.insert(el.type_field);
+        		form_builder.process.field.update(el);
 			}
 		}
 	}
@@ -368,21 +368,21 @@ input, textarea, select {
     //START BUILD FORM
     $('.insert_elements').click(function(e){
         var type_field = $(e.currentTarget).attr('type-el');
-        form_builder.insert_el(type_field);
+        form_builder.process.field.insert(type_field);
     });
 
     $( "#container_form_fields" ).sortable({ 
         axis: "y",
         update: function( event, ui ) {
-            form_builder.updatePositions();
+            form_builder.process.position.update();
         }
     });
     $( "#container_form_fields" ).disableSelection();
     $( ".datepicker" ).datepicker();
 
     $('#save_attrs_to_step').click(function(){
-        if(form_builder.elements_inserteds.length>0){
-            var json = form_builder.getJSON();
+        if(form_builder.process.elements_inserteds.length>0){
+            var json = form_builder.process.getJSON();
             jQuery.ajax({
 			  type: "POST",
 			  url: "add_attr_to_steps",

@@ -8,17 +8,19 @@
       		:value=> !@scheduling.date_time_interviewee.nil? ? @scheduling.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : ""
       	} %>
     <%= embedded %>  	
-	<div class="span3">
+    <div class="formtastic step_instance_attrs">
+		<div class="span4">
 
-	</div>
-	<div class="span8">
-	<%= f.input :avaliate, :as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
-	
-	<%= f.input :description, :as=> :text, :input_html => {:rows => 5, :cols => 20, :maxlength => 255  } %>
-	<%= f.input :vacancy_id, :as=> :hidden %>
-    <%= f.input :professional_id, :as=> :hidden %>
-	</div>
-	<%= f.submit "Salvar", class: "btn btn-primary" %>
+		</div>
+		<div class="span8">
+		<%= f.input :avaliate, :as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
+		
+		<%= f.input :description, :as=> :text, :input_html => {:rows => 5, :cols => 20, :maxlength => 255  } %>
+		<%= f.input :vacancy_id, :as=> :hidden %>
+	    <%= f.input :professional_id, :as=> :hidden %>
+		</div>
+		<%= f.submit "Salvar", class: "btn btn-primary" %>
+	</div>	
 <% end %>
 
 <script type="text/javascript">
