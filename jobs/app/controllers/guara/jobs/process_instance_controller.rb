@@ -11,7 +11,8 @@ module Guara
 
       def index
         params[:search] = {} if params[:search].nil?
-        params[:search][:process_id_eq] = Vacancy.custom_process.id
+        custom_process = Vacancy.custom_process
+        params[:search][:process_id_eq] = custom_process.nil? ? 0 : custom_process.id
         #params[:search][:finished_eq] = false
 
         @search = ProcessInstance.search(params[:search])

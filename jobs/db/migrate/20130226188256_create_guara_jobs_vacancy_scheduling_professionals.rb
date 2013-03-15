@@ -2,14 +2,14 @@ class CreateGuaraJobsVacancySchedulingProfessionals < ActiveRecord::Migration
   def change
     create_table :guara_jobs_vacancy_scheduling_professionals do |t|
       
-      t.timestamps :date_time
-      t.timestamps :date_time_interviewee
       t.string :local
       t.string :description
       t.integer :avaliate
       t.references :consultant
       t.references :professional
       t.references :vacancy
+      t.timestamps :date_time
+      t.timestamps :date_time_interviewee
 
       t.timestamps 
     end
