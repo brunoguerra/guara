@@ -132,6 +132,8 @@ pt-BR:
 
   jobs_languages:
     title: "Idiomas"
+  jobs_level_knowledges:
+    title: "Nivel de Conhecimento"
 
 
   search:
@@ -173,6 +175,8 @@ pt-BR:
 
           jobs_level_knowledges:
             title: "Nivel de Conhecimento"
+
+
 
           names:
             title: "Nome"

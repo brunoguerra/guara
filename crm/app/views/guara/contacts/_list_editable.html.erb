@@ -11,7 +11,7 @@
   first = true
 
 	options = local_assigns[:options] || {}
-	options.merge!(:add_class => "btn btn-primary span4 pull-center")
+	options.merge!(:add_class => "btn btn-primary pull-right")
 %>
 
 <%= semantic_form_for @customer, :url => multi_customer_contacts_path(@customer), :method => :post do |f| %>
