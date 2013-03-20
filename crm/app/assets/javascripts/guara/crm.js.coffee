@@ -18,8 +18,8 @@ jQuery ->
         inp = $("<input>").attr("id", $(this).id + "_input").attr("class", $(this).attr("class"))
         $($(this).parent()).append inp
         $(inp).select2
-		      maximumInputLength: 10
-		      ajax:
+          maximumInputLength: 10
+          ajax:
             data: (term, page) ->
               search: term # search term
               page_limit: 10
