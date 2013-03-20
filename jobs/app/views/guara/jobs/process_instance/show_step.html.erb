@@ -9,7 +9,7 @@
 			<li class="span12">
 			    <div class="thumbnail">
 			    	<h2><%=@process_instance.custom_process.step.name %></h2>
-					<%= render :partial => 'details_initial_stage', :locals=> {:grouped_column_attrs_step_init=> @grouped_column_attrs_step_init } %>
+					<%= render :partial => 'details_initial_stage', :locals=> {:grouped_column_attrs_step_init=> @grouped_column_attrs_step_init, :no_button=> false } %>
 				</div>
 			</li>
 

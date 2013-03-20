@@ -10,7 +10,7 @@ module Guara
       attr_accessor :embedded
 
       def index
-        params[:search] = {} if params[:search].nil?
+        params[:search] = {:finished_is_false=> true} if params[:search].nil?
         params[:search][:process_id_eq] = Vacancy.custom_process.id
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 
@@ -123,7 +123,12 @@ module Guara
       def load_next_step_to_process_instance
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
-        @next_step_valid = StepAttr.where(:step_id=> @next_step).count()
+        step_attr_count = StepAttr.where(:step_id=> @next_step).count()
+        if step_attr_count == 0 || @process_instance.state != @next_step
+          @next_step_valid = 0
+        else
+          @next_step_valid = 1
+        end
       end
 
       def set_next_step_to_process_instance
