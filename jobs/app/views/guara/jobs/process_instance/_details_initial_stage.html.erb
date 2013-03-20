@@ -24,6 +24,6 @@
 			<% end %>
 		<% end %>
 	</fieldset>
-
-	<% end %>	
+	<% end %>
+	<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> params[:edit_step]), :class=> "btn" if no_button == false %> 
 </div>
