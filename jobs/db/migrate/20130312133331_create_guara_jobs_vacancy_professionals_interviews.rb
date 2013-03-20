@@ -1,4 +1,3 @@
-# This migration comes from guara_jobs (originally 20130312133331)
 class CreateGuaraJobsVacancyProfessionalsInterviews < ActiveRecord::Migration
   def change
     create_table :guara_jobs_vacancy_professionals_interviews do |t|

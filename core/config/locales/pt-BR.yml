@@ -15,11 +15,13 @@ pt-BR:
   #MODULES <=================================
   user_groups:
     title: "Grupos"
+    edit:
+      title: "Editar Grupo"
   home:
     link: "Visão Geral"
     feed: "Mensagens"
     notifies: "Alertas"
-  
+    
   sign:
     in:
       title: "Autenticação do Sistema"

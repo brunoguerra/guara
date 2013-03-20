@@ -1,5 +1,3 @@
-
-
 module Guara
   class CustomersController < BaseController
     load_and_authorize_resource :class => Guara::Customer, :except => [:create]
@@ -59,6 +57,8 @@ module Guara
     end
   
     def show
+      @person = @customer.customer
+      load_customer_type
       @task = @customer.tasks.build
       @tasks = @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 4)
     
@@ -66,7 +66,7 @@ module Guara
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
-      render "show2"
+      render "show_detailed"
     end
   
     def disable
@@ -85,19 +85,6 @@ module Guara
       @segments = BusinessSegment.all
       
       render "new"
-    end
-    
-    def load_customer_type()
-      if !@person.nil? 
-        @customer_type = @person.prefix
-      elsif !params[:type].nil?
-        @customer_type = {
-                            "com" => "pj",
-                            "per" => "pf"
-                        }[params[:type]]
-      else
-        @customer_type = preferences_customer_type?.to_s
-      end
     end
   
     def update_advanced_fields
@@ -205,6 +192,19 @@ module Guara
   
     def multiselect_customers
       render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
+    end
+    
+    def load_customer_type()
+      if !@person.nil? 
+        @customer_type = @person.prefix
+      elsif !params[:type].nil?
+        @customer_type = {
+                            "com" => "pj",
+                            "per" => "pf"
+                        }[params[:type]]
+      else
+        @customer_type = preferences_customer_type?.to_s
+      end
     end
   
     def custom_load_creator

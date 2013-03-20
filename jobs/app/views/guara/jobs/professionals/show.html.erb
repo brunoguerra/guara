@@ -8,7 +8,7 @@
 				
 				<div class="span9 well">	
 					<dt>
-						<dd><%= image_tag @professional.attachment.avatar.url(:thumb), :class => "avatar" %></dd>
+						<dd><%= image_tag @professional.attachment.avatar.url(:small), :class => "avatar" if !@professional.attachment.nil? %></dd>
 					
 						<dt><%= t("jobs.professional.resume_professional") %></dt><br />
 						<dd class= "resume_professional">
@@ -20,7 +20,7 @@
 
 			    	<dd class="have_job_yes_no"><%= yes_or_no @professional.have_job %></dd>
 
-			    	<dd><%= link_to t('jobs.professional.attachment.curriculum.view'), @professional.attachment.curriculum.url, :target => '_blank' %></dd>
+			    	<dd><%= link_to t('jobs.professional.attachment.curriculum.view'), @professional.attachment.curriculum.url, :target => '_blank' if !@professional.attachment.nil? %></dd>
 			</div>
 		</div>
 		  
