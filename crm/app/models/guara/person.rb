@@ -16,7 +16,7 @@ module Guara
     include ActiveExtend::ActiveDisablable
     include StringHelper
   
-    default_scope order: "name"
+    default_scope order: "LOWER(name)"
   
     #=========================== associations <--------------------------------------------
   

@@ -2,13 +2,14 @@ module Guara
     module Jobs
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
-      	def get_collection(vals, sels)
-      	    vals = vals.dup
+      	def get_collection(rec, sels)
+      	    
+      	    vals = rec.options.dup
             sels = [] if sels.class == String || sels.nil?
             vals.strip!
             if (vals =~ /^\$/) == 0
                 vals.gsub!(/^\$/)
-                model = eval vals
+                model = vals.constantize
                 if (model.respond_to?(:select_options))
                     options = model.select_options
                 else
@@ -17,9 +18,8 @@ module Guara
        		    
                 options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
             elsif (vals =~ /url:([^\s]*)/)==0
-              vals.scan /url:([^\s])/ do |url|
-                
-              end
+              rec.html_options = rec.html_options.merge({:"data-json-url" => $1})
+              {}
             else
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
@@ -55,7 +55,7 @@ module Guara
     		elsif rec.type_field == 'text_area'
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
+                @field = form.select rec.id, get_collection(rec, val), {}, { :class=> "input-block-level multiselect", :multiple=>"multiple" }.merge(rec.html_options)
             elsif rec.type_field == 'widget'
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
