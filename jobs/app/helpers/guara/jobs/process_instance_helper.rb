@@ -2,30 +2,25 @@ module Guara
     module Jobs
       module ProcessInstanceHelper
         #include Guara::Jobs::ActiveProcess::ProcessStepComponent
-      	def get_collection(vals, sels)
-      	    vals = vals.dup
+      	def get_collection(rec, sels)
+      	    
+      	    vals = rec.options.dup
             sels = [] if sels.class == String || sels.nil?
             vals.strip!
             if (vals =~ /^\$/) == 0
-                vals.gsub!(/^\$/)
-                model = eval vals
+                model = vals[1..1000].constantize
                 if (model.respond_to?(:select_options))
                     options = model.select_options
                 elsif @get_ajax_class == "ajax_customer"
-                    if sels.size > 0
-                        options = model.find(:all, :conditions=> ["id IN (?)", sels.join(',')])
-                    else
-                        options = []
-                    end
+                    options = []
                 else
                     options = model.all
                 end
        		    
                 options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
             elsif (vals =~ /url:([^\s]*)/)==0
-              vals.scan /url:([^\s])/ do |url|
-                
-              end
+              rec.html_options = rec.html_options.merge({:"data-json-url" => $1})
+              {}
             else
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
@@ -61,17 +56,15 @@ module Guara
     		elsif rec.type_field == 'text_area'
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                if rec.options == '$Guara::Customer'
-                    #@get_ajax_class = "ajax_customer"
+                if (vals =~ /url:([^\s]*)/)==0
+                    @get_ajax_class = "ajax_customer"
                     #val = [] if val.class == String || val.nil?
                     #@field = form.text_field rec.id, :value=> val.join(','), :class=> "input-block-level #{rec.type_field} multiselect2 #{@get_ajax_class}"
                 else
-                    #@get_ajax_class = "no_ajax_customer"
+                    @get_ajax_class = "no_ajax_customer"
                     #@field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect2 #{@get_ajax_class}", :multiple=>"multiple"
                 end
-
-                @get_ajax_class = "no_ajax_customer"
-                @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect2 #{@get_ajax_class}", :multiple=>"multiple"
+                @field = form.select rec.id, get_collection(rec, val), {}, { :class=> "input-block-level multiselect", :multiple=>"multiple" }.merge(rec.html_options)
 
             elsif rec.type_field == 'widget'
                 if rec.options == 'component'
@@ -84,7 +77,6 @@ module Guara
                     @component.request = request
                     @component.response = response
                     @component.params = params
-                    
 
                     return @component.index
                 else

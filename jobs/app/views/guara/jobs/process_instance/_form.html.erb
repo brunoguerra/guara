@@ -69,38 +69,7 @@
 		}
 		
 	//});
-	setTimeout(function(){
-		function movieFormatResult(data) {
-	        return data.value;
-	    }
-
-	    function movieFormatSelection(data) {
-	        return data.value;
-	    }
-
-		$(".multiselect2.no_ajax_customer").select2();
-		$(".multiselect2.ajax_customer").select2({
-			minimumInputLength: 1,
-			ajax: {
-		        url: "<%= multiselect_customers_pj_customers_path %>",
-		        dataType: 'json',
-		        data: function (term, page) {
-		            return {
-		                tag: term,
-		                page_limit: 10
-		            };
-		        },
-		        results: function (data, page) {
-		            return {results: data};
-		        }
-		    },
-		    formatResult: movieFormatResult, 
-		    formatSelection: movieFormatSelection, 
-		    dropdownCssClass: "bigdrop",
-		    escapeMarkup: function (m) { return m; } 
-		});
-
-	}, 200);
+	
 </script>
 <style>
 	#form_navbar.affix {
