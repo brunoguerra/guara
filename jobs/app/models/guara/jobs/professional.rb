@@ -10,13 +10,7 @@ module Guara
 							:formations_attributes,  :professional_languages_attributes,
 							:professional_experiences_attributes, 
 							:attachment, :attachment_attributes,
-							:resume_professional, :resume_professional_attributes
-
-
-
-
-
-
+							:resume_professional, :resume_professional_attributes, :person
 
 			delegate :name, to: :person
 
