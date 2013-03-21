@@ -12,8 +12,10 @@ module Guara
       end
 
       def show
-        @custom_process = CustomProcess.find params[:id]
-        @steps = Step.find(:all, :conditions => ["custom_process_id = ?", params[:id]])
+        #@custom_process = CustomProcess.find(params[:id]).get_released
+        @custom_process = CustomProcess.find(params[:id])
+        
+        @steps = Step.find(:all, :conditions => ["custom_process_id = ?", @custom_process.id])
         @jsonNext = [{:id=>'process', :next=> @custom_process.step_init, :attrs=> []}]
         get_all_next_steps(@custom_process.step_init)
       end
@@ -33,6 +35,40 @@ module Guara
         else
           render :new
         end
+      end
+
+      def remove_protected_attrs(obj)
+        obj.delete('id')
+        obj.delete('created_at')
+        obj.delete('updated_at')
+        return obj
+      end
+
+      def set_release
+        #set custom_process
+        custom_process = CustomProcess.find params[:id]
+        
+        custom_process_attrs = remove_protected_attrs(custom_process.attributes.merge({:released=> true, :source_id=> custom_process.id}))
+        new_custom_process = CustomProcess.create custom_process_attrs
+        
+        #set step
+        new_step = {}
+        custom_process.steps.order('level DESC').each do |step|
+          step_attrs = remove_protected_attrs(step.attributes.merge({ :custom_process_id=> new_custom_process.id, :next=>new_step[:id] }))
+          new_step = Step.create step_attrs
+
+          if step.level == 0
+            new_custom_process.update_attributes({:step_init=> new_step.id})
+          end  
+
+          #set step_attrs
+          step.attrs.each do |attrs|
+            attr_attrs = remove_protected_attrs(attrs.attributes.merge({ :step_id=> new_step.id }))
+            new_attr = StepAttr.create attr_attrs
+          end
+        end
+
+        render :json => {:success=> true, :custom_process_id=> new_custom_process.id}
       end
 
       def custom_process_steps

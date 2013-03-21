@@ -176,8 +176,7 @@ module Guara
       params[:customer][:doc_rg].gsub! /[\.\/-]/, "" if params[:customer][:doc_rg] 
       params[:customer][:postal].gsub! /[\.\/-]/, "" if params[:customer][:postal]
     end
-  
-  
+    
     def multiselect_business_segments
       render :json => BusinessSegment.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
     end

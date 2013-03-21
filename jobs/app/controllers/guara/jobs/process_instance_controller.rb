@@ -120,18 +120,18 @@ module Guara
         end  
       end
 
-      def load_next_step_to_process_instance
+      def load_next_step_to_process_instance()
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
         step_attr_count = StepAttr.where(:step_id=> @next_step).count()
-        if step_attr_count == 0 || @process_instance.state != @next_step
-          @next_step_valid = 0
-        else
+        if step_attr_count > 0
           @next_step_valid = 1
+        else
+          @next_step_valid = 0
         end
       end
 
-      def set_next_step_to_process_instance
+      def set_next_step_to_process_instance()
         load_next_step_to_process_instance()
 
         if @next_step.nil? or @next_step_valid == 0

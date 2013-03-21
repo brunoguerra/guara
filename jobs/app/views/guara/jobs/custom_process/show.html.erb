@@ -48,7 +48,7 @@ input, textarea, select {
 		<li class="span3">
 			<div class="thumbnail">
 				<legend><%= t('jobs.custom_process.step') %></legend>
-				<a id="add_step" href="javascript:void(0);" class="btn" >Nova Etapa</a>
+				<a id="add_step" href="javascript:void(0);" class="btn" disabled="disabled">Nova Etapa</a>
 				<div class="container_steps">
 					<%  @steps.collect { |f| %>
 						<div class="w step widthAuto step_click" is-db="1" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
@@ -78,9 +78,19 @@ input, textarea, select {
 	  <div class="modal-body" id="form_build">
 	    <%= render :partial => 'panel_build_form' %>
 	  </div>
-
 </div>
 
+<!-- Modal para Mensagens-->
+<div id="message-modal" class="modal hide fade" data-keyboard="false" data-backdrop="false">
+	  <div class="modal-header">
+	    <h3></h3>
+	  </div>
+	  
+	  <div class="modal-body">
+	    
+	  </div>
+</div>
+<div class="" id="message-modal-back"></div>
 <script type="text/javascript">
 	jQuery.fn.center = function () {
 	    this.css("position","absolute");
@@ -208,7 +218,7 @@ input, textarea, select {
 	});
 
 	jQuery(document).bind("contextmenu", function(e){
-		if(jQuery(e.target).hasClass('step_click')){
+		if((jQuery(e.target).hasClass('step_click')) && (!$('#save_steps').attr('disabled'))){
 			e.preventDefault();
 			var off = jQuery(e.target).offset();
 			off.top += 45;
@@ -252,6 +262,29 @@ input, textarea, select {
 
 	jQuery('#custom_steps').click(function(e){
 		jsPlumbDemo.start();
+
+		jQuery('#save_steps').removeAttr('disabled');
+		jQuery('#add_step').removeAttr('disabled');
+		return true;
+		
+		$('#message-modal').modal('show');
+		$('#message-modal .modal-header h3').html("Aguarde...");
+		$('#message-modal .modal-body').html("Preparando para Editar o Processo!");
+		$('#message-modal-back').addClass('modal-backdrop');
+
+		jQuery.ajax({
+			type: "POST",
+			url: "<%= custom_process_release_path %>",
+			data: { 
+			  	'id': <%= @custom_process.id %>
+			}
+		}).done(function( d ) {
+			jQuery('#message-modal').modal('hide');
+			jQuery('#save_steps').removeAttr('disabled');
+			jQuery('#add_step').removeAttr('disabled');
+		}).fail(function(d){
+			
+		});
 	});
 
 	jQuery('#save_steps').click(function(e){
@@ -280,7 +313,7 @@ input, textarea, select {
 	});
 
 	jQuery('#add_step').click(function(e){
-		$('#dialog_step').modal('show');
+		jQuery('#dialog_step').modal('show');
 	});
 
 	jQuery('#save_step').click(function(){

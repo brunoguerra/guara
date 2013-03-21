@@ -11,6 +11,12 @@ module Guara
                 model = eval vals
                 if (model.respond_to?(:select_options))
                     options = model.select_options
+                elsif @get_ajax_class == "ajax_customer"
+                    if sels.size > 0
+                        options = model.find(:all, :conditions=> ["id IN (?)", sels.join(',')])
+                    else
+                        options = []
+                    end
                 else
                     options = model.all
                 end
@@ -55,7 +61,18 @@ module Guara
     		elsif rec.type_field == 'text_area'
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect", :multiple=>"multiple"
+                if rec.options == '$Guara::Customer'
+                    #@get_ajax_class = "ajax_customer"
+                    #val = [] if val.class == String || val.nil?
+                    #@field = form.text_field rec.id, :value=> val.join(','), :class=> "input-block-level #{rec.type_field} multiselect2 #{@get_ajax_class}"
+                else
+                    #@get_ajax_class = "no_ajax_customer"
+                    #@field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect2 #{@get_ajax_class}", :multiple=>"multiple"
+                end
+
+                @get_ajax_class = "no_ajax_customer"
+                @field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect2 #{@get_ajax_class}", :multiple=>"multiple"
+
             elsif rec.type_field == 'widget'
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
