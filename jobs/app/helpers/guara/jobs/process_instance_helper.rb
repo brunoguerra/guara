@@ -56,7 +56,7 @@ module Guara
     		elsif rec.type_field == 'text_area'
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                if (vals =~ /url:([^\s]*)/)==0
+                if (rec.options =~ /url:([^\s]*)/)==0
                     @get_ajax_class = "ajax_customer"
                     #val = [] if val.class == String || val.nil?
                     #@field = form.text_field rec.id, :value=> val.join(','), :class=> "input-block-level #{rec.type_field} multiselect2 #{@get_ajax_class}"
@@ -130,7 +130,6 @@ module Guara
                 raw response
             end    
         end
-
         
         def process_instance_field_multi_values(step_attr, attr_instance)
          return nil if attr_instance.nil?
@@ -169,21 +168,6 @@ module Guara
 
             return @label.join(", ").html_safe
         end
-
-        #DEPRECATED
-        def show_values_select(val)
-            @label = []
-            if val.class == Array
-                val.each do |k|
-                    @label << content_tag(:span, get_value_model(k[:step_attr_option], k[:value]), :class => "strong")
-                end
-            elsif val.class == String
-                @label << val
-            end
-
-            return @label.join(", ").html_safe
-        end
-
       end
   end
 end
