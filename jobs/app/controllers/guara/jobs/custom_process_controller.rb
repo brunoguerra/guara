@@ -1,4 +1,4 @@
-
+# encoding: UTF-8
 module Guara
   module Jobs
     class CustomProcessController < Guara::BaseController
@@ -102,12 +102,19 @@ module Guara
 
       def set_enabled_custom_process
         @custom_process = CustomProcess.find(params[:id])
-        if !@custom_process.released == true
-          @custom_process.update_attributes({:enabled=> (@custom_process.enabled == true ? false : true )})
-          @custom_process.save
+        if !@custom_process.source_id.nil?
+          if !@custom_process.released == true
+            @custom_process.update_attributes({:enabled=> (@custom_process.enabled == true ? false : true )})
+            @custom_process.save
+            flash[:success] = "CustomProcess Alterado!"
+          else
+            flash[:error] = "Não pode alterar por ser CustomProcess Atual"
+          end
+        else 
+          flash[:error] = "Não pode alterar o CustomProcess Inicial"
         end
 
-        redirect_to custom_proces_path(@custom_process.source_id)
+        redirect_to custom_proces_path((@custom_process.source_id.nil? ? @custom_process.id : @custom_process.source_id))
       end
 
       def custom_process_steps
