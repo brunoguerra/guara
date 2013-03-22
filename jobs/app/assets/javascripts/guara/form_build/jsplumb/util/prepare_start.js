@@ -21,7 +21,7 @@
 				this.init();
 
 				this.started = true;
-				$('#save_steps').removeAttr('disabled');
+				//$('#save_steps').removeAttr('disabled');
 			//}
 		},
 

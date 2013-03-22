@@ -73,8 +73,6 @@ module Guara
 	  		build_professional()
 	  	end
 
-
-
 	  	def build_professional()
 	  		build_empty_many_relation(@professional.formations)
 	  		build_empty_many_relation(@professional.professional_languages)
@@ -137,14 +135,13 @@ module Guara
  		
 	    def find_customers_by_jobs_customer_id_and_professional
 	    	@customer = Guara::Customer.find params[:jobs_customer_id]
-
 	    	if [:new, :create].include? params[:action]
 	    		@professional = Professional.new(params[:professional])
 	    	else  
 	    		@professional = Professional.where(person_id: @customer.id, id: params[:id]).first
 	    	end
 	    end
-
+	    
 	  end
 	end
 end

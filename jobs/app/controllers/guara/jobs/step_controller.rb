@@ -2,7 +2,7 @@
 module Guara
   module Jobs
     class StepController < Guara::BaseController
-      skip_authorization_check
+      load_and_authorize_resource :step, :class => "Guara::Jobs::Step"
 
       def index
         

@@ -23,12 +23,16 @@
 					</div>
 
 					<%= link_to 'Voltar', process_instance_path(@process_instance), :class=> "btn" %> 
-					<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> @current_step.id), :class=> "btn" %> 
-					<% if @process_instance.state != @current_step.id %>
-					<%= link_to 'Próxima Etapa', edit_process_instance_path(@process_instance.id), :class=> "btn" %> 
-					<% else %>
-					<%= link_to 'Finalizar Processo', process_instance_finish_process_instance_path(:process_instance_id=> @process_instance.id), :class=> "btn" %> 
-					<% end %>
+
+					<% if @process_instance.custom_process.enabled == true %>
+
+						<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> @current_step.id), :class=> "btn" %> 
+						<% if !@current_step.next.nil? %>
+						<%= link_to 'Próxima Etapa', edit_process_instance_path(@process_instance.id), :class=> "btn" %> 
+						<% else %>
+						<%= link_to 'Finalizar Processo', process_instance_finish_process_instance_path(:process_instance_id=> @process_instance.id), :class=> "btn" %> 
+						<% end %>
+					<% end %>	
 				</div>
 			</li>
 		</ul>

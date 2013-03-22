@@ -5,38 +5,59 @@ module Guara
       	def get_collection(rec, sels)
       	    
       	    vals = rec.options.dup
+            vals2 = vals.dup
             sels = [] if sels.class == String || sels.nil?
             vals.strip!
             if (vals =~ /^\$/) == 0
-                vals.gsub!(/^\$/)
-                model = vals.constantize
+                model = vals[1..1000].constantize
                 if (model.respond_to?(:select_options))
                     options = model.select_options
+                elsif @get_ajax_class == "ajax_customer"
+                    options = []
                 else
                     options = model.all
                 end
        		    
-                options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
-            elsif (vals =~ /url:([^\s]*)/)==0
+                rec.select_opts = options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
+            elsif (vals =~ /url:([^\s]*)&/)==0
               rec.html_options = rec.html_options.merge({:"data-json-url" => $1})
-              {}
+
+              model = eval vals2.scan(/&([^\s]*)/).flatten()[0]
+              ids_db = []
+              sels.each do |ids|
+                ids_db << ids[:value]
+              end
+              rec.select_opts = options_for_select(model.where("id IN (#{ids_db.join(',')})").map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
+              rec
             else
                 index = -1
-                options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
+                rec.select_opts = options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
             end
     	end
 
         def get_value_model(vals, id)
             vals.strip!
-            if !(vals.nil? && vals.empty?) && vals[0]=='$'
-                model = vals[1..1000]
-                model = eval model
-                
-                record = model.find id                                
-                return record.name
-                
-            else
-                id
+            vals2 = vals.dup
+            if !(vals.nil? && vals.empty?)
+                if vals[0]=='$'
+                    model = vals[1..1000]
+                    model = eval model
+                    
+                    record = model.find id
+                    return record.name
+                elsif (vals =~ /url:([^\s]*)&/)==0                    
+                    model = eval vals2.scan(/&([^\s]*)/).flatten()[0]
+                    if model == Guara::CustomerPj
+                        record = model.includes(:person).where("id = #{id}").first()
+                    else
+                        record = model.where("id = #{id}").first()
+                    end
+                    return record.name
+                else
+                    return id
+                end    
+            else                
+                return id
             end
         end
 
@@ -55,7 +76,17 @@ module Guara
     		elsif rec.type_field == 'text_area'
     		    @field = form.text_area rec.id, :rows=>"6", :class=> "input-block-level", :value=> val
             elsif rec.type_field == 'select'
-                @field = form.select rec.id, get_collection(rec, val), {}, { :class=> "input-block-level multiselect", :multiple=>"multiple" }.merge(rec.html_options)
+                if (rec.options =~ /url:([^\s]*)/)==0
+                    @get_ajax_class = "ajax_customer"
+                    #val = [] if val.class == String || val.nil?
+                    #@field = form.text_field rec.id, :value=> val.join(','), :class=> "input-block-level #{rec.type_field} multiselect2 #{@get_ajax_class}"
+                else
+                    @get_ajax_class = "no_ajax_customer"
+                    #@field = form.select rec.id, get_collection(rec.options, val), {}, :class=> "input-block-level multiselect2 #{@get_ajax_class}", :multiple=>"multiple"
+                end
+                get_collection(rec, val)
+                @field = form.select rec.id, rec.select_opts, {}, { :class=> "input-block-level multiselect", :multiple=>"multiple" }.merge(rec.html_options)
+
             elsif rec.type_field == 'widget'
                 if rec.options == 'component'
                     @component = eval(rec.widget).new()
@@ -67,7 +98,6 @@ module Guara
                     @component.request = request
                     @component.response = response
                     @component.params = params
-                    
 
                     return @component.index
                 else
@@ -121,7 +151,6 @@ module Guara
                 raw response
             end    
         end
-
         
         def process_instance_field_multi_values(step_attr, attr_instance)
          return nil if attr_instance.nil?
@@ -157,24 +186,8 @@ module Guara
             elsif attr_value.class == String
                 @label << attr_value
             end
-
             return @label.join(", ").html_safe
         end
-
-        #DEPRECATED
-        def show_values_select(val)
-            @label = []
-            if val.class == Array
-                val.each do |k|
-                    @label << content_tag(:span, get_value_model(k[:step_attr_option], k[:value]), :class => "strong")
-                end
-            elsif val.class == String
-                @label << val
-            end
-
-            return @label.join(", ").html_safe
-        end
-
       end
   end
 end
