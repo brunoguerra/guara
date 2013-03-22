@@ -18,9 +18,12 @@ module Guara
                 end
        		    
                 options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
-            elsif (vals =~ /url:([^\s]*)/)==0
+            elsif (vals =~ /url:([^\s]*)&/)==0
               rec.html_options = rec.html_options.merge({:"data-json-url" => $1})
-              {}
+              if (vals =~ /&([^\s]*)/)==0
+                opts = options_for_select($1.where("id IN (#{sels.join(',')})").map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
+              end
+              return [rec.html_options, opts]
             else
                 index = -1
                 options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
