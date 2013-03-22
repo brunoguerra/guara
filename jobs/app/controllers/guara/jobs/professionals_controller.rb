@@ -1,9 +1,9 @@
 module Guara
 	module Jobs
 	  class ProfessionalsController < BaseController
-	  	before_filter :find_customers_by_jobs_customer_id_and_professional, :except => :search
-	  	load_and_authorize_resource :customer, :except => :search
-    	load_and_authorize_resource :class => Guara::Jobs::Professional, :singleton => true, :except => :search
+	  	before_filter :find_customers_by_jobs_customer_id_and_professional, :except => [:search, :search_select]
+	  	load_and_authorize_resource :customer, :except => [:search, :search_select]
+    	load_and_authorize_resource :class => Guara::Jobs::Professional, :singleton => true, :except => [:search, :search_select]
 
     	include CustomersHelper
     	include Select2Helper
@@ -18,12 +18,46 @@ module Guara
     	end
 
 	    def search
-	    	param_search = params[:search]
+        
+        peform_search
+        
+		    params[:search] = {} if params[:search].nil?
+		    respond_to do |format|
+	            format.json { render "guara/jobs/professionals/_list_professionals.html.erb" }
+	            format.html { render "search" }
+            end
+
+            authorize! Guara::Jobs::Professional, :read
+	    end
+	    
+	    def search_select
+	      term = params[:search]
+	      params[:search] = { :person_name_contains => term }
+	      
+	      peform_search
+	      
+	      respond_to do |format|
+	        format.json { render :json => { results: @professionals.map { |p| { :value => p.id, :description => p.name } } } }
+        end
+        
+        authorize! Guara::Jobs::Professional, :read
+      end
+
+	    def searched_professionals
+	    	@professionals || Professional.paginate(page: 1, per_page: 10)
+	    end
+
+	    def searched_search
+	    	@search || {:none => true}
+	    end
+	    
+	    def peform_search
+	      param_search = params[:search]
 
 		    if !param_search.nil? && param_search.size>0 
-        		filter_multiselect param_search, :vacancy_specification_roles_business_action_id_in
-        		filter_multiselect param_search, :formations_level_education_id_in
-      		end
+      		filter_multiselect param_search, :vacancy_specification_roles_business_action_id_in
+      		filter_multiselect param_search, :formations_level_education_id_in
+    		end
 	    	
 	    	@search = Professional.search(param_search)
 
@@ -33,22 +67,6 @@ module Guara
 		    else
 		        @professionals = @search.paginate(page: params[:page], :per_page => 10)
 		    end
-
-		    params[:search] = {} if params[:search].nil?
-		    respond_to do |format|
-	            format.json { render "guara/jobs/professionals/_list_professionals.html.erb" }
-	            format.html { render "search" }
-            end
-
-            authorize! Guara::Jobs::Professional, :read
-	    end
-
-	    def searched_professionals
-	    	@professionals || Professional.paginate(page: 1, per_page: 10)
-	    end
-
-	    def searched_search
-	    	@search || {:none => true}
 	    end
 	  	
 	  	def new

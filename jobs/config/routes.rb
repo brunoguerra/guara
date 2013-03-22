@@ -1,3 +1,4 @@
+
 Guara::Core::Engine.routes.prepend do
   #resources :products
 
@@ -27,7 +28,8 @@ Guara::Core::Engine.routes.prepend do
 		resources :step
 		  
 		resources :process_instance
-
+		
+		match "/professionals/search_select", to: "professionals#search_select"
 		match "/professionals/search", to: "professionals#search"
 		match "/interviewer_professional/show_embeded_process", :to => "interviewer_professionals#show_embeded_process"
 
