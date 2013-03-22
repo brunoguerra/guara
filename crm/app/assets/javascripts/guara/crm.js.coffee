@@ -14,10 +14,13 @@ jQuery ->
     $("select.multiselect").each (i) ->
       if $(this).attr("data-json-url")?
         url_json = $(this).attr("data-json-url")
-        inp = $("<input>").attr("name", $(this).name ).attr("class", $(this).attr("class"))
+        inp = $("<input>").attr("id", $(this).name ).attr("class", $(this).attr("class"))
+        select = $(this)
+        options_select = []
         $($(this).parent()).append inp
         $(inp).select2
           maximumInputLength: 10
+          data: options_select
           ajax:
             data: (term, page) ->
               search: term # search term
@@ -29,11 +32,13 @@ jQuery ->
           formatResult: (data) ->
             return data.name 
           formatSelection: (data) ->
+            select.append($('<option></option>').attr('value', data.id).text(data.name))
+            select.val(data.id)
             return data.name
           dropdownCssClass: "bigdrop"
           escapeMarkup: (m) -> 
             return m  
-        $(this).remove()
+        $(this).hide()
       else
         $(this).select2 maximumInputLength: 10
 		

@@ -184,8 +184,8 @@ module Guara
         return self.send(action)
       end
 
-      def multiselect_professionals
-        render :json => Professional.includes(:person).where(["(guara_people.name ilike ? or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).limit(25).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
+      def multiselect_customer_pj
+        render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ? or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).limit(25).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
       end
     end
   end

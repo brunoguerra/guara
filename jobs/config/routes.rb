@@ -20,7 +20,7 @@ Guara::Core::Engine.routes.prepend do
 
 		match "process_instance/alter_state_process_instance", :to => 'process_instance#alter_state_process_instance'
 		match "process_instance/finish_process_instance", :to => 'process_instance#finish_process_instance'
-		match "process_instance/multiselect_professionals", to: "process_instance#multiselect_professionals"
+		match "process_instance/multiselect_customer_pj", to: "process_instance#multiselect_customer_pj"
 		match "process_instance/show_step", :to => 'process_instance#show_step'
 		 
 		resources :custom_process
