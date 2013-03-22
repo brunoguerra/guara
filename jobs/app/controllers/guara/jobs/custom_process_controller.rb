@@ -134,7 +134,7 @@ module Guara
         @attrs = []
         @steps.each do |s|
           if s.id == id
-            s.step_attrs.each do |a|
+            s.attrs.order(:position).each do |a|
               @attrs << a
             end
 
