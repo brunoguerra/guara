@@ -48,7 +48,7 @@ module Guara
                 elsif (vals =~ /url:([^\s]*)&/)==0                    
                     model = eval vals2.scan(/&([^\s]*)/).flatten()[0]
                     if model == Guara::CustomerPj
-                        record = model.includes(:person).where("guara_people.id = #{id}").first()
+                        record = model.includes(:person).where("id = #{id}").first()
                     else
                         record = model.where("id = #{id}").first()
                     end
