@@ -1,15 +1,3 @@
-
-select2Results =
-  select2ResultFormatResult: (select2Result) ->
-    markup = "<table class='select2Result-result'><tr>"
-    markup += "<td class='select2Result-info'><div class='select2Result-title'>" + select2Result.description + "</div>"
-    markup += "</td></tr></table>"
-    markup
-
-  select2ResultFormatSelection: (select2Result) ->
-    select2Result.description
-
-
 jQuery ->
   $('form').on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
@@ -26,7 +14,9 @@ jQuery ->
     $("select.multiselect").each (i) ->
       if $(this).attr("data-json-url")?
         url_json = $(this).attr("data-json-url")
-        inp = $("<input type='hidden'>").attr("id", $(this).id + "_input").attr("class", $(this).attr("class"))
+        inp = $("<input>").attr("id", $(this).name ).attr('data-ajax', 1).attr("class", $(this).attr("class")).val($(this).val())
+        select = $(this)
+
         $($(this).parent()).append inp
         $(inp).select2
           maximumInputLength: 10
@@ -34,15 +24,33 @@ jQuery ->
             data: (term, page) ->
               search: term # search term
               page_limit: 10
-            dataType: 'jsonp'
-            results: (data, page) ->
-              console.log(data)
-              results: data.results
+            dataType: 'json'
+            results: (data, term) ->
+              results: data
             url: url_json
-          formatResult: select2Results.select2ResultFormatResult
-          formatSelection: select2Results.select2ResultFormatSelection
-        $(this).remove()
+          initSelection: (element, callback) ->
+            id=$(element).val()
+            if (id isnt "")
+              data = 
+                id: $(select.children()[0]).attr('value')
+                name: $(select.children()[0]).text()
+              callback(data)
+          formatResult: (data) ->
+            return data.name 
+          formatSelection: (data) ->
+            opt = $(select.children()[0])
+            if (not opt) or (opt.attr('id') isnt data.id)
+              opt.remove()
+              select.append($('<option></option>').attr('value', data.id).text(data.name))
+            select.val(data.id)
+            return data.name
+
+          dropdownCssClass: "bigdrop"
+          escapeMarkup: (m) -> 
+            return m  
+        $(this).hide()
       else
         $(this).select2 maximumInputLength: 10
+		
 	
 

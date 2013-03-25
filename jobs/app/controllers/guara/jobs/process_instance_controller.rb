@@ -11,10 +11,10 @@ module Guara
 
       def index
         params[:search] = {:finished_is_false=> true} if params[:search].nil?
-        params[:search][:process_id_eq] = Vacancy.custom_process.id
+        params[:search][:custom_process_name_eq] = 'vacancy'
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 
-        @search = ProcessInstance.search(params[:search])
+        @search = ProcessInstance.joins(:custom_process).search(params[:search])
         if class_exists?("Ransack")
             @process_instance = @search.result().paginate(page: params[:page], :per_page => 10)
         else
@@ -70,7 +70,7 @@ module Guara
       end
       
       def load_grouped_columned_attrs(step)
-        grouped_attrs = step.attrs.group_by(&:group).sort()
+        grouped_attrs = step.attrs.order(:position).group_by(&:group)
         
         grouped_column_attrs = {}
         
@@ -120,18 +120,18 @@ module Guara
         end  
       end
 
-      def load_next_step_to_process_instance
+      def load_next_step_to_process_instance()
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
         step_attr_count = StepAttr.where(:step_id=> @next_step).count()
-        if step_attr_count == 0 || @process_instance.state != @next_step
-          @next_step_valid = 0
-        else
+        if step_attr_count > 0
           @next_step_valid = 1
+        else
+          @next_step_valid = 0
         end
       end
 
-      def set_next_step_to_process_instance
+      def set_next_step_to_process_instance()
         load_next_step_to_process_instance()
 
         if @next_step.nil? or @next_step_valid == 0
@@ -182,6 +182,10 @@ module Guara
         self.embedded = true
 
         return self.send(action)
+      end
+
+      def multiselect_customer_pj
+        render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ? or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).limit(25).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
       end
     end
   end

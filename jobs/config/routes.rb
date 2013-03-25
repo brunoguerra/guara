@@ -16,9 +16,12 @@ Guara::Core::Engine.routes.prepend do
 		match "/custom_process_steps", :to => 'custom_process#custom_process_steps'
 		match "custom_process/add_attr_to_steps", :to => 'custom_process#add_attr_to_steps'
 		match "custom_process/step_set_widget", :to => 'custom_process#step_set_widget'
+		match "custom_process/release", :to => 'custom_process#set_release'
+		match "custom_process/set_enabled_custom_process", :to => 'custom_process#set_enabled_custom_process'
 
 		match "process_instance/alter_state_process_instance", :to => 'process_instance#alter_state_process_instance'
 		match "process_instance/finish_process_instance", :to => 'process_instance#finish_process_instance'
+		match "process_instance/multiselect_customer_pj", to: "process_instance#multiselect_customer_pj"
 		match "process_instance/show_step", :to => 'process_instance#show_step'
 		 
 		resources :custom_process
