@@ -14,7 +14,7 @@ module Guara
 	      
 	    def load_selecteds_professionals
 	        @vacancy      = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
-	        @interviewer_professionals = VacancySchedulingProfessional.where(vacancy_id: @vacancy.id) 
+	        @interviewer_professionals = VacancySchedulingProfessional.where(vacancy_id: @vacancy.id, interested: true) 
 	    end
 
       def show

@@ -6,14 +6,17 @@
       <%= f.input :date_time, :as => :string, 
       	:input_html=> {
       		"data-behaviour" => "datetimepicker",
-      		:value=> !@vacancy_scheduling.new_record? ? @vacancy_scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") : ""
+      		:value=> !@vacancy_scheduling.new_record? ? 
+      			(@vacancy_scheduling.date_time.nil? ? "" : 
+      			@vacancy_scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") ) : ""
       	} %>
       <%= f.input :local %>
       <%= f.input :consultant_id, :as => :select, :collection => Guara::Jobs::Consultant.all %>
       <%= f.input :vacancy_id, :as=> :hidden %>
       <%= f.input :professional_id, :as=> :hidden %>
-      <%= link_to 'delete', 'javascript:void(0);', :onClick=>"vacancy_scheduler_professional_remove();", :class=>"btn" if !@vacancy_scheduling.new_record? %>
+      <%= link_to 'Deletar', 'javascript:void(0);', :onClick=>"vacancy_scheduler_professional_remove();", :class=>"btn" if !@vacancy_scheduling.new_record? %>
       <%= f.submit "Salvar", class: "btn btn-primary" %>
+      <%= link_to "Não Interessado", "javascript:void(0);", :class=> "btn btn-info", :id=>"button_professional_no_interested" if @vacancy_scheduling.interested.nil?  %>
     </div>
 
   </fieldset>
@@ -24,18 +27,21 @@
 		var data = {},
 		form     = '#form_candidate_selected form',
 		inputs   = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
+		method   = $(form + ' input[name*=_method]'),
 		combo    = $(form + ' select[name*=jobs_vacancy_scheduling_professional]');
 		for(var i=0; i< inputs.length;i++){
 			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
 		}
 		data[$(combo).attr('name')] = $(combo).val();
-
+		if(method.length==1){
+			data['_method'] = 'put';
+		}
+		data['jobs_vacancy_scheduling_professional[interested]'] = true;
 		$.ajax({
 		  type: "POST",
 		  url: $(form).attr('action'),
 		  data: data,
 		}).done(function( data ) {
-
 		  	if(data.success == true){
 		  		var btn = $('#button_'+data.data.professional_id);
 		  		btn.clone()
@@ -59,7 +65,7 @@
 			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
 		}
 		data[$(combo).attr('name')] = $(combo).val();
-		console.info(data);
+		data['jobs_vacancy_scheduling_professional[interested]'] = undefined;
 		$.ajax({
 		  type: "POST",
 		  url: "<%= vacancy_scheduler_professional_path(@vacancy) %>",
@@ -76,4 +82,32 @@
 			}
 		});
 	}
+
+	$('#button_professional_no_interested').bind('click', function(){
+		var data = {},
+		form     = '#form_candidate_selected form',
+		inputs   = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
+		combo    = $(form + ' select[name*=jobs_vacancy_scheduling_professional]');
+		for(var i=0; i< inputs.length;i++){
+			data[$(inputs[i]).attr('name')] = $(inputs[i]).val();
+		}
+		data[$(combo).attr('name')] = $(combo).val();
+		data['jobs_vacancy_scheduling_professional[interested]'] = false;
+
+		$.ajax({
+		  	type: "POST",
+		  	url: $(form).attr('action'),
+		  	data: data,
+		}).done(function( data ) {
+			if(data.success == true){
+				var btn = $('#button_'+data.data.professional_id);
+				btn.clone()
+		  			.attr('onClick', "schedule_professional("+data.data.professional_id+", true); ")
+		  			.appendTo('#candidates_no_interested_scheduled');
+		  		btn.remove();
+		  		alert('Agendamento Salvo');
+		  		$('#form_candidate_selected').empty();
+			}
+		});
+	});
 </script>

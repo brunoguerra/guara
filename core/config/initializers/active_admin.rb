@@ -94,13 +94,13 @@ module ActiveAdmin
     
     def register_resource_controller(config)
       eval "class ::#{config.controller_name} < ActiveAdmin::ResourceController; end"
-      if config.resource_name.index("Guara") != nil
+      #if config.resource_name.index("Guara") != nil
         #MyEngine::Resource => ::MyEngineResource #cancan will try to find MyEngineResource instead Guara::Resource on url my_guara_resource
         begin
           eval "class ::#{config.resource_name.gsub(/::/, '')} < #{config.resource_name}; end"
         rescue
         end
-      end
+      #end
       config.controller.active_admin_config = config
     end
     
