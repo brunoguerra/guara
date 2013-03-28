@@ -45,6 +45,7 @@ module Guara
       end
       
       def create()
+        params[:jobs_vacancy_scheduling_professional][:interested] = true if params[:jobs_vacancy_scheduling_professional][:interested].nil?
         @vacancy_scheduling = VacancySchedulingProfessional.new(params[:jobs_vacancy_scheduling_professional])
 
         if @vacancy_scheduling.save
@@ -64,7 +65,15 @@ module Guara
       end
       
       def update()
-        
+        @params = params[:jobs_vacancy_scheduling_professional]
+        puts @params.to_yaml
+        @vacancy_scheduling = VacancySchedulingProfessional.find(:first, :conditions=> ['vacancy_id = ? AND professional_id = ?', @params[:vacancy_id], @params[:professional_id] ])
+
+        if @vacancy_scheduling.update_attributes(@params)
+          render :json => {:data=> @vacancy_scheduling, :success=> true}
+        else
+          render :json => {:data=> @vacancy_scheduling.errors, :success=> false} 
+        end
       end
 
       def destroy()
