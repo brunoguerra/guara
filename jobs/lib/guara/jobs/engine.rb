@@ -26,6 +26,7 @@ module Guara
             { name: :jobs_consultants, resource: Guara::Jobs::Consultant },
             { name: :jobs_languages, resource: Guara::Jobs::Language },
             { name: :jobs_level_knowledges, resource: Guara::Jobs::LevelKnowledge },
+            { name: :jobs_salary_requirements, resource: Guara::Jobs::SalaryRequirement },
           ]
         
       end

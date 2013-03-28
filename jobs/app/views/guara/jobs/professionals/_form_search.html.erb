@@ -21,7 +21,13 @@
 						   <div class="control-group">
 		            <%= label_tag :salary_requirements, t("helpers.label.professional.search.salary_requirements.title"), :class => "control-label" %>
 	            	<div class="controls">
-		          		<%= f.text_field :vacancy_specification_salary_requirements_less_than_or_equal_to %>
+		          		<%= f.select(:vacancy_specification_salary_requirement_salary_range_in,
+						options_from_collection_for_select([] + Guara::Jobs::SalaryRequirement.all, :id, :salary_range, params[:search][:vacancy_specification_salary_requirement_salary_range_in]), 
+						{}, 
+						{ 	:style => "width: 220px;", 
+							:class => "multiselect" 
+						})
+	              	%>
 	           		</div>
 		      		</div>
 

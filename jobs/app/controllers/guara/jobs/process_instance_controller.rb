@@ -127,6 +127,7 @@ module Guara
         if step_attr_count > 0
           @next_step_valid = 1
         else
+          raise "Pintinha Esqueceu de Add StepAttrs"
           @next_step_valid = 0
         end
       end

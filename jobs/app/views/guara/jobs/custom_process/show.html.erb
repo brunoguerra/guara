@@ -242,7 +242,7 @@ input, textarea, select {
 	});
 
 	jQuery(document).bind("contextmenu", function(e){
-		if((jQuery(e.target).hasClass('step_click')) && (!$('#save_steps').attr('disabled'))){
+		if((jQuery(e.target).hasClass('step_click'))){
 			e.preventDefault();
 			var off = jQuery(e.target).offset();
 			off.top += 45;
@@ -285,12 +285,14 @@ input, textarea, select {
 	});
 
 	<% if @button_enable == true %>
-	setTimeout(function(){
-		jsPlumbDemo.start();
 		jQuery('#save_steps').removeAttr('disabled');
 		jQuery('#add_step').removeAttr('disabled');
-	}, 100);
+		jQuery('#save_attrs_to_step').removeAttr('disabled');
 	<% end %>
+	
+	setTimeout(function(){
+		jsPlumbDemo.start();
+	}, 100);
 
 	jQuery('#custom_steps').click(function(e){
 		jsPlumbDemo.start();

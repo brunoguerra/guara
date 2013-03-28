@@ -1,6 +1,12 @@
 #dialog_attr_step.modal{
 	width: 940px;
-	left: 36%;
+	left: 48%;
+    top: 4%;
+}
+
+.modal-body {
+    max-height: 640px !important;
+    min-height: 640px !important
 }
 
 #panel { 

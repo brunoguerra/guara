@@ -133,9 +133,12 @@ pt-BR:
 
   jobs_languages:
     title: "Idiomas"
+
   jobs_level_knowledges:
     title: "Nivel de Conhecimento"
 
+  jobs_salary_requirements:
+    title: "Faixa Salarial"
 
   search:
     link: "Buscar Profissional"
