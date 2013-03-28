@@ -12,7 +12,7 @@ module Guara
 
     	def load_selecteds_professionals()
         @vacancy      = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
-        @vacancy_scheduling_professionals = VacancySchedulingProfessional.find(:all, :conditions=> ["vacancy_id = ? ", @vacancy.id], :order=> "avaliate DESC")
+        @vacancy_scheduling_professionals = VacancySchedulingProfessional.find(:all, :conditions=> ["vacancy_id = ? AND interested = true ", @vacancy.id], :order=> "avaliate DESC")
 			  @unscheduleds = VacancySendedProfessionals.unsended_professionals(@vacancy_scheduling_professionals)
 	      @scheduleds   = VacancySendedProfessionals.sended_professionals(@vacancy_scheduling_professionals)
 	    end

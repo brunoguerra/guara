@@ -39,7 +39,7 @@ module Guara
         elsif item.is_a? Hash
           item_name = item[:name]
           rails_model = item[:resource]
-          path = item[:path].nil? ? get_path_from_sym(item[:name], menu[:prefix]) : item[:path]
+          path = item[:path].nil? ? get_path_from_sym(item[:name], menu[:prefix]) : eval(item[:path])
         elsif item.is_a? Array
           rails_model = item[0]
           item_name = rails_model
