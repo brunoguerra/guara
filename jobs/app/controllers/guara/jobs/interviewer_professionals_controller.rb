@@ -2,10 +2,10 @@ module Guara
   module Jobs
     class InterviewerProfessionalsController < BaseController
     	load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy"
-      	load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
-      	include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
-        include ProcessInstanceHelper
-        include FormAjaxHelper
+    	load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
+    	include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
+      include ProcessInstanceHelper
+      include FormAjaxHelper
 
 
       def initialize
@@ -14,7 +14,7 @@ module Guara
 	      
 	    def load_selecteds_professionals
 	        @vacancy      = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
-	        @interviewer_professionals = VacancySchedulingProfessional.where(vacancy_id: @vacancy.id) 
+	        @interviewer_professionals = VacancySchedulingProfessional.where(vacancy_id: @vacancy.id, interested: true) 
 	    end
 
       def show

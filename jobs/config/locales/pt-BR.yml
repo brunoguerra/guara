@@ -114,6 +114,7 @@ pt-BR:
       edit: "Editar Processo"
       save_steps: "Salvar Etapas"
       steps: "Etapas"
+      delete_or_recycle: "Deletar/Reciclar"
 
     careers: &attrs_career
       role: "Cargo"

@@ -452,7 +452,7 @@ window.form_builder = {
                 elements[els_size].widget = config.widget;
                 elements[els_size].group = config.group;
 
-                me.current_field_selected = elements_inserteds[els_size];
+                me.current_field_selected = elements[els_size];
                 me.properties.set_config(config.title, 'title');
                 me.properties.set_config(config.required, 'required');
             }

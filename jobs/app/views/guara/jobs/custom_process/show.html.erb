@@ -2,6 +2,11 @@
 input, textarea, select {
 	text-transform: none!important;
 }
+.releases{
+	overflow: auto;
+	max-height: 300px;
+	padding: 4px;
+}
 </style>
 <%= render :partial => "guara/jobs/jobs/navbar", 
       :locals => { active: :custom_process } %>
@@ -14,27 +19,45 @@ input, textarea, select {
 				<legend><%= @custom_process.name %></legend>
 				<div class="container">
 					
+			        <div class="span4">
+			        	<div class="box-gray-data">
+				            <div class="widthAuto" id="process">
+				            	
+				            		<b><%= t('jobs.custom_process.name') %></b> 
+				            		<%= @custom_process.name %></br>
 
-			          <div class="box-gray-data span4">
-			            
-			            <div class="widthAuto" id="process">
-			            	
-			            		<b><%= t('jobs.custom_process.name') %></b> 
-			            		<%= @custom_process.name %></br>
-
-			            		<b><%= t('jobs.custom_process.id') %></b>
-								<%= @custom_process.id %>
-			            		
-			            		<div class="ep"></div>
+				            		<b><%= t('jobs.custom_process.id') %></b>
+									<%= @custom_process.id %>
+				            		
+				            		<div class="ep"></div>
+				            </div>
 			            </div>
-			          </div>
-
-
-			        <div id="position_steps_connecteds" class="span4" style="height:300px;padding:10px;">
-			        	
+			            
+			            <br>
+				        <legend><%= t('jobs.custom_process.releases') %></legend>
+			            <div class="releases">
+				        	<% 
+				        		cp = Guara::Jobs::CustomProcess.find(params[:id])
+				        		cp.custom_processes.order('id DESC').each do |c| %>
+				        		<a class="btn btn-block 
+				        		<%= 'disabled' if c.id == @custom_process.id %> 
+				        		<%= 'btn-warning' if c.enabled == false %>" 
+				        			type="button" href="?released=<%= c.id %>">
+					        		<b>Id:</b> <%= c.id %>, 
+					        		<b>Criado em:</b> <%= c.created_at.strftime("%d/%m/%Y") %>
+				        		</a>
+				        	<% end %>
+			        	</div>
+			        	<br>
 			        </div>
 
+					<div id="position_steps_connecteds" class="span4" style="height:300px;padding:10px;">
+			        </div>
 			    </div>
+			    <a id="dump_custom_process" href="<%= custom_process_set_enabled_custom_process_path(:id=> @custom_process.id) %>" class="btn">
+		          	<%= t('jobs.custom_process.delete_or_recycle') %>
+		        </a>
+
 			    <a id="custom_steps" href="javascript:void(0);" class="btn">
 		          	<%= t('jobs.custom_process.edit') %>
 		        </a>
@@ -48,7 +71,7 @@ input, textarea, select {
 		<li class="span3">
 			<div class="thumbnail">
 				<legend><%= t('jobs.custom_process.step') %></legend>
-				<a id="add_step" href="javascript:void(0);" class="btn" >Nova Etapa</a>
+				<a id="add_step" href="javascript:void(0);" class="btn" disabled="disabled">Nova Etapa</a>
 				<div class="container_steps">
 					<%  @steps.collect { |f| %>
 						<div class="w step widthAuto step_click" is-db="1" id="<%=f.send(:id)%>" step_id="<%=f.send(:id)%>">
@@ -78,9 +101,20 @@ input, textarea, select {
 	  <div class="modal-body" id="form_build">
 	    <%= render :partial => 'panel_build_form' %>
 	  </div>
-
 </div>
 
+<!-- Modal para Mensagens-->
+<div id="message-modal" class="modal hide fade" data-keyboard="false" data-backdrop="false">
+	  <div class="modal-header">
+	    <h3></h3>
+	  </div>
+	  
+	  <div class="modal-body">
+	    
+	  </div>
+</div>
+
+<div class="" id="message-modal-back"></div>
 <script type="text/javascript">
 	jQuery.fn.center = function () {
 	    this.css("position","absolute");
@@ -208,7 +242,7 @@ input, textarea, select {
 	});
 
 	jQuery(document).bind("contextmenu", function(e){
-		if(jQuery(e.target).hasClass('step_click')){
+		if((jQuery(e.target).hasClass('step_click')) && (!$('#save_steps').attr('disabled'))){
 			e.preventDefault();
 			var off = jQuery(e.target).offset();
 			off.top += 45;
@@ -250,8 +284,34 @@ input, textarea, select {
 		}
 	});
 
+	<% if @button_enable == true %>
+	setTimeout(function(){
+		jsPlumbDemo.start();
+		jQuery('#save_steps').removeAttr('disabled');
+		jQuery('#add_step').removeAttr('disabled');
+	}, 100);
+	<% end %>
+
 	jQuery('#custom_steps').click(function(e){
 		jsPlumbDemo.start();
+		
+		$('#message-modal').modal('show');
+		$('#message-modal .modal-header h3').html("Aguarde...");
+		$('#message-modal .modal-body').html("Preparando para Editar o Processo!");
+		$('#message-modal-back').addClass('modal-backdrop');
+
+		jQuery.ajax({
+			type: "POST",
+			url: "<%= custom_process_release_path %>",
+			data: { 
+			  	'id': <%= @custom_process.id %>,
+			  	'id_root': <%= params[:id] %>
+			}
+		}).done(function( d ) {
+			document.location.reload(true);
+		}).fail(function(d){
+			
+		});
 	});
 
 	jQuery('#save_steps').click(function(e){
@@ -280,7 +340,7 @@ input, textarea, select {
 	});
 
 	jQuery('#add_step').click(function(e){
-		$('#dialog_step').modal('show');
+		jQuery('#dialog_step').modal('show');
 	});
 
 	jQuery('#save_step').click(function(){
@@ -404,5 +464,4 @@ input, textarea, select {
 
         }
     });
-    
 </script>

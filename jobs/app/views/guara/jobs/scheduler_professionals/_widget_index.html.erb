@@ -14,12 +14,21 @@
 	      	<li class="span3">
 		        <div class="thumbnail">
 		          <div id="candidates_unscheduled" class="caption">
-		            <% (@scheduleds || []).each do |professional|  %>
-									<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
+		            <% (@scheduleds || []).each do |professional|  
+		            	 person = professional.person
+		            	 email = person.emails.first()
+		            	%>
+						<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
 									onClick="schedule_professional(<%= professional.id %>); ">
-		            	<i class="icon-user"></i><%= professional.name %>
+		            	<i class="icon-user"></i><%= professional.name %><br>
+		            	<% if !person.phone.blank? %>
+		            		<i class="icon-share"></i><%= person.phone %><br>
+		            	<% end %>
+		            	<% if !email.nil? %>
+		            		<i class="icon-envelope"></i><%= email.email %>
+		            	<% end %>
 			            </button>
-								<% end %>
+					<% end %>
 		          </div>
 		        </div>
 		    </li>
@@ -34,14 +43,49 @@
 
 	      	<li class="span3">
 		        <div class="thumbnail">
-		          <div id="candidates_scheduled" class="caption">
-		          	<% (@unscheduleds || []).each do |professional|  %>
-					<button type="button" class="btn btn-block" 
-					onClick="schedule_professional(<%= professional.id %>, true); ">
-		            	<i class="icon-user"></i><%= professional.name %>
-		            </button>
-					<% end %>
-		          </div>
+		        	Candidates Interested
+			        <div id="candidates_scheduled" class="caption">
+			          	<% (@unscheduleds || []).each do |professional|  
+			          		if professional.interested == true
+							person = professional.person
+		            	 	email = person.emails.first()
+			          	%>
+						<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
+						onClick="schedule_professional(<%= professional.id %>, true); ">
+			            	<i class="icon-user"></i><%= professional.name %><br>
+			            	<% if !person.phone.blank? %>
+		            		<i class="icon-share"></i><%= person.phone %><br>
+			            	<% end %>
+			            	<% if !email.nil? %>
+			            		<i class="icon-envelope"></i><%= email.email %>
+			            	<% end %>
+			            </button>
+						<% end
+						end %>
+			        </div>
+		        </div>
+
+		        <div class="thumbnail">
+		        	Candidates Disinterested
+		          	<div id="candidates_no_interested_scheduled" class="caption">
+		          		<% (@unscheduleds || []).each do |professional|  
+						if professional.interested == false
+							person = professional.person
+		            	 	email = person.emails.first()
+		          		%>
+						<button id="button_<%= professional.id %>" type="button" class="btn btn-block" 
+						onClick="schedule_professional(<%= professional.id %>, true); ">
+			            	<i class="icon-user"></i><%= professional.name %><br>
+			            	<% if !person.phone.blank? %>
+		            		<i class="icon-share"></i><%= person.phone %><br>
+			            	<% end %>
+			            	<% if !email.nil? %>
+			            		<i class="icon-envelope"></i><%= email.email %>
+			            	<% end %>
+			            </button>
+						<% end
+						end %>
+		          	</div>
 		        </div>
 	      	</li>
 	    </ul>
