@@ -1,6 +1,6 @@
 module Guara
   class CustomersController < BaseController
-    load_and_authorize_resource :class => Guara::Customer, :except => [:create]
+    load_and_authorize_resource :class => Guara::Customer, :except => [:create, :multiselect_business_segments, :multiselect_business_activities, :multiselect_customers, :multiselect_customers_pj]
     before_filter :custom_load_creator, :only => [:create,:update]
     before_filter :filter_before_changes, :only => [:create,:update]
   
@@ -140,25 +140,26 @@ module Guara
       res
     end
   
-    def update
-    
-      params_pj = params[:customer][:customer_pj]
-      params[:customer].delete :customer_pj
-    
-      #@customer = Customer.find params[:id]
+    def update      
       @person = @customer.customer
-    
-      update_advanced_fields
       
+      load_customer_type()
       
       @customer.attributes = params[:customer]
-      @person.attributes = params_pj
       
-      if save_customer
+      if @person.is_a? Guara::CustomerPf
+        @person.attributes = params[:customer_pf]
+      else
+        @person.attributes = params[:customer_pj]
+      end
+      
+      update_advanced_fields
+      
+      if save_customer && @person.save
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
       else
-        render 'new.'+preferences_customer_type?.to_s
+        render 'edit.'+preferences_customer_type?.to_s
       end
     end
   
@@ -168,7 +169,7 @@ module Guara
       load_customer_type()
       @customer.emails.build
     end
-  
+    
     def filter_before_changes
       authorize! params[:action].to_sym, @customer
     
@@ -176,26 +177,24 @@ module Guara
       params[:customer][:doc_rg].gsub! /[\.\/-]/, "" if params[:customer][:doc_rg] 
       params[:customer][:postal].gsub! /[\.\/-]/, "" if params[:customer][:postal]
     end
-  
-  
+    
     def multiselect_business_segments
+      authorize! :read, Guara::BusinessSegment
       render :json => BusinessSegment.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
     end
   
     def multiselect_business_activities
-      render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
-    end
-  
-    def multiselect_business_activities
+      authorize! :read, Guara::BusinessActivity
       render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
     end
   
     def multiselect_customers
-      render :json => BusinessActivity.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
+      authorize! :read, Guara::Customer
+      render :json => Customer.where(["name ilike ?", "%"+params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.name } }
     end
     
     def load_customer_type()
-      if !@person.nil? 
+      if !@person.nil?
         @customer_type = @person.prefix
       elsif !params[:type].nil?
         @customer_type = {
@@ -220,6 +219,7 @@ module Guara
     end
   
     def multiselect_customers_pj
+      authorize! :read, Guara::CustomerPj
       render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.person.name } }
     end
   end

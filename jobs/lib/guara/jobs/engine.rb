@@ -36,7 +36,6 @@ module Guara
       end
       
       initializer "guara.jobs.assets" do |config|
-        puts config.assets.paths.size
         config.assets.paths << Rails.root.join("app", "assets", "stylesheet", "guara")
       end
     
