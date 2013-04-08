@@ -27,7 +27,8 @@ module Guara
               sels.each do |ids|
                 ids_db << ids[:value]
               end
-              rec.select_opts = options_for_select(model.where("id IN (#{ids_db.join(',')})").map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
+              options_select = ids_db.size > 0 ? model.where("id IN (#{ids_db.join(',')})") : []
+              rec.select_opts = options_for_select(options_select.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
               rec
             else
                 index = -1

@@ -135,10 +135,7 @@ module Guara
       def set_next_step_to_process_instance()
         load_next_step_to_process_instance()
 
-        if @next_step.nil? or @next_step_valid == 0
-          #@process_instance.update_attributes :date_finish=> Time.now.to_s(:db)
-          #@process_instance.save
-        else
+        if !@next_step.nil? and @next_step_valid > 0
           @process_instance.update_attributes :state=> @next_step
           @process_instance.save
         end 

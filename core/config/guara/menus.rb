@@ -20,8 +20,8 @@ module Guara
         :title =>   "administration",
         :prefix =>  "admin_guara",
         :items =>   [
-                      [:users, "users_path()"],
-                      [:user_groups, "user_groups_path()"]
+                      [:users, "guara.users_path()"],
+                      [:user_groups, "guara.user_groups_path()"]
                     ]
        }
     
@@ -30,9 +30,9 @@ module Guara
         :title => "maintenances",
         :prefix => "maintence_guara",
         :items => [
-                    { name: :districts, resource: Guara::District },
-                    { name: :cities, resource: Guara::City },
-                    { name: :states, resource: Guara::State },
+                    { name: :districts, resource: Guara::District, path: "guara.maintence_guara_districts_path()" },
+                    { name: :cities, resource: Guara::City, path: "guara.maintence_guara_cities_path()" },
+                    { name: :states, resource: Guara::State, path: "guara.maintence_guara_states_path()" },
                   ]
        }
   end

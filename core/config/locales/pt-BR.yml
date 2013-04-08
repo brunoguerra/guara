@@ -262,8 +262,8 @@ pt-BR:
     title: "Setores das Empresas"
   
   task_types:
-    link: "Atividades"
-    title: "Atividades"
+    link: "Tipos de Tarefas"
+    title: "Tipos de Tarefas"
   
   #SECTIONS <===================================
   
@@ -315,7 +315,7 @@ pt-BR:
   system:
     modules: &system_modules
       business_segment: "Segmento"
-      business_activity: "Atividade"
+      business_activity: "Tipos de Tarefas"
       business_department: "Setor"
       city: "Cidade"
       state: "Estado"

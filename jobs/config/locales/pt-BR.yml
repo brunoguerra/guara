@@ -25,6 +25,8 @@ pt-BR:
       date_finish: "Data Final"
       step: "Etapa"
       steps: "Etapas"
+      role: "Cargo"
+      business: "Empresa"
 
       processes_starteds: "Processos Iniciados"
       filters: "Filtros"

@@ -422,6 +422,7 @@ input[type="text"], input[type="text"].search-query{
 /* CUSTOMER SHOW2 :: BEGIN*/
 table thead tr th, table tbody tr td{
   text-align: center !important;
+  text-transform: uppercase;
 }
 
 table tbody tr #name_customer_table{
@@ -430,17 +431,27 @@ table tbody tr #name_customer_table{
 }
 
 .box-gray-data{
-background-color: #EBF2F2;
-padding-left: 10px;
--moz-border-radius: 10px;
--webkit-border-radius: 10px;
-border-radius: 10px;
-margin-top: 5px ;
-margin-bottom: 5px ;
+  background-color: #EBF2F2;
+  padding-left: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin-top: 5px ;
+  margin-bottom: 5px ;
 }
 
 .show .thumbnails .container .thumbnail{
-overflow: hidden;
+  overflow: hidden;
 }
+
+.thumbnail .box-gray-data p {
+  text-transform: uppercase;
+}
+
+.modal.fade.in {
+  top: 3%;
+}
+
+
 
 /* CUSTOMER SHOW2 :: END*/

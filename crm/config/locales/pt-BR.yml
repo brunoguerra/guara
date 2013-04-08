@@ -193,7 +193,7 @@ pt-BR:
   system:
     modules: &crm_modules
       "guara/business_segment": "Segmento"
-      "guara/business_activity": "Atividade"
+      "guara/business_activity": "Tipos de Tarefas"
       "guara/business_department": "Setor"
       "guara/company_business": "Área de Negócio"
       "guara/customer": "Cliente"

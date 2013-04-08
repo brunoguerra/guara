@@ -18,6 +18,8 @@ module Guara
       initializer 'guara.menu.crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << { name: :jobs, resource: Guara::Jobs::Professional }
         
+        routes = Guara::Core::Engine.routes.url_helpers
+        
         Guara::Menus::MAINTENCE[:items] +=
           [
             { name: :jobs_business_actions, resource: Guara::Jobs::BusinessAction},
@@ -27,6 +29,7 @@ module Guara
             { name: :jobs_languages, resource: Guara::Jobs::Language },
             { name: :jobs_level_knowledges, resource: Guara::Jobs::LevelKnowledge },
             { name: :jobs_salary_requirements, resource: Guara::Jobs::SalaryRequirement },
+
           ]
         
       end
