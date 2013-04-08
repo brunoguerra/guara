@@ -19,9 +19,8 @@
 				    <thead>
 				      <tr>
 				        <th><%= t("inter_view_professionals.id") %></th>
-				        <th><%= t("inter_view_professionals.consultant_id") %></th>
 				        <th><%= t("inter_view_professionals.professional_id") %></th>
-				        <th><%= t("inter_view_professionals.description") %></th>
+				        <th><%= t("inter_view_professionals.synthesis") %></th>
 				        <th><%= t("inter_view_professionals.avaliate") %></th>
 				        <th><%= t("helpers.forms.actions") %></th>
 				      </tr>
@@ -30,9 +29,8 @@
 					<% @scheduleds.each do |p| %>
 				      <tr id="tr_<%= p.id %>" name-professional="<%= p.professional.person.name %>">
 				      	 <th><%= p.id %></th>
-				      	 <th><%= p.consultant.name %></th>
 				      	 <th><%= p.professional.person.name %></th>
-				      	 <th><%= p.description %></th>
+				      	 <th><%= p.interview.synthesis if !p.interview.nil? %></th>
 				      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
 				      	 <th>
 		        			<%= link_to t("vacancy_sended_professionals.send"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_sended_professional(#{p.id}); " %>
@@ -56,6 +54,9 @@
 		            </button>
 	            <% end %>
 	          </div>
+	          <button  id="button_send_email_now" type="button" class="btn btn-block btn-info" onClick="send_email_customer();">
+	            	<i class="icon-email"></i> Enviar Candidatos
+	            </button>
 	        </div>
 	    </li>      
     </ul>
@@ -69,7 +70,6 @@
 		  url: "<%=vacancy_vacancy_sended_professional_path(vacancy)%>?vacancy_scheduling_professionals_id="+id,
 		}).done(function( data ) {
 			if(data.success == true){
-				console.info($('#tr_'+id));
 				var name = $('#tr_'+id).attr('name-professional');
 				$('#tr_'+id).remove();
 				$('#form_candidate_selected').append('<button name-professional="'+name+'" id="button_'+id+'" type="button" class="btn btn-block" onClick="remove_vacancy_sended_professional('+id+');"> <i class="icon-trash"></i>'+name+'</button>');
@@ -109,5 +109,16 @@
 				}			
 			});
 		}
+	}
+
+	function send_email_customer(){
+		$.ajax({
+		  type: "POST",
+		  url: "<%=vacancy_sended_professionals_send_email_customer_pj_path()%>?id=<%vacancy.id%>",
+		}).done(function( data ) {
+			if(data.success == true){
+				
+			}	
+		});
 	}
 </script>
