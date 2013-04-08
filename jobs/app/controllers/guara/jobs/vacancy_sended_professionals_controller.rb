@@ -37,7 +37,6 @@ module Guara
         else
           render :json => {:data=> @vacancy_sended_professional.errors, :success=> false} 
         end
-
       end
 
       def show
@@ -62,6 +61,9 @@ module Guara
         end        
       end
 
+      def send_email_customer_pj
+        Guara::Jobs::VacancySendedProfessionalsMailer.professionals_email({:email=>"macielcr7@gmail.com"}).deliver
+      end
 
     end
   end
