@@ -22,7 +22,7 @@
 		window.sel = []
 		<%  if value.class == Array 
 				value.each do |k| %>
-					setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_select k %>", "");
+					setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_model k[:step_attr_option], k[:value] %>", "");
 					sel.push(<%= k[:value] %>);
 		<% 		end 
 			end %>
