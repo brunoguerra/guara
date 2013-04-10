@@ -24,7 +24,7 @@
 			<div class="control-group">
 				<%= f.label :city_id, :class => "control-label" %>
 				<div class="controls">
-					<%= f.collection_select(:city_id, Guara::City.all, :id, :name, :include_blank => true) %>
+					<%= f.collection_select(:city_id, Guara::City.order("name ASC").all, :id, :name, :include_blank => true) %>
 				</div>
 			</div>
 
@@ -42,7 +42,7 @@
 		</div>
 		<div class="span4 column2">
 
-			<%= f.input :phone, :class => "phone" %>
+			<%= f.input :phone, :input_html => {:class => "phone"} %>
 
 			<%= f.input :site %>
 
@@ -54,9 +54,13 @@
 				<%= person_f.input :fax, :class => "phone" %>
 				<%= person_f.input :total_employes %>
 			<% else %>
-				<%= person_f.input :civil_state %>
-				<%= person_f.input :gender %>
-				<%= person_f.input :company %>
+
+				<%= person_f.input :civil_state, :as=> :select, :collection => Guara::CustomerPf.civil_state_translated.map{|a, b| [b, a]}, :label => t("customer_pfs.civil_state")  %>
+
+
+				<%= person_f.input :gender, :as=> :select, :collection => Guara::CustomerPf.gender_translated.map{|a, b| [b, a]}, :label => t("customer_pfs.gender")  %>
+
+				<%= person_f.input :company, :label => t("customer_pfs.company") %>
 			<% end %>
 			
 			<%= f.input :notes, :as => :text, :input_html => { rows: 2  } %>
@@ -167,20 +171,20 @@ $(function(){
 	$("input.phone").mask("99.9999-9999");
 	$("input.postal").mask("99.999-999");
 	
-	$('#state').change(function(){
+	$('#customer_state_id').change(function(){
 		if( $(this).val() ) {
-			$('#cod_cidades').hide();
+			$('#customer_city_id').hide();
 			$('.carregando').show();
-			$.getJSON('cidades.ajax.php?search=',{cod_estados: $(this).val(), ajax: 'true'}, function(j){
+			$.getJSON('<%=load_cities_customers_path()%>?search=1',{state_id: $(this).val()}, function(j){
 				var options = '<option value=""></option>';	
 				for (var i = 0; i < j.length; i++) {
-					options += '<option value="' + j[i].cod_cidades + '">' + j[i].nome + '</option>';
+					options += '<option value="' + j[i].id + '">' + j[i].name + '</option>';
 				}	
-				$('#cod_cidades').html(options).show();
+				$('#customer_city_id').html(options).show();
 				$('.carregando').hide();
 			});
 		} else {
-			$('#cod_cidades').html('<option value="">-- Escolha um estado --</option>');
+			$('#customer_city_id').html('<option value="">-- Escolha um estado --</option>');
 		}
 	});
 	

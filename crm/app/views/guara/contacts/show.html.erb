@@ -1,7 +1,9 @@
 <% if @json %>
 <%= render :partial => "header" %>
 <% end %>
-<section class="show">
+<section class="show"
+
+<%= render :partial => "header" %>
 
 <ul class="thumbnails">
   <li class="span12">
@@ -53,9 +55,11 @@
 	</div>
   </li>
 </ul>
-</section>
+
 <% if @json then @new_target = { target: 'new' } end %>
 
 <%= link_to t('helpers.forms.edit'), edit_customer_contact_path(@contact.customer, @contact), @new_target %> |
 
 <%= link_to_function t('helpers.forms.back'), "history.back()"%>
+
+</section>

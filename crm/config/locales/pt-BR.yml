@@ -110,9 +110,14 @@ pt-BR:
     doc_rg: "RG"
     name: "Nome"
     name_sec: "Como gosta de ser chamado?"
-    sex: "Sexo"
+    gender: "Género"
+    male: "Masculino"
+    female: "Feminino"
+    company: "Empresa"
     country: "Nacionalidade"
-    civil_status: "Estado civil"
+    civil_state: "Estado civil"
+    sigle: "Solteiro(a)"
+    married: "Casado(a)"
     new:
       link: "Nova Pessoa Física"
     

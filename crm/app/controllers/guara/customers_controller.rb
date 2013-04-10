@@ -221,5 +221,10 @@ module Guara
     def multiselect_customers_pj
       render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.person.name } }
     end
+
+    def load_cities(state_id=nil)
+      state_id = params[:state_id] if state_id.nil?
+      render :json => City.where(:state_id=> state_id).collect { |c| { :id => c.id, :name => c.name } }
+    end
   end
 end
