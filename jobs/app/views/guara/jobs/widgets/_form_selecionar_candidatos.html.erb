@@ -21,8 +21,9 @@
 		$("#select_professionals_professionals_selecteds").attr('name',  '<%= field_form_name %>[]');
 		window.sel = []
 		<%  if value.class == Array 
+		#raise value.to_yaml
 				value.each do |k| %>
-					setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_select k %>", "");
+					setProfessionalToSelect2(<%= k[:value] %>, "<%= get_value_model k[:step_attr_option], k[:value] %>", "");
 					sel.push(<%= k[:value] %>);
 		<% 		end 
 			end %>
