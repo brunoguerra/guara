@@ -1,0 +1,35 @@
+<div style="padding:10px;">
+	<table class="table table-bordered table-striped">
+	    <thead>
+	      <tr>
+	        <th><%= t("interviewer_professionals.id") %></th>
+	        <th><%= t("interviewer_professionals.professional_id") %></th>
+	        <th><%= t("interviewer_professionals.date_time_interviewee") %></th>
+	        <th><%= t("interviewer_professionals.avaliate") %></th>
+	        <th><%= t("interviewer_professionals.interviewee") %>?</th>
+	        <th><%= t("interviewer_professionals.synthesis") %></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+		<% @interviewer_professionals.each do |p| %>
+	      <tr>
+	      	 <th><%= p.id %></th>
+	      	 <th><%= p.professional.person.name %></th>
+	      	 <th>
+	      	 	<%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %>
+	      	 </th>
+	      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
+	      	 <th>
+      	 		<span class="badge badge-success">Sim</span>
+	      	 </th>
+	      	 <th><%= p.synthesis %></th>
+	      </tr>
+	    <% end %>
+
+	    </tbody>
+	</table>
+</div>	 
+
+<script type="text/javascript">
+	
+</script>

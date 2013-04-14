@@ -1,0 +1,37 @@
+<%= semantic_form_for @interviewer_professional, 
+:url=> vacancy_synthesis_professional_path(@vacancy), 
+:html => {:class => "well", :onsubmit=> "return vacancy_synthesis_professional_submit();"}  do |f| %>
+	
+	<%= f.input :synthesis, :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
+	<%= f.input :id, :as=> :hidden %>
+	<%= f.submit "Salvar", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+	function vacancy_synthesis_professional_submit(){
+		var data  = {_method: 'put'},
+		form      = '#form_candidate_selected form',
+		inputs    = jQuery(form + ' input[name*=jobs_vacancy_professionals_interview]'),
+		text_area = jQuery(form + ' textarea[name*=jobs_vacancy_professionals_interview]');
+
+		data[jQuery(text_area).attr('name')] = jQuery(text_area).val();
+		for(var i=0; i< inputs.length;i++){
+			data[jQuery(inputs[i]).attr('name')] = jQuery(inputs[i]).val();
+		}
+
+		jQuery.ajax({
+		  type: "POST",
+		  url: jQuery(form).attr('action'),
+		  data: data,
+		}).done(function( data ) {
+			if(data.success==true){
+		  		var id = jQuery('#jobs_vacancy_professionals_interview_id').val();
+				alert('Sintese Atualizada');
+		  		jQuery('#form_candidate_selected').empty();
+		  		$('#professional_synthesis_'+id).text(jQuery(text_area).val());
+			}
+		});
+
+		return false;
+	}
+</script>

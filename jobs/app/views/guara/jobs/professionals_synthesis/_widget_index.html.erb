@@ -1,0 +1,60 @@
+<section id="synthesis_professionals">
+	<div class="row-fluid">
+        <ul class="thumbnails">
+	        <li class="span12">
+		        <div class="thumbnail">
+		          <div id="candidates_scheduled" class="caption">
+		          	
+		          	<table class="table table-bordered table-striped">
+					    <thead>
+					      <tr>
+					        <th><%= t("interviewer_professionals.id") %></th>
+					        <th><%= t("interviewer_professionals.professional_id") %></th>
+					        <th><%= t("interviewer_professionals.date_time_interviewee") %></th>
+					        <th><%= t("interviewer_professionals.avaliate") %></th>
+					        <th><%= t("interviewer_professionals.interviewee") %>?</th>
+					        <th><%= t("interviewer_professionals.synthesis") %></th>
+					        <th><%= t("helpers.forms.actions") %></th>
+					      </tr>
+					    </thead>
+					    <tbody>
+						<% @interviewer_professionals.each do |p| %>
+					      <tr>
+					      	 <th><%= p.id %></th>
+					      	 <th><%= p.professional.person.name %></th>
+					      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+					      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
+					      	 <th><span class="badge badge-success">Sim</span></th>
+					      	 <th id="professional_synthesis_<%= p.id2 %>"><%= p.synthesis %></th>
+					      	 <th>
+			        			<%= link_to t("helpers.forms.edit"), 'javascript:void(0);', :class => "btn", :onClick=>"synthesis_professional(#{p.id}); " %>
+					      	 </th>
+					      </tr>
+					    <% end %>
+
+					    </tbody>
+					 </table>
+					 
+		          </div>
+		        </div>
+	      	</li>  	      
+	    </ul>
+
+	    <ul class="thumbnails">
+	    	<li class="span12">
+		        <div class="thumbnail">
+		          <div id="form_candidate_selected" class="caption">
+		            
+		          </div>
+		        </div>
+		    </li>
+	    </ul>
+  	</div>
+</section>
+
+<script type="text/javascript">
+	function synthesis_professional(scheduling_id) {
+		form = $('#form_candidate_selected');
+		form.load("<%= edit_vacancy_synthesis_professional_path(vacancy, edit_step: params[:edit_step])%>&scheduling_id="+scheduling_id+'');
+	}
+</script>
