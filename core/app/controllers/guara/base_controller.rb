@@ -2,7 +2,7 @@ module Guara
   class BaseController < ActionController::Base
     protect_from_forgery
     check_authorization :unless => :devise_controller? #cancan
-  
+    
     include BaseHelper
     include SessionsHelper
     

@@ -53,7 +53,7 @@ module Guara
     accepts_nested_attributes_for :emails, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
     accepts_nested_attributes_for :contacts, :reject_if => lambda { |a| a[:name].blank? && a[:phone].blank? }, :allow_destroy => true
   
-    #=========================== VALIDATE <------------------------------------------------
+    #=========================== VALIDATION <------------------------------------------------
   
   
     VALID_NAME_REGEX = /\A([[[:alpha:]]0-9.,;\s\'\"\-–\/&\*\(\)`´%!\+])+\z/i

@@ -39,7 +39,7 @@ module Guara
         </li>
       }
     end
-
+    
     def build_menu_items(menu)
       returns = ""
       menu[:items].each do |item|
