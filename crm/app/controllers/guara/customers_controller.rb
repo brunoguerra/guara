@@ -222,5 +222,16 @@ module Guara
       authorize! :read, Guara::CustomerPj
       render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.person.name } }
     end
+
+    def load_cities
+      authorize! :read, Guara::City
+      render :json => Guara::City.where(:state_id=> params[:state_id]).collect { |c| { :id => c.id.to_s, :value => c.name } }
+    end
+
+    def load_districts
+      authorize! :read, Guara::District
+      render :json => Guara::District.where(:city_id=> params[:city_id]).collect { |c| { :id => c.id.to_s, :value => c.name } }
+    end
+
   end
 end
