@@ -40,6 +40,7 @@ Guara::Core::Engine.routes.prepend do
 		  resource :interviewer_professional, controller: "InterviewerProfessionals"
 		  resource :synthesis_professional, controller: "ProfessionalsSynthesis"
 		  resource :vacancy_sended_professional, controller: "VacancySendedProfessionals"
+		  resource :vacancy_customer_interview, controller: "VacancyCustomerInterview"
 	  end
 
 	end

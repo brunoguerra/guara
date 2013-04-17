@@ -32,6 +32,7 @@
     <thead>
       <tr>
         <th><%= t("tasks.name") %></th>
+        <th><%= t("tasks.contact") %></th>
         <th class="span2"><%= t("helpers.forms.actions") %></th>
       </tr>
     </thead>
@@ -39,6 +40,7 @@
     <% @tasks.each do |task| %>
       <tr>
 	    <td><%= task.name %></td>
+	    <td><%= task.contact.name if !task.contact.nil? %></td>
 	    <td><%= link_to t('helpers.forms.show'), customer_task_path(task.interested, task) %></td>
       </tr>
     <% end %>

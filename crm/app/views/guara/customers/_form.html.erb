@@ -31,18 +31,19 @@
 			<div class="control-group">
 				<%= f.label :district_id, :class => "control-label" %>
 				<div class="controls">
-					<%= f.collection_select(:district_id, Guara::District.all, :id, :name, :include_blank => true) %>
+					<%= f.collection_select(:district_id, Guara::District.order(:name), :id, :name, :include_blank => true) %>
 				</div>
 			</div>
 
 			<%= f.input :address %>
+			<%= f.input :number %>
 
 
 
 		</div>
 		<div class="span4 column2">
 
-			<%= f.input :phone, :class => "phone" %>
+			<%= f.input :phone, :input_html => { :class => "phone" } %>
 
 			<%= f.input :site %>
 
@@ -51,7 +52,7 @@
 			<%= f.input :other_contacts %>
 			
 			<% if @customer_type == "pj" %>
-				<%= person_f.input :fax, :class => "phone" %>
+				<%= person_f.input :fax, :input_html => { :class => "phone" } %>
 				<%= person_f.input :total_employes %>
 			<% else %>
 				<%= person_f.input :civil_state %>
@@ -191,9 +192,11 @@ $(function(){
 		var cep = $("#customer_postal").val().replace(/\D/g, '');
 		$.getJSON('http://cep.correiocontrol.com.br/'+cep+'.json', function(response){
 			get_value_for_text('customer_state_id', response.uf);
+			get_value_for_text('customer_city_id', response.localidade);
+			get_value_for_text('customer_district_id', response.bairro);
 			$('#customer_address').val(response.logradouro);
 
-			$.getJSON('<%=load_cities_customers_path()%>?=search', {
+			/*$.getJSON('<%=load_cities_customers_path()%>?=search', {
 				state_id: $('#customer_state_id').val()}, function(j){
 				set_options_for_select('customer_city_id', j, function(){
 					get_value_for_text('customer_city_id', response.localidade);
@@ -205,11 +208,11 @@ $(function(){
 							get_value_for_text('customer_district_id', response.bairro);
 						});
 				});
-			});
+			});*/
 		});
 	});
 	
-	$('#customer_state_id').change(function(){
+	/*$('#customer_state_id').change(function(){
 		if( $(this).val() ) {
 			$.getJSON('<%=load_cities_customers_path()%>?=search', {state_id: $(this).val()}, function(j){
 				set_options_for_select('customer_city_id', j);
@@ -223,7 +226,7 @@ $(function(){
 				set_options_for_select('customer_district_id', j);
 			});
 		}
-	});
+	});*/
 	
 	$("form.customer").submit(function() {
 		$("input.postal").val($("input.postal").val().replace(/\D/g, "")).unmask();
