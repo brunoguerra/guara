@@ -1,0 +1,50 @@
+<%= semantic_form_for @vacancy_customer_interview, 
+:url=> vacancy_vacancy_customer_interview_path(@vacancy), 
+:html => {:class => "well", :onsubmit=> "vacancy_customer_interview_submit();return false;"}  do |f| %>
+	
+	<%= f.input :return_date, :as=> :string, :input_html=> {:class=> "date_format"} %>
+	<%= f.input :return_interview, :as=> :select, :collection => Guara::Jobs::CustomerInterviewReturn.levels_translated.map{|a, b| [b, a]} %>
+	<%= f.input :vacancy_sended_professionals_id, :as=> :hidden %>
+	<%= f.input :motive, :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
+	<%= f.submit "Salvar", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+	var temp_date1 = $('#jobs_vacancy_customer_interview_return_date').val().split(" ");
+	if(temp_date1.length>1){
+		temp_date1.pop();
+		var date_1 = $.datepicker.formatDate('dd/mm/yy', new Date(temp_date1.join(" ")));
+		$('#jobs_vacancy_customer_interview_return_date').val(date_1);
+	}
+
+	function vacancy_customer_interview_submit(){
+		var data  = {_method: 'put'},
+		form      = '#form_candidate_selected form',
+		inputs    = jQuery(form + ' [name*=jobs_vacancy_customer_interview]');
+
+		for(var i=0; i< inputs.length;i++){
+			data[jQuery(inputs[i]).attr('name')] = jQuery(inputs[i]).val();
+		}
+
+		jQuery.ajax({
+		  type: "POST",
+		  url: jQuery(form).attr('action'),
+		  data: data,
+		}).done(function( data ) {
+			if(data.success==true){
+				alert('Atualizado');
+		  		jQuery('#form_candidate_selected').empty();
+			}
+			else{
+				msg = "";
+				$.each( data['data'], function( key, value ) {
+					  msg += key+": "+value+" \n";
+				});
+				alert(msg);
+			}
+		});
+
+		return false;
+	}
+	$('.date_format').datepicker($.datepicker.regional['pt-BR']);
+</script>

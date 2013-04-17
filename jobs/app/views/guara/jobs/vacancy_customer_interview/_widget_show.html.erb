@@ -1,0 +1,32 @@
+<div style="padding:10px;">
+	<table class="table table-bordered table-striped">
+	    <thead>
+	      <tr>
+	        <th><%= t("inter_view_professionals.id") %></th>
+	        <th><%= t("inter_view_professionals.professional_id") %></th>
+	        <th><%= t("inter_view_professionals.synthesis") %></th>
+	        <th><%= t("inter_view_professionals.return_date") %></th>
+	        <th><%= t("inter_view_professionals.return_interview") %></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+		<% @sended_professionals.each do |p| 
+			customer_interview = Guara::Jobs::VacancyCustomerInterview.find_by_vacancy_sended_professionals_id(p.sended_id)
+			%>
+	      <tr>
+	      	 <th><%= p.id %></th>
+	      	 <th><%= p.professional.person.name %></th>
+	      	 <th><%= p.interview.synthesis %></th>
+	      	 <th><%= customer_interview.return_date.strftime("%d/%m/%Y") %></th>
+	      	 <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[customer_interview.return_interview] %>
+	      	 </th>
+	      </tr>
+	    <% end %>
+
+	    </tbody>
+	 </table>
+</div>	 
+
+<script type="text/javascript">
+	
+</script>

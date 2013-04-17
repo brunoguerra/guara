@@ -2,6 +2,8 @@ module Guara
 	module Jobs
   		class VacancySendedProfessionals < ActiveRecord::Base
     		belongs_to :vacancy_scheduling_professional
+    		has_one :customer_interview, :class_name=> "Guara::Jobs::VacancyCustomerInterview", :foreign_key=> "vacancy_sended_professionals_id"
+
     		attr_accessible :date, :step_instance_id, :vacancy_scheduling_professional_id
 
     		def self.unsended_professionals(vacancy_scheduling_professionals)
