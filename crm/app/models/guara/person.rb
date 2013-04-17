@@ -5,7 +5,7 @@ module Guara
     attr_accessible :doc, :doc_rg, :name, :birthday, :name_sec, :address, :state_id, :city_id, :district_id,
                     :is_customer, :person, :customer, :customer_type, :customer_id, :postal, :emails, :complete, :state, :city, :district, :phone, 
                     :fax, :social_link, :site, :enabled, :other_contacts, :notes, :emails_attributes, :contacts_attributes,
-                    :external_key
+                    :external_key, :number
 
     cattr_writer :modules
 

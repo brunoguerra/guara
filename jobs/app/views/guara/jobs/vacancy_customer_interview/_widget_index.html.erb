@@ -1,0 +1,72 @@
+<style type="text/css">
+.control-group .row{
+	margin-left: 0px!important;
+}
+#vacancy_sended_professionals .thumbnail{
+	background: #FFF;
+	margin-top: 10px;
+}
+</style>
+<section id="vacancy_sended_professionals">
+	<div class="row-fluid">
+        <ul class="thumbnails">
+
+        <li class="span8">
+	        <div class="thumbnail">
+	          <div id="candidates_scheduled" class="caption">
+	          	<table id="table-scheduleds" class="table table-bordered table-striped">
+				    <thead>
+				      <tr>
+				        <th><%= t("inter_view_professionals.id") %></th>
+				        <th><%= t("inter_view_professionals.professional_id") %></th>
+				        <th><%= t("inter_view_professionals.synthesis") %></th>
+				        <th><%= t("inter_view_professionals.customer_interview?") %></th>
+				        <th><%= t("helpers.forms.actions") %></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+					<% @sended_professionals.each do |p| %>
+				      <tr id="tr_<%= p.id %>" name-professional="<%= p.professional.person.name %>">
+				      	 <th><%= p.id %></th>
+				      	 <th><%= p.professional.person.name %></th>
+				      	 <th><%= p.interview.synthesis %></th>
+				      	 <th>
+				      	 	<%
+				      	 		vacancy_sended_count = Guara::Jobs::VacancyCustomerInterview.where(:vacancy_sended_professionals_id=>p.sended_id).count()
+				      	 		if vacancy_sended_count == 0 %>
+				      	 			<span class="badge badge-important">Não</span>
+				      	 		<% else %>
+				      	 			<span class="badge badge-success">Sim</span>
+				      	 		<% end
+				      	  	%>
+				      	 </th>
+				      	 <th>
+		        			<%= link_to t("helpers.forms.update"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_customer_interview(#{p.sended_id}); " %>
+				      	 </th>
+				      </tr>
+				    <% end %>
+
+				    </tbody>
+				 </table>
+	          </div>
+	        </div>
+      	</li>
+
+      	<li class="span4">
+	        <div class="thumbnail">
+	          	<div id="form_candidate_selected" class="caption">
+		            
+		        </div>
+	        </div>
+	    </li>      
+    </ul>
+  </div>
+</section>
+
+<script type="text/javascript">
+	function vacancy_customer_interview(vacancy_sended_id){
+		form = $('#form_candidate_selected');
+		form.load("<%= new_vacancy_vacancy_customer_interview_path(vacancy)%>?vacancy_sended_id="+vacancy_sended_id);
+	}
+
+</script>
