@@ -32,6 +32,7 @@ pt-BR:
     is_customer: "É Cliente?"
     complete: "Cadastro Completo?"
     address: "Endereço"
+    number: "Número"
     district: "Bairro"
     city: "Cidade"
     state: "Estado"
