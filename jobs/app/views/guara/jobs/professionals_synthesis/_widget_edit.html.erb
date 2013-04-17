@@ -1,0 +1,6 @@
+<div class="control-group">
+	<%= content_tag :span, t('interviewer_professionals.professional_id')+":", :class => "strong"  %>
+	<%= interviewer_professional.scheduling.professional.person.name %>
+</div>
+
+<%= render :partial => "guara/jobs/professionals_synthesis/widget_form" %>

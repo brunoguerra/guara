@@ -9,6 +9,7 @@ module Guara
       belongs_to :consultant
       belongs_to :vacancy
       belongs_to :professional
+      has_one :interview, class_name: "Guara::Jobs::VacancyProfessionalsInterview", foreign_key: "scheduling_id"
 
       def self.unscheduled_professionals(vacancy)
         selection_professionals_selecteds = vacancy.selection_professionals_selecteds().reject do |p|

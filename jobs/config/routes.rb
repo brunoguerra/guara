@@ -32,10 +32,13 @@ Guara::Core::Engine.routes.prepend do
 		match "/professionals/search_select", to: "professionals#search_select"
 		match "/professionals/search", to: "professionals#search"
 		match "/interviewer_professional/show_embeded_process", :to => "interviewer_professionals#show_embeded_process"
+		match "/professionals_synthesis/show_synthesis", :to => "professionals_synthesis#show_synthesis"
+		match "/vacancy_sended_professionals/send_email_customer_pj", :to => "vacancy_sended_professionals#send_email_customer_pj"
 
 		resources :vacancies do
 		  resource :scheduler_professional, controller: "SchedulerProfessionals"
 		  resource :interviewer_professional, controller: "InterviewerProfessionals"
+		  resource :synthesis_professional, controller: "ProfessionalsSynthesis"
 		  resource :vacancy_sended_professional, controller: "VacancySendedProfessionals"
 	  end
 
