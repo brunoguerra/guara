@@ -114,10 +114,10 @@
 	function send_email_customer(){
 		$.ajax({
 		  type: "POST",
-		  url: "<%=vacancy_sended_professionals_send_email_customer_pj_path()%>?id=<%vacancy.id%>",
+		  url: "<%=vacancy_sended_professionals_send_email_customer_pj_path()%>?process_instance_id=<%=params[:process_instance_id]%>",
 		}).done(function( data ) {
 			if(data.success == true){
-				
+				alert("Email Enviado!");
 			}	
 		});
 	}

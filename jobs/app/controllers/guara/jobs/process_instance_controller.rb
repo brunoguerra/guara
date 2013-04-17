@@ -14,12 +14,8 @@ module Guara
         params[:search][:custom_process_name_eq] = 'vacancy'
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 
-        @search = ProcessInstance.joins(:custom_process).search(params[:search])
-        if class_exists?("Ransack")
-            @process_instance = @search.result().paginate(page: params[:page], :per_page => 10)
-        else
-            @process_instance = @search.paginate(page: params[:page], :per_page => 10)
-        end
+        @search = ProcessInstance.joins(:custom_process).order('id DESC').search(params[:search])
+        @process_instance = paginate(@search, params[:page], 10)
       end
 
       def new

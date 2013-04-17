@@ -1,3 +1,5 @@
+<%= javascript_include_tag "guara/jquery.cookie" %>
+
 <navbar>
 			<%= render :partial => "guara/jobs/jobs/navbar", 
       :locals => { active: :announcement_of_vacancies } %>
@@ -23,3 +25,18 @@
 
 	<%= link_to t('helpers.forms.back'), process_instance_path(@process_instance), :class => "btn" %>
 </section>
+
+<script type="text/javascript">
+	var fields = $('form [name*=step_instance_attrs]');
+	for(var i=0;i<fields.length;i++){
+		field = $(fields[i]);
+		var value = $.cookie($(field).attr('name'));
+		if(value){
+			$(field).val(value);
+		}
+
+		field.bind('change', function(){
+			$.cookie($(this).attr('name'), $(this).val(), { path: '/' });
+		});
+	}
+</script>
