@@ -4,7 +4,7 @@
 
 <section class="show">
 
-<ul class="thumbnails">
+<ul class="thumbnails text_uppercase">
   <li class="span5">
     <div class="thumbnail">
       <div class="caption">
@@ -25,24 +25,24 @@
           </div>
 
           <div class="control-group">
-          	<%= show_label_tag t('task.contact') %>
-          	<%= name_or_empty@task.contact %>
+          	<%= show_label_tag t("task.contact") %>
+          	<%= @task.contact.name %>
           </div>
 
-          <div cladd="control-group">
+          <div class="control-group">
           	<%= show_label_tag t('task.assigned') %>
           	<%= name_or_empty@task.assigned %>
           </div>
 
-          <div cladd="control-group">
+          <div class="control-group">
             <%= show_label_tag t('task.notes') %>
             <%= simple_format@task.notes %>
           </div>
 
 		  <div class="control-group">
-            <%= show_label_tag t('tasks.status') %>
-			<%= name_or_empty(@task.status) %>
-          </div>
+        <%= show_label_tag t('tasks.status') %>
+		    <%= name_or_empty(@task.status) %>
+      </div>
 
 		</div>
 	</div>

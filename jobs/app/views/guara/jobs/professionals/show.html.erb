@@ -40,10 +40,11 @@
 						<% business_action_last = r.business_action %>
 					<% end %>
 				
-
-
 				<li><dt><%=  t("jobs.professional.salary_requirements") %>: </dt>
-				<%= number_to_currency(@professional.vacancy_specification.salary_requirements) %></li>
+
+				<%= 
+				@professional.vacancy_specification.salary_requirement.salary_range if !@professional.vacancy_specification.salary_requirement.nil? %> 
+			</li>
 			</div>
 		</div>
 

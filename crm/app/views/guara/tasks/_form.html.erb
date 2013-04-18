@@ -12,11 +12,12 @@
 				</div>
 
 				<div class="span5">
-				<%= f.input :type, collection: task_types_for_current_user()  %>
+					<%= f.input :type, collection: Guara::TaskType.order("name ASC").all  %>
+
 				</div> 
 				<div class="span5">
 					<%= f.input :contact, collection: @customer.contacts %>
-					<%= f.input :assigned, collection: Guara::User.all %>
+					<%= f.input :assigned, collection: Guara::User.order("name ASC").all  %>
 				</div>
 				<div class="span5">
 					<%= f.input :notes, :as => :text, :input_html => { rows: 4  } %>

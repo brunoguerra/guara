@@ -1,7 +1,7 @@
 <section class="show">
 
 	<%= render :partial => "navbar", :locals => { :active => :view } %>
-	<%= render :partial => "modules", :locals => { :active => :customer_association} %>
+	<%= render :partial => "modules", :locals => { :active => :customer_association } %>
 	<%= render :partial => 'list_customers', :locals => { :customers => @customers, :sels=> @sels } %>
 
 </section>	

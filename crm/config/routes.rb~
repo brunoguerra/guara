@@ -14,10 +14,14 @@ Guara::Core::Engine.routes.prepend do
     get :customer_pj, :on => :collection
     
     get :multiselect_customers_pj, :on => :collection
-
+<<<<<<< HEAD
+    get :load_cities, :on => :collection
+    
+=======
 
     get :load_cities, :on => :collection
     get :load_districts, :on => :collection
+>>>>>>> upstream/master
     
     resources :contacts do
       post :multi, :on => :collection

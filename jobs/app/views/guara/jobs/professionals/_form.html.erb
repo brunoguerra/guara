@@ -32,8 +32,7 @@
 		</div>
 
 		<!-- VACANCY SPECIFICATION -->
-	    <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification,
-	    	 do |specification_f| %>
+	    <%= f.semantic_fields_for :vacancy_specification, @professional.vacancy_specification do |specification_f| %>
 
 	        <div class="row page-header">
 	        	<legend class="span2"><small><%=  t("jobs.professional.business_action") %></small></legend>
@@ -56,10 +55,12 @@
 		        	</div>
 	        	
 
-	        	<%= specification_f.input :salary_requirements,
+        	<%= specification_f.input :salary_requirement,
 	        		:label => t("jobs.professional.salary_requirements"),
-	        		:as => :string,
-	        		:input_html => {:class => "control-label", :maxlength => 15 } %>
+	        		:as => :select,
+	        		:collection => Guara::Jobs::SalaryRequirement.find(:all).map { |ff| [ff.salary_range, ff.id] }
+	    		 %>
+
 
 	        	</div>
 
@@ -172,8 +173,7 @@
 							add_label: "%s %s" % [t("helpers.forms.add"), t("activerecord.models.guara/jobs/language")]
 							
 						},
-					},
-
+					}
 				 %>
 			</div>
 		</div>
