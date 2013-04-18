@@ -1,0 +1,35 @@
+<style type="text/css">
+	.input-block-level{
+		width: 100%!important;
+	}
+</style>
+<%= semantic_form_for @final_result, 
+:url=> vacancy_vacancy_final_result_path(@vacancy), 
+:html => {:class => "well"}  do |f| %>
+	<%= f.input :result, :as=> :select, :collection => Guara::Jobs::CustomerInterviewReturn.levels_translated.map{|a, b| [b, a]} %>
+	<%= f.input :salary, :as=> :string, :input_html=> {:class=> "price"} %>
+	<%= f.input :work_start_date, :as=> :string, :input_html=> {:class=> "date_format"} %>
+	<%= f.input :observation, :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
+	<%= f.input :vacancy_professionals_psychological_evaluation_id, :as=> :hidden %>
+	<%= f.input :vacancy_scheduling_professional_id, :as=> :hidden %>
+
+	<%= hidden_field_tag "process_instance_id", params[:process_instance_id] %>
+	<%= hidden_field_tag "edit_step", params[:edit_step] %>
+	<%= hidden_field_tag "id", @final_result.id %>
+	<%= f.submit "Salvar", class: "btn btn-primary" %>
+
+<% end %>
+
+<script type="text/javascript">
+	$('.date_format').datepicker($.datepicker.regional['pt-BR']);
+	$('.price').priceFormat({
+	    prefix: 'R$ '
+	});
+
+	var temp_date1 = $('#jobs_vacancy_final_result_work_start_date').val().split(" ");
+	if(temp_date1.length>1){
+		temp_date1.pop();
+		var date_1 = $.datepicker.formatDate('dd/mm/yy', new Date(temp_date1.join(" ")));
+		$('#jobs_vacancy_final_result_work_start_date').val(date_1);
+	}
+</script>

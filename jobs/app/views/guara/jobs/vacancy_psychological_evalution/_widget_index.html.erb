@@ -1,0 +1,74 @@
+<style type="text/css">
+.control-group .row{
+	margin-left: 0px!important;
+}
+#vacancy_sended_professionals .thumbnail{
+	background: #FFF;
+	margin-top: 10px;
+}
+</style>
+<section id="vacancy_sended_professionals">
+	<div class="row-fluid">
+        <ul class="thumbnails">
+
+        <li class="span8">
+	        <div class="thumbnail">
+	          <div id="candidates_scheduled" class="caption">
+	          	<table id="table-scheduleds" class="table table-bordered table-striped">
+				    <thead>
+				      <tr>
+				        <th><%= t("inter_view_professionals.id") %></th>
+				        <th><%= t("inter_view_professionals.professional_id") %></th>
+				        <th><%= t("inter_view_professionals.return_date") %></th>
+				        <th><%= t("inter_view_professionals.psychological_evalution?") %></th>
+				        <th><%= t("helpers.forms.actions") %></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+					    <% @customer_interviews.each do |customer_interview| %>
+					      <tr>
+					      	 <th><%= customer_interview.id %></th>
+					      	 <th><%= customer_interview.scheduling.professional.person.name %></th>
+					      	 <th><%= customer_interview.return_date.strftime("%d/%m/%Y") %></th>
+					      	 <th>
+					      	 	<%
+					      	 		if customer_interview.psychological.nil? %>
+					      	 			<span class="badge badge-important">Não</span>
+					      	 		<% else %>
+					      	 			<span class="badge badge-success">Sim</span>
+					      	 		<% end
+					      	  	%>
+					      	 </th>
+					      	 <th>
+			        			<%= link_to t("helpers.forms.update"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_psychological(#{customer_interview.id}, '#{customer_interview.psychological.nil? ? 'new' : 'edit'}' ); " %>
+					      	 </th>
+					      </tr>
+					    <% end %>
+				    </tbody>
+				 </table>
+	          </div>
+	        </div>
+      	</li>
+
+      	<li class="span4">
+	        <div class="thumbnail">
+	          	<div id="form_candidate_selected" class="caption">
+		            
+		        </div>
+	        </div>
+	    </li>      
+    </ul>
+  </div>
+</section>
+
+<script type="text/javascript">
+	function vacancy_psychological(customer_interview_id, type_form){
+		form = $('#form_candidate_selected');
+		if (type_form == 'new'){
+			form.load("<%= new_vacancy_vacancy_psychological_evaluation_evaluation_path(vacancy)%>?customer_interview_id="+customer_interview_id+"&process_instance_id=<%=params[:process_instance_id]%>&edit_step=<%=params[:edit_step]%>");
+		}
+		else{
+			form.load("<%= edit_vacancy_vacancy_psychological_evaluation_evaluation_path(vacancy)%>?customer_interview_id="+customer_interview_id+"&process_instance_id=<%=params[:process_instance_id]%>&edit_step=<%=params[:edit_step]%>");	
+		}
+	}
+</script>
