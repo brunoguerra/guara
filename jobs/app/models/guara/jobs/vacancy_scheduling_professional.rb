@@ -9,6 +9,7 @@ module Guara
       belongs_to :consultant
       belongs_to :vacancy
       belongs_to :professional
+      
       has_one :interview, class_name: "Guara::Jobs::VacancyProfessionalsInterview", foreign_key: "scheduling_id"
       has_one :sended, class_name: "Guara::Jobs::VacancySendedProfessionals", foreign_key: "vacancy_scheduling_professional_id"
 
