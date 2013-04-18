@@ -1,3 +1,5 @@
+<%= javascript_include_tag "guara/jquery.cookie" %>
+
 <navbar>
 			<%= render :partial => "guara/jobs/jobs/navbar", 
       :locals => { active: :announcement_of_vacancies } %>
@@ -38,3 +40,10 @@
 		</ul>
 	</div>	
 </section>
+
+<script type="text/javascript">
+	var fields = $.cookie();
+	for(var i in fields){
+		$.removeCookie(i, { path: '/' });
+	}
+</script>

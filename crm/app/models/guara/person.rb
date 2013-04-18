@@ -5,7 +5,7 @@ module Guara
     attr_accessible :doc, :doc_rg, :name, :birthday, :name_sec, :address, :state_id, :city_id, :district_id,
                     :is_customer, :person, :customer, :customer_type, :customer_id, :postal, :emails, :complete, :state, :city, :district, :phone, 
                     :fax, :social_link, :site, :enabled, :other_contacts, :notes, :emails_attributes, :contacts_attributes,
-                    :external_key
+                    :external_key, :number
 
     cattr_writer :modules
 
@@ -53,7 +53,7 @@ module Guara
     accepts_nested_attributes_for :emails, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
     accepts_nested_attributes_for :contacts, :reject_if => lambda { |a| a[:name].blank? && a[:phone].blank? }, :allow_destroy => true
   
-    #=========================== VALIDATE <------------------------------------------------
+    #=========================== VALIDATION <------------------------------------------------
   
   
     VALID_NAME_REGEX = /\A([[[:alpha:]]0-9.,;\s\'\"\-–\/&\*\(\)`´%!\+])+\z/i

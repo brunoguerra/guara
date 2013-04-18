@@ -21,7 +21,7 @@
       <td><%= contact.business_function %></td>
       <td><%= contact.phone %></td>
       <td><%= contact.cell %></td>
-      <td><%= concat_emails(contact.emails) %></td>
+      <td><%= concat_emails(contact.emails, "<br />") %></td>
       
       <td>
         <%= index_btn_view [contact.customer, contact], "Exibir Contato" %>

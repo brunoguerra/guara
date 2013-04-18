@@ -1,5 +1,5 @@
-
 /*
+ *= require guara/core
  *=require select2/select2.css
  */
 
@@ -20,4 +20,8 @@
 	
 #contactsListModal.modal .modal-body {
 		height: 520px;
+}
+
+#task_notes{
+	text-transform: none!important
 }

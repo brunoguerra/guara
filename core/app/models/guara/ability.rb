@@ -19,9 +19,10 @@ module Guara
             resource = :all
           else
             begin
-              resource = eval(ab.module.name)
+              Rails.logger.debug "Trying %s"% [ab.module.name]
+              resource = eval ab.module.name
             rescue
-              Rails.logger.debug "FALHA EM: %s:%d"% [__FILE__,__LINE__]
+              Rails.logger.debug "FALHA EM: %s:%d %s"% [__FILE__,__LINE__, ab.module.name]
             end
           end
       
@@ -39,14 +40,7 @@ module Guara
     end
     
     def can?(action, subject, *extra_args)
-        Rails.logger.debug ("cancan::Ability.can? action: :%s, subject: %s" % [action.to_s, subject.to_s])      
-        ret = super 
-        #if (!ret && !subject.nil?)
-        #  old_subject = subject
-        #  subject = subject.superclass
-        #  ret = super
-        #  subject = old_subject 
-        #end
+        ret = super
         Rails.logger.debug ("***-CAN'T action: :%s, subject: %s" % [action.to_s, subject.to_s]) if !ret
         ret
     end

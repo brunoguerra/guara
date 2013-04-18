@@ -2,7 +2,7 @@
 <ul>
 <% Guara::SystemModule.all.each do |mdl| %>
 	<li>
-	<h3><%=t("system.modules.%s" % mdl.name.downcase)%></h3>
+	<h3><%=t("system.modules.%s" % mdl.name.underscore)%></h3>
 	<ul class="inline">
 		<% Guara::SystemAbility.all.each do |ab| %>
 		<li class="inline">

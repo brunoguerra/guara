@@ -220,3 +220,5 @@ Devise.setup do |config|
 end
 
 ActionView::Base.send :include, Guara::BaseHelper
+
+Devise::SessionsController.layout "guara/base"

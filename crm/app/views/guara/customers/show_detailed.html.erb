@@ -111,10 +111,10 @@
 							<b><%=  t("customers.associateds") %></b>
 							<ul>
 								<% @customer.customer.associateds.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 								<% end %>
 								<% @customer.customer.associates.each do |pj_assoc| %>
-								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.customer), :target => '_blank' %></li>
+								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 								<% end %>
 							</ul>
 						</p>

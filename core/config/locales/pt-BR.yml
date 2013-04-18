@@ -7,7 +7,7 @@ pt-BR:
     min: "Mínimo"
     max: "Máximo"  
     
-  crm:
+  app:
     title:
       full: "Gestão do Relacionamento de Clientes"
       small: "CMGB - CRM"

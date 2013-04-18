@@ -37,6 +37,6 @@ group :test do
   # gem 'debugger'
 end
 
-gem 'active_extend', :path => "../../active_extend/"
+gem 'active_extend', :git => "https://github.com/woese/active_extend.git"
 
 gemspec

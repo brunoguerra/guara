@@ -8,7 +8,7 @@ module Guara
     # Returns the full title on a per-page basis.
     def full_title(page_title)
       # trans
-      base_title = I18n.t("crm.title.full")
+      base_title = I18n.t("app.title.full")
       
       #insert sep
       page_title = "| "+page_title if !page_title.empty?

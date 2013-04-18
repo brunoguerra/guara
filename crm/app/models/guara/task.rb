@@ -13,7 +13,7 @@ module Guara
                     :type_id, :contact_id, :assigned_id, :feedbacks # to form 
 
     belongs_to :interested, :polymorphic => true
-    belongs_to :contact, :polymorphic => true
+    belongs_to :contact#, :polymorphic => true
     belongs_to :status, class_name: "SystemTaskStatus"
     belongs_to :resolution, class_name: "SystemTaskResolution"
     belongs_to :user

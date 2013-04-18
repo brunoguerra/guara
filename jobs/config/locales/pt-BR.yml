@@ -15,6 +15,10 @@ pt-BR:
         title: "Anúncio de Vagas"
         link: "Anúncio de Vagas"
 
+    customer_interview_return:
+      reproved: "Reprovado"
+      aproved: "Aprovado"
+
     custom_process:
       index:
         title: "Customização de Processo"

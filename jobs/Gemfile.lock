@@ -1,16 +1,18 @@
+GIT
+  remote: https://github.com/woese/active_extend.git
+  revision: b7f65be889a69270135dbe450ada8f1650e19810
+  specs:
+    active_extend (0.0.1)
+      rails (~> 3.2.9)
+      spreadsheet
+
 PATH
   remote: .
   specs:
     guara_jobs (0.0.1)
       guara_core
       guara_crm
-
-PATH
-  remote: ../../active_extend/
-  specs:
-    active_extend (0.0.1)
-      rails (~> 3.2.9)
-      spreadsheet
+      paperclip (~> 2.7)
 
 PATH
   remote: ../core/
@@ -299,7 +301,7 @@ GEM
     shoulda-matchers (1.0.0)
     slop (3.4.3)
     spork (0.9.0)
-    spreadsheet (0.8.1)
+    spreadsheet (0.8.3)
       ruby-ole (>= 1.0)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -342,6 +344,7 @@ DEPENDENCIES
   guard-spork (= 0.3.2)
   json
   launchy
+  mail
   multi_json (= 1.2.0)
   paperclip (~> 2.7)
   pg

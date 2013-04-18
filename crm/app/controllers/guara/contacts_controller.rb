@@ -1,7 +1,7 @@
 module Guara
   class ContactsController < BaseController
-    load_and_authorize_resource :customer, :class => Guara::Customer
-    load_and_authorize_resource :through => :customer, :class => Guara::Contact
+    load_and_authorize_resource :customer, :class => Guara::Customer, :except => :multi
+    load_and_authorize_resource :through => :customer, :class => Guara::Contact, :except => :multi
   
     helper CustomersHelper
     helper CrudHelper
@@ -24,6 +24,7 @@ module Guara
     end
     
     def multi
+      authorize! :edit, Guara::Contact
       @customer = Customer.find params[:customer_id]
       if @customer.update_attributes params[:customer]
         redirect_to :controller => :contacts, :action => :index
@@ -47,27 +48,6 @@ module Guara
         format.json { render "show.html.erb", :layout => false }
       end
     end
-
-=begin
-    # GET customers/1/contacts/new
-    # GET customers/1/contacts/new.json
-    def new
-      @customer = Customer.find(params[:customer_id])
-      @contact = @customer.contacts.build
-
-      respond_to do |format|
-        format.html # new.html.erb
-        format.json { render :json => @contact }
-      end
-    end
-
-    # GET customers/1/contacts/1/edit
-    def edit
-      @customers = Customer.find(params[:customer_id])
-      @contact = @customers.contacts.find(params[:id])
-    end
-  
-=end
 
     # POST customers/1/contacts
     # POST customers/1/contacts.json

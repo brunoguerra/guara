@@ -1,10 +1,4 @@
 /*
  *
- *= require_self
- *= require guara/custom
- *= require guara/customer
- *= require guara/structure
- *= require guara/jquery-ui
- *= require guara/fcbk
- *= require guara/users
+ *= require guara/core
  */

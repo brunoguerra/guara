@@ -457,8 +457,10 @@ overflow: hidden;
 
   .show {
     .control-group {
-      .strong {
         text-transform: uppercase;
-      }
     }
+  }
+  
+  .text_uppercase {
+    text-transform: uppercase;
   }
