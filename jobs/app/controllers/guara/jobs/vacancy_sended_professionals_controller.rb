@@ -61,10 +61,26 @@ module Guara
         end        
       end
 
-      def send_email_customer_pj
-        Guara::Jobs::VacancySendedProfessionalsMailer.professionals_email({:email=>"macielcr7@gmail.com"}).deliver
+      def load_customer_pj(process_instance_id)
+        step_attr = Guara::Jobs::ProcessInstance.find(process_instance_id).custom_process
+          .step.attrs.where("options ILIKE '%Guara::CustomerPj'").last()
+
+        customer_pj_id = Guara::Jobs::StepInstanceAttr
+          .where(:step_attr_id=> step_attr.id, :process_instance_id=> params[:process_instance_id])
+          .last().values.last().value
+
+          return Guara::Customer.find(customer_pj_id)
       end
 
+      def send_email_customer_pj
+        @customer_pj = load_customer_pj(params[:process_instance_id])
+        load_selecteds_professionals
+        VacancySendedProfessionalsMailer.professionals_email({
+          :customer_pj=> @customer_pj,
+          :vacancy_scheduling_professionals=> @unscheduleds
+        }).deliver
+        render :json => {:success=> true}
+      end
     end
   end
 end    

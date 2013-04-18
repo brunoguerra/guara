@@ -6,5 +6,8 @@ gem 'guara_crm', :path => "../crm/"
 
 gem "paperclip", "~> 2.7"
 
+gem "mail"
+
+
 
 gemspec
