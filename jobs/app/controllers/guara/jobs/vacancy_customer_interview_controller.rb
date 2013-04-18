@@ -10,7 +10,7 @@ module Guara
     		def load_selecteds_professionals()
     			@vacancy = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
 		        @sended_professionals = VacancySchedulingProfessional
-		        	.select('guara_jobs_vacancy_sended_professionals.*, guara_jobs_vacancy_scheduling_professionals.*, guara_jobs_vacancy_scheduling_professionals.id as sended_id')
+		        	.select('guara_jobs_vacancy_sended_professionals.*, guara_jobs_vacancy_scheduling_professionals.*, guara_jobs_vacancy_sended_professionals.id as sended_id')
 		        	.joins(:sended).where(:vacancy_id=> @vacancy.id, :interested=> true).order("avaliate DESC")
 		    end
 
@@ -36,11 +36,6 @@ module Guara
 
     		def update
     			@vacancy_customer_interview = VacancyCustomerInterview.find_by_vacancy_sended_professionals_id(params[:jobs_vacancy_customer_interview][:vacancy_sended_professionals_id])
-    			if @vacancy_customer_interview.nil?
-    				@vacancy_customer_interview = VacancyCustomerInterview.new(params[:jobs_vacancy_customer_interview])
-    			else
-    				@vacancy_customer_interview.update_attributes(params[:jobs_vacancy_customer_interview])
-    			end
     			
     			if @vacancy_customer_interview.save
             		render :json => {:success=> true}

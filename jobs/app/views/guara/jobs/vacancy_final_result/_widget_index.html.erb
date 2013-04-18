@@ -1,0 +1,77 @@
+<style type="text/css">
+.control-group .row{
+	margin-left: 0px!important;
+}
+#vacancy_sended_professionals .thumbnail{
+	background: #FFF;
+	margin-top: 10px;
+}
+</style>
+<section id="vacancy_sended_professionals">
+	<div class="row-fluid">
+        <ul class="thumbnails">
+
+        <li class="span8">
+	        <div class="thumbnail">
+	          <div id="candidates_scheduled" class="caption">
+	          	<div style="padding:10px;">
+				  	<table class="table table-bordered table-striped">
+				      	<thead>
+					        <tr>
+					          <th><%= t("inter_view_professionals.id") %></th>
+					          <th><%= t("inter_view_professionals.professional_id") %></th>
+					          <th><%= t("inter_view_professionals.date_evaluation") %></th>
+					          <th><%= t("inter_view_professionals.date_send_report") %></th>
+					          <th><%= t("inter_view_professionals.vacancy_final_result?") %></th>
+					          <th><%= t("helpers.forms.actions") %></th>
+					        </tr>
+				      	</thead>
+				      	<tbody>
+				    	<% @psychological.each do |psychological| %>
+					        <tr>
+					           <th><%= psychological.id %></th>
+					           <th><%= psychological.scheduling.professional.person.name %></th>
+					           <th><%= psychological.date_evaluation.strftime("%d/%m/%Y") %></th>
+					           <th><%= psychological.date_send_report.strftime("%d/%m/%Y") %></th>
+					           <th>
+					      	 	<%
+					      	 		if psychological.vacancy_final_result.nil? %>
+					      	 			<span class="badge badge-important">Não</span>
+					      	 		<% else %>
+					      	 			<span class="badge badge-success">Sim</span>
+					      	 		<% end
+					      	  	%>
+					      	 </th>
+					      	 <th>
+			        			<%= link_to t("helpers.forms.update"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_final_result(#{psychological.id}, '#{psychological.vacancy_final_result.nil? ? 'new' : 'edit'}' ); " %>
+					      	 </th>
+					        </tr>
+				      	<% end %>
+				      	</tbody>
+				   	</table>
+	          </div>
+	        </div>
+      	</li>
+
+      	<li class="span4">
+	        <div class="thumbnail">
+	          	<div id="form_candidate_selected" class="caption">
+		            
+		        </div>
+	        </div>
+	    </li>      
+    </ul>
+  </div>
+</section>
+
+<script type="text/javascript">
+	function vacancy_final_result(psychological_id, type_form){
+		form = $('#form_candidate_selected');
+		if (type_form == 'new'){
+			form.load("<%= new_vacancy_vacancy_final_result_path(vacancy)%>?psychological_id="+psychological_id+"&process_instance_id=<%=params[:process_instance_id]%>&edit_step=<%=params[:edit_step]%>");
+		}
+		else{
+			form.load("<%= edit_vacancy_vacancy_final_result_path(vacancy)%>?psychological_id="+psychological_id+"&process_instance_id=<%=params[:process_instance_id]%>&edit_step=<%=params[:edit_step]%>");
+		}
+	}
+</script>
