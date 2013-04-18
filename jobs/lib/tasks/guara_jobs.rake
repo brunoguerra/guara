@@ -65,17 +65,31 @@ namespace :guara do
     end
 
     #TEMPORARY - REMOVE
-    task create_seeds: :environment do
-      custom_process = Guara::Jobs::CustomProcess.all
-      step = Guara::Jobs::Step.all
-      step_attr = Guara::Jobs::StepAttr.all
+    task export_custom_process: :environment do |t, args|
 
+      if ENV['process'].nil?
+        custom_processes = Guara::Jobs::CustomProcess.all
+      else
+        puts "Exporting custom process #{ENV['process']}"
+        custom_processes = [Guara::Jobs::CustomProcess.find(ENV['process'])]
+      end
+
+      
       models = []
-      models << prepare_partial_seeds('Guara::Jobs::CustomProcess', custom_process)
-      models << prepare_partial_seeds('Guara::Jobs::Step', step)
-      models << prepare_partial_seeds('Guara::Jobs::StepAttr', step_attr)
+      
+      models << prepare_partial_seeds('Guara::Jobs::CustomProcess', custom_processes)
 
-      File.open("seeds-teste.rb", 'w') do |f|
+      custom_processes.each do |custom_process| 
+        models << prepare_partial_seeds('Guara::Jobs::Step', custom_process.steps)
+
+        custom_process.steps.each do |step|
+          models << prepare_partial_seeds('Guara::Jobs::StepAttr', step.attrs)
+        end
+      end
+
+      
+
+      File.open("seeds-custom_process.rb", 'w') do |f|
         f.write models.join("
 
         ")  
