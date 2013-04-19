@@ -13,9 +13,8 @@ module Guara
 			    mail(:to => @customer_pj.emails.first().email, :subject => "Relatório de Profissionais Selecionados")
 			end
 
-			private
 
-			def load_pdf_professional(vacancy_scheduling_professional)
+			def load_pdf_professional(vacancy_scheduling_professional, return_create=false)
 				@professional = vacancy_scheduling_professional.professional
 
 		        @path_pdf  = Rails.root.join('../guara/jobs/lib/guara/jobs/vacancy_sended_professionals_pdf')
@@ -23,9 +22,11 @@ module Guara
 	          	@file_path  = "#{@path_pdf}/#{@file_name}"
 
 	          	if !File.exist?(@file_path)
-	          		generate_pdf_to_professional()
 	          		@interviewer_professional = vacancy_scheduling_professional.interview
+	          		generate_pdf_to_professional()
 	          	end
+
+	          	return true if return_create == true
 
 	          	return attachments[@file_name] = File.read(@file_path)
 		    end

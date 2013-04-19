@@ -1,9 +1,9 @@
 module Guara
   module Jobs
     class VacancySendedProfessionalsController < BaseController
-    	load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy"
-      load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
-      load_and_authorize_resource :sended, :class => "Guara::Jobs::VacancySendedProfessionals"
+    	load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy", :except => [:show_pdf_professional]
+      load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional", :except => [:show_pdf_professional]
+      load_and_authorize_resource :sended, :class => "Guara::Jobs::VacancySendedProfessionals", :except => [:show_pdf_professional]
       include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
       
       def initialize()
@@ -32,6 +32,7 @@ module Guara
 
       def create
         @vacancy_sended_professional = VacancySendedProfessionals.new(:date=> Time.now, :vacancy_scheduling_professional_id=> params[:vacancy_scheduling_professionals_id])
+        
         if @vacancy_sended_professional.save
           render :json => {:data=> @vacancy_sended_professional, :success=> true}
         else
@@ -52,6 +53,7 @@ module Guara
         res = @vacancy_scheduling_professional.attributes
         res[:professional] = @vacancy_scheduling_professional.professional.person.attributes
         res[:consultant] = @vacancy_scheduling_professional.consultant.attributes
+        res[:interview] = @vacancy_scheduling_professional.interview.attributes
         res[:avaliate] = Guara::Jobs::LevelAvaliation.levels_translated()[@vacancy_scheduling_professional.avaliate]
 
         if @vacancy_sended_professional
@@ -81,6 +83,17 @@ module Guara
         }).deliver
         render :json => {:success=> true}
       end
+
+      def show_pdf_professional
+        authorize! Guara::Jobs::Professional, :read
+        
+        scheduling = VacancySchedulingProfessional.find(params[:scheduling_id])
+        filename = "#{scheduling.vacancy_id}_#{scheduling.professional_id}.pdf"
+        path_pdf  = Rails.root.join('../guara/jobs/lib/guara/jobs/vacancy_sended_professionals_pdf', filename)
+        send_file(path_pdf, :type => "application/pdf",
+            :filename => filename, :disposition => "inline")
+      end
+
     end
   end
 end    

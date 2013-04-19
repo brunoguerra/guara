@@ -1,6 +1,6 @@
 <%= semantic_form_for @scheduling, 
 :url => vacancy_interviewer_professional_path(@vacancy), 
-:html => {:class => "well", :onsubmit=> "return vacancy_interviewer_professional_submit();"}  do |f| %>
+:html => {:class => "well", :onsubmit=> "return false;"}  do |f| %>
 		
 	<%= f.input :date_time_interviewee, :as=> :string,
 		:input_html=> {
@@ -19,7 +19,7 @@
 		<%= f.input :vacancy_id, :as=> :hidden %>
 	    <%= f.input :professional_id, :as=> :hidden %>
 		</div>
-		<%= f.submit "Salvar", class: "btn btn-primary" %>
+		<%= link_to "Salvar", "javascript:void(0);", class: "btn btn-primary", onClick: "vacancy_interviewer_professional_submit();" %>
 	</div>	
 <% end %>
 
@@ -54,18 +54,19 @@
 			data[$(text_area_ebd[i]).attr('name')] = $(text_area_ebd[i]).val();
 		}
 
-		validate();
+		if(validate()){
+			$.ajax({
+			  type: "POST",
+			  url: $(form).attr('action'),
+			  data: data,
+			}).done(function( data ) {
+				if(data.success==true){
+					alert('Entrevista Atualizada');
+			  		$('#form_candidate_selected').empty();
+				}			
+			});
+		}
 		
-		$.ajax({
-		  type: "POST",
-		  url: $(form).attr('action'),
-		  data: data,
-		}).done(function( data ) {
-			if(data.success==true){
-				alert('Entrevista Atualizada');
-		  		$('#form_candidate_selected').empty();
-			}			
-		});
 
 		return false;
 	}

@@ -26,7 +26,9 @@
 				      </tr>
 				    </thead>
 				    <tbody>
-					<% @scheduleds.each do |p| %>
+					<% @scheduleds.each do |p| 
+						#raise p.professional.person.name.to_yaml
+						%>
 				      <tr id="tr_<%= p.id %>" name-professional="<%= p.professional.person.name %>">
 				      	 <th><%= p.id %></th>
 				      	 <th><%= p.professional.person.name %></th>
@@ -34,6 +36,7 @@
 				      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
 				      	 <th>
 		        			<%= link_to t("vacancy_sended_professionals.send"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_sended_professional(#{p.id}); " %>
+		        			<%= link_to t("vacancy_sended_professionals.PDF"), vacancy_sended_professionals_show_pdf_professional_path(:scheduling_id=> p.id, :format=> :pdf), :class => "btn", :target=> "_blank" %>
 				      	 </th>
 				      </tr>
 				    <% end %>
@@ -94,17 +97,24 @@
 							.attr('id', 'tr_'+id)
 							.attr('name-professional', d.professional.name)
 							.append($('<th></th>').html(id))
-							.append($('<th></th>').html(d.consultant.name))
 							.append($('<th></th>').html(d.professional.name))
-							.append($('<th></th>').html(d.description))
+							.append($('<th></th>').html(d.interview.synthesis))
 							.append($('<th></th>').html(d.avaliate))
 							.append($('<th></th>').append(
-								$('<a></a>')
-									.attr('href', 'javascript:void(0);')
-									.addClass('btn')
-									.attr('onClick', 'vacancy_sended_professional('+id+')')
-									.html('<%=t("vacancy_sended_professionals.send")%>')
-							))
+									$('<a></a>')
+										.attr('href', 'javascript:void(0);')
+										.addClass('btn')
+										.attr('onClick', 'vacancy_sended_professional('+id+')')
+										.html('<%=t("vacancy_sended_professionals.send")%>')
+								)
+								.append(
+									$('<a></a>')
+										.attr('href', '<%= vacancy_sended_professionals_show_pdf_professional_path( :format=> :pdf) %>?scheduling_id='+id)
+										.addClass('btn')
+										.attr('target', '_blank')
+										.html('<%=t("vacancy_sended_professionals.PDF")%>')
+								)
+							)
 					);
 				}			
 			});
