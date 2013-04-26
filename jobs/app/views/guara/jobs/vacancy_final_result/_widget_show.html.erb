@@ -7,18 +7,31 @@
           <th><%= t("inter_view_professionals.result") %></th>
           <th><%= t("inter_view_professionals.work_start_date") %></th>
           <th><%= t("inter_view_professionals.salary") %></th>
-          <th><%= t("inter_view_professionals.observation") %></th>
+          <th><%= t("inter_view_professionals.vacancy_final_result?") %></th>
         </tr>
       </thead>
       <tbody>
     <% @psychological.each do |psychologic| %>
         <tr>
            <th><%= psychologic.id %></th>
+           
            <th><%= psychologic.scheduling.professional.person.name %></th>
-           <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[psychologic.vacancy_final_result.result] %></th>
-           <th><%= psychologic.vacancy_final_result.work_start_date.to_time.strftime('%d/%m/%Y') %></th>
-           <th><%= psychologic.vacancy_final_result.salary %></th>
-           <th><%= psychologic.vacancy_final_result.observation %></th>
+           
+           <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[psychologic.vacancy_final_result.result] if !psychologic.vacancy_final_result.nil? %></th>
+          
+           <th><%= psychologic.vacancy_final_result.work_start_date.strftime('%d/%m/%Y') if !psychologic.vacancy_final_result.nil? and  !psychologic.vacancy_final_result.work_start_date.nil? %>
+           </th>
+           
+           <th><%= psychologic.vacancy_final_result.salary if !psychologic.vacancy_final_result.nil?%></th>
+           
+           <th>
+            <% if psychologic.vacancy_final_result.nil? %>
+              <span class="badge badge-important">Não</span>
+            <% else %>
+              <span class="badge badge-success">Sim</span>
+            <% end %>
+           </th>
+        
         </tr>
       <% end %>
 

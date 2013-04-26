@@ -16,7 +16,9 @@
 	                    %>
 						<%= @component.show.join("").html_safe %>
 	                    <%
-					 else %>
+					 else 
+					 	#raise step_attr.to_yaml
+					 	%>
 						<%= show_span_tag step_attr.title %>
 						<%= show_attr_value(@process_instance, step_attr) %>
 					<% end %>

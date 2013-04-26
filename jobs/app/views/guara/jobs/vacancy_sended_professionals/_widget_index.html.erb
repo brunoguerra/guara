@@ -20,8 +20,8 @@
 				      <tr>
 				        <th><%= t("inter_view_professionals.id") %></th>
 				        <th><%= t("inter_view_professionals.professional_id") %></th>
-				        <th><%= t("inter_view_professionals.synthesis") %></th>
-				        <th><%= t("inter_view_professionals.avaliate") %></th>
+				        <th><%= t("vacancy_synthesis_professional.avaliate_interview") %></th>
+				        <th><%= t("inter_view_professionals.sended?") %></th>
 				        <th><%= t("helpers.forms.actions") %></th>
 				      </tr>
 				    </thead>
@@ -32,8 +32,14 @@
 				      <tr id="tr_<%= p.id %>" name-professional="<%= p.professional.person.name %>">
 				      	 <th><%= p.id %></th>
 				      	 <th><%= p.professional.person.name %></th>
-				      	 <th><%= p.interview.synthesis if !p.interview.nil? %></th>
 				      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
+				      	 <th>
+				          <% if Guara::Jobs::VacancySendedProfessionals.where(vacancy_scheduling_professional_id: p.id).count()==0 %>
+				            <span class="badge badge-important">Não</span>
+				          <% else %>
+				            <span class="badge badge-important">Não</span>
+				          <% end %>
+         				</th>
 				      	 <th>
 		        			<%= link_to t("vacancy_sended_professionals.send"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_sended_professional(#{p.id}); " %>
 		        			<%= link_to t("vacancy_sended_professionals.PDF"), vacancy_sended_professionals_show_pdf_professional_path(:scheduling_id=> p.id, :format=> :pdf), :class => "btn", :target=> "_blank" %>

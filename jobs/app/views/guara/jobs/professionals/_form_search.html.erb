@@ -16,36 +16,39 @@
 
 
 			    <% if (params[:mode]=="advanced") then %>
-						  <%= hidden_field_tag :mode, params[:mode] %>
+					<%= hidden_field_tag :mode, params[:mode] %>
 
-						   <div class="control-group">
-		            <%= label_tag :salary_requirements, t("helpers.label.professional.search.salary_requirements.title"), :class => "control-label" %>
-	            	<div class="controls">
-		          		<%= f.select(:vacancy_specification_salary_requirement_salary_range_in,
-						options_from_collection_for_select([] + Guara::Jobs::SalaryRequirement.all, :id, :salary_range, params[:search][:vacancy_specification_salary_requirement_salary_range_in]), 
-						{}, 
-						{ 	:style => "width: 220px;", 
-							:class => "multiselect" 
-						})
-	              	%>
-	           		</div>
+					<div class="control-group">
+		            	<%= label_tag :salary_requirements, t("helpers.label.professional.search.salary_requirements.title"), :class => "control-label" %>
+
+		            	<div class="controls">
+			          		<%= f.select(:vacancy_specification_salary_requirement_id_equals,
+							options_from_collection_for_select([] + Guara::Jobs::SalaryRequirement.all, :id, :salary_range, params[:search][:vacancy_specification_salary_requirement_id_equals]), 
+							 {:include_blank => true},
+							{ 	
+								:style => "width: 220px;", 
+								:class => "multiselect" 
+							})
+		              	%>
+		           		</div>
+
 		      		</div>
 
 		      		<div class="control-group">
 		            <%= label_tag :business_action, t("helpers.label.professional.search.business_action.title"), :class => "control-label" %>
-	            	<div class="controls">
+		            	<div class="controls">
 
-		          	<%= f.select(:vacancy_specification_roles_business_action_id_in,
-						options_from_collection_for_select([] + Guara::Jobs::BusinessAction.all, :id, :name, params[:search][:vacancy_specification_roles_business_action_id_in]), 
-						{}, 
-						{ :multiple => true, 
-							:style => "width: 220px;", 
-							:placeholder => t("customer_pjs.segments"), 
-							:class => "multiselect" 
-						})
-	              	%>
+			          	<%= f.select(:vacancy_specification_roles_business_action_id_in,
+							options_from_collection_for_select([] + Guara::Jobs::BusinessAction.all, :id, :name, params[:search][:vacancy_specification_roles_business_action_id_in]), 
+							{}, 
+							{ :multiple => true, 
+								:style => "width: 220px;", 
+								:placeholder => t("customer_pjs.segments"), 
+								:class => "multiselect" 
+							})
+		              	%>
 
-	           		</div>
+		           		</div>
 		      		</div>
 
 		      		<div class="control-group">

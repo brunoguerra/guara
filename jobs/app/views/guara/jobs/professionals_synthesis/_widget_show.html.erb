@@ -5,9 +5,8 @@
 	        <th><%= t("interviewer_professionals.id") %></th>
 	        <th><%= t("interviewer_professionals.professional_id") %></th>
 	        <th><%= t("interviewer_professionals.date_time_interviewee") %></th>
-	        <th><%= t("interviewer_professionals.avaliate") %></th>
-	        <th><%= t("interviewer_professionals.interviewee") %>?</th>
-	        <th><%= t("interviewer_professionals.synthesis") %></th>
+	        <th><%= t("vacancy_synthesis_professional.avaliate_interview") %></th>
+	        <th><%= t("vacancy_synthesis_professional.synthesis") %></th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -15,14 +14,18 @@
 	      <tr>
 	      	 <th><%= p.id %></th>
 	      	 <th><%= p.professional.person.name %></th>
-	      	 <th>
-	      	 	<%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %>
-	      	 </th>
+	      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
 	      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
-	      	 <th>
-      	 		<span class="badge badge-success">Sim</span>
+	      	 <th id="professional_synthesis_<%= p.id2 %>">
+	      	 	
+	      	 <%	vacancy_synthesis = Guara::Jobs::VacancyProfessionalsInterview.where(:scheduling_id=>p.id).last()
+	  	 		if vacancy_synthesis.synthesis.nil? %>
+	  	 			<span class="badge badge-important">Não</span>
+	  	 		<% else %>
+	  	 			<span class="badge badge-success">Sim</span>
+	  	 		<% end
+	  	  	%>
 	      	 </th>
-	      	 <th><%= p.synthesis %></th>
 	      </tr>
 	    <% end %>
 

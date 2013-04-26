@@ -28,20 +28,35 @@ module Guara
     			@vacancy = Vacancy.find(params[:vacancy_id])
     			@vacancy_customer_interview = VacancyCustomerInterview.find_by_vacancy_sended_professionals_id(params[:vacancy_sended_id])
     			if @vacancy_customer_interview.nil?
-    				@vacancy_customer_interview = VacancyCustomerInterview.new(:vacancy_sended_professionals_id=> params[:vacancy_sended_id])
+                    sended = VacancySendedProfessionals.find(params[:vacancy_sended_id])
+    				@vacancy_customer_interview = VacancyCustomerInterview.new(
+                        :vacancy_sended_professionals_id=> sended.id,
+                        :vacancy_scheduling_professional_id=> sended.vacancy_scheduling_professional_id)
     			end
     			render :partial => "guara/jobs/vacancy_customer_interview/widget_form", :locals => { vacancy: @vacancy}
     		end
 
+            def create
+                vacancy_customer_interview = VacancyCustomerInterview.create(params[:jobs_vacancy_customer_interview])
+                if vacancy_customer_interview                    
+                    render :json => {:success=> true}
+                else
+                    render :json => {:data=> vacancy_customer_interview.errors, :success=> false} 
+                end
+            end
 
     		def update
     			@vacancy_customer_interview = VacancyCustomerInterview.find_by_vacancy_sended_professionals_id(params[:jobs_vacancy_customer_interview][:vacancy_sended_professionals_id])
-    			
-    			if @vacancy_customer_interview.save
-            		render :json => {:success=> true}
-          		else
-            		render :json => {:data=> @vacancy_customer_interview.errors, :success=> false} 
-          		end
+    		    
+                if @vacancy_customer_interview.nil?
+                    self.create
+                else
+        			if @vacancy_customer_interview.update_attributes(params[:jobs_vacancy_customer_interview])
+                		render :json => {:success=> true}
+              		else
+                		render :json => {:data=> @vacancy_customer_interview.errors, :success=> false} 
+              		end
+                end
     		end
 
     	end

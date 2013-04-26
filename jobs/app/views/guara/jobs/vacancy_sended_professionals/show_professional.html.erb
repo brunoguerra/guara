@@ -3,13 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<%#= wicked_pdf_stylesheet_link_tag "guara/guara" -%>
   </head>
   
   <body>
+    <% 
+      email = "Nenhum Email Cadastrado"
+      emails = @professional.person.emails
+      if !emails.nil?
+        email_first = emails.first()
+        if !email_first.nil?
+          email = email_first.email
+        end
+      end
+
+    %>
 	  <h1> <%= @professional.person.name %> </h1>
     <div class="control-group">
-       <b>Fone: </b> <%= @professional.person.phone %>
+       <b>Fone: </b> <%= @professional.person.phone %> <br />
+       <b>Email: </b> <%= email %>
 	  </div>
 
     <div class="control-group">

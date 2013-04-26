@@ -43,7 +43,7 @@
 
 	      	<li class="span3">
 		        <div class="thumbnail">
-		        	Candidates Interested
+		        	<%= t("vacancy_scheduling.candidates_interested") %>
 			        <div id="candidates_scheduled" class="caption">
 			          	<% (@unscheduleds || []).each do |professional|  
 			          		if professional.interested == true
@@ -66,7 +66,7 @@
 		        </div>
 
 		        <div class="thumbnail">
-		        	Candidates Disinterested
+		        	<%= t("vacancy_scheduling.candidates_disinterested")%>
 		          	<div id="candidates_no_interested_scheduled" class="caption">
 		          		<% (@unscheduleds || []).each do |professional|  
 						if professional.interested == false

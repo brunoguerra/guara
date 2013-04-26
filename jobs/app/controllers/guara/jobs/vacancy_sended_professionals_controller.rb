@@ -10,9 +10,13 @@ module Guara
         @widget_request = true
       end
 
-    	def load_selecteds_professionals()
+    	def load_scheduling_professionals()
         @vacancy      = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
         @vacancy_scheduling_professionals = VacancySchedulingProfessional.find(:all, :conditions=> ["vacancy_id = ? AND interested = true ", @vacancy.id], :order=> "avaliate DESC")
+      end
+
+      def load_selecteds_professionals()
+        load_scheduling_professionals()
 			  @unscheduleds = VacancySendedProfessionals.unsended_professionals(@vacancy_scheduling_professionals)
 	      @scheduleds   = VacancySendedProfessionals.sended_professionals(@vacancy_scheduling_professionals)
 	    end
@@ -41,7 +45,7 @@ module Guara
       end
 
       def show
-        load_selecteds_professionals
+        load_scheduling_professionals
         render :partial => "guara/jobs/vacancy_sended_professionals/widget_show"
       end
 
@@ -64,21 +68,40 @@ module Guara
       end
 
       def load_customer_pj(process_instance_id)
-        step_attr = Guara::Jobs::ProcessInstance.find(process_instance_id).custom_process
+        step_attr_customer_pj = Guara::Jobs::ProcessInstance.find(process_instance_id).custom_process
           .step.attrs.where("options ILIKE '%Guara::CustomerPj'").last()
 
         customer_pj_id = Guara::Jobs::StepInstanceAttr
-          .where(:step_attr_id=> step_attr.id, :process_instance_id=> params[:process_instance_id])
+          .where(:step_attr_id=> step_attr_customer_pj.id, :process_instance_id=> params[:process_instance_id])
           .last().values.last().value
 
-          return Guara::Customer.find(customer_pj_id)
+        Guara::Customer.find(customer_pj_id)  
+      end
+
+      def load_customer_pj_email(process_instance_id)
+        step_attr_email = Guara::Jobs::ProcessInstance.find(process_instance_id).custom_process
+          .step.attrs.where(:title=> "Email").last()
+
+        customer_pj_email = Guara::Jobs::StepInstanceAttr
+          .where(:step_attr_id=> step_attr_email.id, :process_instance_id=> params[:process_instance_id])
+          .last().value
+
+        return customer_pj_email
+      end
+
+      def load_customer_pj_and_email(process_instance_id)
+        return {
+          :customer_pj=> load_customer_pj(process_instance_id), 
+          :customer_pj_email=> load_customer_pj_email(process_instance_id)
+        }
       end
 
       def send_email_customer_pj
-        @customer_pj = load_customer_pj(params[:process_instance_id])
+        data = load_customer_pj_and_email(params[:process_instance_id])
         load_selecteds_professionals
         VacancySendedProfessionalsMailer.professionals_email({
-          :customer_pj=> @customer_pj,
+          :customer_pj=> data[:customer_pj],
+          :customer_pj_email=> data[:customer_pj_email],
           :vacancy_scheduling_professionals=> @unscheduleds
         }).deliver
         render :json => {:success=> true}

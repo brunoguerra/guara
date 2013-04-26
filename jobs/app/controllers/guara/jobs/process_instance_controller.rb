@@ -56,7 +56,7 @@ module Guara
         end
         
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@current_step)
-        @grouped_column_attrs_step_init    = load_grouped_columned_attrs(@process_instance.custom_process.step)
+        @grouped_column_attrs_step_init    = load_grouped_columned_attrs(@process_instance.custom_process.step, true)
 
         if @embedded
           render :partial => "guara/jobs/process_instance/form"
@@ -65,8 +65,12 @@ module Guara
         end
       end
       
-      def load_grouped_columned_attrs(step)
-        grouped_attrs = step.attrs.order(:position).group_by(&:group)
+      def load_grouped_columned_attrs(step, reject_resume_false=false)
+        if reject_resume_false
+          grouped_attrs = step.attrs.where(:resume=>true).order(:position).group_by(&:group)
+        else
+          grouped_attrs = step.attrs.order(:position).group_by(&:group)
+        end
         
         grouped_column_attrs = {}
         
