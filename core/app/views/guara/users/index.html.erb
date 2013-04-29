@@ -24,7 +24,8 @@
 	    		<%= c.admin == true ? "Sim" : "Não"%>
 	    	</span>
 	    </td>
-	    <td><%= index_btn_edit edit_user_path(c), "Exibir Usuário" %></td>
+	    <td><%= index_btn_edit edit_user_path(c), t("helpers.forms.edit") %>
+					<%= index_btn_disable user_path(c), t("helpers.forms.destroy") %></td>
 	</tr>  
 	<% end %>
 </table>

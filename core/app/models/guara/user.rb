@@ -25,6 +25,8 @@ module Guara
     # :lockable, and :omniauthable, :registerable
     devise :database_authenticatable,
            :recoverable, :rememberable, :trackable, :validatable, :timeoutable
+    
+    default_scope order: "name"
 
     #RELATIONSHIPS<===================================================================
     before_save { |user| user.email = email.downcase }

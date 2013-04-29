@@ -10,7 +10,17 @@ class Guara::Jobs::CustomProcess < ActiveRecord::Base
   belongs_to :business
   belongs_to :step, foreign_key: "step_init"
   
+  def has_hook?
+    !hook_instanciate.to_s.empty?
+  end
   
+  def hook
+    if !self.hook_instanciate.to_s.empty?
+      self.hook_instanciate.constantize
+    else
+      nil
+    end
+  end
   
   def call_hook_initialize(object)
     if !self.hook_instanciate.nil?
