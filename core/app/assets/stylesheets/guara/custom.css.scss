@@ -72,11 +72,11 @@ p {
 .navbar .nav { height: $navbarHeight; }
 
 .navbar .nav > li > a {
-	padding: ($navbarHeight - 20)/2 10px (($navbarHeight - 20)/2 + 1);
+  padding: ($navbarHeight - 20)/2 10px (($navbarHeight - 20)/2 + 1);
 }
 
 .navbar .brand {
-	padding: ((($navbarHeight - 20) / 2) * 0.8) 20px ((($navbarHeight - 20) / 2) * 1.2);
+  padding: ((($navbarHeight - 20) / 2) * 0.8) 20px ((($navbarHeight - 20) / 2) * 1.2);
 }
 /*#<~ISSUE NAV*/
 
@@ -173,14 +173,14 @@ input, textarea, select, .uneditable-input {
 }
 
 form .label {
-	background: $white;
-	color: $grayDark;
+  background: $white;
+  color: $grayDark;
 }
 
 input, textarea, select {
-	font-size: 13px;
-	text-transform:uppercase;
-	/*margin-top: -4px;*/
+  font-size: 13px;
+  text-transform:uppercase;
+  /*margin-top: -4px;*/
   padding: 3px;
 }
 
@@ -199,47 +199,45 @@ input, textarea, select {
 
 
 ul {
-	list-style-type: none ;
+  list-style-type: none ;
 }
 
 .inline {
-	display: inline;
-	display: inline-block;
-	padding: 0px 3px 0px 3px ;
+  display: inline;
+  display: inline-block;
+  padding: 0px 3px 0px 3px ;
 }
 
 /* show views */
 
 .show {
-	.control-group {
-		background: #f1f1f1;
-		margin-top: 20px;
-		padding-bottom: 10px;
-		label {
-			/*background: #ffffff;*/
-			margin-bottom: 10px;
-		}
-	}
-	
-	.controls {
-		min-height: 13px;
-	}
+  .control-group {
+    background: #f1f1f1;
+    label {
+      /*background: #ffffff;*/
+      margin-bottom: 10px;
+    }
+  }
+  
+  .controls {
+    min-height: 13px;
+  }
 }
 
 .edit, .new {
-	.control-group {
-		background: inherit;
-		margin-top: 5px;
-		padding-bottom: 5px;
-		label {
-			background: #ffffff;
-			margin-bottom: 5px;
-		}
-	}
-	
-	.controls {
-		min-height: 13px;
-	}
+  .control-group {
+    background: inherit;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    label {
+      background: #ffffff;
+      margin-bottom: 5px;
+    }
+  }
+  
+  .controls {
+    min-height: 13px;
+  }
 }
 
 /* users index */
@@ -290,31 +288,31 @@ aside {
 /* Commons */
 
 .well-compact {
-	@extend .well;
-	
-	margin-top: 10px;
-	padding: 10px;
+  @extend .well;
+  
+  margin-top: 10px;
+  padding: 10px;
 }
 
 /* formtastic */
 
 fieldset.inputs ol {
-	list-style: none;
+  list-style: none;
 }
 
 fieldset.actions {
 
-	.action {
-		input {
-			@extend .btn;
-			@extend .btn-primary;
-		}
-	}
-	
-	ol {
-		list-style: none;
-		margin: 0;
-	}
+  .action {
+    input {
+      @extend .btn;
+      @extend .btn-primary;
+    }
+  }
+  
+  ol {
+    list-style: none;
+    margin: 0;
+  }
 }
 
 /*NOVAS FORMATAÇÕES*/
@@ -352,16 +350,16 @@ fieldset.actions {
   }
 
 
-	.contacts .side .btn-group:first-child {
-		float: left;
-		margin-right: 10px;
-	}
-	
-	.all-search .form-search .input-append .search-query {
+  .contacts .side .btn-group:first-child {
+    float: left;
+    margin-right: 10px;
+  }
+  
+  .all-search .form-search .input-append .search-query {
 
-	height: 30px;
-	width: 300px;
-	}
+  height: 30px;
+  width: 300px;
+  }
 
 
 
@@ -422,6 +420,7 @@ input[type="text"], input[type="text"].search-query{
 /* CUSTOMER SHOW2 :: BEGIN*/
 table thead tr th, table tbody tr td{
   text-align: center !important;
+   text-transform: uppercase;
 }
 
 table tbody tr #name_customer_table{
@@ -443,4 +442,25 @@ margin-bottom: 5px ;
 overflow: hidden;
 }
 
+.thumbnail .box-gray-data p {
+  text-transform: uppercase;
+}
+
+.modal.fade.in {
+  top: 1%;
+
+}
+
+
 /* CUSTOMER SHOW2 :: END*/
+
+
+  .show {
+    .control-group {
+        text-transform: uppercase;
+    }
+  }
+  
+  .text_uppercase {
+    text-transform: uppercase;
+  }

@@ -111,9 +111,14 @@ pt-BR:
     doc_rg: "RG"
     name: "Nome"
     name_sec: "Como gosta de ser chamado?"
-    sex: "Sexo"
+    gender: "Género"
+    male: "Masculino"
+    female: "Feminino"
+    company: "Empresa"
     country: "Nacionalidade"
-    civil_status: "Estado civil"
+    civil_state: "Estado civil"
+    sigle: "Solteiro(a)"
+    married: "Casado(a)"
     new:
       link: "Nova Pessoa Física"
     
@@ -194,7 +199,7 @@ pt-BR:
   system:
     modules: &crm_modules
       "guara/business_segment": "Segmento"
-      "guara/business_activity": "Atividade"
+      "guara/business_activity": "Tipos de Tarefas"
       "guara/business_department": "Setor"
       "guara/company_business": "Área de Negócio"
       "guara/customer": "Cliente"

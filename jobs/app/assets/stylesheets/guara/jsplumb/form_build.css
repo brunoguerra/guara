@@ -1,13 +1,18 @@
 #dialog_attr_step.modal{
-	width: 940px;
-	left: 36%;
+    width: 940px;
+    left: 48%;
+    top: 4%;
+}
+
+.modal-body {
+    min-height: 560px !important;
 }
 
 #panel { 
-	border-style: none; 
-	background: rgb(255, 255, 255) none repeat; 
-	overflow: hidden;
-	width: 100%;
+    border-style: none; 
+    background: rgb(255, 255, 255) none repeat; 
+    overflow: hidden;
+    width: 100%;
 }
 
 

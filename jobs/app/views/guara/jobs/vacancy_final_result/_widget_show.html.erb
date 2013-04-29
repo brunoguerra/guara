@@ -1,0 +1,31 @@
+<div style="padding:10px;">
+  <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th><%= t("inter_view_professionals.id") %></th>
+          <th><%= t("inter_view_professionals.professional_id") %></th>
+          <th><%= t("inter_view_professionals.result") %></th>
+          <th><%= t("inter_view_professionals.work_start_date") %></th>
+          <th><%= t("inter_view_professionals.salary") %></th>
+          <th><%= t("inter_view_professionals.observation") %></th>
+        </tr>
+      </thead>
+      <tbody>
+    <% @psychological.each do |psychologic| %>
+        <tr>
+           <th><%= psychologic.id %></th>
+           <th><%= psychologic.scheduling.professional.person.name %></th>
+           <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[psychologic.vacancy_final_result.result] %></th>
+           <th><%= psychologic.vacancy_final_result.work_start_date.to_time.strftime('%d/%m/%Y') %></th>
+           <th><%= psychologic.vacancy_final_result.salary %></th>
+           <th><%= psychologic.vacancy_final_result.observation %></th>
+        </tr>
+      <% end %>
+
+      </tbody>
+   </table>
+</div>   
+
+<script type="text/javascript">
+  
+</script>

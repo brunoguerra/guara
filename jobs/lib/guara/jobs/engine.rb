@@ -22,42 +22,14 @@ module Guara
         
         Guara::Menus::MAINTENCE[:items] +=
           [
-            { 
-              name: :jobs_business_actions, resource: Guara::Jobs::BusinessAction, 
-              path: routes.respond_to?('maintence_guara_business_actions_path') ?
-                "guara.maintence_guara_business_actions_path()" : 
-                "guara.maintence_guara_jobs_business_actions_path()"
-            },
-            { 
-              name: :jobs_roles, resource: Guara::Jobs::Role, 
-              path: routes.respond_to?('guara.maintence_guara_roles_path') ?
-                "guara.maintence_guara_roles_path()" : 
-                "guara.maintence_guara_jobs_roles_path()"
-            },
-            { 
-              name: :jobs_level_educations, resource: Guara::Jobs::LevelEducation, 
-              path: routes.respond_to?('guara.maintence_guara_level_educations_path') ?
-                "guara.maintence_guara_level_educations_path()" : 
-                "guara.maintence_guara_jobs_level_educations_path()"
-            },
-            { 
-              name: :jobs_consultants, resource: Guara::Jobs::Consultant, 
-              path: routes.respond_to?('guara.maintence_guara_consultants_path') ?
-                "guara.maintence_guara_consultants_path()" : 
-                "guara.maintence_guara_jobs_consultants_path()" 
-            },
-            { 
-              name: :jobs_languages, resource: Guara::Jobs::Language, 
-              path: routes.respond_to?('guara.maintence_guara_languages_path') ?
-                "guara.maintence_guara_languages_path()" : 
-                "guara.maintence_guara_jobs_languages_path()" 
-            },
-            { 
-              name: :jobs_level_knowledges, resource: Guara::Jobs::LevelKnowledge, 
-              path: routes.respond_to?('guara.maintence_guara_level_knowledges_path') ?
-                "guara.maintence_guara_level_knowledges_path()" : 
-                "guara.maintence_guara_jobs_level_knowledges_path()" 
-            }
+            { name: :jobs_business_actions, resource: Guara::Jobs::BusinessAction},
+            { name: :jobs_roles, resource: Guara::Jobs::Role},
+            { name: :jobs_level_educations, resource: Guara::Jobs::LevelEducation },
+            { name: :jobs_consultants, resource: Guara::Jobs::Consultant },
+            { name: :jobs_languages, resource: Guara::Jobs::Language },
+            { name: :jobs_level_knowledges, resource: Guara::Jobs::LevelKnowledge },
+            { name: :jobs_salary_requirements, resource: Guara::Jobs::SalaryRequirement },
+
           ]
         
       end

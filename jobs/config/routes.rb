@@ -41,6 +41,8 @@ Guara::Core::Engine.routes.prepend do
 		  resource :synthesis_professional, controller: "ProfessionalsSynthesis"
 		  resource :vacancy_sended_professional, controller: "VacancySendedProfessionals"
 		  resource :vacancy_customer_interview, controller: "VacancyCustomerInterview"
+		  resource :vacancy_psychological_evaluation_evaluation, controller: "VacancyProfessionalsPsychologicalEvaluation" 
+		  resource :vacancy_final_result, controller: "VacancyFinalResult"
 	  end
 
 	end

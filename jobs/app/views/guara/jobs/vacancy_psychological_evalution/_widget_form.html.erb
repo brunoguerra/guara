@@ -1,0 +1,43 @@
+<style type="text/css">
+	.input-block-level{
+		width: 100%!important;
+	}
+</style>
+<%= semantic_form_for @psychological, 
+:url=> vacancy_vacancy_psychological_evaluation_evaluation_path(@vacancy), 
+:html => {:class => "well"}  do |f| %>
+	<%= f.input :date_evaluation, :as=> :string, :input_html=> {:class=> "date_format"} %>
+	<%= f.input :date_send_report, :as=> :string, :input_html=> {:class=> "date_format"} %>
+
+	<%= f.input :file1, :as=> :file, :input_html=> {:class=> "input-block-level"} if @psychological.file1.nil? %>
+	<%= f.input :file2, :as=> :file, :input_html=> {:class=> "input-block-level"} if @psychological.file2.nil? %>
+	<%= f.input :file3, :as=> :file, :input_html=> {:class=> "input-block-level"} if @psychological.file3.nil? %>
+
+	<%= f.input :vacancy_customer_interview_id, :as=> :hidden %>
+	<%= f.input :vacancy_scheduling_professional_id, :as=> :hidden %>
+
+	<%= hidden_field_tag "process_instance_id", params[:process_instance_id] %>
+	<%= hidden_field_tag "edit_step", params[:edit_step] %>
+	<%= hidden_field_tag "id", @psychological.id %>
+
+	<%= f.submit "Salvar", class: "btn btn-primary" %>
+
+<% end %>
+
+<script type="text/javascript">
+	$('.date_format').datepicker($.datepicker.regional['pt-BR']);
+
+	var temp_date1 = $('#jobs_vacancy_professionals_psychological_evaluation_date_evaluation').val().split(" ");
+	if(temp_date1.length>1){
+		temp_date1.pop();
+		var date_1 = $.datepicker.formatDate('dd/mm/yy', new Date(temp_date1.join(" ")));
+		$('#jobs_vacancy_professionals_psychological_evaluation_date_evaluation').val(date_1);
+	}
+
+	var temp_date1 = $('#jobs_vacancy_professionals_psychological_evaluation_date_send_report').val().split(" ");
+	if(temp_date1.length>1){
+		temp_date1.pop();
+		var date_1 = $.datepicker.formatDate('dd/mm/yy', new Date(temp_date1.join(" ")));
+		$('#jobs_vacancy_professionals_psychological_evaluation_date_send_report').val(date_1);
+	}
+</script>

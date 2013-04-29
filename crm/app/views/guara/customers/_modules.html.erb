@@ -18,7 +18,11 @@
 	<% if can? :read, Guara::CustomerFinancial %>
   <li <%= 'class=active' if active == :financial %> ><a href="#">Dados de Cobran&ccedil;a</a></li>
 	<% end  %>
-  <li <%= 'class=active' if active == :customer_association %> ><%= link_to t("customer_association.index.link"), customer_association_customer_path(@customer) %></li>
+	
+	<% if @customer_type == "pj" %>
+  	<li <%= 'class=active' if active == :customer_association %> ><%= link_to t("customer_association.index.link"), customer_association_customer_path(@customer) %></li>
+  	<% end %>
+
 
   <%= customer_nav_modules_build_tabs(@customer, active) %>
   
