@@ -31,6 +31,10 @@ pt-BR:
       steps: "Etapas"
       role: "Cargo"
       business: "Empresa"
+      
+      status:
+        title: "Status"
+        open: "Aberta"
 
       processes_starteds: "Processos Iniciados"
       filters: "Filtros"
@@ -245,6 +249,3 @@ pt-BR:
 
   vacancy_sended_professionals:
     send: "Enviar"
-
-
-
