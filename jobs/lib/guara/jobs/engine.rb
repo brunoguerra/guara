@@ -1,4 +1,4 @@
-
+require File.expand_path("../../active_process/process_hooker", __FILE__)
 require "paperclip"
 
 module Guara  

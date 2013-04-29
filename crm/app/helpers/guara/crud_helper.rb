@@ -7,9 +7,11 @@ module Guara
   	end
 
   	def index_btn_edit(path, title="")
-
   		link_to raw('<i  class="icon-pencil"></i>'), path, :class => "btn ", :title => title
-  		
+  	end
+  	
+  	def index_btn_disable(path, title="")
+  		link_to raw('<i  class="icon-minus-sign"></i>'), path, :class => "btn ", :title => title, :confirm => I18n.t("helpers.forms.areyousure"), :method => :delete
   	end
 
     def index_btn_select(path, options = {})

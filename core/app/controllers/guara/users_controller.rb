@@ -8,6 +8,7 @@ module Guara
     helper CrudHelper
     
     def index
+      @users = @users.unscoped.where(enabled: false).order("name") if params[:disabled]=='true'
       @users = @users.paginate(page: params[:page])
     end
   
