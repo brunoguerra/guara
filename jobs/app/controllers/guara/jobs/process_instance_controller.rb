@@ -120,7 +120,9 @@ module Guara
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
         step_attr_count = StepAttr.where(:step_id=> @next_step).count()
-        if step_attr_count > 0
+        step = Step.find(@step_id)
+
+        if step_attr_count > 0 and step.level == @process_instance.step.level
           @next_step_valid = 1
         else
           @next_step_valid = 0
