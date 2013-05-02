@@ -26,8 +26,8 @@
 							options_from_collection_for_select([] + Guara::Jobs::SalaryRequirement.all, :id, :salary_range, params[:search][:vacancy_specification_salary_requirement_id_equals]), 
 							 {:include_blank => true},
 							{ 	
-								:style => "width: 220px;",
-							
+								:style => "width: 220px;", 
+								:class => "multiselect" 
 							})
 		              	%>
 		           		</div>

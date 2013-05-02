@@ -2,7 +2,15 @@
 module Guara
   module Jobs
     class ProcessInstanceController < Guara::BaseController
-      load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance"
+      load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance", :except => [ :alter_state_process_instance,
+        :load_grouped_columned_attrs,
+        :create_step_instance_attrs,
+        :load_next_step_to_process_instance,
+        :set_next_step_to_process_instance,
+        :finish_process_instance,
+        :show_step,
+        :embeded_call,
+        :multiselect_customer_pj]
       load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
 
       helper CrudHelper
@@ -43,6 +51,7 @@ module Guara
         @process_instance.save
 
         redirect_to edit_process_instance_path(params[:id])
+        authorize! :update, Guara::Jobs::ProcessInstance
       end
 
       def edit
@@ -82,6 +91,8 @@ module Guara
           grouped_column_attrs[:default] = grouped_column_attrs['']
           grouped_column_attrs.delete('')
         end
+
+        authorize! :read, Guara::Jobs::StepInstance
         return grouped_column_attrs
       end
 
@@ -104,6 +115,8 @@ module Guara
             @step_instance_attr = StepInstanceAttr.create(step_attr_val)
           end
         end
+
+        authorize! :create, Guara::Jobs::StepInstance
       end
 
       def update
@@ -129,6 +142,7 @@ module Guara
         else
           @next_step_valid = 0
         end
+        authorize! :read, Guara::Jobs::ProcessInstance
       end
 
       def set_next_step_to_process_instance()
@@ -138,6 +152,7 @@ module Guara
           @process_instance.update_attributes :state=> @next_step
           @process_instance.save
         end 
+        authorize! :update, Guara::Jobs::ProcessInstance
       end
 
       def finish_process_instance
@@ -146,10 +161,13 @@ module Guara
         @process_instance.save
 
         redirect_to process_instance_index_path
+
+        authorize! :update, Guara::Jobs::ProcessInstance
       end
 
       def show_step
         edit
+        authorize! :read, Guara::Jobs::StepInstance
       end
       
       def show
@@ -178,11 +196,14 @@ module Guara
 
         self.embedded = true
 
+        authorize! :read, Guara::Jobs::ProcessInstance
+
         return self.send(action)
       end
 
       def multiselect_customer_pj
         render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ? or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).limit(25).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
+        authorize! :read, Guara::Jobs::ProcessInstance
       end
     end
   end

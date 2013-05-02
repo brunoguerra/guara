@@ -327,6 +327,18 @@ pt-BR:
       "guara/user_group": "Grupo de Usuários"
       task: "Tarefa"
       task_type: "Tipo de Tarefa"
+      professional: "Profissional"
+      role: "Cargo"
+      consultant: "Consultor"
+      level_education: "Grau de Formação"
+      custom_process: "Customizar Processo"
+      customer_pj: "Cliente Pessoa Jurídica"
+      customer_pf: "Cliente Pessoa Física"
+      process_instance: "Instância do Processo"
+      vacancy: "Vagas"
+      all: "Tudo"
+      step: "Etapas"
+      step_instance: "Instância das Etapas"
       
     abilities:
       READ: "Ler"

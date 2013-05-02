@@ -31,6 +31,7 @@ pt-BR:
       steps: "Etapas"
       role: "Cargo"
       business: "Empresa"
+
       
       status:
         title: "Status"
@@ -249,3 +250,13 @@ pt-BR:
 
   vacancy_sended_professionals:
     send: "Enviar"
+
+  vacancy_status:
+    opened: "Aberto"
+    paused: "2Aberto"
+    canceled: "3Aberto"
+    closed: "Fechado"
+    reopened_others: "Reaberto Outros"
+    reopened_reposition: "Reaberto Reposição"
+    closed_total: "Fecha"
+    closed_partial: "7Aberto"

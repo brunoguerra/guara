@@ -1,12 +1,8 @@
 <%
-# process_instance
-@vacancy = Guara::Jobs::Vacancy.find_by_process_instance_id @process_instance.id
+	# process_instance
+	@vacancy = Guara::Jobs::Vacancy.find_by_process_instance_id @process_instance.id
 %>
 
-<%
-	@vacancy.status.routers.each do |vacancy_status|
-%>
-
-<%
-	link_to t("jobs.vacancies_status.%s" % vacancy_status.name), 
-%>
+<% @vacancy.status.routers.each do |vacancy_status| %>
+	<%= link_to t("jobs.vacancies_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn" %>
+<% end %>

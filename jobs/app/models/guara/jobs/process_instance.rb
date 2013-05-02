@@ -1,7 +1,7 @@
 require File.expand_path("../../jobs", __FILE__) if Rails.env.development?
 
 class Guara::Jobs::ProcessInstance < ActiveRecord::Base
-  attr_accessible :date_finish, :date_start, :process_id, :state, :user_using_process, :finished, :status
+  attr_accessible :date_finish, :date_start, :process_id, :state, :user_using_process, :finished
 
   belongs_to :custom_process, foreign_key: "process_id"
   belongs_to :step, foreign_key: "state"
@@ -45,28 +45,4 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
       self.hook_after_save()
     end
   end
-
-  def self.status 
-    {
-      0 => :open,
-      1 => :suspended,
-      2 => :reopened_replacement,
-      3 => :reopened_others,
-      4 => :closed_partial,
-      5 => :total_closed
-    }
-  end
-
-  def self.status_translated
-    {
-      0 => I18n.t("jobs.process_instance.status.open"),
-      1 => I18n.t("jobs.process_instance.status.suspended"),
-      2 => I18n.t("jobs.process_instance.status.reopened_replacement"),
-      3 => I18n.t("jobs.process_instance.status.reopened_others"),
-      4 => I18n.t("jobs.process_instance.status.closed_partial"),
-      5 => I18n.t("jobs.process_instance.status.total_closed")
-    }
-  end
-
-
 end

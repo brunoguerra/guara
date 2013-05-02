@@ -3,7 +3,16 @@ module Guara
     class VacancySendedProfessionalsController < BaseController
     	load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy", :except => [:show_pdf_professional]
       load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional", :except => [:show_pdf_professional]
-      load_and_authorize_resource :sended, :class => "Guara::Jobs::VacancySendedProfessionals", :except => [:show_pdf_professional]
+      load_and_authorize_resource :sended, :class => "Guara::Jobs::VacancySendedProfessionals", :except => [
+        :show_pdf_professional,
+        :load_scheduling_professionals,
+        :load_selecteds_professionals,
+        :send_email_customer_pj,
+        :load_customer_pj_and_email,
+        :load_customer_pj_email,
+        :load_customer_pj
+      ]
+
       include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
       
       def initialize()
@@ -13,13 +22,17 @@ module Guara
     	def load_scheduling_professionals()
         @vacancy      = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
         @vacancy_scheduling_professionals = VacancySchedulingProfessional.find(:all, :conditions=> ["vacancy_id = ? AND interested = true ", @vacancy.id], :order=> "avaliate DESC")
+        
+        authorize! :read, Guara::Jobs::StepInstance
       end
 
       def load_selecteds_professionals()
         load_scheduling_professionals()
 			  @unscheduleds = VacancySendedProfessionals.unsended_professionals(@vacancy_scheduling_professionals)
 	      @scheduleds   = VacancySendedProfessionals.sended_professionals(@vacancy_scheduling_professionals)
-	    end
+	     
+       authorize! :read, Guara::Jobs::StepInstance
+      end
 
     	def index
     		load_selecteds_professionals
@@ -75,7 +88,9 @@ module Guara
           .where(:step_attr_id=> step_attr_customer_pj.id, :process_instance_id=> params[:process_instance_id])
           .last().values.last().value
 
-        Guara::Customer.find(customer_pj_id)  
+        Guara::Customer.find(customer_pj_id) 
+
+        authorize! :read, Guara::Jobs::StepInstance
       end
 
       def load_customer_pj_email(process_instance_id)
@@ -87,6 +102,8 @@ module Guara
           .last().value
 
         return customer_pj_email
+
+        authorize! :read, Guara::Jobs::StepInstance
       end
 
       def load_customer_pj_and_email(process_instance_id)
@@ -94,6 +111,8 @@ module Guara
           :customer_pj=> load_customer_pj(process_instance_id), 
           :customer_pj_email=> load_customer_pj_email(process_instance_id)
         }
+
+        authorize! :read, Guara::Jobs::StepInstance
       end
 
       def send_email_customer_pj
@@ -105,16 +124,19 @@ module Guara
           :vacancy_scheduling_professionals=> @unscheduleds
         }).deliver
         render :json => {:success=> true}
+
+        authorize! :create, Guara::Jobs::StepInstance
       end
 
       def show_pdf_professional
-        authorize! Guara::Jobs::Professional, :read
         
         scheduling = VacancySchedulingProfessional.find(params[:scheduling_id])
         filename = "#{scheduling.vacancy_id}_#{scheduling.professional_id}.pdf"
         path_pdf  = Rails.root.join('../guara/jobs/lib/guara/jobs/vacancy_sended_professionals_pdf', filename)
         send_file(path_pdf, :type => "application/pdf",
             :filename => filename, :disposition => "inline")
+
+        authorize! :read, Guara::Jobs::StepInstance
       end
 
     end

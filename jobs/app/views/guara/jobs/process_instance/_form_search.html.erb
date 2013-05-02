@@ -3,9 +3,9 @@
 <%= semantic_form_for :search, :html => { :class => "well form-search", :method => :get } do |f| %>
 		
 		    <div class="control-group">
-				<%= label_tag :status, t("jobs.process_instance.status.title"), :class => "control-label" %>
+				<%= label_tag :finished_is_true, t("jobs.process_instance.status.title"), :class => "control-label" %>
 				<div class="controls">
-					<%= f.select :status, %>
+					<%= f.select :finished_is_true, options_for_select([["Aberto", 0], ["Fechado", 1]], params[:search][:finished_is_true]) %>
 				</div>
 			</div>
 

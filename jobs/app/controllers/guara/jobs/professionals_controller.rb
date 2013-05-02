@@ -27,7 +27,7 @@ module Guara
 	            format.html { render "search" }
             end
 
-            authorize! Guara::Jobs::Professional, :read
+            authorize! :read, Guara::Jobs::Professional
 	    end
 	    
 	    def search_select
@@ -40,7 +40,7 @@ module Guara
 	        format.json { render :json => { results: @professionals.map { |p| { :value => p.id, :description => p.name } } } }
         end
         
-        authorize! Guara::Jobs::Professional, :read
+        authorize! :read, Guara::Jobs::Professional
       end
 
 	    def searched_professionals
