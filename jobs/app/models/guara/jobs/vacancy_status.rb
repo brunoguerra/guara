@@ -5,15 +5,15 @@ module Guara
       
       attr_accessor :id, :name, :parent, :routers
       
-      @@opened   = VacancyStatus.new(id: 1, status: "opened")
-      @@paused   = VacancyStatus.new(id: 2, status: "paused")
-      @@closed   = VacancyStatus.new(id: 3, status: "opened")
+      @@opened   = VacancyStatus.new(id: 1, name: "opened")
+      @@paused   = VacancyStatus.new(id: 2, name: "paused")
+      @@closed   = VacancyStatus.new(id: 3, name: "opened")
 
-      @@canceled            = VacancyStatus.new(id: 4, status: "canceled", parent: @@closed)
-      @@closed_total        = VacancyStatus.new(id: 5, status: "closed total", parent: @@closed)
-      @@closed_partial      = VacancyStatus.new(id: 6, status: "closed total", parent: @@closed)
-      @@reopened_reposition = VacancyStatus.new(id: 7, status: "reopened", parent: @@opened)
-      @@reopened_others     = VacancyStatus.new(id: 8, status: "reopened", parent: @@opened)
+      @@canceled            = VacancyStatus.new(id: 4, name: "canceled",     parent: @@closed)
+      @@closed_total        = VacancyStatus.new(id: 5, name: "closed total", parent: @@closed)
+      @@closed_partial      = VacancyStatus.new(id: 6, name: "closed total", parent: @@closed)
+      @@reopened_reposition = VacancyStatus.new(id: 7, name: "reopened",     parent: @@opened)
+      @@reopened_others     = VacancyStatus.new(id: 8, name: "reopened",     parent: @@opened)
       
       @@opened.routers                   = [@@paused, @@closed_total, @@closed_partial, @@canceled]
       @@paused.routers                   = [@@reopened_others, @@reopened_reposition, @@canceled] 

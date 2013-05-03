@@ -1,0 +1,29 @@
+
+Vacancy deve ter os principais campos para geração de estatísticas e relatórios.
+
+  Campos:
+   Vaga
+   Faixa Salarial
+   Cargo
+   Número de Vagas
+   Estado Atual
+   Consultor
+   Etapa
+   Data de Abertura
+
+
+Alterações
+  Campos que hoje o vacancy não possiu e deve possuir:
+   Vaga
+   Faixa Salarial
+   Cargo
+   Número de Vagas
+   Consultor
+
+
+Estratégia de Alteração:
+  Ao salvar a primeira etapa, a tabela vacancy deve ser populada com os principais campos do primeiro StepInstance.
+
+Como implementar:
+  Hook deve ser chamado ao se salvar uma etapa.
+  O Hook deve detectar qual o nível da etapa, caso seja o primeiro, enviar o StepInstance para o Vacancy se atualizar.

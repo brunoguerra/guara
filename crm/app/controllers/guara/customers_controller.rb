@@ -28,7 +28,7 @@ module Guara
     def peform_search
       
       if !params[:search].nil? && params[:search].include?(:none) 
-        params[:search] = {:mode_advanced => true}
+        params[:search] = { :mode_advanced => true }
       end
       
       param_search = params[:search] || session[:customers_search]
