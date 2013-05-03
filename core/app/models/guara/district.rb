@@ -4,5 +4,7 @@ module Guara
     attr_accessible :name, :city, :city_id, :enabled
   
     belongs_to :city
+
+  
   end
 end

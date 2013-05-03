@@ -28,6 +28,7 @@ Guara::Core::Engine.routes.prepend do
 		resources :step
 		  
 		resources :process_instance
+		resources :vacancy_reports, only: [:index, :show]
 		
 		match "/professionals/search_select", to: "professionals#search_select"
 		match "/professionals/search", to: "professionals#search"

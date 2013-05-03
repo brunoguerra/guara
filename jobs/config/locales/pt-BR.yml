@@ -23,6 +23,9 @@ pt-BR:
       index:
         title: "Customização de Processo"
         link: "Customização de Processo"
+
+    vacancy_reports:
+      link: "Relatórios"
     
     process_instance:
       date_start: "Data Inicial"
