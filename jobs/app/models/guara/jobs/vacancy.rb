@@ -24,7 +24,7 @@ module Guara
       end
       
       def change_status(new_status)
-        if status.routers.include new_status
+        if status.routes.include?(new_status)
           self.status_id = new_status.id
         end
       end

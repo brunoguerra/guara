@@ -34,7 +34,9 @@ module Guara
               vacancy.send(sys_name+"=").to_sym, attr.value)
             end
           end
+          vacancy.save!
         end
+        
       end
       
     end
