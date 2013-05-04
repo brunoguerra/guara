@@ -5,6 +5,12 @@ module Guara
                       :customer_id, :role_id, :type_id, :total, :salary_id, :consultante_id
       belongs_to :process_instance
       
+      after_save :after_save_check_status
+
+      @user_changed = nil
+
+      has_many :histories, class_name: "Guara::Jobs::VacancyStatusHistory"
+
       def selection_professionals_selecteds()
         @step_profs = self.process_instance.custom_process.steps.joins(:step_attrs).where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
         raise "Unkow step with professionals selection" if @step_profs.nil?
@@ -27,7 +33,15 @@ module Guara
         if status.routes.include?(new_status)
 
           self.status_id = new_status.id
+        else
+          raise "Status invalid. Status %s not in router %s" % [new_status.name, status.routes.map(&:name).join(", ")]
         end
+      end
+
+      def change_status!(new_status, user=nil)
+        self.change_status(new_status)
+        @user_changed = user
+        self.save!
       end
         
       def self.custom_process_id
@@ -39,6 +53,18 @@ module Guara
         end
         
       end
+
+      private
+        def after_save_check_status
+          if status_id_changed?
+
+            histories.create(
+                :user => @user_changed,
+                status_old: self.status_id_was,
+                status_new: self.status_id
+              )
+          end
+        end
     end
   end
 end

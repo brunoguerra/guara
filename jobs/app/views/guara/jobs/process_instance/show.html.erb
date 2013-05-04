@@ -23,11 +23,8 @@
 		</li>
 
 		<li class="span3">
-			<h2><%= t('jobs.vacancies_status.status') %></h2>
-			<div class="thumbnail">
-				<%= render :partial => @process_instance.custom_process.hook.widget_show.to_s if @process_instance.custom_process.has_hook? && 
+			<%= render :partial => @process_instance.custom_process.hook.widget_show.to_s if @process_instance.custom_process.has_hook? && 
 						!@process_instance.custom_process.hook.widget_show.to_s.empty? %>
-			</div>
 		</li>
 
 		<li class="span3">

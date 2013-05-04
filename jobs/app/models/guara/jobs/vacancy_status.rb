@@ -1,9 +1,8 @@
-
 module Guara
   module Jobs
     class VacancyStatus
       
-      attr_accessor :id, :name, :parent, :routers, :status
+      attr_accessor :id, :name, :parent, :routes, :status
       
       def initialize(params={})
         params.each do |k,v|
@@ -31,6 +30,7 @@ module Guara
       @@reopened_reposition.routes      = @@opened.routes
       @@reopened_others.routes          = @@opened.routes
       
+
     	def self.enum
     		{
     			1 => @@opened,

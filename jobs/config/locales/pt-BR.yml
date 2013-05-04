@@ -135,6 +135,16 @@ pt-BR:
     careers: &attrs_career
       role: "Cargo"
 
+    vacancy_status:
+      opened: "Aberto"
+      paused: "Suspenso"
+      canceled: "Cencelado"
+      closed: "Fechado"
+      reopened_others: "Reaberto Outros"
+      reopened_reposition: "Reaberto Reposição"
+      closed_total: "Fecha Total"
+      closed_partial: "Fechado Parcial"
+
   jobs_business_actions:
     title: "Área de Atuação"
 
@@ -253,13 +263,3 @@ pt-BR:
 
   vacancy_sended_professionals:
     send: "Enviar"
-
-  vacancy_status:
-    opened: "Aberto"
-    paused: "2Aberto"
-    canceled: "3Aberto"
-    closed: "Fechado"
-    reopened_others: "Reaberto Outros"
-    reopened_reposition: "Reaberto Reposição"
-    closed_total: "Fecha"
-    closed_partial: "7Aberto"
