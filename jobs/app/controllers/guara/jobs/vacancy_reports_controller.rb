@@ -1,9 +1,9 @@
 module Guara
 	module Jobs
-		class VacancyReportsController < Guara::Jobs::ProcessInstanceController
+		class VacancyReportsController < Guara::BaseController
 			
 			def index
-				super
+				
 			end
 
 		end

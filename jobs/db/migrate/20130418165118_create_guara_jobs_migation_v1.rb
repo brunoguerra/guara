@@ -21,7 +21,7 @@ class CreateGuaraJobsMigationV1 < ActiveRecord::Migration
     
     create_table :guara_jobs_step_attrs do |t|
       t.string   :title
-      t.string   :position
+      t.integer  :position
       t.string   :options
       t.string   :widget
       t.string   :group
