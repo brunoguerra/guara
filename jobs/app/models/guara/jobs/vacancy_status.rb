@@ -20,15 +20,16 @@ module Guara
       @@closed_partial      = VacancyStatus.new(id: 6, name: "closed_partial", parent: @@closed)
       @@reopened_reposition = VacancyStatus.new(id: 7, name: "reopened_reposition", parent: @@opened)
       @@reopened_others     = VacancyStatus.new(id: 8, name: "reopened_others", parent: @@opened)
+
       
-      @@opened.routers                   = [@@paused, @@closed_total, @@closed_partial, @@canceled]
-      @@paused.routers                   = [@@reopened_others, @@reopened_reposition, @@canceled] 
-      @@canceled.routers                 = [@@reopened_others, @@reopened_reposition]
-      @@closed.routers                   = [@@reopened_others, @@reopened_reposition] 
-      @@closed_total.routers             = @@closed.routers
-      @@closed_partial.routers           = @@closed.routers
-      @@reopened_reposition.routers      = @@opened.routers
-      @@reopened_others.routers          = @@opened.routers
+      @@opened.routes                   = [@@paused, @@closed_total, @@closed_partial, @@canceled]
+      @@paused.routes                   = [@@reopened_others, @@reopened_reposition, @@canceled] 
+      @@canceled.routes                 = [@@reopened_others, @@reopened_reposition]
+      @@closed.routes                   = [@@reopened_others, @@reopened_reposition] 
+      @@closed_total.routes             = @@closed.routes
+      @@closed_partial.routes           = @@closed.routes
+      @@reopened_reposition.routes      = @@opened.routes
+      @@reopened_others.routes          = @@opened.routes
       
     	def self.enum
     		{

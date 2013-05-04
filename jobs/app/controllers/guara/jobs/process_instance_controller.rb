@@ -96,7 +96,8 @@ module Guara
         return grouped_column_attrs
       end
 
-      def create_step_instance_attrs
+      def create_step_instance_attrs        
+        attrs = []
         @step_instance_attrs.each do |key, value|
           step_attr_val = {
             :process_instance_id=> params[:id], 
@@ -114,6 +115,12 @@ module Guara
             step_attr_val[:value] = value
             @step_instance_attr = StepInstanceAttr.create(step_attr_val)
           end
+          attrs << @step_instance_attr
+        end
+        
+        if @process_instance.custom_prcess.has_hook? && @process_instance.custom_prcess.hook.respond_to?(:step_instance_after_save)
+          @step = Step.find @step_id
+          @process_instance.custom_prcess.hook.step_instance_after_save(attrs, @process_instance, @step)
         end
 
         authorize! :create, Guara::Jobs::StepInstance

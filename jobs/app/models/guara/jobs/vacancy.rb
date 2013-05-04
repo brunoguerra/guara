@@ -1,7 +1,8 @@
 module Guara
   module Jobs
     class Vacancy < ActiveRecord::Base
-      attr_accessible :process_instance, :process_instance_id, :status, :status_id
+      attr_accessible :process_instance, :process_instance_id, :status, :status_id, :system_name,
+                      :customer_id, :role_id, :type_id, :total, :salary_id, :consultante_id
       belongs_to :process_instance
       
       def selection_professionals_selecteds()
@@ -23,7 +24,8 @@ module Guara
       end
       
       def change_status(new_status)
-        if status.routers.include? new_status
+        if status.routes.include?(new_status)
+
           self.status_id = new_status.id
         end
       end

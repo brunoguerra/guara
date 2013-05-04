@@ -20,7 +20,7 @@
 		    <div class="control-group">
 		    	<%= label_tag "role_equals", t('jobs.professional.role'), :class => "control-label" %>
 		    	<div class="controls">
-		    		<%= select_tag "role_equals", options_from_collection_for_select(
+		    		<%= select_tag "vacancy_role_id_equals", options_from_collection_for_select(
 		    		Guara::Jobs::Role.all, :id, :name), { :include_blank => true }  %>
 		    	</div>
 			</div>
