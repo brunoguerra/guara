@@ -42,7 +42,22 @@ module Guara
     			7 => @@reopened_reposition,
     			8 => @@reopened_others    			
     		}
-    	end
+      end
+
+      def self.status_translation
+        {
+          1 => I18n.t("jobs.vacancy_status.opened"),
+          2 => I18n.t("jobs.vacancy_status.paused"),
+          3 => I18n.t("jobs.vacancy_status.canceled"),
+          4 => I18n.t("jobs.vacancy_status.closed"),
+          5 => I18n.t("jobs.vacancy_status.reopened_others"),
+          6 => I18n.t("jobs.vacancy_status.reopened_reposition"),
+          7 => I18n.t("jobs.vacancy_status.closed_total"),
+          8 => I18n.t("jobs.vacancy_status.closed_partial")          
+        }
+      end
+
+
     end
   end
 end

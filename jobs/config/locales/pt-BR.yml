@@ -26,7 +26,14 @@ pt-BR:
 
     vacancy_reports:
       link: "Relatórios"
-    
+      total: "Nº Vagas"
+      customer_pj: "Empresa"
+      role: "Cargo"
+      status: "Status"
+      consultant: "Consultor(a)"
+      elaboration_reports: "Elaboração do Relatório"
+      date_start: "Data de Abertura"
+      
     process_instance:
       date_start: "Data Inicial"
       date_finish: "Data Final"
