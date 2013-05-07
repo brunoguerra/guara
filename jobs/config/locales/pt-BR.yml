@@ -32,7 +32,9 @@ pt-BR:
       status: "Status"
       consultant: "Consultor(a)"
       elaboration_reports: "Elaboração do Relatório"
-      date_start: "Data de Abertura"
+      date_start: "Abertura"
+      monitoring_reports: "Relatório de Acompanhamento de Vaga"
+      step: "Etapa"
       
     process_instance:
       date_start: "Data Inicial"

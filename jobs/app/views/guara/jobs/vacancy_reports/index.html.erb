@@ -1,9 +1,9 @@
-<section id="jobs">
+<section id="vacancy">
 
   <div>
     <navbar>
       <%= render :partial => "guara/jobs/jobs/navbar", 
-      :locals => { active: :vacancy_reports } %>
+      :locals => { active: :reports } %>
     </navbar>
     
     <div>
@@ -19,40 +19,29 @@
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th><%= t("jobs.process_instance.id") %></th>
-                      <th><%= t("jobs.process_instance.business") %></th>
-                      <th><%= t("jobs.process_instance.role") %></th>
-                      <th><%= t("jobs.process_instance.date_start") %></th>
-                      <th><%= t("jobs.process_instance.date_finish") %></th>
-                      <th><%= t("jobs.process_instance.step") %></th>
+                      <th><%= t("jobs.vacancy_reports.customer_pj") %></th>
+                      <th><%= t("jobs.vacancy_reports.role") %></th>
+                      <th><%= t("jobs.vacancy_reports.total") %></th>
+                      <th><%= t("jobs.vacancy_reports.status") %></th>
+                      <th><%= t("jobs.vacancy_reports.consultant") %></th>
                       <th class="span1"><%= t("helpers.forms.actions") %></th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    <% @process_instance.each do |p|
-                      custom_process = p.custom_process 
-                      business_attr = custom_process.step.attrs.where("options ILIKE '%Guara::CustomerPj'").first()
-                      role_attr = custom_process.step.attrs.where(:options=> '$Guara::Jobs::Role').first()
-                      %>
-                      
-                      <tr class="<%= p.custom_process.enabled == false ? 'warning' : '' %>">
-                        <td><%= link_to p.id, process_instance_path(p) %></td>
-                        <td><%= show_attr_value(p, business_attr) %></td>
-                        <td><%= show_attr_value(p, role_attr) %></td>
-                        <td><%= !p.date_start.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
-                        <td><%= !p.date_finish.nil? ? p.date_finish.strftime("%d/%m/%Y") : ''  %></td>
-                        <td><%= p.step.name  %></td>
-                        <td>
-                          <%= index_btn_view process_instance_path(p), "Exibir Processo" %>
-                        </td>
+                    <% @vacancy.each do |v|  %>
+                      <tr>
+                        <td><%= v.customer_pj.name if !v.customer_pj.nil? %></td>
+                        <td><%= v.role.name if !v.role.nil? %></td>
+                        <td><%= v.total %></td>
+                        <td><%= Guara::Jobs::VacancyStatus.status_translation[v.status_id] %></td>
+                        <td><%= v.consultant.name if !v.consultant.nil? %></td>
+                        <td></td>
                       </tr>
                     <% end %>
                   </tbody>
                 </table>
-                <%= will_paginate(@process_instance) %>
-
-                <%= link_to t('helpers.forms.new'), new_process_instance_path(:process_id => Guara::Jobs::Vacancy.custom_process), :class => "btn" %>
+   
 
               </div>
             </div>
@@ -62,6 +51,9 @@
             <div class="thumbnail">
               <div class="caption">
                 <%= render :partial => 'form_search' %>
+
+                <%= link_to raw('<i  class="icon-list"></i> Gerar PDF'), 
+                  nit_generator_path(@vacancy_reports, :pdf), :class => "btn", :title=>"Gerar PDF" %>
               </div>
             </div>
           </li>

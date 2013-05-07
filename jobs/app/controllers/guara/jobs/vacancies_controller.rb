@@ -15,23 +15,25 @@ module Guara
       
       def index
         param_search = params[:search]
-
         if !param_search.nil? && param_search.size>0 
           filter_multiselect param_search, :role_id_in
           filter_multiselect param_search, :status_id_in
           filter_multiselect param_search, :consultant_id_in
         end
 
-        #raise param_search.to_yaml
         @search = Vacancy.search(param_search)
+        @vacancy = paginate(@search, params[:page])
 
-        if class_exists?("Ransack")
-            @vacancy = @search.result().paginate(page: params[:page], :per_page => 10)
-        else
-            @vacancy = @search.paginate(page: params[:page], :per_page => 10)
+        respond_to do |format|
+          format.html do
+            #
+          end
+          format.pdf do
+            render :pdf => "vacancy_reports.pdf", :template => 'guara/jobs/vacancies/index'
+          end
         end
       end
 
-    end
+    end # end class
   end
 end
