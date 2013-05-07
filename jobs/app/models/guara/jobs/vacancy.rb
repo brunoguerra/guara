@@ -1,10 +1,50 @@
 module Guara
   module Jobs
     class Vacancy < ActiveRecord::Base
-      attr_accessible :process_instance, :process_instance_id, :status, :system_name, :customer_id,
-                      :role_id, :type_id, :total, :salary_id, :consultante_id
+      attr_accessible :process_instance, :process_instance_id, 
+                      :status, 
+                      :status_id, 
+                      :system_name, 
+                      :customer_pj_id, 
+                      :role_id, 
+                      :type_id, 
+                      :total, 
+                      :salary_id, 
+                      :consultant_id
+
       belongs_to :process_instance
+      belongs_to :role
+      belongs_to :consultant
+
+      belongs_to :customer_pj, class_name: "Guara::CustomerPj"
       
+      after_save :after_save_check_status
+
+      @user_changed = nil
+
+      has_many :histories, class_name: "Guara::Jobs::VacancyStatusHistory"
+
+      def customer_pj_id_multi=(ids)
+        self.customer_pj_id = ids[0]
+      end
+
+      def consultant_id_multi=(ids)
+        self.consultant_id = ids[0]
+      end
+
+      def salary_id_multi=(ids)
+        self.salary_id = ids[0]
+      end
+
+      def role_id_multi=(ids)
+        self.role_id = ids[0]
+      end
+
+      def type_id_multi=(ids)
+        self.type_id = ids[0]
+      end
+
+
       def selection_professionals_selecteds()
         @step_profs = self.process_instance.custom_process.steps.joins(:step_attrs).where("guara_jobs_step_attrs.widget='selecionar_candidatos'").first
         raise "Unkow step with professionals selection" if @step_profs.nil?
@@ -25,8 +65,17 @@ module Guara
       
       def change_status(new_status)
         if status.routes.include?(new_status)
+
           self.status_id = new_status.id
+        else
+          raise "Status invalid. Status %s not in router %s" % [new_status.name, status.routes.map(&:name).join(", ")]
         end
+      end
+
+      def change_status!(new_status, user=nil)
+        self.change_status(new_status)
+        @user_changed = user
+        self.save!
       end
         
       def self.custom_process_id
@@ -38,6 +87,18 @@ module Guara
         end
         
       end
+
+      private
+        def after_save_check_status
+          if status_id_changed?
+
+            histories.create(
+                :user => @user_changed,
+                status_old: self.status_id_was,
+                status_new: self.status_id
+              )
+          end
+        end
     end
   end
 end

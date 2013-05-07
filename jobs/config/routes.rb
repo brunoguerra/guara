@@ -34,7 +34,8 @@ Guara::Core::Engine.routes.prepend do
 		match "/interviewer_professional/show_embeded_process", :to => "interviewer_professionals#show_embeded_process"
 		match "/professionals_synthesis/show_synthesis", :to => "professionals_synthesis#show_synthesis"
 		match "/vacancy_sended_professionals/send_email_customer_pj", :to => "vacancy_sended_professionals#send_email_customer_pj"
-
+		match "/vacancy_sended_professionals/show_pdf_professional", :to => "vacancy_sended_professionals#show_pdf_professional"
+		
 		resources :vacancies do
 		  resource :scheduler_professional, controller: "SchedulerProfessionals"
 		  resource :interviewer_professional, controller: "InterviewerProfessionals"
@@ -43,6 +44,7 @@ Guara::Core::Engine.routes.prepend do
 		  resource :vacancy_customer_interview, controller: "VacancyCustomerInterview"
 		  resource :vacancy_psychological_evaluation_evaluation, controller: "VacancyProfessionalsPsychologicalEvaluation" 
 		  resource :vacancy_final_result, controller: "VacancyFinalResult"
+		  get "change_status"
 	  end
 
 	end

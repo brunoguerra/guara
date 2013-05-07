@@ -32,7 +32,7 @@
                   <tbody>
                     <% @process_instance.each do |p|
                       custom_process = p.custom_process 
-                      business_attr = custom_process.step.attrs.where(:options=> '$Guara::CustomerPj').first()
+                      business_attr = custom_process.step.attrs.where("options ILIKE '%Guara::CustomerPj'").first()
                       role_attr = custom_process.step.attrs.where(:options=> '$Guara::Jobs::Role').first()
                       %>
                       

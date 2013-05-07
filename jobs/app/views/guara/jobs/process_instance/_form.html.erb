@@ -47,7 +47,7 @@
 <% end %>
 
 <script type="text/javascript">
-	$(function() {
+	
 		$('.date_format').datepicker($.datepicker.regional['pt-BR']);
 		offs = $('#form_navbar').offset();
 		if(!offs){
@@ -69,8 +69,6 @@
 			<%= process_instance_js_required_fields(@current_step) %>
 			return true;
 		}
-		
-	});
 	
 </script>
 <style>

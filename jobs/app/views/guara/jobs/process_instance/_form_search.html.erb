@@ -3,7 +3,7 @@
 <%= semantic_form_for :search, :html => { :class => "well form-search", :method => :get } do |f| %>
 		
 		    <div class="control-group">
-				<%= label_tag :finished_is_true, t("jobs.process_instance.status"), :class => "control-label" %>
+				<%= label_tag :finished_is_true, t("jobs.process_instance.status.title"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.select :finished_is_true, options_for_select([["Aberto", 0], ["Fechado", 1]], params[:search][:finished_is_true]) %>
 				</div>
@@ -20,7 +20,7 @@
 		        <%= label_tag "date_start_gteq", t('jobs.process_instance.date'), :class => "control-label" %>
 		        <div class="controls">
 		          <%= f.text_field "date_start_gteq", :class=>"input-small date_format" %> à 
-		          <%= f.text_field "date_finish_lteq", :class=>"input-small date_format" %>
+		          <%= f.text_field "date_start_lteq", :class=>"input-small date_format" %>
 		        </div>
 		    </div>
 

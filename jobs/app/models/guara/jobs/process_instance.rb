@@ -7,6 +7,8 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
   belongs_to :step, foreign_key: "state"
   #@deprecated Utilizar o acesso por step
   has_many :step_instance_attrs, :dependent => :destroy
+
+  has_one :vacancy
   
   after_save :after_save
   

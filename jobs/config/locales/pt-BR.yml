@@ -23,7 +23,19 @@ pt-BR:
       index:
         title: "Customização de Processo"
         link: "Customização de Processo"
-    
+
+    vacancy_reports:
+      link: "Relatórios"
+      total: "Nº Vagas"
+      customer_pj: "Empresa"
+      role: "Cargo"
+      status: "Status"
+      consultant: "Consultor(a)"
+      elaboration_reports: "Elaboração do Relatório"
+      date_start: "Abertura"
+      monitoring_reports: "Relatório de Acompanhamento de Vaga"
+      step: "Etapa"
+      
     process_instance:
       date_start: "Data Inicial"
       date_finish: "Data Final"
@@ -31,6 +43,11 @@ pt-BR:
       steps: "Etapas"
       role: "Cargo"
       business: "Empresa"
+
+      
+      status:
+        title: "Status"
+        open: "Aberta"
 
       processes_starteds: "Processos Iniciados"
       filters: "Filtros"
@@ -68,6 +85,8 @@ pt-BR:
       formation: "Formação Acadêmica"  
 
       salary_requirements: "Pretensão Salarial"
+      
+      salary_range: "Faixa Salarial"
 
       level_education: "Grau de Formação"
 
@@ -124,6 +143,16 @@ pt-BR:
 
     careers: &attrs_career
       role: "Cargo"
+
+    vacancy_status:
+      opened: "Aberto"
+      paused: "Suspenso"
+      canceled: "Cencelado"
+      closed: "Fechado"
+      reopened_others: "Reaberto Outros"
+      reopened_reposition: "Reaberto Reposição"
+      closed_total: "Fecha Total"
+      closed_partial: "Fechado Parcial"
 
   jobs_business_actions:
     title: "Área de Atuação"
@@ -195,3 +224,51 @@ pt-BR:
       select: "Selecionar"
 
 
+  interviewer_professionals:
+    consultant_id: "Consultor"
+    professional_id: "Candidato"
+    local: "Local"
+    date_time: "Data"
+    date_time_interviewee: "Data e hora entrevistado"
+    interviewee: "Entrevistado"
+    description: "Descrição da Entrevista"
+    avaliate: "Avaliação"
+
+  inter_view_professionals:
+    professional_id: "Candidato"
+    date_evaluation: "Avaliação"
+    date_send_report: "Envio do Relatório"
+    vacancy_final_result?: "Resultado Final ?"
+    result: "Resultado"
+    work_start_date: "Data inicial de trabalho"
+    salary: Salário
+    observation: "Observação"
+    sended?: "Enviado"
+
+
+  vacancy_psychological_evaluation:
+    date_evaluation: "Data Avaliação"
+    date_send_report: "Data de Envio"
+    return_date: "Retorno"
+    psychological_evalution?: "Avaliação Psicológica?"
+    file: "Anexar arquivo"
+    
+  vacancy_scheduling:
+      consultant_id: "Consultor"
+      date_time: "Data da Entrevista"
+      local: "Local da Entrevista"
+      candidates_disinterested: "Não tem Interesse"
+      candidates_interested: "Candidato Interessado"
+
+  vacancy_synthesis_professional:
+    synthesis: "Síntese"
+    avaliate_interview: "Avaliação Entrevista"
+
+  vacancy_customer_interview:
+    customer_interview: "Entrevista Cliente ?"
+    return_date: "Data de Retorno"
+    return_interview: "Resultado Entrevista"
+    motive: "Motivo"
+
+  vacancy_sended_professionals:
+    send: "Enviar"

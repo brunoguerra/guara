@@ -58,5 +58,7 @@ Gem::Specification.new do |s|
   s.add_dependency  'brazilian-rails'
   
   #
-  s.add_development_dependency 'annotate', '~> 2.4.1.beta'  
+  s.add_development_dependency 'annotate', '~> 2.4.1.beta'
+
+  s.add_dependency 'wicked_pdf'  
 end

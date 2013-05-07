@@ -8,6 +8,8 @@ gem "paperclip", "~> 2.7"
 
 gem "mail"
 
+gem 'wicked_pdf'
+gem "wkhtmltopdf-binary"
 
 
 gemspec

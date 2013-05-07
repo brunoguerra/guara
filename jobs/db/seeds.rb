@@ -97,6 +97,10 @@ module Guara
 			{ name: 'Consultant' },
 			{ name: 'LevelEducation' },
 			{ name: 'CustomProcess' },
+                  { name: 'ProcessInstance' },
+                  { name: 'Vacancy' },
+                  { name: 'Step' }, 
+                  { name: 'StepInstance' }, 
 		])
 
 

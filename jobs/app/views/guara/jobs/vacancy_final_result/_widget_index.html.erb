@@ -34,17 +34,15 @@
 					           <th><%= psychological.date_evaluation.strftime("%d/%m/%Y") %></th>
 					           <th><%= psychological.date_send_report.strftime("%d/%m/%Y") %></th>
 					           <th>
-					      	 	<%
-					      	 		if psychological.vacancy_final_result.nil? %>
+					      	 	<% if psychological.vacancy_final_result.nil? %>
 					      	 			<span class="badge badge-important">Não</span>
-					      	 		<% else %>
-					      	 			<span class="badge badge-success">Sim</span>
-					      	 		<% end
-					      	  	%>
-					      	 </th>
-					      	 <th>
-			        			<%= link_to t("helpers.forms.update"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_final_result(#{psychological.id}, '#{psychological.vacancy_final_result.nil? ? 'new' : 'edit'}' ); " %>
-					      	 </th>
+					      	 	<% else %>
+					      	 		<span class="badge badge-success">Sim</span>
+					      	 	<% end %>
+					      	   </th>
+						      	 <th>
+				        			<%= link_to t("helpers.forms.update"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_final_result(#{psychological.id}, '#{psychological.vacancy_final_result.nil? ? 'new' : 'edit'}' ); " %>
+						      	 </th>
 					        </tr>
 				      	<% end %>
 				      	</tbody>

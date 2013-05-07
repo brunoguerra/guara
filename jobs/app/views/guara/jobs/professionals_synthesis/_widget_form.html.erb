@@ -2,7 +2,7 @@
 :url=> vacancy_synthesis_professional_path(@vacancy), 
 :html => {:class => "well", :onsubmit=> "return vacancy_synthesis_professional_submit();"}  do |f| %>
 	
-	<%= f.input :synthesis, :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
+	<%= f.input :synthesis, :label => t("vacancy_synthesis_professional.synthesis") ,:as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
 	<%= f.input :id, :as=> :hidden %>
 	<%= f.submit "Salvar", class: "btn btn-primary" %>
 <% end %>
@@ -27,8 +27,8 @@
 			if(data.success==true){
 		  		var id = jQuery('#jobs_vacancy_professionals_interview_id').val();
 				alert('Sintese Atualizada');
+		  		$('#professional_synthesis_'+id).html('<span class="badge badge-success">Sim</span>');
 		  		jQuery('#form_candidate_selected').empty();
-		  		$('#professional_synthesis_'+id).text(jQuery(text_area).val());
 			}
 		});
 
