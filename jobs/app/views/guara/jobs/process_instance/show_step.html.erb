@@ -27,7 +27,6 @@
 					<%= link_to 'Voltar', process_instance_path(@process_instance), :class=> "btn" %> 
 
 					<% if @process_instance.custom_process.enabled == true %>
-
 						<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> @current_step.id), :class=> "btn" %> 
 						<% if !@current_step.next.nil? %>
 						<%= link_to 'Próxima Etapa', edit_process_instance_path(@process_instance.id), :class=> "btn" %> 

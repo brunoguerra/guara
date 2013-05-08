@@ -159,7 +159,7 @@ module Guara
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
       else
-        render 'edit.'+preferences_customer_type?.to_s
+        render 'edit'
       end
     end
   

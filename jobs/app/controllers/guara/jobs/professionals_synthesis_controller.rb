@@ -40,6 +40,8 @@ module Guara
 		        @interviewer_professional = VacancyProfessionalsInterview.find(@a[:id])
 		          
 		        if @interviewer_professional.update_attribute(:synthesis, @a[:synthesis])
+		        	scheduling = VacancySchedulingProfessional.find @interviewer_professional.scheduling_id
+        			VacancySendedProfessionalsMailer.load_pdf_professional(scheduling, true)
 		            render :json => {:success=> true}
 		        else
 		            render :json => {:data=> @interviewer_professional.errors, :success=> false} 

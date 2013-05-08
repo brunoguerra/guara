@@ -1,8 +1,9 @@
 <%= semantic_form_for @scheduling, 
 :url => vacancy_interviewer_professional_path(@vacancy), 
-:html => {:class => "well", :onsubmit=> "return vacancy_interviewer_professional_submit();"}  do |f| %>
+:html => {:class => "well", :onsubmit=> "return false;"}  do |f| %>
 		
 	<%= f.input :date_time_interviewee, :as=> :string,
+		:label => t("interviewer_professionals.date_time_interviewee"),
 		:input_html=> {
       		"data-behaviour" => "datetimepicker",
       		:value=> !@scheduling.date_time_interviewee.nil? ? @scheduling.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : ""
@@ -13,13 +14,13 @@
 
 		</div>
 		<div class="span8">
-		<%= f.input :avaliate, :as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
+		<%= f.input :avaliate, :label => t("interviewer_professionals.avaliate") ,:as=> :select, :collection => Guara::Jobs::LevelAvaliation.levels_translated.map{|a, b| [b, a]} %>
 		
-		<%= f.input :description, :as=> :text, :input_html => {:rows => 5, :cols => 20, :maxlength => 255  } %>
+		<%= f.input :description,  :label => t("interviewer_professionals.description"), :as=> :text, :input_html => {:rows => 5, :cols => 20, :maxlength => 255  } %>
 		<%= f.input :vacancy_id, :as=> :hidden %>
 	    <%= f.input :professional_id, :as=> :hidden %>
 		</div>
-		<%= f.submit "Salvar", class: "btn btn-primary" %>
+		<%= link_to "Salvar", "javascript:void(0);", class: "btn btn-primary", onClick: "vacancy_interviewer_professional_submit();" %>
 	</div>	
 <% end %>
 
@@ -54,18 +55,19 @@
 			data[$(text_area_ebd[i]).attr('name')] = $(text_area_ebd[i]).val();
 		}
 
-		validate();
+		if(validate()){
+			$.ajax({
+			  type: "POST",
+			  url: $(form).attr('action'),
+			  data: data,
+			}).done(function( data ) {
+				if(data.success==true){
+					alert('Entrevista Atualizada');
+			  		$('#form_candidate_selected').empty();
+				}			
+			});
+		}
 		
-		$.ajax({
-		  type: "POST",
-		  url: $(form).attr('action'),
-		  data: data,
-		}).done(function( data ) {
-			if(data.success==true){
-				alert('Entrevista Atualizada');
-		  		$('#form_candidate_selected').empty();
-			}			
-		});
 
 		return false;
 	}

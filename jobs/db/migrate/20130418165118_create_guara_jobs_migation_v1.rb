@@ -1,4 +1,4 @@
-class CreateGuaraJobsMigrationV1 < ActiveRecord::Migration
+class CreateGuaraJobsMigationV1 < ActiveRecord::Migration
   def change
   	create_table  :guara_jobs_custom_processes do |t|
   		t.string  :name
@@ -21,7 +21,7 @@ class CreateGuaraJobsMigrationV1 < ActiveRecord::Migration
     
     create_table :guara_jobs_step_attrs do |t|
       t.string   :title
-      t.string   :position
+      t.integer  :position
       t.string   :options
       t.string   :widget
       t.string   :group

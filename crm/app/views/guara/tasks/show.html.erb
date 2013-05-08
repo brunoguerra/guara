@@ -25,17 +25,17 @@
           </div>
 
           <div class="control-group">
-          	<%= show_label_tag t("task.contact") %>
-          	<%= @task.contact.name %>
+          	<%= show_label_tag t("tasks.contact") %>
+          	<%= @task.contact.name if !@task.contact.nil? %>
           </div>
 
           <div class="control-group">
-          	<%= show_label_tag t('task.assigned') %>
+          	<%= show_label_tag t('tasks.assigned') %>
           	<%= name_or_empty@task.assigned %>
           </div>
 
           <div class="control-group">
-            <%= show_label_tag t('task.notes') %>
+            <%= show_label_tag t('tasks.notes') %>
             <%= simple_format@task.notes %>
           </div>
 

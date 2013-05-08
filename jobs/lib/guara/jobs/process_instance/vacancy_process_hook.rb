@@ -3,14 +3,12 @@ module Guara
     class VacancyProcessHook
       include Guara::ActiveProcess::ProcessHooker
       
-      FIELDS_STEP_OPENING = [:system_name,
-                              :customer_id,
+      FIELDS_STEP_OPENING = [ :customer_pj_id,
                               :role_id,
                               :type_id,
                               :total,
                               :salary_id,
-                              :consultante_id]
-      
+                              :consultant_id]
       
       def initialize(obj)
         def obj.hook_after_save()
@@ -19,19 +17,23 @@ module Guara
           vacancy.save
         end
       end
-      
-      
+       
       def self.widget_show
-        "guara/jobs/vacancy/widget_vacancy_status"
+        "guara/jobs/vacancies/widget_vacancy_status"
       end
       
-      def self.step_instace_after_save(step_instance_attrs, process_instance, step)
-        vacancy = Guara::Jobs.Vacancy.where(process_instance: process_instance).first
-        if step.level==1          
+      def self.step_instance_after_save(step_instance_attrs, process_instance, step)
+        vacancy = Guara::Jobs::Vacancy.where(process_instance_id: process_instance).first
+
+        if step.level==0
           step_instance_attrs.each do |sattr|
             sys_name = sattr.step_attr.system_name.to_s
-            if (FIELDS_STEP_OPENING.include?(sys_name.to_sym)
-              vacancy.send(sys_name+"=").to_sym, attr.value)
+            if FIELDS_STEP_OPENING.include?(sys_name.to_sym)
+              if sattr.step_attr.type_field == "select"
+                vacancy.send((sys_name+"_multi=").to_sym, sattr.values.map(&:value))
+              else
+                vacancy.send((sys_name+"=").to_sym, sattr.value)
+              end
             end
           end
           vacancy.save!

@@ -3,8 +3,8 @@ require File.expand_path("../../jobs", __FILE__) if Rails.env.development?
 module Guara
   module Jobs
     class StepAttr < ActiveRecord::Base
-      attr_accessible :title, :column, :required, :widget, :group, :type_field, :system_name 
-      :position, :step_id, :options, :resume
+      attr_accessible :title, :column, :required, :widget, :group, :type_field, :system_name,
+                      :position, :step_id, :options, :resume
       
       attr_writer :html_options, :select_opts
 

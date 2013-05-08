@@ -3,22 +3,35 @@
 	    <thead>
 	      <tr>
 	        <th><%= t("inter_view_professionals.id") %></th>
+	        <th><%= t("interviewer_professionals.consultant_id") %></th>
 	        <th><%= t("inter_view_professionals.professional_id") %></th>
-	        <th><%= t("inter_view_professionals.synthesis") %></th>
-	        <th><%= t("inter_view_professionals.return_date") %></th>
-	        <th><%= t("inter_view_professionals.return_interview") %></th>
+	        <th><%= t("vacancy_customer_interview.customer_interview") %></th>
+	        <th><%= t("vacancy_customer_interview.return_date") %></th>
+	        <th><%= t("vacancy_customer_interview.return_interview") %></th>
 	      </tr>
 	    </thead>
 	    <tbody>
 		<% @sended_professionals.each do |p| 
 			customer_interview = Guara::Jobs::VacancyCustomerInterview.find_by_vacancy_sended_professionals_id(p.sended_id)
+
 			%>
 	      <tr>
 	      	 <th><%= p.id %></th>
-	      	 <th><%= p.professional.person.name %></th>
-	      	 <th><%= p.interview.synthesis %></th>
-	      	 <th><%= customer_interview.return_date.strftime("%d/%m/%Y") %></th>
-	      	 <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[customer_interview.return_interview] %>
+	      	 <th><%= p.consultant.name %></th>
+	      	 <th><%= p.professional.person.name %></th>	 
+	      	 <th>
+	      	 	<%
+	      	 		vacancy_sended_count = Guara::Jobs::VacancyCustomerInterview
+	      	 		.where(:vacancy_sended_professionals_id=>p.sended_id).count()
+	      	 		if vacancy_sended_count == 0 %>
+	      	 			<span class="badge badge-important">Não</span>
+	      	 		<% else %>
+	      	 			<span class="badge badge-success">Sim</span>
+	      	 		<% end
+	      	  	%>
+	      	 </th>
+	      	 <th><%= customer_interview.return_date.strftime("%d/%m/%Y") if !customer_interview.nil? %></th>
+	      	 <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[customer_interview.return_interview] if !customer_interview.nil? %>
 	      	 </th>
 	      </tr>
 	    <% end %>

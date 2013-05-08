@@ -1,0 +1,2 @@
+
+create database a encoding='UTF8' LC_COLLATE='pt_BR.UTF8' LC_CTYPE='pt_BR.UTF8' TEMPLATE template0;

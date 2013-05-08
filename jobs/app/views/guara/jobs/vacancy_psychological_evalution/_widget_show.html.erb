@@ -3,18 +3,34 @@
       <thead>
         <tr>
           <th><%= t("inter_view_professionals.id") %></th>
+          <th><%= t("interviewer_professionals.consultant_id") %></th>
           <th><%= t("inter_view_professionals.professional_id") %></th>
-          <th><%= t("inter_view_professionals.date_evaluation") %></th>
-          <th><%= t("inter_view_professionals.date_send_report") %></th>
+          <th><%= t("vacancy_psychological_evaluation.date_evaluation") %></th>
+          <th><%= t("vacancy_psychological_evaluation.date_send_report") %></th>
+          <th><%= t("vacancy_psychological_evaluation.psychological_evalution?") %></th>
+          <th><%= t("helpers.forms.actions") %></th>
         </tr>
       </thead>
       <tbody>
     <% @customer_interviews.each do |customer_interview| %>
         <tr>
            <th><%= customer_interview.id %></th>
+           <th><%= customer_interview.scheduling.consultant.name %></th>
            <th><%= customer_interview.scheduling.professional.person.name %></th>
-           <th><%= customer_interview.psychological.date_evaluation.strftime("%d/%m/%Y") %></th>
-           <th><%= customer_interview.psychological.date_send_report.strftime("%d/%m/%Y") %></th>
+           <th><%= customer_interview.psychological.date_evaluation.strftime("%d/%m/%Y") if !customer_interview.psychological.nil? %></th>
+           <th><%= customer_interview.psychological.date_send_report.strftime("%d/%m/%Y") if !customer_interview.psychological.nil? %></th>
+           <th>
+            <%
+              if customer_interview.psychological.nil? %>
+                <span class="badge badge-important">Não</span>
+              <% else %>
+                <span class="badge badge-success">Sim</span>
+              <% end
+              %>
+           </th>
+           <th>
+            <%= link_to t("helpers.forms.update"), 'javascript:void(0);', :class => "btn", :onClick=>"vacancy_psychological(#{customer_interview.id}, '#{customer_interview.psychological.nil? ? 'new' : 'edit'}' ); " %>
+           </th>
         </tr>
       <% end %>
 

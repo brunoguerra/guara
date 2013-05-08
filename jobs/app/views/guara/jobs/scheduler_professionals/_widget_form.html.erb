@@ -3,15 +3,15 @@
 :html => {:class => "well", :onsubmit=> "return vacancy_scheduler_professional_submit();"}  do |f| %>
   <fieldset>
     <div class="control-group">
-      <%= f.input :date_time, :as => :string, 
+      <%= f.input :date_time, :as => :string, :label => t("vacancy_scheduling.date_time"),
       	:input_html=> {
       		"data-behaviour" => "datetimepicker",
       		:value=> !@vacancy_scheduling.new_record? ? 
       			(@vacancy_scheduling.date_time.nil? ? "" : 
       			@vacancy_scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") ) : ""
       	} %>
-      <%= f.input :local %>
-      <%= f.input :consultant_id, :as => :select, :collection => Guara::Jobs::Consultant.all %>
+      <%= f.input :local, :label => t("vacancy_scheduling.local") %>
+      <%= f.input :consultant_id, :as => :select, :label => t("vacancy_scheduling.consultant_id") ,:collection => Guara::Jobs::Consultant.all %>
       <%= f.input :vacancy_id, :as=> :hidden %>
       <%= f.input :professional_id, :as=> :hidden %>
       <%= link_to 'Deletar', 'javascript:void(0);', :onClick=>"vacancy_scheduler_professional_remove();", :class=>"btn" if !@vacancy_scheduling.new_record? %>

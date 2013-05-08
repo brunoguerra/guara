@@ -6,10 +6,10 @@
 <%= semantic_form_for @final_result, 
 :url=> vacancy_vacancy_final_result_path(@vacancy), 
 :html => {:class => "well"}  do |f| %>
-	<%= f.input :result, :as=> :select, :collection => Guara::Jobs::CustomerInterviewReturn.levels_translated.map{|a, b| [b, a]} %>
-	<%= f.input :salary, :as=> :string, :input_html=> {:class=> "price"} %>
-	<%= f.input :work_start_date, :as=> :string, :input_html=> {:class=> "date_format"} %>
-	<%= f.input :observation, :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
+	<%= f.input :result, :label => t("inter_view_professionals.result"),:as=> :select, :collection => Guara::Jobs::CustomerInterviewReturn.levels_translated.map{|a, b| [b, a]} %>
+	<%= f.input :salary, :label => t("inter_view_professionals.salary"),:as=> :string, :input_html=> {:class=> "price"} %>
+	<%= f.input :work_start_date, :label => t("inter_view_professionals.work_start_date"),:as=> :string, :input_html=> {:class=> "date_format"} %>
+	<%= f.input :observation, :label => t("inter_view_professionals.observation"), :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
 	<%= f.input :vacancy_professionals_psychological_evaluation_id, :as=> :hidden %>
 	<%= f.input :vacancy_scheduling_professional_id, :as=> :hidden %>
 

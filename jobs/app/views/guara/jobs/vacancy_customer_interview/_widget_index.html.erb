@@ -18,9 +18,9 @@
 				    <thead>
 				      <tr>
 				        <th><%= t("inter_view_professionals.id") %></th>
+				        <th><%= t("interviewer_professionals.consultant_id") %></th>
 				        <th><%= t("inter_view_professionals.professional_id") %></th>
-				        <th><%= t("inter_view_professionals.synthesis") %></th>
-				        <th><%= t("inter_view_professionals.customer_interview?") %></th>
+				        <th><%= t("vacancy_customer_interview.customer_interview") %></th>
 				        <th><%= t("helpers.forms.actions") %></th>
 				      </tr>
 				    </thead>
@@ -28,11 +28,13 @@
 					<% @sended_professionals.each do |p| %>
 				      <tr id="tr_<%= p.id %>" name-professional="<%= p.professional.person.name %>">
 				      	 <th><%= p.id %></th>
+				      	 <th><%= p.consultant.name %></th>
 				      	 <th><%= p.professional.person.name %></th>
-				      	 <th><%= p.interview.synthesis %></th>
+				      	 
 				      	 <th>
 				      	 	<%
-				      	 		vacancy_sended_count = Guara::Jobs::VacancyCustomerInterview.where(:vacancy_sended_professionals_id=>p.sended_id).count()
+				      	 		vacancy_sended_count = Guara::Jobs::VacancyCustomerInterview
+				      	 		.where(:vacancy_sended_professionals_id=>p.sended_id).count()
 				      	 		if vacancy_sended_count == 0 %>
 				      	 			<span class="badge badge-important">Não</span>
 				      	 		<% else %>
