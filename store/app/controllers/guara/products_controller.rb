@@ -3,9 +3,12 @@ module Guara
   class ProductsController < Guara::StoreBaseController
     load_and_authorize_resource :class => "Guara::Product"
 
+    #include CrudHelper
+    helper CrudHelper
+
     def index
 	    @search = Product.search(params[:search])
-	    @products = @search.result().paginate(page: params[:page], :per_page => 10)
+	    @products = paginate(@search, params[:page])
 	    params[:search] = {} if params[:search].nil?
 	end
 

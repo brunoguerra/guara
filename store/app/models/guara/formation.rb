@@ -6,8 +6,5 @@ module
 		belongs_to :level_of_education
 		belongs_to :course
 		belongs_to :situation
-
-
-		
-
+	end
 end

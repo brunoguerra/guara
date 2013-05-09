@@ -2,7 +2,7 @@
 
 	<div id="dashboard">
 			<navbar>
-				<%= render :partial => "navbar", :locals => { active: :none } %>
+				<%= render :partial => "header" %>
 			</navbar>
 
 		<div class="row">
@@ -16,7 +16,7 @@
 				  <table class="table table-bordered table-striped">
 				    <thead>
 				      <tr>
-				        <th><%= t("orders.person.title") %></th>
+				        <th><%= t("customer_pfs.company") %></th>
 				        <th><%= t("orders.date_init.title") %></th>
 				      </tr>
 				    </thead>
@@ -24,14 +24,16 @@
 				   
 				   <% @order.each do |order| %>
 					  <tr>
-					    <td><%= order.person %></td>
+					    <td><%= order.person.name %></td>
 					    <td><%= order.date_init %></td>
 					  </tr>
 					<% end %>
 
 				    </tbody>
-				  </table><!-- FIM TABLE -->
-				</section><!-- FIM DIV INDEX -->
+				  </table>
+
+				  <%= link_to t('helpers.forms.new'), new_orders_in_path, :class=> "btn" %>
+				</section>
 				
 			</fieldset>
 		</div>

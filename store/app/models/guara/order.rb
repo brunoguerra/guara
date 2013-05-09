@@ -2,7 +2,8 @@ module Guara
   class Order < ActiveRecord::Base
     
     attr_accessible :person, :date_finish, :date_init, :payment_date, :payment_state, :items,
-                    :payment_type, :payment_parts, :person_id, :state, :state_date, :type, :products
+                    :payment_type, :payment_parts, :person_id, :state, :state_date, :type, :products,
+                    :items_attributes
     
     belongs_to :person
     
@@ -10,8 +11,9 @@ module Guara
     has_many :items, class_name: "Guara::OrderItem"
     has_many :products, through: :items
 
+    accepts_nested_attributes_for :items, :reject_if => proc { |att| (att['_destroy'] == '1') },
+    :allow_destroy => true
 
-    
     public
       def state=(state)
         write_attribute :state, state

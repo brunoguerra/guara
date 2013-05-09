@@ -1,4 +1,4 @@
-<%= semantic_form_for @order, :url => orders_in_index_path(), :method => @order.new_record? ? :post : :put  do |f| %>
+	<%= semantic_form_for @order, :url => orders_in_index_path(), :method => @order.new_record? ? :post : :put  do |f| %>
 	
 <fieldset>
   <legend><%= @order.new_record? ? t("orders.in.new.title") : t("order.in.edit.title") %></legend>
@@ -6,13 +6,20 @@
 	<div class="row well row_orders_in">
 	  <div class="span5 ">	    
 	   
-	    <%= f.input :person, :label => t("orders.supplier.title"), :as => :select, :collection => Guara::Supplier.all %>
+	    <%= f.input :person, :label => t("orders.supplier.title"), :as => :select, 
+	    	:collection => Hash[Guara::Supplier.all.map{|b| [b.customer_pj.name,b.id]}] %>
 	 
 	    <%= f.input :date_init, :label => t("orders.date_init.title"), :as => :string, :input_html => { 'data-behaviour' => 'datetimepicker' } %>
 
 	   </div> <!-- FIM SPAN -->
 	</div><!-- FIM ROW -->
 
+<style>
+	.select2-container.multiselect{
+		width: 100%;
+		margin-left: 0px;
+	}
+</style>
 
 	<div class="thumbnail ">
 			<legend><small><%= t("orders.products.title") %></small></legend>
@@ -22,15 +29,24 @@
 						:form => f, 
 						:target => :items, 
 						:inputs => { 
-							:product => {
+							:product_id => {
 								:collection => Guara::Product.all,
-								:class => "span2",
+								:input_html=> {:class => "span2 multiselect"},
+								:as => :select,
 								:label => t('orders.products.title'), 
 							},
-							:total => { :class => "span2", :label => t('orders.products.total.title')},
-							:price => { :id => "campoPrice", :label => t('orders.products.price.title')},
-							:price_total => { :label => t('orders.products.price_total.title')},
-
+							:total => {
+								:input_html => {:class => "span2 only_number"}, 
+								:label => t('orders.products.total.title')
+							},
+							:price => { 
+								:label => t('orders.products.price.title'),
+								:input_html => {:class => "span2 price"}
+							},
+							:price_total => { 
+								:label => t('orders.products.price_total.title'),
+								:input_html => {:class => "span2 price_total", :readonly=> true}
+							}
 						} 
 				} %>
 	</div>
@@ -41,15 +57,45 @@
 
 
 <script>
+	function setPriceTotal(field){
+		var container = $($(field).parents('fieldset.guara_order_item_fields')),
+		total   	  =	container.find('input.only_number'),
+		price   	  =	container.find('input.price'),
+		price_total	  = container.find('input.price_total');
+		if(($.isNumeric(total.val())) && ($.isNumeric(price.val()))){
+			price_total.val(parseFloat(total.val() * price.val()).toFixed(2));
+
+		}
+	}
 
 	jQuery(function($){
+	   $('.add_fields').click(function(){
+	   		setTimeout(function(){
+				$('select.multiselect').each(function(){
+					var field = $(this);
+					if(field.hasClass('select2-offscreen')==false){
+						field.select2();
+					}
+				});
 
-	       $("#campoPrice").mask("R$ ");
+			   	$('.only_number').numeric({ 
+			   			decimal: false, 
+			   			negative: false 
+			   		}, false)
+			   		.blur(function(){
+			   			setPriceTotal(this);
+			   		});
 
-	       $("#campoTelefone").mask("(999) 999-9999");
+				$('.price').priceFormat({
+			    		prefix: '',
+			    		thousandsSeparator: ''
+					})
+					.blur(function(){
+			   			setPriceTotal(this);
+			   		});
 
-	       $("#campoSenha").mask("***-****");
-
+		   },100);
+	   	});
+	  // $('.add_fields').click();
 	});
-
 </script>

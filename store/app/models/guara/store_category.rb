@@ -7,6 +7,5 @@ module Guara
     has_many :product_categories  
   	has_many :products, :through => :product_categories 
     
-    
   end
 end

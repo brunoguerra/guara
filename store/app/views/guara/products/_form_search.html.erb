@@ -1,15 +1,22 @@
 <div class="page-header"><%= t("products.show.title") %></div>
 
-<%= form_for :search, :html => { :class => "well form-search", :method => :get } do |f|  %>
+<%= form_for :search, :html => { :class => "well form-search", :method => :get } do |f| %>
 		  <div class="control-group">
-	        <%= label_tag :name, t("products.name"), :class => "control-label" %>
+	        <%= label_tag :master_sku_eq, t("sku"), :class => "control-label" %>
+	        <div class="controls">
+	          <%= f.text_field :master_sku_eq %>
+	        </div>
+	      </div>
+
+		  <div class="control-group">
+	        <%= label_tag :name, t("name"), :class => "control-label" %>
 	        <div class="controls">
 	          <%= f.text_field :name_eq %>
 	        </div>
 	      </div>
 
 	      <div class="control-group">
-	        <%= label_tag :available_on, t("products.available_on"), :class => "control-label" %>
+	        <%= label_tag :available_on, t("available_on"), :class => "control-label" %>
 	        <div class="controls">
 	          <%= f.text_field :available_on_eq %>
 	        </div>
@@ -20,9 +27,16 @@
 		</div>
 		<div style="clear:both;"></div>
 <% end %>
-	</div>
+</div>
+
 <script type="text/javascript">
   $(document).ready(function(){
-      $("#search_available_on_eq").mask("99/99/9999");
+      	var temp_date1 = $('#search_available_on_eq').val().split(" ");
+		if(temp_date1.length>1){
+			temp_date1.pop();
+			var date_1 = $.datepicker.formatDate('dd/mm/yy', new Date(temp_date1.join(" ")));
+			$('#search_available_on_eq').val(date_1);
+		}
+      $('#search_available_on_eq').datepicker($.datepicker.regional['pt-BR']);
   });
 </script>

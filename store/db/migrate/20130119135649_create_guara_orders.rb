@@ -1,16 +1,16 @@
 class CreateGuaraOrders < ActiveRecord::Migration
   def change
     create_table :guara_orders do |t|
-      t.integer :person_id
-      t.integer :type
-      t.integer :state
+      t.integer  :person_id
+      t.integer  :type
+      t.integer  :state
       t.datetime :date_init
       t.datetime :date_finish
-      t.date :state_date
-      t.integer :payment_type
+      t.date     :state_date
+      t.integer  :payment_type
       t.datetime :payment_date
-      t.integer :payment_state
-      t.integer :payment_parts
+      t.integer  :payment_state
+      t.integer  :payment_parts
 
       t.timestamps
     end

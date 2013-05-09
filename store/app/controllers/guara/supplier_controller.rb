@@ -6,7 +6,7 @@ module Guara
 
 		def new
 			@supplier = Order.new
-		end # FIM NEW 
+		end 
 
 		def create
 			@supplier = Supplier.new(params[:supplier])
@@ -20,8 +20,8 @@ module Guara
               format.json { render :json => @supplier.errors, :status => :unprocessable_entity }
             end
             end
-		end # FIM MODULE
+		end
 
-	end # FIM CLASS
+	end 
 
-end # FIM MODULE
+end

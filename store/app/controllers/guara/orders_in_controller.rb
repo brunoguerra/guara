@@ -13,19 +13,19 @@ module Guara
         @order.person = Person.new
     end
 
-     def create
-            @order = Order.new(params[:order])
-
-            respond_to do |format|
+    def create
+        @order = Order.new(params[:order])
+        
+        respond_to do |format|
             if @order.save
-              format.html { redirect_to(orders_in_path(@order), :notice => 'Contact was successfully created.') }
+              format.html { redirect_to(orders_in_path(@order), :notice => 'Order was successfully created.') }
               format.json { render :json => @order, :status => :created, :location => @order}
             else
               format.html { render :action => "new" }
               format.json { render :json => @order.errors, :status => :unprocessable_entity }
             end
-            end
-      end
+        end
+    end
 
  
     def update

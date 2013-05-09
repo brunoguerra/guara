@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     
   s.add_dependency "rails", "~> 3.2.9"
   
-  s.add_dependency 'jquery-rails', '2.2'
+  s.add_dependency 'jquery-rails', '2.2.1'
   s.add_dependency 'select2-rails', '~> 3.2'
   
   s.add_dependency 'bootstrap-sass', '~> 2.3.0.0'

@@ -1,7 +1,7 @@
 class CreateGuaraSuppliers < ActiveRecord::Migration
   def change
     create_table :guara_suppliers do |t|
-      t.integer :person_id
+      t.integer :customer_pj_id
 
       t.timestamps
     end
