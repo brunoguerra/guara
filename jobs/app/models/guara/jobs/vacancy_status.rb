@@ -1,29 +1,36 @@
-
 module Guara
   module Jobs
     class VacancyStatus
       
-      attr_accessor :id, :name, :parent, :routers
+      attr_accessor :id, :name, :parent, :routes, :status
       
-      @@opened   = VacancyStatus.new(id: 1, status: "opened")
-      @@paused   = VacancyStatus.new(id: 2, status: "paused")
-      @@closed   = VacancyStatus.new(id: 3, status: "opened")
+      def initialize(params={})
+        params.each do |k,v|
+          self.send((k.to_s+'=').to_sym, v)
+        end
+      end  
 
-      @@canceled            = VacancyStatus.new(id: 4, status: "canceled", parent: @@closed)
-      @@closed_total        = VacancyStatus.new(id: 5, status: "closed total", parent: @@closed)
-      @@closed_partial      = VacancyStatus.new(id: 6, status: "closed total", parent: @@closed)
-      @@reopened_reposition = VacancyStatus.new(id: 7, status: "reopened", parent: @@opened)
-      @@reopened_others     = VacancyStatus.new(id: 8, status: "reopened", parent: @@opened)
+      @@opened   = VacancyStatus.new(id: 1, name: "opened")
+      @@paused   = VacancyStatus.new(id: 2, name: "paused")
+      @@closed   = VacancyStatus.new(id: 3, name: "opened")
+
+      @@canceled            = VacancyStatus.new(id: 4, name: "canceled", parent: @@closed)
+      @@closed_total        = VacancyStatus.new(id: 5, name: "closed_total", parent: @@closed)
+      @@closed_partial      = VacancyStatus.new(id: 6, name: "closed_partial", parent: @@closed)
+      @@reopened_reposition = VacancyStatus.new(id: 7, name: "reopened_reposition", parent: @@opened)
+      @@reopened_others     = VacancyStatus.new(id: 8, name: "reopened_others", parent: @@opened)
+
       
-      @@opened.routers                   = [@@paused, @@closed_total, @@closed_partial, @@canceled]
-      @@paused.routers                   = [@@reopened_others, @@reopened_reposition, @@canceled] 
-      @@canceled.routers                 = [@@reopened_others, @@reopened_reposition]
-      @@closed.routers                   = [@@reopened_others, @@reopened_reposition] 
-      @@closed_total.routers             = @@closed.routers
-      @@closed_partial.routers           = @@closed.routers
-      @@reopened_reposition.routers      = @@opened.routers
-      @@reopened_others.routers          = @@opened.routers
+      @@opened.routes                   = [@@paused, @@closed_total, @@closed_partial, @@canceled]
+      @@paused.routes                   = [@@reopened_others, @@reopened_reposition, @@canceled] 
+      @@canceled.routes                 = [@@reopened_others, @@reopened_reposition]
+      @@closed.routes                   = [@@reopened_others, @@reopened_reposition] 
+      @@closed_total.routes             = @@closed.routes
+      @@closed_partial.routes           = @@closed.routes
+      @@reopened_reposition.routes      = @@opened.routes
+      @@reopened_others.routes          = @@opened.routes
       
+
     	def self.enum
     		{
     			1 => @@opened,
@@ -35,7 +42,22 @@ module Guara
     			7 => @@reopened_reposition,
     			8 => @@reopened_others    			
     		}
-    	end
+      end
+
+      def self.status_translation
+        {
+          1 => I18n.t("jobs.vacancy_status.opened"),
+          2 => I18n.t("jobs.vacancy_status.paused"),
+          3 => I18n.t("jobs.vacancy_status.canceled"),
+          4 => I18n.t("jobs.vacancy_status.closed"),
+          5 => I18n.t("jobs.vacancy_status.reopened_others"),
+          6 => I18n.t("jobs.vacancy_status.reopened_reposition"),
+          7 => I18n.t("jobs.vacancy_status.closed_total"),
+          8 => I18n.t("jobs.vacancy_status.closed_partial")          
+        }
+      end
+
+
     end
   end
 end

@@ -2,10 +2,11 @@
 :url=> vacancy_vacancy_customer_interview_path(@vacancy), 
 :html => {:class => "well", :onsubmit=> "vacancy_customer_interview_submit();return false;"}  do |f| %>
 	
-	<%= f.input :return_date, :as=> :string, :input_html=> {:class=> "date_format"} %>
-	<%= f.input :return_interview, :as=> :select, :collection => Guara::Jobs::CustomerInterviewReturn.levels_translated.map{|a, b| [b, a]} %>
+	<%= f.input :return_date, :as=> :string, :input_html=> {:class=> "date_format"}, :label => t("vacancy_customer_interview.return_date") %>
+	<%= f.input :return_interview, :as=> :select, :label => t("vacancy_customer_interview.return_interview") ,:collection => Guara::Jobs::CustomerInterviewReturn.levels_translated.map{|a, b| [b, a]} %>
 	<%= f.input :vacancy_sended_professionals_id, :as=> :hidden %>
-	<%= f.input :motive, :as=> :text, :input_html => {:rows => 5, :cols => 20 } %>
+	<%= f.input :vacancy_scheduling_professional_id, :as=> :hidden %>
+	<%= f.input :motive, :as=> :text, :label => t("vacancy_customer_interview.motive") ,:input_html => {:rows => 5, :cols => 20 } %>
 	<%= f.submit "Salvar", class: "btn btn-primary" %>
 <% end %>
 

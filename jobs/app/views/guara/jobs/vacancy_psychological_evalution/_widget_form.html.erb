@@ -6,12 +6,21 @@
 <%= semantic_form_for @psychological, 
 :url=> vacancy_vacancy_psychological_evaluation_evaluation_path(@vacancy), 
 :html => {:class => "well"}  do |f| %>
-	<%= f.input :date_evaluation, :as=> :string, :input_html=> {:class=> "date_format"} %>
-	<%= f.input :date_send_report, :as=> :string, :input_html=> {:class=> "date_format"} %>
+	<%= f.input :date_evaluation, 
+				:as=> :string, 
+				:label => t("vacancy_psychological_evaluation.date_evaluation"),
+				:input_html=> {:class=> "date_format"} 
+		%>
 
-	<%= f.input :file1, :as=> :file, :input_html=> {:class=> "input-block-level"} if @psychological.file1.nil? %>
-	<%= f.input :file2, :as=> :file, :input_html=> {:class=> "input-block-level"} if @psychological.file2.nil? %>
-	<%= f.input :file3, :as=> :file, :input_html=> {:class=> "input-block-level"} if @psychological.file3.nil? %>
+	<%= f.input :date_send_report, :as=> :string, :input_html=> {:class=> "date_format"},
+		:label => t("vacancy_psychological_evaluation.date_send_report") %>
+
+	<%= f.input :file1, :as=> :file, :input_html=> {:class=> "input-block-level"},
+		:label => t("vacancy_psychological_evaluation.file") if @psychological.file1.nil? %>
+	<%= f.input :file2, :as=> :file, :input_html=> {:class=> "input-block-level"}, 
+		:label => t("vacancy_psychological_evaluation.file")  if @psychological.file2.nil? %>
+	<%= f.input :file3, :as=> :file, :input_html=> {:class=> "input-block-level"}, 
+		:label => t("vacancy_psychological_evaluation.file")  if @psychological.file3.nil? %>
 
 	<%= f.input :vacancy_customer_interview_id, :as=> :hidden %>
 	<%= f.input :vacancy_scheduling_professional_id, :as=> :hidden %>

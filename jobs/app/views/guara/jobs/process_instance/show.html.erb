@@ -5,7 +5,7 @@
 		
 <section class="show">
 	
-	<% render :partial => @process_instance.custom_process.hook.widiget_show.to_s if @process_instance.custom_process.has_hook?  && !@process_instance.custom_process.hook.widiget_show.to_s.empty? %>
+	
 	
 	<ul class="thumbnails">
 		<li class="span9">
@@ -20,6 +20,11 @@
 					<% end %>	
 				</div>
 			</div>
+		</li>
+
+		<li class="span3">
+			<%= render :partial => @process_instance.custom_process.hook.widget_show.to_s if @process_instance.custom_process.has_hook? && 
+						!@process_instance.custom_process.hook.widget_show.to_s.empty? %>
 		</li>
 
 		<li class="span3">

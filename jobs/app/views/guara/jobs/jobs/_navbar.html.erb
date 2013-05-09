@@ -32,6 +32,10 @@
               <%= link_to t("jobs.professional.search.link"), professionals_search_path %>
             </li>
 
+            <li <%= 'class=active' if active == :reports %> >
+              <%= link_to t("jobs.vacancy_reports.link"), vacancies_path %>
+            </li>
+
           </ul>
           
         </div><!-- /.nav-collapse -->

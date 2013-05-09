@@ -28,7 +28,7 @@ module Guara
     def peform_search
       
       if !params[:search].nil? && params[:search].include?(:none) 
-        params[:search] = {:mode_advanced => true}
+        params[:search] = { :mode_advanced => true }
       end
       
       param_search = params[:search] || session[:customers_search]
@@ -159,7 +159,7 @@ module Guara
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
       else
-        render 'edit.'+preferences_customer_type?.to_s
+        render 'edit'
       end
     end
   
