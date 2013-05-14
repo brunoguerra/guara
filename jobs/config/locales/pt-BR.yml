@@ -35,6 +35,7 @@ pt-BR:
       date_start: "Abertura"
       monitoring_reports: "Relatório de Acompanhamento de Vaga"
       step: "Etapa"
+      generation_reports: "Gerar Relatório"
       
     process_instance:
       date_start: "Data Inicial"
