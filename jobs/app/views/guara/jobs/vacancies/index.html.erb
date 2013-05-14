@@ -41,7 +41,7 @@
                     <% end %>
                   </tbody>
                 </table>
-   
+                 <%= will_paginate @vacancy %>
 
               </div>
             </div>
@@ -52,8 +52,12 @@
               <div class="caption">
                 <%= render :partial => 'form_search' %>
                 <% params[:format] = :pdf %>
-                <%= link_to raw('<i  class="icon-list"></i> Gerar PD'), 
-                  vacancies_path(params), :class => "btn", :title=>"Gerar PDF", :target => "_blank" %>
+                <%= link_to raw('<i  class="icon-list"></i> Gerar Relatório'), 
+                  vacancies_path(params), 
+                  :class => "btn", 
+                  :title=> t("jobs.vacancy_reports.generation_reports"), 
+                  :target => "_blank" 
+                %>
               </div>
             </div>
           </li>
