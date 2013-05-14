@@ -1,7 +1,16 @@
 # encoding: UTF-8
 
 pt-BR:
-  
+
+  Stock:
+    title: "Estoque"
+
+  StoreCategory:
+    title: "Categorias do Produto"
+
+  supplier:
+    title: "Cadastro de Fornecedores"
+
   stock:
     title: "Estoque"
     link: "Estoque"
@@ -31,11 +40,6 @@ pt-BR:
       title: "Categorias dos Produtos"
       link: "Categorias"
 
-  products:
-    index:
-      title: "Produtos"
-      link: "Produtos"
-
   orders:
     in:
       index:
@@ -61,7 +65,7 @@ pt-BR:
 
     products:
       title: "Produtos"
-      
+
       price:
         title: "Preço"
       total:
@@ -89,7 +93,7 @@ pt-BR:
 
     person_id:
       title: "Pessoa"
-    
+
     state:
       title: "Situação "
 
@@ -99,7 +103,50 @@ pt-BR:
     type:
       title: "Tipo"
 
+  available_on: "Disponivel em"  
+  analyzing: "Analizando"
 
+  budget: "Orçamento"
+
+  code: "Código"
+  confirmed: "Confirmado"
+  confirm_purchase: "Confirmar Compra"
+  confirm_payment: "Confirmar Pagamento"
+  categories: "Categorias"
+
+  date_init: "Data Inicial"
+  date_update_situation: "Atualização Situação"
+  description: "Descrição"
+  depth: "Profundidade"
+
+  enabled: "Habilitar"
+  emails_no_clients: "Emails de Não Clientes"
+
+  finalized: "Finalizado"
+
+  height: "Altura"
+  name: "Nome"
+
+  paid: "Pago"
+  payment: "Pagamento"
+  payment_state: "Status do Pagamento"
+  product: "Produto"
+  price: "Preço"
+  price_total: "Preço Total"
+  primary_category: "Categorias"
+  purchase_order: "Ordem de Compra"
+
+  quotation: "Cotação"
+
+  sku: "Referência"
+  situation: "Situação"
+  stock_total: "Total em Estoque"
+  supplier: "Fornecedor"
+
+  wait: "Aguarde"
+  waiting: "Aguardando"
+  weight: "Peso"
+  width: "Largura"
 
   products:
     index:
@@ -113,17 +160,3 @@ pt-BR:
     edit:
       link: "Editar"
       title: "Editar"
-    available_on: "Disponivel em"  
-    code: "Código"
-    categories: "Categorias"
-    description: "Descrição"
-    depth: "Profundidade"
-    enabled: "Habilitar"
-    height: "Altura"
-    name: "Nome"
-    price: "Preço"
-    primary_category: "Categorias"
-    sku: "Referência"
-    stock: "Estoque"
-    weight: "Peso"
-    width: "Largura"

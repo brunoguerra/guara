@@ -18,10 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "guara_core"
   s.add_dependency "guara_crm"
-  s.add_dependency "spree_core"
-  s.add_dependency "spree_api"
-  s.add_dependency "spree_promo"
-  s.add_dependency "spree_dash"
+  
+  s.add_dependency "spree", '1.3.2'
   
   s.add_development_dependency 'pg', '~> 0.12.2'
   s.add_development_dependency 'rspec'

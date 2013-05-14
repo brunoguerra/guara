@@ -8,7 +8,7 @@ pt-BR:
 
     vacancies:
       widget:
-        title: "Widget"
+        title: "Indicador (Fechamento de Vagas)"
 
     announcement_of_vacancies:
       index:
@@ -146,9 +146,10 @@ pt-BR:
       role: "Cargo"
 
     vacancy_status:
+      title: "Histórico de Transição"
       opened: "Aberto"
       paused: "Suspenso"
-      canceled: "Cencelado"
+      canceled: "Cancelado"
       closed: "Fechado"
       reopened_others: "Reaberto Outros"
       reopened_reposition: "Reaberto Reposição"

@@ -3,53 +3,59 @@ module Guara
   class OrdersInController < Guara::OrdersController
 
     def index
-    	@search = Order.search(params[:search])
-        @order = @search.result().paginate(page: params[:page], :per_page => 20)
+        params[:search] = {} if params[:search].nil?
+        params[:search][:order_type_eq] = OrderType.IN
+
+        @search = Order.search(params[:search])
+        @orders = paginate(@search, params[:page], 20)
     end
 
     def new
     	@order = Order.new
-        @person = Person.find(:all)
-        @order.person = Person.new
     end
 
-     def create
-            @order = Order.new(params[:order])
-
-            respond_to do |format|
+    def create
+        @params = params
+        set_order_state
+        @order = Order.new(@params[:order])
+        
+        respond_to do |format|
             if @order.save
-              format.html { redirect_to(orders_in_path(@order), :notice => 'Contact was successfully created.') }
+              format.html { redirect_to(orders_in_path(@order), :notice => 'Order was successfully created.') }
               format.json { render :json => @order, :status => :created, :location => @order}
             else
               format.html { render :action => "new" }
               format.json { render :json => @order.errors, :status => :unprocessable_entity }
             end
-            end
-      end
-
+        end
+    end
  
     def update
         @order = Order.find params[:id]
-        if @order.update_attributes(params[:order])
-            flash[:success] = t(helpers.forms.new_sucess)
-            redirect_to orders_in_index_path(@order.id)
-        else
-            redirect_to orders_in_index_path
-        end
-
-    end
-
-    def destroy
-        @order = @order.find(params[:id])
-        @order.destroy
-
         respond_to do |format|
-            format.html { redirect_to orders_in_index_path }
-            format.json { head :ok}
+            if @order.update_attributes(params[:order])
+                format.html { 
+                    flash[:success] = t('helpers.forms.new_sucess')
+                    redirect_to orders_in_index_path(@order)
+                }
+                format.json { 
+                    render :json=> {
+                        success: true, 
+                        situation: OrderState.status_translated[@order.state] 
+                    } 
+                }
+            else
+                format.html { redirect_to edit_orders_in_path(@order) }
+                format.json { render :json=> {success: false} }
+            end
         end
     end
 
-
+    private
+    def set_order_state
+        state = @params[:budget].to_i == 1 ? OrderState.status[:BUDGET] : OrderState.status[:CONFIRMED]
+        @params[:order] = @params[:order].merge(:order_type=>OrderType.IN, :state=> state)
+    end
 
   end
 end

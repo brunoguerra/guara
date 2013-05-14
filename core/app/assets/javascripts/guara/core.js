@@ -8,6 +8,8 @@
 //= require guara/jquery-ui-timepicker-addon
 //= require guara/jquery-ui-timepicker-addon
 //= require guara/jquery.mask
+//= require guara/jquery.price_format.min.js
+//= require guara/jquery-numeric.js
 //= require guara/fcbk.js
 //= require select2/select2.min
 //= require active_admin
