@@ -16,16 +16,25 @@
 				  <table class="table table-bordered table-striped">
 				    <thead>
 				      <tr>
-				        <th><%= t("customer_pfs.company") %></th>
-				        <th><%= t("orders.date_init.title") %></th>
+				        <th><%= t("supplier") %></th>
+				        <th><%= t("date_init") %></th>
+				        <th><%= t("date_update_situation") %></th>
+				        <th><%= t("situation") %></th>
+				        <th><%= t("helpers.forms.actions") %></th>
 				      </tr>
 				    </thead>
 				    <tbody>
-				   
-				   <% @order.each do |order| %>
+
+				   <% @orders.each do |order| %>
 					  <tr>
 					    <td><%= order.person.name %></td>
-					    <td><%= order.date_init %></td>
+					    <td><%= order.date_init.strftime("%d/%m/%Y") %></td>
+					    <td><%= order.state_date.strftime("%d/%m/%Y") %></td>
+					    <td><%= Guara::OrderState.status_translated[order.state] %></td>
+					    <td>
+					    	<%= index_btn_view orders_in_path(order), t("helpers.forms.show") %>
+		        			<%= index_btn_edit edit_orders_in_path(order), t("helpers.forms.edit") %>
+					    </td>
 					  </tr>
 					<% end %>
 

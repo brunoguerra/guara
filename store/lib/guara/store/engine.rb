@@ -22,11 +22,10 @@ module Guara
       
       initializer 'guara.menu.crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << :stock
-        
+       
         Guara::Menus::MAINTENCE[:items] +=
           [
-            :store_categories,
-            :suppliers,
+            :store_categories
           ]
         
       end

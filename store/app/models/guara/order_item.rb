@@ -6,7 +6,7 @@ module Guara
     belongs_to :order
 
     #validates :order_id, :product_id, :total, :price, :presence => true
-
+    
     def price_total
     	(total || 0)*(price || 0)
     end

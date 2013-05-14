@@ -4,4 +4,7 @@ eval(File.read(File.dirname(__FILE__) + '/../common_dependencies.rb'))
 gem 'guara_core', :path => "../core/"
 gem 'guara_crm', :path => "../crm/"
 
+gem 'deface'
+gem 'decorators', '~> 1.0.0'
+
 gemspec

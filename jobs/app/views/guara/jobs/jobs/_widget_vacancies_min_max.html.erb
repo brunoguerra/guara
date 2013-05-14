@@ -13,7 +13,7 @@
 	%>
   d = <%= 
   	raw Guara::Jobs::ProcessInstance
-  		.select('max(date_finish-date_start) max, avg(date_finish-date_start) avg, min(date_finish-date_start) min')
+  		.select('max(date_finish-date_start) as máximo, avg(date_finish-date_start) as média, min(date_finish-date_start) as minimo')
   		.where(date_finish: 30.days.ago...(Date.today+1.day),
   				process_id: custom_process)
   		.first.attributes.map {|a,v| 

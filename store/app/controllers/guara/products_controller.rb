@@ -3,9 +3,6 @@ module Guara
   class ProductsController < Guara::StoreBaseController
     load_and_authorize_resource :class => "Guara::Product"
 
-    #include CrudHelper
-    helper CrudHelper
-
     def index
 	    @search = Product.search(params[:search])
 	    @products = paginate(@search, params[:page])
@@ -29,7 +26,6 @@ module Guara
 	    if @product.save
 	      flash[:success] = t("helpers.forms.new_sucess")
 	      redirect_to product_path(@product.id)
-	      #redirect_to :action=>'show'
 	    else
 	      render :new
 	    end
@@ -39,10 +35,9 @@ module Guara
 		@product = Product.find params[:id]
 		if @product.update_attributes(params[:product])
 			flash[:success] = t("helpers.forms.edit_sucess")
-	    	#redirect_to products_path(@product.id)
 	    	redirect_to :controller=>'products',:action=>'show'
 	    else	
-	    	redirect_to edit_product_path
+	    	redirect_to edit_product_path(@product.id)
 	    end
 	end
 
