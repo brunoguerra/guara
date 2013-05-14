@@ -41,17 +41,28 @@ class JobsMigrationV2 < ActiveRecord::Migration
 
     
     #
-    add_column :guara_jobs_vacancies, :status_id, :integer, :default => 1    
+   
     add_column :guara_jobs_step_attrs, :system_name, :string
-    add_column :guara_jobs_vacancies, :customer_pj_id, :integer
-    add_column :guara_jobs_vacancies, :role_id, :integer
-    add_column :guara_jobs_vacancies, :type_id, :integer
-    add_column :guara_jobs_vacancies, :total, :integer
-    add_column :guara_jobs_vacancies, :salary_id, :integer
-    add_column :guara_jobs_vacancies, :consultante_id, :integer
-    add_column :guara_jobs_vacancies, :date_start_id, :integer
+
     
-    
+
+    Guara::Jobs::StepAttr.find_by_title('Cargo Desejado').
+        update_attribute(:system_name, 'role_id')
+
+    Guara::Jobs::StepAttr.find_by_title('Quantidade de Vagas').
+        update_attribute(:system_name, 'total')
+
+    Guara::Jobs::StepAttr.find_by_title('Tipo de Vaga').
+        update_attribute(:system_name, 'type_id')
+
+    Guara::Jobs::StepAttr.find_by_title('Salário de Contratação').
+        update_attribute(:system_name, 'salary_id')
+
+    Guara::Jobs::StepAttr.find_by_title('Responsável pela Seleção/Consultor(a)').
+        update_attribute(:system_name, 'consultant_id')
+
+    Guara::Jobs::StepAttr.find_by_title('Empresa Solicitante').
+        update_attribute(:system_name, 'customer_pj_id')
     
   end
 end
