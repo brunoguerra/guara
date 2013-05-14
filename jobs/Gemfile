@@ -8,6 +8,8 @@ gem "paperclip", "~> 2.7"
 
 gem "mail"
 
+gem 'bootstrap-wysihtml5-rails'
+
 gem 'wicked_pdf'
 gem "wkhtmltopdf-binary"
 

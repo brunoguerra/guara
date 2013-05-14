@@ -1,8 +1,32 @@
+<%= javascript_include_tag "guara/jquery.stickem" %>
+
+<style type="text/css">
+#interviewer_professionals{
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+}
+.stickit {
+	margin-left: 0;
+	position: fixed;
+	top: 60px;
+	width: 19%;
+}
+
+.stickit-end {
+	bottom: 340px;
+	position: absolute;
+	left: 0;
+	width: 19%;
+}
+.row{
+	margin-left: 0px!important;
+}
+</style>
 <h2><%= @current_step.name %></h2>
 
 <%= semantic_form_for :step_instance_attrs, 
 	:url => process_instance_path(@process_instance), 
-	:html => {:class => "well", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
+	:html => {:class => "well stickem-container row", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
 	
 
 		<div class="row-fluid">
@@ -10,7 +34,7 @@
 			<% if @grouped_column_attrs_current_step.size > 1 %>
 				<% total_spans = 8 %>
 				<div class="span4" id="form_sidebar">
-					<ul class="nav nav-tabs nav-stacked" id="form_navbar">		
+					<ul class="nav nav-tabs nav-stacked stickem" id="form_navbar">		
 					<% @grouped_column_attrs_current_step.each do |group, column_attrs| 
 						if group.to_s.gsub(/[^A-z]/, '').tableize() != 'defaults'
 					%>
@@ -45,36 +69,36 @@
 	    <%= f.submit 'Salvar', class: "btn btn-large btn-primary" %>
     <% end %>
 <% end %>
-
+<div class="stickem-container row"></div>
 <script type="text/javascript">
-	
+	//
 		$('.date_format').datepicker($.datepicker.regional['pt-BR']);
 		offs = $('#form_navbar').offset();
 		if(!offs){
-			offs = {top: 30};
+			offs = {top: 50};
 		}
 		var offset = {
-	      	top: (offs.top + 30),
-			bottom: 400
+	      	top: (offs.top + 50),
+			bottom: 900
 	    };
-	    $('#form_navbar').affix({
+	    /*$('#form_navbar').affix({
 	      offset: offset
-	    });
+	    });*/
 		
-		$(document.body).scrollspy({
+		/*$(document.body).scrollspy({
 			target: "#form_sidebar"
-		});
+		});*/
 
 		function validate(){
 			<%= process_instance_js_required_fields(@current_step) %>
 			return true;
 		}
 	
+		$('.formtastic.step_instance_attrs').stickem();
 </script>
 <style>
-	#form_navbar.affix {
+	#form_navbar {
 		/*margin-top: -475px;*/
-		margin-top: -1110px;
 		width: 210px;
 	}
 </style>
