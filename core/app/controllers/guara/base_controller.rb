@@ -5,6 +5,7 @@ module Guara
     
     include BaseHelper
     include SessionsHelper
+    helper CrudHelper
 
     def paginate(search, page=1, per_page=10)
       if class_exists?("Ransack")

@@ -1,6 +1,6 @@
 <% provide(:title, t("products.index.title")) %>
 
-<%= render :partial => "navbar", :locals => { :active => :search } %>
+<%= render :partial => "header" %>
 
 <div class="row">
 	<div class="span9">
@@ -12,19 +12,19 @@
 		  <table class="table table-bordered table-striped">
 		    <thead>
 		      <tr>
-		      	<th><%= t("products.code") %></th>
-		        <th><%= t("products.name") %></th>
-		        <th><%= t("products.description") %></th>
-		        <th><%= t("products.available_on") %></th>
-		        <th><%= t("products.price") %></th>
-		        <th><%= t("products.stock") %></th>
-		        <th><%= t("helpers.forms.actions") %></th>
+		      	<th><%= t("sku") %></th>
+		        <th><%= t("name") %></th>
+		        <th><%= t("description") %></th>
+		        <th><%= t("available_on") %></th>
+		        <th><%= t("price") %></th>
+		        <th><%= t("stock_total") %></th>
+		        <th width="15%"><%= t("helpers.forms.actions") %></th>
 		      </tr>
 		    </thead>
 		    <tbody>
 			<% @products.each do |p| %>
 		      <tr class="<%= p.enabled == false ? 'warning' : '' %>">
-		        <td><%= p.id %></td>
+		        <td><%= p.sku %></td>
 		        <td><%= link_to p.name, product_path(p.id)  %></td>
 		        <td><%= p.description  %></td>
 		        <td>
@@ -33,8 +33,8 @@
 		        <td><%= number_to_currency(p.price, :locale => :br)  %></td>
 		        <td><%= p.stock  %></td>
 		        <td>
-		        	<%= link_to t("helpers.forms.show"), product_path(p.id), :class => "btn" %>
-		        	<%= link_to t("helpers.forms.edit"), edit_product_path(p.id), :class => "btn" %>
+		        	<%= index_btn_view product_path(p.id), t("helpers.forms.show") %>
+		        	<%= index_btn_edit edit_product_path(p.id), t("helpers.forms.edit") %>
 		        </td>
 		      </tr>
 		    <% end %>
