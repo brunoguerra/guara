@@ -146,7 +146,7 @@ pt-BR:
       role: "Cargo"
 
     vacancy_status:
-      title: "Histórico de Transição"
+      title: "Histórico"
       opened: "Aberto"
       paused: "Suspenso"
       canceled: "Cancelado"

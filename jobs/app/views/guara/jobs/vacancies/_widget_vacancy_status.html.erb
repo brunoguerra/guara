@@ -13,7 +13,7 @@
 </div>
 
 <div class="thumbnail">
-	<legend><%= t("josb.vacancy_status.title") %></legend>
+	<legend><%= t("jobs.vacancy_status.title") %></legend>
 	<ul>
 		<% @vacancy.histories.order("created_at desc").each do |history| %>
 		<li><%= history.user.name %> : <%= t("jobs.vacancy_status.%s" % history.status_to.name) %></li>
