@@ -60,5 +60,6 @@ Gem::Specification.new do |s|
   #
   s.add_development_dependency 'annotate', '~> 2.4.1.beta'
 
-  s.add_dependency 'wicked_pdf'  
+  s.add_dependency 'wicked_pdf', '0.9.6'
+  s.add_dependency 'wkhtmltopdf-binary', '1.2.2'
 end
