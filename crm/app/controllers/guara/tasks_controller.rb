@@ -45,7 +45,7 @@ module Guara
     end
   
     def edit
-      @task.feedbacks.build if @task.feedbacks.nil?
+      @task.feedbacks.build
     end
   
     def load_form
