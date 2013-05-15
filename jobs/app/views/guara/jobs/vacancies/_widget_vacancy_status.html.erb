@@ -6,14 +6,15 @@
 <div class="thumbnail">
 
 
-
+<ul>
 <% @vacancy.status.routes.each do |vacancy_status| %>
-	<%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn" %>
+	<li><%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn" %><li>
 <% end %>
+</ul>
 </div>
 
 <div class="thumbnail">
-	<legend><%= t("josb.vacancy_status.title") %></legend>
+	<legend><%= t("jobs.vacancy_status.title") %></legend>
 	<ul>
 		<% @vacancy.histories.order("created_at desc").each do |history| %>
 		<li><%= history.user.name %> : <%= t("jobs.vacancy_status.%s" % history.status_to.name) %></li>

@@ -20,7 +20,7 @@ module Guara
           else
             begin
               Rails.logger.debug "Trying %s"% [ab.module.name]
-              resource = eval ab.module.name
+              resource = module_by_name(ab.module.name)
             rescue
               Rails.logger.debug "FALHA EM: %s:%d %s"% [__FILE__,__LINE__, ab.module.name]
             end
@@ -37,6 +37,10 @@ module Guara
           end
         end 
       end
+    end
+    
+    def module_by_name(name)
+      eval name
     end
     
     def can?(action, subject, *extra_args)
