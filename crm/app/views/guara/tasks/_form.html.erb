@@ -1,4 +1,3 @@
-
 <%= semantic_form_for [@customer, @task], :remote => (remote || false), :html => { :class => "task-side form remote_form" }, :method => (params[:action] == "edit" ? :put : :post) do |f| %>
   <%= render 'shared/guara/error_messages', object: f.object %>
 <fieldset>
@@ -34,7 +33,7 @@
 						<div class="rows8">
 						    <%= f.semantic_fields_for :feedbacks do |feedback| %>
 								<div class="span4">							
-									<%= feedback.input :resolution_id, :label => t("feedbacks.resolution"), :collection => Guara::SystemTaskResolution.all %>
+									<%= feedback.input :resolution_id, :label => t("feedbacks.resolution"), :collection => Guara::SystemTaskResolution.all, :as => :select %>
 									<%= feedback.input :notes, :as => :text, :label => t("feedbacks.notes"), :input_html => { rows: 3 } %>
 								</div>
 

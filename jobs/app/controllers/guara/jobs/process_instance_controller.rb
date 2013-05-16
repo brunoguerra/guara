@@ -18,9 +18,9 @@ module Guara
       attr_accessor :embedded
 
       def index
-        params[:search] = {:finished_false=> true} if params[:search].nil?
+        params[:search] = {:finished_is_false=> true} if params[:search].nil?
         params[:search][:custom_process_name_eq] = 'vacancy'
-        params[:search][:finished_false] = true if params[:search][:finished_true] == '0'
+        params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 
         @search = ProcessInstance.joins(:custom_process).order('id DESC').search(params[:search])
         @process_instance = paginate(@search, params[:page], 10)
