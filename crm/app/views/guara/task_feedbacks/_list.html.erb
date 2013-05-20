@@ -1,18 +1,28 @@
-
+<style type="text/css">
+	.link_modal_feedback{
+		position: absolute;
+		right: 5px;
+		top: 5px;
+	}
+</style>
 <ul class="feedbacks-list">
 <% items.each do |item|  %>
-	<div class="alert disbaled" id="feedback<%= item.id %>" onClick="feedback_show(<%= item.id %>)">
+	<div class="alert disbaled " id="feedback<%= item.id %>" style="position:relative;">
 		<h5><%= item.resolution.name %></h5>
 		<code><%= format_datetime(item.created_at) %></code>
-		<%= item.notes[0..40] %>(...)
+		<div><%= item.notes[0..40] %>(...)</div>
+
+		<%= link_to raw('<i  class="icon-pencil"></i>'), "#", 
+			:class=> "btn link_modal_feedback", :onClick=> "feedback_show(#{item.id})" %>
 	</div>
 <% end %>
 
-	<div class="modal-feedback modal hide fade" style="display:none">
-		<div class="modal-body">
+	<div class="modal-feedback modal hide fade" style="display:none; width:350px;height:330px;">
+		<div class="modal-body" style="min-height:239px!important">
+
 		</div>
 		<div class="modal-footer">
-			<a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>
+			<a class="btn btn-primary" onClick="formSubmit();"><%= t("helpers.forms.save") %></a>
 		</div>
 	</div>
 <ul>
@@ -20,22 +30,45 @@
 
 var reg = new RegExp("\\999999", "gm");
 
+function formSubmit(){
+	$('.guara_task_feedback').submit();
+}
+
 function feedback_show(id) {	
+	jQuery(".modal-feedback").center();
+	jQuery(".modal-feedback").css('left', jQuery(".modal-feedback").css('left').replace('px', '') * 2 + 'px');
 	$(".modal-feedback").modal({
       "backdrop"  : "static",
       "keyboard"  : true,
       "show"      : true,
 	  "scrollbars": true
     });
+
+    $(document).ajaxComplete(function(event, xhr, settings) {
+	    if(settings.url == "/customers/3/tasks/1/feedbacks/1"){
+	    	var json = jQuery.parseJSON(xhr.responseText);
+	    	if(json.success == true){
+	    		alert('Feedback Atualizado!');
+	    		var res = json.data;
+	    		var container = '#feedback'+res.id;
+	    		
+	    		$(container+' h5').text(res.resolution_name);
+	    		$(container+' div').text(res.notes.substring(0,40)+'(...)');
+
+	    		$(".modal-feedback").modal('hide');
+	    	}
+	    	else{
+	    		alert('Erro ao Atualizar Feedback');
+	    	}
+	    }
+	});
 	/*.css({
 	    'margin-left': function () {
 	        return -($(this).width() / 2);
 	    }
 	});*/
 	
-	path = "<%= customer_task_feedback_path(@customer, @task, 0) %>"+id+".js"
-
-    //path = path.replace(reg, id);
+	path = "/customers/<%=@customer.id%>/tasks/<%=@task.id%>/feedbacks/"+id+"/edit";
 	
 	$('.modal-feedback .modal-body').html("<div></div>");
 	$('.modal-feedback .modal-body').load(path);

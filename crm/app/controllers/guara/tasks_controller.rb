@@ -14,7 +14,12 @@ module Guara
   
     def index
       @search = @tasks.search(params[:search])
-      @tasks = @search.paginate(page: params[:page], :per_page => 20)
+
+      if class_exists?("Ransack")
+        @tasks = @search.result().paginate(page: params[:page], :per_page => 20)
+      else
+        @tasks = @search.paginate(page: params[:page], :per_page => 20)
+      end
 
       respond_to do |format|
         format.html { render "index", :layout => "guara/base.html.erb" }
