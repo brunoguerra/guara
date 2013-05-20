@@ -63,7 +63,7 @@ module Guara
       @tasks = @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 4)
     
       @selected_department = params[:department]
-      @contacts = @customer.contacts
+      @contacts = @customer.contacts.joins(:department).order("guara_business_departments.name, guara_contacts.name")
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
       render "show_detailed"
