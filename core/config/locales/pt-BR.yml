@@ -132,7 +132,7 @@ pt-BR:
     index:
       link: "Todas as Tarefas"
     errors:
-      not_valid_status_and_resolution: "Estado atual inválido %{status}, e resolvido como %{resolution}"                  
+      not_valid_status_and_resolution: "atual inválido %{status}, e resolvido como %{resolution}"                  
     new:
       title: "Nova Tarefa"
       link: "Nova Tarefa"
