@@ -6,10 +6,11 @@
 <div class="thumbnail">
 
 
-
+<ul>
 <% @vacancy.status.routes.each do |vacancy_status| %>
-	<%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn" %>
+	<li><%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn" %><li>
 <% end %>
+</ul>
 </div>
 
 <div class="thumbnail">
