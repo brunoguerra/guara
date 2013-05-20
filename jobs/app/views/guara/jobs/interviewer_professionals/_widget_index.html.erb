@@ -32,13 +32,14 @@
 					      </tr>
 					    </thead>
 					    <tbody>
+
 						<% @interviewer_professionals.each do |p| %>
 					      <tr>
 					      	 <th><%= p.id %></th>
 					      	 <th><%= p.consultant.name %></th>
 					      	 <th><%= p.professional.person.name %></th>
 					      	 <th><%= p.local %></th>
-					      	 <th><%= p.date_time.strftime("%d/%m/%Y %H:%M:%S") %></th>
+					      	 <th><%= !p.date_time.nil? ? p.date_time.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
 					      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
 					      	 <th>
 					      	 	<% if !Guara::Jobs::VacancyProfessionalsInterview.find_by_scheduling_id(p.id).nil? %>

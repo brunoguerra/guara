@@ -43,7 +43,10 @@ module Guara
                 @data = params[:jobs_vacancy_professionals_psychological_evaluation]
                 process_params_files()
 
-                @psychological = VacancyProfessionalsPsychologicalEvaluation.create(@data)
+                @psychological = VacancyProfessionalsPsychologicalEvaluation.new(@data)
+                @psychological.id = nil
+                @psychological.save
+
                 redirect_to edit_process_instance_path(params[:process_instance_id], :edit_step=> params[:edit_step])
             end
 
