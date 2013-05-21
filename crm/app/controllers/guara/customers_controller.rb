@@ -63,7 +63,7 @@ module Guara
       @tasks = @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 4)
     
       @selected_department = params[:department]
-      @contacts = @customer.contacts
+      @contacts = @customer.contacts.joins(:department).order("guara_business_departments.name, guara_contacts.name")
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
     
       render "show_detailed"
@@ -80,7 +80,7 @@ module Guara
       else
         @person = CustomerPf.new
       end
-      
+     
       @customer.customer = @person
       @segments = BusinessSegment.all
       
@@ -121,8 +121,11 @@ module Guara
       else
         valid = @customer.valid? && @person.valid?
         params_restore
+
         Rails.logger.debug [@customer.errors.inspect, @person.errors.inspect].to_s
+
         authorize! :new, @customer, 'new.'+preferences_customer_type?.to_s
+        
         render 'new'
       end
     end
@@ -194,6 +197,7 @@ module Guara
     end
     
     def load_customer_type()
+
       if !@person.nil?
         @customer_type = @person.prefix
       elsif !params[:type].nil?
@@ -213,8 +217,8 @@ module Guara
     end
     
     def params_restore
-      @person.is_a?(CustomerPf) ? customer_type = :customer_pf : :customer_pj
-      @customer_type = customer_type = :customer_pf ? "pf" : "pj"
+      customer_type = @person.is_a?(CustomerPf) ? :customer_pf : :customer_pj
+      @customer_type = customer_type == :customer_pf ? "pf" : "pj"
       params[:customer][customer_type] = params[customer_type]
     end
   

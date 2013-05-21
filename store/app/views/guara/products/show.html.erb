@@ -1,6 +1,6 @@
 <% provide(:title, t("products.index.title")) %>
+<%= render :partial => "header" %>
 
-<%= render :partial => "navbar", :locals => { :active => :show } %>
 <section class="show">
 
 <ul class="thumbnails">
@@ -12,59 +12,56 @@
 			<div class="span4">
 
 			  <div class="control-group">
-	            <%= show_label_tag t('products.code') %>
-				<%= @product.id %>
+	            <%= show_label_tag t('sku') %>
+				<%= @product.sku %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.name') %>
+	            <%= show_label_tag t('name') %>
 				<%= @product.name %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.description') %>
+	            <%= show_label_tag t('description') %>
 				<%= @product.description %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.available_on') %>
+	            <%= show_label_tag t('available_on') %>
 				<%= @product.available_on != nil ? @product.available_on.strftime("%d/%m/%Y") : @product.available_on %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.price') %>
+	            <%= show_label_tag t('price') %>
 				<%= number_to_currency(@product.price, :locale => :br) %>
 	          </div>
 
-	          <div class="control-group">
-	            <%= show_label_tag t('products.sku') %>
-				<%= @product.sku %>
-	          </div>
+	          
 			</div>
 
 			<div class="span4">
 			  <div class="control-group">
-	            <%= show_label_tag t('products.stock') %>
+	            <%= show_label_tag t('stock_total') %>
 				<%= @product.stock %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.weight') %>
+	            <%= show_label_tag t('weight') %>
 				<%= @product.weight %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.height') %>
+	            <%= show_label_tag t('height') %>
 				<%= @product.height %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.width') %>
+	            <%= show_label_tag t('width') %>
 				<%= @product.width %>
 	          </div>
 
 	          <div class="control-group">
-	            <%= show_label_tag t('products.depth') %>
+	            <%= show_label_tag t('depth') %>
 				<%= @product.depth %>
 	          </div>          
 			</div>
@@ -77,10 +74,10 @@
   <li class="span3">
   	<div class="thumbnail">
   		<div class="caption">
-  			<legend><%= t('products.categories') %></legend>
-  			<%@product.categories.each do |f| %>
-  			<div class="control-group"><%=f.name%></div>	
-  			<%end%>
+  			<legend><%= t('categories') %></legend>
+  			<% @product.categories.each do |f| %>
+  				<div class="control-group"><%=f.name%></div>	
+  			<% end %>
   		</div>	
   	</div>
   </li>

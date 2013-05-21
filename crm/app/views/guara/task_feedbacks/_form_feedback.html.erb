@@ -1,0 +1,9 @@
+<h1><%= t('feedbacks.show.title')%></h1>
+<%= semantic_form_for [@customer, @task, @feedback], :remote => true, 
+:html => { :class => "task-side form remote_form" }, :method => :put do |f| %>
+	<div class="span4">							
+		<%= f.input :resolution_id, :label => t("feedbacks.resolution"), :as=> :select,
+		:collection => Guara::SystemTaskResolution.all %>
+		<%= f.input :notes, :as => :text, :label => t("feedbacks.notes"), :input_html => { rows: 3 } %>
+	</div>
+<% end %>

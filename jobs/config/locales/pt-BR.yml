@@ -8,7 +8,7 @@ pt-BR:
 
     vacancies:
       widget:
-        title: "Widget"
+        title: "Indicador (Fechamento de Vagas)"
 
     announcement_of_vacancies:
       index:
@@ -26,7 +26,17 @@ pt-BR:
 
     vacancy_reports:
       link: "Relatórios"
-    
+      total: "Nº Vagas"
+      customer_pj: "Empresa"
+      role: "Cargo"
+      status: "Status"
+      consultant: "Consultor(a)"
+      elaboration_reports: "Elaboração do Relatório"
+      date_start: "Abertura"
+      monitoring_reports: "Relatório de Acompanhamento de Vaga"
+      step: "Etapa"
+      generation_reports: "Gerar Relatório"
+      
     process_instance:
       date_start: "Data Inicial"
       date_finish: "Data Final"
@@ -136,9 +146,10 @@ pt-BR:
       role: "Cargo"
 
     vacancy_status:
+      title: "Histórico"
       opened: "Aberto"
       paused: "Suspenso"
-      canceled: "Cencelado"
+      canceled: "Cancelado"
       closed: "Fechado"
       reopened_others: "Reaberto Outros"
       reopened_reposition: "Reaberto Reposição"

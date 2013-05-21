@@ -8,6 +8,8 @@
 //= require guara/jquery-ui-timepicker-addon
 //= require guara/jquery-ui-timepicker-addon
 //= require guara/jquery.mask
+//= require guara/jquery.price_format.min.js
+//= require guara/jquery-numeric.js
 //= require guara/fcbk.js
 //= require select2/select2.min
 //= require active_admin
@@ -88,3 +90,13 @@ function showMessage(message_content) {
 $(function() {
 	$( "#accordion" ).accordion();
 });
+
+
+jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(0, ((jQuery(window).height() - jQuery(this).outerHeight()) / 2) + 
+                                                jQuery(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, ((jQuery(window).width() - jQuery(this).outerWidth()) / 2) + 
+                                                jQuery(window).scrollLeft()) + "px");
+    return this;
+}

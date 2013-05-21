@@ -1,6 +1,5 @@
 Guara::Core::Engine.routes.prepend do
-  #resources :products
-  
+ 
   match "/stock",    to: "stock#dashboard"
 
   match "/multiselect_categories_products", :to => 'products#multiselect_categories_products'
@@ -11,6 +10,6 @@ Guara::Core::Engine.routes.prepend do
   resources :products
 
 
-  mount Spree::Core::Engine, :at => '/ecom'
+  #mount Spree::Core::Engine, :at => '/ecom'
   
 end

@@ -1,4 +1,4 @@
 <h3><%= t("stock.widget.overview.title") %></h3>
 <p><%= t("stock.widget.overview.added_products.title") %>: <%= Guara::Product.where(:created_at => 30.days.ago.to_date..Date.today).count() %></p>
-<p><%= t("stock.widget.overview.orders.in.title") %>: <%= Guara::Order.where(type: Guara::OrderType.IN, :created_at => 30.days.ago.to_date..Date.today).count() %></p>
-<p><%= t("stock.widget.overview.orders.out.title") %>: <%= Guara::Order.where(type: Guara::OrderType.OUT, :created_at => 30.days.ago.to_date..Date.today).count() %></p>
+<p><%= t("stock.widget.overview.orders.in.title") %>: <%= Guara::Order.where(order_type: Guara::OrderType.IN, :created_at => 30.days.ago.to_date..Date.today).count() %></p>
+<p><%= t("stock.widget.overview.orders.out.title") %>: <%= Guara::Order.where(order_type: Guara::OrderType.OUT, :created_at => 30.days.ago.to_date..Date.today).count() %></p>

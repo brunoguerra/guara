@@ -46,7 +46,7 @@ module Guara
             2
           end
         else
-            3
+          3
         end
       end
     
@@ -62,8 +62,7 @@ module Guara
     private
   
       def valid_status?
-        if (((self.status == SystemTaskStatus.CLOSED) and (self.resolution == nil)) or
-            ((self.status == SystemTaskStatus.OPENED) and (self.resolution != nil))) then
+        if ((self.status == SystemTaskStatus.CLOSED) and (self.resolution == nil))
           errors.add(:status, I18n.t("tasks.errors.not_valid_status_and_resolution", status: name_or_empty(self.status),
                       resolution: name_or_empty(self.resolution)))
           false

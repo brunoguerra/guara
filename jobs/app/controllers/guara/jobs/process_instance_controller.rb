@@ -117,10 +117,10 @@ module Guara
           end
           attrs << @step_instance_attr
         end
-        
-        if @process_instance.custom_prcess.has_hook? && @process_instance.custom_prcess.hook.respond_to?(:step_instance_after_save)
+
+        if @process_instance.custom_process.has_hook? && @process_instance.custom_process.hook.respond_to?(:step_instance_after_save)
           @step = Step.find @step_id
-          @process_instance.custom_prcess.hook.step_instance_after_save(attrs, @process_instance, @step)
+          @process_instance.custom_process.hook.step_instance_after_save(attrs, @process_instance, @step)
         end
 
         authorize! :create, Guara::Jobs::StepInstance
@@ -144,7 +144,9 @@ module Guara
         @process_instance = ProcessInstance.find params[:id]
         @next_step = @process_instance.step.next
         step_attr_count = StepAttr.where(:step_id=> @next_step).count()
-        if step_attr_count > 0
+        step = Step.find(@step_id)
+
+        if step_attr_count > 0 and step.level == @process_instance.step.level
           @next_step_valid = 1
         else
           @next_step_valid = 0

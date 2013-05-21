@@ -14,8 +14,12 @@ module Guara
   
     def index
       @search = @tasks.search(params[:search])
-      @tasks = @search.paginate(page: params[:page], :per_page => 20)
 
+      if class_exists?("Ransack")
+        @tasks = @search.result().paginate(page: params[:page], :per_page => 20)
+      else
+        @tasks = @search.paginate(page: params[:page], :per_page => 20)
+      end
 
       respond_to do |format|
         format.html { render "index", :layout => "guara/base.html.erb" }
@@ -56,18 +60,20 @@ module Guara
       else
         @task = @customer.tasks.build(params[:task])
       end
-      @task.feedbacks.build(feedback_params)
+      feedback = @task.feedbacks.build(feedback_params)
     
       @task.status = SystemTaskStatus.OPENED
       @task.user = current_user
     
       #filled feedback?
-      if (@task.feedbacks.size == 1)
-        feedback = @task.feedbacks[0]
+      if (!feedback.resolution.nil?)
         if @task.feedbacks[0].valid?
           #TODO: Business Rule. Put in model
           @task.resolution = feedback.resolution
-          @task.status = SystemTaskStatus.CLOSED
+          
+          if !@task.resolution.task_status_change.nil?
+            @task.status = @task.resolution.task_status_change
+          end
           @task.finish_time = Time.now
         else
           if (@task.feedbacks[0].resolution.nil? && @task.feedbacks[0].notes.empty?)

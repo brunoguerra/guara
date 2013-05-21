@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     
   s.add_dependency "rails", "~> 3.2.9"
   
-  s.add_dependency 'jquery-rails', '2.2'
+  s.add_dependency 'jquery-rails', '~>2.2'
   s.add_dependency 'select2-rails', '~> 3.2'
   
   s.add_dependency 'bootstrap-sass', '~> 2.3.0.0'
@@ -59,6 +59,7 @@ Gem::Specification.new do |s|
   
   #
   s.add_development_dependency 'annotate', '~> 2.4.1.beta'
-
-  s.add_dependency 'wicked_pdf'  
+  
+  s.add_dependency 'wicked_pdf', '~> 0.9'
+  s.add_dependency 'wkhtmltopdf-binary', '~> 0.9'
 end

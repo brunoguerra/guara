@@ -213,6 +213,7 @@ ul {
 .show {
   .control-group {
     background: #f1f1f1;
+    padding: 3px;
     label {
       /*background: #ffffff;*/
       margin-bottom: 10px;
@@ -370,7 +371,13 @@ fieldset.actions {
   margin-left: 0px;
 }
 
-#order_items_product_input {
+.guara_order_item_fields .control-group {
+  width: 15%;
+  float: left;
+  margin-left: 10px;
+}
+
+.guara_order_item_fields .control-group.select, #order_items_product_input {
   width: 35%;
   float: left;
 }

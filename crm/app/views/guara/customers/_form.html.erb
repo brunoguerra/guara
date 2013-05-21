@@ -52,7 +52,9 @@
 
 			<%= f.input :other_contacts %>
 			
-			<% if @customer_type == "pj" %>
+			<% 
+			
+			if @customer_type == "pj" %>
 				<%= person_f.input :fax, :input_html => { :class => "phone" } %>
 				<%= person_f.input :total_employes %>
 			<% else %>

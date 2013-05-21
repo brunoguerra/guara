@@ -17,9 +17,16 @@ module Guara
     end  
   
     def self.RESOLVED_WITH_BUSINESS
-      readonly.find_by_name("RESOLVED_WITH_BUSINESS")
+      res = readonly.find_by_name("RESOLVED_WITH_BUSINESS")
     end
-  
+    
+    def task_status_change
+      if (read_attribute(:name)=="BLOCKED")
+        Guara::SystemTaskStatus.IN_PROGRESS
+      else
+        Guara::SystemTaskStatus.CLOSED
+      end
+    end
   
     def name
       I18n.t("task_resolutions.%s" % super)

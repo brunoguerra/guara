@@ -2,6 +2,7 @@ require 'spree_core'
 require 'spree_api'
 require 'spree_dash'
 require 'spree_promo'
+
 require 'meta_search'
 require 'rails3-jquery-autocomplete'
 
@@ -21,10 +22,10 @@ module Guara
       
       initializer 'guara.menu.crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << :stock
-        
+       
         Guara::Menus::MAINTENCE[:items] +=
           [
-            :store_categories,
+            :store_categories
           ]
         
       end
