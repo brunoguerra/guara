@@ -62,4 +62,7 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'wicked_pdf', '~> 0.9'
   s.add_dependency 'wkhtmltopdf-binary', '~> 0.9'
+  s.add_dependency 'bootstrap-wysihtml5-rails'
+
 end
+
