@@ -16,11 +16,18 @@
 
 			:date_admission => { 
 				:input_html => { 'data-behaviour' => 'datetimepicker'}, 
-				:label => t("jobs.professional.date_admission") },
+				:label => t("jobs.professional.date_admission"),
+				:start_year => 1970,
+				:end_year => Time.now.year
+
+			 },
 
 			:date_resignation => { 
 				:input_html => { 'data-behaviour' => 'datetimepicker' },
-				:label => t("jobs.professional.date_resignation")}
+				:label => t("jobs.professional.date_resignation"),
+				:start_year => 1970,
+				:end_year => Time.now.year
+			}
 				},
 
 			:options => { add_class: "btn btn-block add-careers ", :add_label => ("%s %s" % [t("helpers.forms.add"), t("jobs.careers.role")])  }

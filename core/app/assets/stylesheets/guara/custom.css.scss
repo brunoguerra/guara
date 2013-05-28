@@ -103,6 +103,7 @@ footer {
   padding-top: 5px;
   border-top: 1px solid $grayMediumLight;
   color: $grayLight;
+  clear: both;
   a {
     color: $gray;
     &:hover { 
@@ -426,7 +427,7 @@ input[type="text"], input[type="text"].search-query{
 
 /* CUSTOMER SHOW2 :: BEGIN*/
 table thead tr th, table tbody tr td{
-  text-align: center !important;
+  
    text-transform: uppercase;
 }
 

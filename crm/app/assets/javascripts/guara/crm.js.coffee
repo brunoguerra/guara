@@ -4,7 +4,7 @@ jQuery ->
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
-  $('form').on 'click', '.add_fields', (event) ->
+  $('form, div.list_nested_form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))

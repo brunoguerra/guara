@@ -27,13 +27,13 @@ module Guara
 
         @search = ProcessInstance.joins(:custom_process).order('id DESC').search(params[:search])
         @process_instance = paginate(@search, params[:page], 10)
+        
         authorize! :read, @custom_process
       end
 
       def new
         @custom_process = Vacancy.custom_process
         @process_instance = ProcessInstance.new
-        
         @process_instance.update_attributes({
           :process_id=> @custom_process.id,
           :date_start=> Time.now.to_s(:db),

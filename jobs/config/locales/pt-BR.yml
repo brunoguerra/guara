@@ -2,7 +2,7 @@
 
 pt-BR:
 
-  jobs:
+    jobs:
     title: "Recrutamento e Seleção"
     link: "Recrutamento e Seleção"
 
@@ -159,31 +159,31 @@ pt-BR:
       closed_total: "Fecha Total"
       closed_partial: "Fechado Parcial"
 
-  jobs_business_actions:
+    jobs_business_actions:
     title: "Área de Atuação"
 
-  jobs_roles:
+    jobs_roles:
     title: "Cargos"
 
-  jobs_level_educations:
+    jobs_level_educations:
     title: "Grau de Formação"
 
-  jobs_consultants:
+    jobs_consultants:
     title: "Consultor"
 
-  jobs_languages:
+    jobs_languages:
     title: "Idiomas"
 
-  jobs_level_knowledges:
+    jobs_level_knowledges:
     title: "Nivel de Conhecimento"
 
-  jobs_salary_requirements:
+    jobs_salary_requirements:
     title: "Faixa Salarial"
 
-  search:
+    search:
     link: "Buscar Profissional"
 
-  system:
+    system:
     modules: &jobs_modules
       "guara/jobs/professional": "Profissional"
       "guara/jobs/custom_process": "Processo Personalizado"
@@ -193,7 +193,7 @@ pt-BR:
       "guara/jobs/formation": "Formação"
       "guara/jobs/language": "Idiomas"
 
-  activerecord:
+    activerecord:
       attributes:
         "guara/jobs/professional":
             <<: *attrs_professional
@@ -204,7 +204,7 @@ pt-BR:
         <<: *jobs_modules
 
 
-  helpers:
+    helpers:
     label:
       professional:
         search:
@@ -229,7 +229,7 @@ pt-BR:
       select: "Selecionar"
 
 
-  interviewer_professionals:
+    interviewer_professionals:
     consultant_id: "Consultor"
     professional_id: "Candidato"
     local: "Local"
@@ -239,7 +239,7 @@ pt-BR:
     description: "Descrição da Entrevista"
     avaliate: "Avaliação"
 
-  inter_view_professionals:
+    inter_view_professionals:
     professional_id: "Candidato"
     date_evaluation: "Avaliação"
     date_send_report: "Envio do Relatório"
@@ -251,29 +251,36 @@ pt-BR:
     sended?: "Enviado"
 
 
-  vacancy_psychological_evaluation:
+    vacancy_psychological_evaluation:
     date_evaluation: "Data Avaliação"
     date_send_report: "Data de Envio"
     return_date: "Retorno"
     psychological_evalution?: "Avaliação Psicológica?"
     file: "Anexar arquivo"
-    
-  vacancy_scheduling:
+
+    vacancy_scheduling:
       consultant_id: "Consultor"
       date_time: "Data da Entrevista"
       local: "Local da Entrevista"
       candidates_disinterested: "Não tem Interesse"
       candidates_interested: "Candidato Interessado"
 
-  vacancy_synthesis_professional:
+    vacancy_synthesis_professional:
     synthesis: "Síntese"
     avaliate_interview: "Avaliação Entrevista"
 
-  vacancy_customer_interview:
+    vacancy_customer_interview:
     customer_interview: "Entrevista Cliente ?"
     return_date: "Data de Retorno"
     return_interview: "Resultado Entrevista"
     motive: "Motivo"
 
-  vacancy_sended_professionals:
+    vacancy_sended_professionals:
     send: "Enviar"
+
+
+    #Global <==================================
+
+    system:
+      modules: &jobs_modules
+        "guara/jobs/roles": "Cargos"
