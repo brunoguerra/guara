@@ -72,11 +72,8 @@
 
 					  <dl class="dl-horizontal" id="notes">
 			            <dt><%=  t("customer.notes") %></dt>
-						<dd>
-							<div id="complete">
+						<dd class="4blocks autoscroll">
 								<%= simple_format(@customer.notes) %>
-							</div>
-		        	<%= nbsp simple_format(index_notes(@customer.notes)) %>
 
 						</dd>
 			          </dl>
@@ -202,6 +199,7 @@ $(function(){
 	overflow: scroll;
 	display: none;
 }
+
 </style>
 
 </section>

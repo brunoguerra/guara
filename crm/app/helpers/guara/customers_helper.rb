@@ -18,6 +18,8 @@ module Guara
     def index_notes(notes)
       if notes.to_s.size>140
         notes[0..139].concat("...")
+      else
+        notes
       end
     end
 

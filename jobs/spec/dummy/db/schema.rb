@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228204464) do
+ActiveRecord::Schema.define(:version => 20130521191553) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -129,12 +129,13 @@ ActiveRecord::Schema.define(:version => 20130228204464) do
 
   create_table "guara_customer_pfs", :force => true do |t|
     t.string   "gender",             :limit => 1
-    t.integer  "company"
+    t.string   "company"
     t.string   "business_address",   :limit => 120
     t.string   "department",         :limit => 20
     t.string   "corporate_function", :limit => 20
     t.string   "cellphone",          :limit => 15
     t.string   "graduated",          :limit => 30
+    t.integer  "civil_state",        :limit => 2
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
@@ -193,173 +194,6 @@ ActiveRecord::Schema.define(:version => 20130228204464) do
     t.datetime "updated_at",                                      :null => false
   end
 
-  create_table "guara_jobs_abilities", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "guara_jobs_business_actions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "guara_jobs_careers", :force => true do |t|
-    t.string   "role"
-    t.date     "date_admission"
-    t.date     "date_resignation"
-    t.decimal  "salary",                     :precision => 10, :scale => 2, :default => 0.0
-    t.text     "activities"
-    t.integer  "professional_experience_id"
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
-  end
-
-  create_table "guara_jobs_consultants", :force => true do |t|
-    t.string   "name"
-    t.boolean  "enable"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "guara_jobs_custom_processes", :force => true do |t|
-    t.string   "name"
-    t.string   "hook_instanciate"
-    t.integer  "business_id"
-    t.integer  "step_init"
-    t.boolean  "enabled"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  create_table "guara_jobs_formations", :force => true do |t|
-    t.integer  "level_education_id"
-    t.string   "course"
-    t.string   "situation"
-    t.text     "description"
-    t.string   "name_institution"
-    t.date     "date_conclusion"
-    t.integer  "professional_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  create_table "guara_jobs_languages", :force => true do |t|
-    t.string   "name"
-    t.integer  "professional_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "guara_jobs_level_educations", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "guara_jobs_process_instances", :force => true do |t|
-    t.integer  "process_id"
-    t.date     "date_start"
-    t.date     "date_finish"
-    t.integer  "user_using_process"
-    t.integer  "state"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  create_table "guara_jobs_professional_experiences", :force => true do |t|
-    t.string   "company_name"
-    t.integer  "professional_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "guara_jobs_professionals", :force => true do |t|
-    t.integer  "person_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.boolean  "have_job"
-  end
-
-  create_table "guara_jobs_roles", :force => true do |t|
-    t.string   "name"
-    t.integer  "business_action_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  create_table "guara_jobs_step_attrs", :force => true do |t|
-    t.string   "title"
-    t.string   "position"
-    t.string   "options"
-    t.string   "widget"
-    t.string   "type_field"
-    t.boolean  "resume"
-    t.boolean  "required"
-    t.integer  "column"
-    t.integer  "step_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "guara_jobs_step_instance_attr_multis", :force => true do |t|
-    t.string   "step_instance_attr_id"
-    t.string   "value"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
-  end
-
-  create_table "guara_jobs_step_instance_attrs", :force => true do |t|
-    t.integer  "process_instance_id"
-    t.integer  "step_attr_id"
-    t.integer  "step_id"
-    t.string   "value"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-  end
-
-  create_table "guara_jobs_step_instances", :force => true do |t|
-    t.integer  "process_instance_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-  end
-
-  create_table "guara_jobs_steps", :force => true do |t|
-    t.string   "name"
-    t.integer  "next"
-    t.integer  "level"
-    t.integer  "custom_process_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "guara_jobs_vacancies", :force => true do |t|
-    t.integer  "process_instance_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-  end
-
-  add_index "guara_jobs_vacancies", ["process_instance_id"], :name => "index_guara_jobs_vacancies_on_process_instance_id"
-
-  create_table "guara_jobs_vacancy_specifications", :force => true do |t|
-    t.decimal  "salary_requirements", :precision => 10, :scale => 2, :default => 0.0
-    t.integer  "role_id"
-    t.integer  "professional_id"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
-  end
-
-  create_table "guara_jobs_vacancy_specifications_roles", :force => true do |t|
-    t.integer  "role_id"
-    t.integer  "vacancy_specification_id"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-  end
-
-  add_index "guara_jobs_vacancy_specifications_roles", ["role_id"], :name => "guara_jobs_vacancy_spec_roles_id"
-  add_index "guara_jobs_vacancy_specifications_roles", ["vacancy_specification_id"], :name => "guara_jobs_vacancy_spec_id"
-
   create_table "guara_microposts", :force => true do |t|
     t.string   "content"
     t.integer  "user_id"
@@ -395,7 +229,17 @@ ActiveRecord::Schema.define(:version => 20130228204464) do
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
     t.string   "other_contacts", :limit => 70
+    t.string   "number"
   end
+
+  create_table "guara_phones", :force => true do |t|
+    t.string   "phone"
+    t.integer  "callable_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "guara_phones", ["callable_id"], :name => "index_guara_phones_on_callable_id"
 
   create_table "guara_relationships", :force => true do |t|
     t.integer  "follower_id"

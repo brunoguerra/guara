@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
     
   s.add_dependency "rails", "~> 3.2.9"
   
+  s.add_dependency 'sass-rails', "~>3.0"
+  
   s.add_dependency 'jquery-rails', '~>2.2'
   s.add_dependency 'select2-rails', '~> 3.2'
   
@@ -42,7 +44,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency  'faker', '1.0.1'
 
   #login rules
-  s.add_dependency  'devise'
+  s.add_dependency  'devise', '2.2.4'
   s.add_dependency  'cancan', '~> 1.6.8'
 
   #model
@@ -62,4 +64,5 @@ Gem::Specification.new do |s|
   
   s.add_dependency 'wicked_pdf', '~> 0.9'
   s.add_dependency 'wkhtmltopdf-binary', '~> 0.9'
+  
 end

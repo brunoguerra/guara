@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require
-require "guara_jobs"
+require "guara_crm"
 
 module Dummy
   class Application < Rails::Application
@@ -54,8 +54,6 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
-    config.session_jobs = nil
   end
 end
 
