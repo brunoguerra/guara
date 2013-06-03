@@ -13,35 +13,35 @@
 					
 					
 					
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customer_#{@customer.customer.prefix}s.doc") %></b>
 							<br><%= nbsp @customer.doc %>
 						</p>
 					</div>
 					
-					<div class="box-gray-data">
+					<div class="box-white-data">
 						<p>
 							<b><%=  t("customer_#{@customer.customer.prefix}s.doc_rg") %></b>
 							</br><%= nbsp @customer.doc_rg %>
 						</p>
 					</div>
 
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customer.site") %></b>
 							<br><%= nbsp @customer.site %>
 						</p>
 					</div>
 
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customers.social_link") %></b>
 							<br><%= nbsp @customer.social_link %>
 						</p>
 					</div>
 
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customers.address") %></b>
 							<br><%= nbsp @customer.format_address %>
@@ -60,34 +60,31 @@
 				</div>
 
 				<div class="span4">
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customers.phone") %></b>
-							<br><%= nbsp @customer.phone %>
+							<br><%= nbsp @customer.phone %>, <%= inline_list @customer.phones, :phone %>
 						</p>
 					</div>
 					
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customers.emails") %></b>
 							<br><%= nbsp inline_list @customer.emails, :email %>
 						</p>
 					</div>
 
-					<div class="dl-horizontal box-gray-data notes">
+					<div class="dl-horizontal box-white-data notes autoscroll block4">
 						<p>
 							<b><%=  t("customers.notes") %></b>
-							<div class="complete">
-								<%= simple_format(@customer.notes) %>
-							</div>
-							<%= nbsp simple_format(index_notes(@customer.notes)) %>
+							<%= nbsp simple_format(@customer.notes) %>
 					</div>
 					
 				</div>
 
 
 				<div class="span3">
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b>Completo?</b>
 							<span class="badge <%= @customer.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean @customer.complete %></span>
@@ -99,17 +96,18 @@
 					</div>
 					
 					<% if @customer_type == "pj" %>
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customer_pjs.total_employes") %></b>
 							<br><%= nbsp @customer.customer.total_employes %>
 						</p>
 					</div>
 					
-					<div class="box-gray-data">					
+					<div class="box-white-data">					
 						<p>
 							<b><%=  t("customers.associateds") %></b>
 							<ul>
+								<%= raw "<li>&nbsp</li>" if @customer.customer.associateds.size == 0 %>
 								<% @customer.customer.associateds.each do |pj_assoc| %>
 								<li><%= link_to pj_assoc.name.upcase, customer_path(pj_assoc.person), :target => '_blank' %></li>
 								<% end %>
@@ -119,22 +117,11 @@
 							</ul>
 						</p>
 					</div>
-
-					<div class="box-gray-data">
-						<p>
-							<b><%=  t("customer_pjs.segments") %></b>
-							<br><%= nbsp inline_list @customer.customer.activities.joins(:business_segment).select("guara_business_segments.name as segment_name").group(:segment_name), :segment_name %>
-						</p>
-					</div>
-
 					
-					<div class="box-gray-data activities" style="overflow-y: scroll; height: 90px;">
-						<p>
-							<b><%=  t("customer_pjs.activities") %></b>
-							<div class="complete">
-								<ul><%  @customer.customer.activities.joins(:business_segment).order("guara_business_segments.name").group_by(&:business_segment).each do |segment, activities| %>
+					<div class="box-white-data activities" style="overflow-y: scroll; height: 140px; width: 263px;">
+								<ul style="margin:0px;"><%  @customer.customer.activities.joins(:business_segment).order("guara_business_segments.name").group_by(&:business_segment).each do |segment, activities| %>
 											<li>
-												<h3><i class="icon-th"></i>&nbsp;<%= segment.name %></h3>
+												<b><i class="icon-th"></i>&nbsp;<%= segment.name %></b>
 											</li>
 											<li>
 												<ul>
@@ -144,9 +131,6 @@
 												</ul>
 											</li>
 									<% end %></ul>
-							</div>
-							<%= inline_list @customer.customer.activities, :name %>
-							</p>
 					</div>
 					
 					<% end %>
@@ -238,6 +222,13 @@ $(function(){
 	height: 300px;
 	overflow: scroll;
 	display: none;
+}
+
+.4blocks {
+	min-height: 230px;
+}
+.autoscroll {
+	overflow-y: scroll;
 }
 
 .activities .complete {

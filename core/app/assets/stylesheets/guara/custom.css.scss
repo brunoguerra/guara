@@ -445,6 +445,17 @@ margin-top: 5px ;
 margin-bottom: 5px ;
 }
 
+.box-white-data{
+padding-left: 10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+margin-top: 5px ;
+margin-bottom: 5px ;
+border: #f6f6f6 1px solid;
+}
+
+
 .show .thumbnails .container .thumbnail{
 overflow: hidden;
 }
@@ -462,12 +473,29 @@ overflow: hidden;
 /* CUSTOMER SHOW2 :: END*/
 
 
-  .show {
-    .control-group {
-        text-transform: uppercase;
-    }
-  }
-  
-  .text_uppercase {
-    text-transform: uppercase;
-  }
+ .show {
+   .control-group {
+       text-transform: uppercase;
+   }
+ }
+ 
+ .text_uppercase {
+   text-transform: uppercase;
+ }
+
+
+.block1 {
+	min-height: 60px;
+}
+
+.block2 {
+	min-height: 120px;
+}
+
+.block4 {
+	min-height: 240px;
+}
+
+.autoscroll {
+	overflow-y: scroll;
+}

@@ -63,9 +63,9 @@ module Guara
       @tasks = @customer.tasks.paginate(page:params[:task_page] || 1, per_page: 4)
     
       @selected_department = params[:department]
-      @contacts = @customer.contacts.joins(:department).order("guara_business_departments.name, guara_contacts.name")
+      @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
-    
+      
       render "show_detailed"
     end
   
@@ -175,10 +175,12 @@ module Guara
     
     def filter_before_changes
       authorize! params[:action].to_sym, @customer
-    
+      
       params[:customer][:doc].gsub! /[\.\/-]/, "" if params[:customer][:doc]
       params[:customer][:doc_rg].gsub! /[\.\/-]/, "" if params[:customer][:doc_rg] 
       params[:customer][:postal].gsub! /[\.\/-]/, "" if params[:customer][:postal]
+      
+      #@customer.phones.each { |p| params[:customer][:phones_attributes].merge({ :id => p.id, :_destroy => 1}) }
     end
     
     def multiselect_business_segments
@@ -208,6 +210,8 @@ module Guara
       else
         @customer_type = preferences_customer_type?.to_s
       end
+      
+      2.times { @customer.phones.build if @customer.phones.size < 2 }
     end
   
     def custom_load_creator

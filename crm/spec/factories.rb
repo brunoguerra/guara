@@ -16,7 +16,6 @@ FactoryGirl.define do
     end
   end
   
-  
   factory :customer_pj, :class => Guara::CustomerPj do
     fax 9999
     after_build do |pj|

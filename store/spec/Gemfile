@@ -2,4 +2,4 @@
 gem "rails"
 gem "devise"
 gem "cancan"
-gem "active_admin"
+gem "activeadmin"

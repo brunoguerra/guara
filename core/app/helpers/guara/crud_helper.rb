@@ -36,6 +36,14 @@ module Guara
         object.send("build_#{relation_sym.to_s}".to_sym)
       end
     end
+    
+    def order_asc_icon(asc=true)
+      if asc
+        '<i class="icon-chevron-up"></i>'.html_safe
+      else
+        '<i class="icon-chevron-down"></i>'.html_safe
+      end
+    end
 
   end
 end

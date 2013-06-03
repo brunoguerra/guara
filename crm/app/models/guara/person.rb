@@ -5,7 +5,7 @@ module Guara
     attr_accessible :doc, :doc_rg, :name, :birthday, :name_sec, :address, :state_id, :city_id, :district_id,
                     :is_customer, :person, :customer, :customer_type, :customer_id, :postal, :emails, :complete, :state, :city, :district, :phone, 
                     :fax, :social_link, :site, :enabled, :other_contacts, :notes, :emails_attributes, :contacts_attributes,
-                    :external_key, :number
+                    :external_key, :number, :phones_attributes
 
     cattr_writer :modules
 
@@ -24,11 +24,12 @@ module Guara
     alias_method :person, :customer
     alias_method :person=, :customer=
     
-    has_many :tasks, dependent: :destroy, :as => :interested
-    has_many :emails, :as => :emailable, dependent: :destroy
+    has_many :tasks,    :as => :interested, :dependent => :destroy
+    has_many :emails,   :as => :emailable,  :dependent => :destroy
     has_many :contacts, dependent: :destroy
     has_many :order
-  
+    has_many :phones,   :as => :callable,   :dependent => :destroy
+    
     belongs_to :state
     belongs_to :city
     belongs_to :district
@@ -52,6 +53,7 @@ module Guara
   
     accepts_nested_attributes_for :emails, :reject_if => lambda { |a| a[:email].blank? }, :allow_destroy => true
     accepts_nested_attributes_for :contacts, :reject_if => lambda { |a| a[:name].blank? && a[:phone].blank? }, :allow_destroy => true
+    accepts_nested_attributes_for :phones, :reject_if => lambda { |a| a[:phone].blank? }, :allow_destroy => true
   
     #=========================== VALIDATION <------------------------------------------------
   

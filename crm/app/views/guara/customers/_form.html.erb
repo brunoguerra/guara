@@ -45,6 +45,9 @@
 
 
 			<%= f.input :phone, :input_html => { :class => "phone" } %>
+			<%= f.fields_for :phones do |phones_f| %>
+			<%= phones_f.input :phone, :input_html => { :class => "phone" } %>
+			<% end %>
 
 			<%= f.input :site %>
 
