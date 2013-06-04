@@ -139,7 +139,7 @@
                 var input = $('<input type="text" class="maininput" size="' + options.input_min_size + '" autocomplete="off">');
                 if (options.input_tabindex > 0) input.attr("tabindex", options.input_tabindex);
                 if (options.input_name != "") input.attr("name", options.input_name);
-                if (options.input_style != "") input.css(options.input_style);
+                if (options.input_style!=undefined && options.input_style != "") input.css(options.input_style);
                 holder.append(li.append(input));
                 input.focus(function() {
                     isactive = true;
@@ -695,7 +695,8 @@
                 var input = $('<input type="text" class="maininput" size="' + options.input_min_size + '" autocomplete="off">');
                 if (options.input_tabindex > 0) input.attr("tabindex", options.input_tabindex);
                 if (options.input_name != "") input.attr("name", options.input_name);
-                if (options.input_style != "") input.width(options.input_style.width); 
+                if (options.input_style!=undefined && options.input_style != "") input.css(options.input_style); 
+								
                 holder.append(li.append(input));
                 input.focus(function() {
                     isactive = true;

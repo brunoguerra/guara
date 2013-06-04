@@ -61,6 +61,15 @@
 		padding-bottom: 5px;
 		border-bottom: 1px solid #E9E9E9;
 	}
+	
+	div.filter_form_field label {
+		font-size: 12px;
+		background: none;
+	}
+	
+	div#main_content_wrapper td {
+		font-size: 12px;
+	}
 }
 
 select,

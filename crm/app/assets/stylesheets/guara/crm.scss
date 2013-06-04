@@ -1,6 +1,6 @@
 /*
  *= require guara/core
- *=require select2/select2.css
+ *= require select2/select2.css
  */
 
 #customer_show #title h1 {
@@ -14,6 +14,14 @@
 	
 }
 
+#customer_phone_input, #customer_phones_attributes_0_phone_input, #customer_phones_attributes_1_phone_input {
+	float: left;
+	width: 100px;
+	input {
+		padding: 3px;
+	}
+}
+
 #contactsListModal.modal.fade.in {
 		top: 5%;
 }
@@ -22,10 +30,11 @@
 		height: 520px;
 }
 
-#task_notes{
+#task_notes {
 	text-transform: none!important
 }
 
- .strong{
+.strong {
  	font-weight: bold;
- }
+}
+

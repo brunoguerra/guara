@@ -1,12 +1,45 @@
-<div>
+<style type="text/css">
+	.thumbnail, .control-group {
+		overflow: hidden;
+	}
+
+	.control-group, .show .field_with_errors {
+		text-transform: none !important;
+	}
+
+	.span11 {
+		width: 883px;
+	}
+
+	.span6 {
+		width: 58%;
+		margin-left: 5px;
+	}
+
+		.span6 span.strong{
+			font-weight: normal ;
+		}
+
+	.span11 {
+		width: 95%;
+	}
+
+	.span3 {
+		width: 32%;
+	}
+
+</style>
+
 	<% @grouped_column_attrs_step_init.each do |group, column_attrs| 
 		group = 'default' if group.nil?
 	%>
-	<fieldset>
+	<fieldset class="span11">
 		<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
 		<% column_attrs.each do |column, attrs| %>
 			<% attrs.each do |step_attr| %>
-				<div class="control-group">
+
+
+				<div class="control-group box-white-data" >
 					<% if step_attr.options == 'component'  
 						@component = eval(step_attr.widget).new()
 	                    params[:process_instance_id] = params[:id]
@@ -15,12 +48,10 @@
 	                    @component.params = params 
 	                    %>
 						<%= @component.show.join("").html_safe %>
-	                    <%
-					 else 
-					 	#raise step_attr.to_yaml
-					 	%>
-						<%= show_span_tag step_attr.title %>
-						<%= show_attr_value(@process_instance, step_attr) %>
+	          <% else	%>
+
+						<div class="span3"><%= show_span_tag step_attr.title %></div>
+						<div class="span6"><%= show_attr_value(@process_instance, step_attr) %></div>
 					<% end %>
 				</div>
 			<% end %>
@@ -28,4 +59,3 @@
 	</fieldset>
 	<% end %>
 	<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> params[:edit_step]), :class=> "btn" if no_button == false && @process_instance.custom_process.enabled == true %> 
-</div>

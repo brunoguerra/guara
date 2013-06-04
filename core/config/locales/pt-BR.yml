@@ -89,7 +89,8 @@ pt-BR:
     inscricao_estadual: "Inscrição estadual"
     
     contact_name: "Com Contato de Nome"
-  
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
     
   contacts: &attr_contacts
     name: "Nome"
@@ -117,6 +118,8 @@ pt-BR:
         title: "Filtro Contatos"
     all: "Todos os Contatos"
     emails: "E-mails"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
 
   searches:
       advanced: "Avançado"
@@ -157,7 +160,8 @@ pt-BR:
     status: "Estado"
     interested: "Interessado"
     feedbacks: "Feedbacks"
-    
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
     
   task_resolutions:
     RESOLVED:  "Concluído"
@@ -189,9 +193,14 @@ pt-BR:
     total_employes: "Total de Funcionários"
     segments: "Segmentos"
     activities: "Atividades"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
+    
   activities:
     title: "Atividades"
-    link: "Atividades"    
+    link: "Atividades" 
+    created_at: "Criado em"
+    updated_at: "Atualizado em"   
 
   aministration:
     link: "Atividades"
@@ -210,6 +219,8 @@ pt-BR:
     title: "Usuários"
     link: "Usuários"
     all: "Todos os Usuários"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
     edit:
       title: "Edição do Usuário"
       link: "Editar"
@@ -245,26 +256,47 @@ pt-BR:
     link: "Atividades"
     title: "Atividades"
 
-  districts:
+  districts: &attr_districts
     link: "Bairros"
     title: "Bairros"
+    name: "Nome"
+    city: "Cidade"
+    enabled: "Ativo"
+    code: "Código"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
   
-  cities:
+  cities: &attr_cities
     link: "Cidades"
     title: "Cidades"
+    name: "Nome"
+    state: "Estado"
+    enabled: "Ativo"
+    code: "Código"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
   
-  states:
+  states: &attr_states
     link: "Estados"
     title: "Estados"
-  
+    name: "Nome"
+    enabled: "Ativo"
+    code: "Código"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
+    
   business_departments:
     link: "Setores"
     title: "Setores das Empresas"
-  
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
+    
   task_types:
     link: "Tipos de Tarefas"
     title: "Tipos de Tarefas"
-  
+    created_at: "Criado em"
+    updated_at: "Atualizado em"
+    
   #SECTIONS <===================================
   
   account:
@@ -317,9 +349,9 @@ pt-BR:
       business_segment: "Segmento"
       business_activity: "Tipos de Tarefas"
       business_department: "Setor"
-      city: "Cidade"
-      state: "Estado"
-      district: "Bairro"
+      "guara/city": "Cidade"
+      "guara/state": "Estado"
+      "guara/district": "Bairro"
       company_business: "Área de Negócio"
       customer: "Cliente"
       contact: "Contato"
@@ -357,6 +389,7 @@ pt-BR:
     attributes:
       "guara/user":
         <<: *attr_users
+      
       "guara/customer":
           <<: *attr_customer
       
@@ -368,12 +401,21 @@ pt-BR:
       
       "guara/task":
           <<: *attr_tasks
-          
+      
       "guara/feedback":
           <<: *attr_feedbacks
-          
+      
       "guara/task_type":
           <<: *attr_task_types
+          
+      "guara/city":
+          <<: *attr_cities
+      
+      "guara/state":
+          <<: *attr_states
+      
+      "guara/district":
+          <<: *attr_districts
       
     models: 
       <<: *system_modules

@@ -18,7 +18,7 @@ module Guara
     validates_uniqueness_of :name, :scope => [:person_id, :business_function]
 
     #=========================== scopes <--------------------------------------------
-    default_scope :order => :name
+    default_scope includes(:department).order("guara_business_departments.name, guara_contacts.name")
     
     #=========================== search <--------------------------------------------  
   

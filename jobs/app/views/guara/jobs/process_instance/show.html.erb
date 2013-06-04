@@ -1,12 +1,9 @@
 <navbar>
-			<%= render :partial => "guara/jobs/jobs/navbar", 
-      :locals => { active: :announcement_of_vacancies } %>
-		</navbar>
+	<%= render :partial => "guara/jobs/jobs/navbar", :locals => { active: :announcement_of_vacancies } %>
+</navbar>
 		
 <section class="show">
-	
-	
-	
+
 	<ul class="thumbnails">
 		<li class="span9">
 			<h2><%=@process_instance.custom_process.step.name %></h2>

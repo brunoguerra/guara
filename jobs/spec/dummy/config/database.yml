@@ -5,7 +5,7 @@ development:
   password: 
   host: localhost
   encoding: UTF8
-  pool: 5
+  pool: 45
   timeout: 5000
 
 test:
@@ -15,7 +15,7 @@ test:
     password: 
     host: localhost
     encoding: UTF8
-    pool: 5
+    pool: 45
     timeout: 5000
 
 production:
@@ -26,5 +26,5 @@ production:
     password: 
     host: localhost
     encoding: UTF8
-    pool: 5
+    pool: 45
     timeout: 5000

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228190807) do
+ActiveRecord::Schema.define(:version => 20130521191553) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
   end
 
   create_table "guara_contacts", :force => true do |t|
-    t.integer  "customer_id"
+    t.integer  "person_id"
     t.string   "name",              :limit => 150
     t.integer  "department_id"
     t.string   "business_function"
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
     t.datetime "updated_at",                       :null => false
   end
 
-  add_index "guara_contacts", ["customer_id"], :name => "index_guara_contacts_on_customer_id"
   add_index "guara_contacts", ["department_id"], :name => "index_guara_contacts_on_department_id"
+  add_index "guara_contacts", ["person_id"], :name => "index_guara_contacts_on_person_id"
 
   create_table "guara_customer_activities", :force => true do |t|
     t.integer  "customer_pj_id"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
   end
 
   create_table "guara_customer_financials", :force => true do |t|
-    t.integer  "customer_id"
+    t.integer  "person_id"
     t.boolean  "billing_address_different"
     t.integer  "contact_leader_id"
     t.boolean  "payment_pending"
@@ -129,12 +129,13 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
 
   create_table "guara_customer_pfs", :force => true do |t|
     t.string   "gender",             :limit => 1
-    t.integer  "company"
+    t.string   "company"
     t.string   "business_address",   :limit => 120
     t.string   "department",         :limit => 20
     t.string   "corporate_function", :limit => 20
     t.string   "cellphone",          :limit => 15
     t.string   "graduated",          :limit => 30
+    t.integer  "civil_state",        :limit => 2
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
@@ -173,34 +174,6 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "guara_customers", :force => true do |t|
-    t.string   "name",           :limit => 120,                    :null => false
-    t.string   "doc",            :limit => 14
-    t.string   "doc_rg",         :limit => 22
-    t.string   "name_sec",       :limit => 120
-    t.string   "address",        :limit => 150
-    t.integer  "district_id"
-    t.integer  "city_id"
-    t.integer  "state_id"
-    t.string   "postal",         :limit => 8
-    t.text     "notes"
-    t.date     "birthday"
-    t.string   "phone",          :limit => 35
-    t.string   "social_link",    :limit => 200
-    t.string   "site",           :limit => 200
-    t.boolean  "is_customer",                   :default => false
-    t.integer  "parent_id"
-    t.boolean  "enabled",                       :default => true
-    t.integer  "person_id"
-    t.string   "person_type"
-    t.boolean  "complete"
-    t.float    "annual_revenue"
-    t.integer  "external_key"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
-    t.string   "other_contacts", :limit => 70
-  end
-
   create_table "guara_districts", :force => true do |t|
     t.string   "name",       :limit => 60
     t.integer  "city_id"
@@ -229,6 +202,44 @@ ActiveRecord::Schema.define(:version => 20121228190807) do
   end
 
   add_index "guara_microposts", ["user_id", "created_at"], :name => "index_guara_microposts_on_user_id_and_created_at"
+
+  create_table "guara_people", :force => true do |t|
+    t.string   "name",           :limit => 120,                    :null => false
+    t.string   "doc",            :limit => 14
+    t.string   "doc_rg",         :limit => 22
+    t.string   "name_sec",       :limit => 120
+    t.string   "address",        :limit => 150
+    t.integer  "district_id"
+    t.integer  "city_id"
+    t.integer  "state_id"
+    t.string   "postal",         :limit => 8
+    t.text     "notes"
+    t.date     "birthday"
+    t.string   "phone",          :limit => 35
+    t.string   "social_link",    :limit => 200
+    t.string   "site",           :limit => 200
+    t.boolean  "is_customer",                   :default => false
+    t.integer  "parent_id"
+    t.boolean  "enabled",                       :default => true
+    t.integer  "customer_id"
+    t.string   "customer_type"
+    t.boolean  "complete"
+    t.float    "annual_revenue"
+    t.integer  "external_key"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+    t.string   "other_contacts", :limit => 70
+    t.string   "number"
+  end
+
+  create_table "guara_phones", :force => true do |t|
+    t.string   "phone"
+    t.integer  "callable_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "guara_phones", ["callable_id"], :name => "index_guara_phones_on_callable_id"
 
   create_table "guara_relationships", :force => true do |t|
     t.integer  "follower_id"
