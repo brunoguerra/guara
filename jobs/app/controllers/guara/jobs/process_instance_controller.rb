@@ -14,7 +14,6 @@ module Guara
           :embeded_call,
           :multiselect_customer_pj
         ]
-      #load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
 
       helper CrudHelper
 
@@ -22,10 +21,10 @@ module Guara
 
       def index
         params[:search] = {:finished_is_false=> true} if params[:search].nil?
-        params[:search][:custom_process_name_eq] = 'vacancy'
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 
-        @search = ProcessInstance.joins(:custom_process).order('id DESC').search(params[:search])
+        @search = ProcessInstance.joins(:custom_process).where(:guara_jobs_custom_processes=> {:name=> 'vacancy'})
+        .order('id DESC').search(params[:search])
         @process_instance = paginate(@search, params[:page], 10)
       end
 
