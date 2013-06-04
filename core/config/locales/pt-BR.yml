@@ -477,3 +477,9 @@ pt-BR:
           create: "Salvar %{model}"
   
   # ========================== Components >
+
+  #Global <==================================
+
+  system:
+    modules: &core_modules
+      "guara/city": "Cidades"

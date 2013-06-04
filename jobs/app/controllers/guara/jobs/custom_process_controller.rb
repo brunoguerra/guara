@@ -2,31 +2,37 @@
 module Guara
   module Jobs
     class CustomProcessController < Guara::BaseController
-      load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
+      load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess", :except => [:index, :show]
       
       helper CrudHelper
 
       def index
         @custom_process = CustomProcess.find(:all, :conditions=> ['source_id IS NULL'])
+        authorize! :read, @custom_process
       end
 
       def show
+
         if params[:released].nil?
           @custom_process = CustomProcess.find(params[:id]).get_released
         else
           @custom_process = CustomProcess.find(params[:released])
         end
+        
+        authorize! :read, @custom_process
 
         @steps = Step.find(:all, :conditions => ["custom_process_id = ?", @custom_process.id])
         @jsonNext = [{:id=>'process', :next=> @custom_process.step_init, :attrs=> []}]
         get_all_next_steps(@custom_process.step_init)
+
 
         if !session[:button_edit_process].nil? && session[:button_edit_process] == true
           @button_enable = true 
           session[:button_edit_process] = false
         else
           @button_enable = false
-        end 
+        end
+
       end
 
       def new

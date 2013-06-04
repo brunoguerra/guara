@@ -4,7 +4,7 @@ if defined?(ActiveAdmin)
   	module Jobs
 	    ActiveAdmin.register SalaryRequirement, :namespace => :maintence do
 	 
-
+	    
 	    end
 	end
   end
