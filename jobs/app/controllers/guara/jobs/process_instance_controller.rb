@@ -12,10 +12,6 @@ module Guara
         :embeded_call,
         :multiselect_customer_pj]
 
-      load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess", 
-      :except => [ 
-                    :index, :new, :edit, :show, :show_step ]
-
       helper CrudHelper
 
       attr_accessor :embedded
