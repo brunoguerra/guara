@@ -2,16 +2,18 @@
 module Guara
   module Jobs
     class ProcessInstanceController < Guara::BaseController
-      load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance", :except => [ :alter_state_process_instance,
-        :load_grouped_columned_attrs,
-        :create_step_instance_attrs,
-        :load_next_step_to_process_instance,
-        :set_next_step_to_process_instance,
-        :finish_process_instance,
-        :show_step,
-        :embeded_call,
-        :multiselect_customer_pj]
-      load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
+      load_and_authorize_resource :process_instance, :class => "Guara::Jobs::ProcessInstance", 
+        :except => [ 
+          :alter_state_process_instance,
+          :load_grouped_columned_attrs,
+          :create_step_instance_attrs,
+          :load_next_step_to_process_instance,
+          :set_next_step_to_process_instance,
+          :finish_process_instance,
+          :show_step,
+          :embeded_call,
+          :multiselect_customer_pj
+        ]
 
       helper CrudHelper
 
@@ -19,10 +21,10 @@ module Guara
 
       def index
         params[:search] = {:finished_is_false=> true} if params[:search].nil?
-        params[:search][:custom_process_name_eq] = 'vacancy'
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
 
-        @search = ProcessInstance.joins(:custom_process).order('id DESC').search(params[:search])
+        @search = ProcessInstance.joins(:custom_process).where(:guara_jobs_custom_processes=> {:name=> 'vacancy'})
+        .order('id DESC').search(params[:search])
         @process_instance = paginate(@search, params[:page], 10)
       end
 

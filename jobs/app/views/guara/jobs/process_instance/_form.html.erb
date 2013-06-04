@@ -91,6 +91,10 @@
 
 		function validate(){
 			<%= process_instance_js_required_fields(@current_step) %>
+			valid = window.validate_external;
+			if(typeof valid == 'function'){
+				return valid();
+			}
 			return true;
 		}
 	
