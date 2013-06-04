@@ -40,6 +40,14 @@
 <%= will_paginate @professionals %>
 
 	<script type="text/javascript">
+		window.validate_external = function(){
+			if( $('#select_professionals_professionals_selecteds').val()==null || 
+				$('#select_professionals_professionals_selecteds').val()==''){
+				alert('Selecione um Profissional!');
+				return false;
+			}
+		}
+
 		function setProfessionalToSelect2(id, name){
 			var noadd = false,
 			select    = $('#select_professionals_professionals_selecteds'),
