@@ -1,0 +1,216 @@
+
+
+
+/* 1 # CUSTOM PROCESSES */
+
+	INSERT INTO guara_jobs_custom_processes VALUES (1, 'vacancy', 'Guara::Jobs::VacancyProcessHook', NULL, 1, true, now(), now(), true, 1);
+	INSERT INTO guara_jobs_custom_processes VALUES (2, 'professionals_interview', 'Guara::Jobs::VacancyProcessHook', NULL, 11, true, now(), now(), true, 1);
+
+
+/* 2 # STEPS */
+
+	/* 2.1 # STEPS VACANCY */
+
+		INSERT INTO guara_jobs_steps VALUES (1, 'Abertura de Vaga'			, 2, 0, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (2, 'Histórico de Divulgação'	, 3, 1, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (3, 'Triar Curriculos'			, 4, 2, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (4, 'Recrutar Candidatos'		, 5, 3, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (5, 'Entrevistar Candidatos'	, 6, 4, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (6, 'Elaborar Sintese'			, 7, 5, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (7, 'Enviar ao Cliente'			, 8, 6, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (8, 'Entrevista Cliente'		, 9, 7, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (9, 'Avaliação Psicológica'		, 10, 8, 1, now(), now());
+		INSERT INTO guara_jobs_steps VALUES (10, 'Resultado Final'			, NULL, 9, 1, now(), now());
+
+
+	*/ 2.2 # STEP PROFESSIONAL INTERVIEW */
+
+		INSERT INTO guara_jobs_steps VALUES (11, 'Entrevistar Candidatos', NULL, 0, 2, now(), now());
+
+/* 3 # STEPS ATTR */
+
+	/* 3.1 # STEPS ATTR ABERTURA DE VAGA */
+	
+	/* DADOS DA EMPRESA - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (1, 'Empresa Solicitante', 'url:/process_instance/multiselect_customer_pj&Guara::CustomerPj', '', 'DADOS DA EMPRESA', 'select', true, true, 1, 1, now(), now(), 0, 'customer_pj_id');
+		INSERT INTO guara_jobs_step_attrs VALUES (2, 'Endereço', '', '', 'DADOS DA EMPRESA', 'text', false, true, 1, 1, now(), now(), 1, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (3, 'Motivo da Seleção', 'Novo Cargo, Substituição, Reposição, Aumento do Quadro, Licença Maternidade', '', 'DADOS DA VAGA', 'select', true, true, 1, 1, now(), now(), 2, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (4, 'Solictado em', '', '', 'DADOS DA EMPRESA', 'date', true, true, 1, 1, now(), now(), 3, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (5, 'Email', '', '', 'DADOS DA EMPRESA', 'text', false, true, 1, 1, now(), now(), 4, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (6, 'Telefone', '', '', 'DADOS DA EMPRESA', 'phone', false, true, 1, 1, now(), now(), 5, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (7, 'Nome do Responsável pelo Contrato / Cargo', '', '', 'DADOS DA EMPRESA', 'text', false, true, 1, 1, now(), now(), 6, NULL);
+
+  /* DADOS DA VAGA */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (8, 'Processo Sigiloso', 'Sim, NÃO', '', 'DADOS DA VAGA', 'select', false, true, 1, 1, now(), now(), 7, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (9, 'Departamento de Atuação', '$Guara::Jobs::BusinessAction', '', 'DADOS DA VAGA', 'select', false, true, 1, 1, now(), now(), 8, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (10, 'Cargo Desejado', '$Guara::Jobs::Role', '', 'DADOS DA VAGA', 'select', true, true, 1, 1, now(), now(), 9, 'role_id');
+		INSERT INTO guara_jobs_step_attrs VALUES (11, 'Tipo de Vaga', 'Efetivo, Temporário, Profissional Liberal, Pessoa Jurídica', '', 'DADOS DA VAGA', 'select', true, false, 1, 1, now(), now(), 10, 'type_id');
+		INSERT INTO guara_jobs_step_attrs VALUES (12, 'Quantidade de Vagas', '', '', 'DADOS DA VAGA', 'number', true, true, 1, 1, now(), now(), 11, 'total');
+		INSERT INTO guara_jobs_step_attrs VALUES (13, 'Salário de Contratação', '', '', 'DADOS DA VAGA', 'price', false, true, 1, 1, now(), now(), 12, 'salary_id');
+		INSERT INTO guara_jobs_step_attrs VALUES (14, 'Exigência do Cargo', 'Viagens, Hora Extra, Finais de Semana, Veí­culo Próprio', '', 'DADOS DA VAGA', 'select', false, false, 1, 1, now(), now(), 13, NULL);	
+		INSERT INTO guara_jobs_step_attrs VALUES (15, 'Benefícios', '', '', 'DADOS DA VAGA', 'text_area', false, false, 1, 1, now(), now(), 14, NULL);
+
+	 /* PERFIL CANDIDATO */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (16, 'Escolaridade', '$Guara::Jobs::LevelEducation', '', 'PERFIL CANDIDATO', 'select', true, true, 1, 1, now(), now(), 15, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (17, 'Idade', '', '', 'PERFIL CANDIDATO', 'number', false, false, 1, 1, now(), now(), 16, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (18, 'Sexo', 'Masculino, Feminino, Indiferente', '', 'PERFIL CANDIDATO', 'select', false, false, 1, 1, now(), now(), 17, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (19, 'Tempo de Experiência na Função', '', '', 'PERFIL CANDIDATO', 'text', false, false, 1, 1, now(), now(), 18, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (20, 'Cursos', '', '', 'PERFIL CANDIDATO', 'text_area', false, false, 1, 1, now(), now(), 19, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (21, 'Atividade a Realizar', '', '', 'PERFIL CANDIDATO', 'text_area', false, false, 1, 1, now(), now(), 20, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (22, 'Habilidades Técnicas', '', '', 'PERFIL CANDIDATO', 'text_area', false, false, 1, 1, now(), now(), 21, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (23, 'Habilidades Comportamentais', '', '', 'PERFIL CANDIDATO', 'text_area', false, false, 1, 1, now(), now(), 22, NULL);
+
+		/* COMPLEMENTARES */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (24, 'Observações Complementares', '', '', 'COMPLEMENTARES', 'text_area', false, false, 1, 1, now(), now(), 23, NULL);
+		INSERT INTO guara_jobs_step_attrs VALUES (25, 'Responsável pela seleção/Consultor(a)', '$Guara::Jobs::Consultant', '', 'COMPLEMENTARES', 'select', true, true, 1, 1, now(), now(), 24, 'consultant_id');
+
+
+		/* 3.2 # STEPS ATTR HISTÓRICO DE DIVUGAÇÃO - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (26, 'Meio de Divulgação', 'Site CMGB, Grupos de RH (Mobile - Recrut), Mí­dias Sociais (Facebook - Twitter - Linkedin), Jornais/Classificados, Centros de Empregos (SINE - etc), Sites de Emprego (Fastjob - Catho), Instituições de Ensino (Faculdades - Centros Técnicos - Cursos Específicos)', '', '', 'select', true, false, 1, 2, now(), now(), 0, NULL);
+
+		INSERT INTO guara_jobs_step_attrs VALUES (27, 'Como foi a Divulgação', '', '', '', 'text_area', true, false, 1, 2, now(), now(), 1, NULL);
+
+		/* 3.3 # STEPS ATTR TRIAR CURRÍCULOS - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (28, 'Selecionar Profissionais', '$Guara::Jobs::Professional', 'selecionar_candidatos', NULL, 'widget', true, true, 1, 3, now(), now(), 0, NULL);
+
+		/* 3.4 # STEPS ATTR RECRUTAR CANDIDATOS - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (29, 'Recrutar', 'component', 'Guara::Jobs::SchedulerProfessionalsController', '', 'widget', true, true, 1, 4, now(), now(), 0, NULL);
+
+		/* 3.5 # STEPS ATTR ENTREVISTAR CANDIDATOS - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (30, 'Entrevistar Profissionais', 'component', 	'Guara::Jobs::InterviewerProfessionalsController', '', 'widget', true, false, 1, 5, now(), now(), 0, NULL);
+
+		/* 3.6 # STEPS ATTR ELABORAR SÍNTESE - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (31, 'Sintese', 'component', 'Guara::Jobs::ProfessionalsSynthesisController', '', 'widget', true, false, 1, 6, now(), now(), 0, NULL);
+
+
+		/* 3.7 # STEPS ATTR ENVIAR CLIENTE - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (32, 'Customização de Campo', 'component', 'Guara::Jobs::VacancySendedProfessionalsController', NULL, 'widget', true, true, 1, 7, now(), now(), 0, NULL);
+
+
+		/* 3.8 # STEPS ATTR ENTREVISTA CLIENTE - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (33, 'Customização de Campo', 'component', 'Guara::Jobs::VacancyCustomerInterviewController', '', 'widget', true, true, 1, 8, now(), now(), 0, NULL);
+
+		/* 3.9 # STEPS ATTR AVALIAÇÃO PSICÓLOGICA - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (34, 'Customização de Campo', 'component', 'Guara::Jobs::VacancyProfessionalsPsychologicalEvaluationController', '', 'widget', true, true, 1, 9, now(), now(), 0, NULL);
+
+		/* 3.1O # STEPS ATTR RESULTADO FINAL - (VACANCY) */
+
+		INSERT INTO guara_jobs_step_attrs VALUES (35, 'Customização de Campo', 'component', 'Guara::Jobs::VacancyFinalResultController', '', 'widget', true, true, 1, 10, now(), now(), 0, NULL);
+
+
+			/* 3.11 #STEP ATTR ENTREVISTAR CANDIDATOS - (PROFESSIONAL INTERVIEW) */
+
+
+				/* ROTEIRO ENTREVISTA */
+				INSERT INTO guara_jobs_step_attrs VALUES (36, 'Roteiro de Entrevista', 'Seleção, Avaliação', '', '', 'select', true, true, 1, 11, now(), now(), 0, NULL);
+
+				/* RETROSPECTIVA PROFISSIONAL */
+				INSERT INTO guara_jobs_step_attrs VALUES (37, 'Retrospecto Profissional', '', '', '', 'text_area', true, true, 1, 11, now(), now(), 1, NULL);
+
+				/* REFERÊNCIAS PROFISSIONAIS */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (38, 'Último Emprego', '', '', 'Referências Profissionais', 'text', true, false, 1, 11, now(), now(), 2, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (39, 'Cargo', '', '', 'Referências Profissionais', 'text', true, false, 1, 11, now(), now(), 3, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (40, 'Telefone', '', '', 'Referências Profissionais', 'phone', true, false, 1, 11, now(), now(), 4, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (41, 'Pessoa de Contato', '', '', 'Referências Profissionais', 'text', true, false, 1, 11, now(), now(), 5, NULL);
+
+				INSERT INTO guara_jobs_step_attrs VALUES (42, 'Penúltimo Emprego', '', '', 'Referências Profissionais', 'text', true, false, 1, 11, now(), now(), 6, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (43, 'Cargo', '', '', 'Referências Profissionais', 'text', true, false, 1, 11, now(), now(), 7, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (44, 'Telefone', '', '', 'Referências Profissionais', 'phone', true, false, 1, 11, now(), now(), 8, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (45, 'Pessoa de Contato', '', '', '', 'text', true, false, 1, 11, now(), now(), 9, NULL);
+
+				/* AUTO PERCEPÇÃO */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (46, 'Como você se Percebe?', '', '', 'Auto Percepção', 'text_area', true, true, 1, 11, now(), now(), 9, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (47, 'Pontos Fortes/a Melhorar', '', '', 'Auto Percepção', 'text_area', true, true, 1, 11, now(), now(), 10, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (48, 'Relacionamento com os outros', '', '', 'Auto Percepção', 'text_area', true, true, 1, 11, now(), now(), 11, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (49, 'Organização diante das várias atividades no trabalho', '', '', 'Auto Percepção', 'text_area', true, true, 1, 11, now(), now(), 12, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (50, 'Profissional que serviu de modelo? Por que?', '', '', 'Auto Percepção', 'text_area', true, true, 1, 11, now(), now(), 13, NULL);
+
+				/* SAÚDE */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (51, 'Algum problema sério ultimamente?', '', '', 'Saúde', 'text', true, true, 1, 11, now(), now(), 14, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (52, 'Fuma?', 'Sim, Não', '', 'Saúde', 'select', true, true, 1, 11, now(), now(), 15, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (53, 'Bebe?', 'Sim, Não', '', 'Saúde', 'select', true, true, 1, 11, now(), now(), 16, NULL);
+
+
+				/* VIDA FAMILIAR E SÓCIAL */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (54, 'Estado Civil', 'Solteiro, Casado, Outros', '', 'Vida Familiar e Social', 'select', true, true, 1, 11, now(), now(), 17, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (55, 'Tempo (Casado)', '', '', 'Vida Familiar e Social', 'text', true, false, 1, 11, now(), now(), 18, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (56, 'ProfissÃ£o do Conjugue', '', '', 'Vida Familiar e Social', 'text', true, false, 1, 11, now(), now(), 19, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (57, 'Quantidade de Filhos', '', '', 'Vida Familiar e Social', 'text', true, true, 1, 11, now(), now(), 20, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (58, 'Sexo/Idades', '', '', 'Vida Familiar e Social', 'text', true, false, 1, 11, now(), now(), 21, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (59, 'Profissão do Pai', '', '', 'Vida Familiar e Social', 'text', true, false, 1, 11, now(), now(), 22, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (60, 'Profissão da Mãe', '', '', 'Vida Familiar e Social', 'text', true, false, 1, 11, now(), now(), 23, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (61, 'Com quem reside?', '', '', 'Vida Familiar e Social', 'text', true, true, 1, 11, now(), now(), 24, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (62, 'Relacionamento Familiar', '', '', 'Vida Familiar e Social', 'text', true, true, 1, 11, now(), now(), 25, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (63, 'Residência', 'Própria, Alugada, Financiada', '', 'Vida Familiar e Social', 'select', true, true, 1, 11, now(), now(), 26, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (64, 'Participa de alguma atividade social?', '', '', 'Vida Familiar e Social', 'text_area', true, true, 1, 11, now(), now(), 27, NULL);
+
+				/* SITUAÇÃO ECONÔMICA */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (65, 'Rendimentos Mensais Atuais (Aprox.)', '', '', 'Situação Econômica', 'price', true, true, 1, 11, now(), now(), 28, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (66, 'Ajuda Financeiramente em Casa?', 'Sim, Não', '', 'Situação Econômica', 'select', true, true, 1, 11, now(), now(), 29, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (67, 'Alguém mais trabalha em casa?', 'Sim, Não', '', 'Situação Econômica', 'select', true, true, 1, 11, now(), now(), 30, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (68, 'Possui Veículo', 'Sim, Não', '', 'Situação Econômica', 'select', true, true, 1, 11, now(), now(), 31, NULL);
+
+				/* PLANOS E PROSPECTIVOS */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (69, 'De maneira geral quais são seus planos para o futuro, quais são seus objetivos, mais importantes', '', '', 'Planos Prospectivos', 'text_area', true, true, 1, 11, now(), now(), 32, NULL);
+
+				/* IMPRESSÕES A RESPEITO DO CANDIDATOS */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (70, 'Características', 'Ancioso, Dissimulado, Depressão, Medo, Franco, Rígido, Rude, Vigor, Mágoa, Confiança, Cooperativo, Perspectivas', '', 'impressões a respeito do candidato', 'select', true, false, 1, 11, now(), now(), 33, NULL);
+
+				/* COMUNICAÇÃO */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (71, 'Comunicação', 'Fluente, Difícil Verbalização, Fácil e clara, Confusa, Razoável, Objetiva, Proxila, Gagueira', '', 'comunicação', 'select', true, false, 1, 11, now(), now(), 34, NULL);
+
+				/* NÍVEL INTELECTUAL */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (72, 'Ní­vel Intelectual', 'De fácil compreensão, De difícil compreensão, De razoável compreensão, Ágil, Reflexivo, Intuitivo', '', 'ní­vel intelectual', 'select', true, false, 1, 11, now(), now(), 35, NULL);
+
+				/* RELACIONAMENTO INTERPESSOAL */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (73, 'Relacionamento Interpessoal', 'Fácil, Difí­cil, Afável, Receptivo, Fechado, Discreto, Alegre bem humorado, Contraí­do, Polido', '', 'relacionamento interpessoal', 'select', true, false, 1, 11, now(), now(), 36, NULL);
+
+				/* FÍSICO POSTURA */
+
+				INSERT INTO guara_jobs_step_attrs VALUES (74, 'Físico / Postura', 'Fí­sico normal, Fí­sico compatí­vel com o cargo, Fí­sico não compatível com o cargo', '', 'Fí­sico_Postura', 'select', true, true, 1, 11, now(), now(), 37, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (75, 'Postura', 'Boa apresentação pessoal, Apresentação pessoal inadequada, Postura adequada, Postura inadequada, Tremor', '', 'Fí­sico_Postura', 'select', true, true, 1, 11, now(), now(), 38, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (76, 'Motivo (Não Compatível)', '', '', 'Fí­sico_Postura', 'text', true, false, 1, 11, now(), now(), 39, NULL);
+				INSERT INTO guara_jobs_step_attrs VALUES (77, 'Considerações Gerais', '', '', 'Fí­sico_Postura', 'text_area', true, true, 1, 11, now(), now(), 40, NULL);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

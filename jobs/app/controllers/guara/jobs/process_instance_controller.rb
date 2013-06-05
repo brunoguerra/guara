@@ -11,7 +11,6 @@ module Guara
         :show_step,
         :embeded_call,
         :multiselect_customer_pj]
-      load_and_authorize_resource :custom_process, :class => "Guara::Jobs::CustomProcess"
 
       helper CrudHelper
 
@@ -24,12 +23,13 @@ module Guara
 
         @search = ProcessInstance.joins(:custom_process).order('id DESC').search(params[:search])
         @process_instance = paginate(@search, params[:page], 10)
+        
+        authorize! :read, @custom_process
       end
 
       def new
         @custom_process = Vacancy.custom_process
         @process_instance = ProcessInstance.new
-        
         @process_instance.update_attributes({
           :process_id=> @custom_process.id,
           :date_start=> Time.now.to_s(:db),
@@ -37,6 +37,8 @@ module Guara
           :user_using_process=> current_user.id,
           :state=> @custom_process.step_init
         })
+
+        authorize! :read, @custom_process
 
         if @process_instance.save
           redirect_to edit_process_instance_path(@process_instance)
@@ -63,6 +65,8 @@ module Guara
         else
           @current_step = Step.find params[:edit_step]
         end
+
+        authorize! :read, @custom_process
         
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@current_step)
         @grouped_column_attrs_step_init    = load_grouped_columned_attrs(@process_instance.custom_process.step, true)
@@ -177,6 +181,7 @@ module Guara
       def show_step
         edit
         authorize! :read, Guara::Jobs::StepInstance
+        authorize! :read, @custom_process
       end
       
       def show
@@ -184,6 +189,9 @@ module Guara
         @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
+
+
+         authorize! :read, @custom_process
 
         if @embedded
           render :partial => "guara/jobs/process_instance/details_current_stage"

@@ -1,35 +1,44 @@
-<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-					<th class="span3"><%= t("jobs.professional.name") %></th>
-					<th class="span3"><%= t("jobs.professional.business_action_roles") %></th>
-					<th class="span2"><%= t("helpers.forms.actions") %></th>
-					</tr>
-				</thead>	
-				<tbody>
-					<% @professionals.each do |p| %>
-						<tr>
-							<td><%= p.person.name %></td>
-							<td>
-								<ul><% business_action_last = nil %>
-									<% p.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
-										<h5>
-										<% if (business_action_last.nil? || business_action_last.id != r.business_action.id)%>
-										<%= r.business_action.name %> :
-										<% end %>
-										</h5>
-										<li>- <%= r.name %><br></li>
-										<% business_action_last = r.business_action %>
-									<% end %>
-								</ul>
-							</td>
-							<td>
-								
-								<%= index_btn_view jobs_customer_professional_path(p.person_id, p), "Exibir Profissional" %>
+<style type="text/css">
+	ul, ol {
+		padding: 0;
+		margin: 0 0 10px 6px;
+	}
+</style>
 
-								<%= index_btn_select 'javascript:void(0);', :title => "Selecionar Profissional", :onClick=> "setProfessionalToSelect2(#{p.id}, '#{p.person.name}', 'btn_professional_select_#{p.id}');", :id => "btn_professional_select_#{p.id}" %>
-							</td>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+		<th class="span1"><%= t("jobs.professional.id") %></th>
+		<th class="span2"><%= t("jobs.professional.name") %></th>
+		<th class="span4"><%= t("jobs.professional.business_action_roles") %></th>
+		<th class="span2"><%= t("helpers.forms.actions") %></th>
+		</tr>
+	</thead>	
+	<tbody>
+		<% @professionals.each do |p| %>
+			<tr>
+				<td><%= p.id %></td>
+				<td><%= p.person.name %></td>
+				<td>
+					<ul><% business_action_last = nil %>
+						<% p.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
+							<h5>
+							<% if (business_action_last.nil? || business_action_last.id != r.business_action.id)%>
+							<%= r.business_action.name %> :
+							<% end %>
+							</h5>
+							<li>- <%= r.name %><br></li>
+							<% business_action_last = r.business_action %>
+						<% end %>
+					</ul>
+				</td>
+				<td>
+					
+					<%= index_btn_view jobs_customer_professional_path(p.person_id, p), "Exibir Profissional" %>
+
+					<%= index_btn_select 'javascript:void(0);', :title => "Selecionar Profissional", :onClick=> "setProfessionalToSelect2(#{p.id}, '#{p.person.name}', 'btn_professional_select_#{p.id}');", :id => "btn_professional_select_#{p.id}" %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -43,12 +43,13 @@ class JobsMigrationV2 < ActiveRecord::Migration
     #
     add_column :guara_jobs_vacancies, :status_id, :integer, :default => 1    
     add_column :guara_jobs_step_attrs, :system_name, :string
-    add_column :guara_jobs_vacancies, :customer_id, :integer
+    add_column :guara_jobs_vacancies, :customer_pj_id, :integer
     add_column :guara_jobs_vacancies, :role_id, :integer
     add_column :guara_jobs_vacancies, :type_id, :integer
     add_column :guara_jobs_vacancies, :total, :integer
     add_column :guara_jobs_vacancies, :salary_id, :integer
     add_column :guara_jobs_vacancies, :consultante_id, :integer
+
     
     
     
