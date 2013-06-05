@@ -40,7 +40,9 @@ module Guara
             end
 
             def create
-                @final_result = VacancyFinalResult.create(params[:jobs_vacancy_final_result])
+                @final_result = VacancyFinalResult.new(params[:jobs_vacancy_final_result])
+                @final_result.id = nil
+                @final_result.save
                 redirect_to edit_process_instance_path(params[:process_instance_id], :edit_step=> params[:edit_step])
             end
 

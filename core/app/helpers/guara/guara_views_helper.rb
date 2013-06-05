@@ -12,6 +12,17 @@ module Guara
     # options
     #   - add_class format add button
     # 
+
+    def link_to_add_partial(name, new_record, options = {}, *args, &block)
+      options ||= {}
+      id = new_record.object_id
+      content = block.call(new_record)
+      content.gsub!("\n", "")
+      
+      #content=""
+      link_to(options[:add_label] || t("helpers.forms.#{name}"), '#', class: "add_fields " + options[:add_class].to_s , data: {id: id, fields: content })
+    end
+    
     def link_to_add_fields(name, f, association, options = {})
       options ||= {}
       new_object = f.object.send(association).klass.new

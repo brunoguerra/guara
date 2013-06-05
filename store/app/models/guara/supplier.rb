@@ -1,7 +1,7 @@
 module Guara
   class Supplier < ActiveRecord::Base
-    attr_accessible :customer_pj_id
+    attr_accessible :person_id
 
-    belongs_to :customer_pj
+    belongs_to :person
   end
 end

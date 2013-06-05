@@ -37,8 +37,9 @@ module Guara
     		end
 
             def create
-                vacancy_customer_interview = VacancyCustomerInterview.create(params[:jobs_vacancy_customer_interview])
-                if vacancy_customer_interview                    
+
+                vacancy_customer_interview = VacancyCustomerInterview.new(params[:jobs_vacancy_customer_interview])
+                if vacancy_customer_interview.save
                     render :json => {:success=> true}
                 else
                     render :json => {:data=> vacancy_customer_interview.errors, :success=> false} 
@@ -47,7 +48,6 @@ module Guara
 
     		def update
     			@vacancy_customer_interview = VacancyCustomerInterview.find_by_vacancy_sended_professionals_id(params[:jobs_vacancy_customer_interview][:vacancy_sended_professionals_id])
-    		    
                 if @vacancy_customer_interview.nil?
                     self.create
                 else
