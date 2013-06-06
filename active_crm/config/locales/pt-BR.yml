@@ -1,0 +1,19 @@
+# encoding: UTF-8
+
+pt-BR:
+
+  active_crm:
+    check_analyses: &attr_check_analyses
+      
+      
+  system:
+    modules: &system_modules
+      "guara/active_crm/check_analyses": "Conferêcia Remota de Imagens"
+      
+  activerecord:
+    attributes:
+      "guara/active_crm/check_analyses":
+        <<: *attr_check_analyses
+
+    models:
+      <<: *system_modules

@@ -1,0 +1,37 @@
+<%= form_for(@active_crm_scheculed) do |f| %>
+  <% if @active_crm_scheculed.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@active_crm_scheculed.errors.count, "error") %> prohibited this active_crm_scheculed from being saved:</h2>
+
+      <ul>
+      <% @active_crm_scheculed.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :subject %><br />
+    <%= f.text_field :subject %>
+  </div>
+  <div class="field">
+    <%= f.label :date_start %><br />
+    <%= f.date_select :date_start %>
+  </div>
+  <div class="field">
+    <%= f.label :date_finish %><br />
+    <%= f.date_select :date_finish %>
+  </div>
+  <div class="field">
+    <%= f.label :task_type %><br />
+    <%= f.text_field :task_type %>
+  </div>
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
