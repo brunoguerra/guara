@@ -1,0 +1,31 @@
+<h1>Listing active_crm_scheculeds</h1>
+
+<table>
+  <tr>
+    <th>Subject</th>
+    <th>Date start</th>
+    <th>Date finish</th>
+    <th>Task type</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @active_crm_scheculeds.each do |active_crm_scheculed| %>
+  <tr>
+    <td><%= active_crm_scheculed.subject %></td>
+    <td><%= active_crm_scheculed.date_start %></td>
+    <td><%= active_crm_scheculed.date_finish %></td>
+    <td><%= active_crm_scheculed.task_type %></td>
+    <td><%= active_crm_scheculed.user %></td>
+    <td><%= link_to 'Show', active_crm_scheculed %></td>
+    <td><%= link_to 'Edit', edit_active_crm_scheculed_path(active_crm_scheculed) %></td>
+    <td><%= link_to 'Destroy', active_crm_scheculed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scheculed', new_active_crm_scheculed_path %>

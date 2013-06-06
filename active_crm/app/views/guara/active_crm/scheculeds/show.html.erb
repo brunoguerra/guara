@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Subject:</b>
+  <%= @active_crm_scheculed.subject %>
+</p>
+
+<p>
+  <b>Date start:</b>
+  <%= @active_crm_scheculed.date_start %>
+</p>
+
+<p>
+  <b>Date finish:</b>
+  <%= @active_crm_scheculed.date_finish %>
+</p>
+
+<p>
+  <b>Task type:</b>
+  <%= @active_crm_scheculed.task_type %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @active_crm_scheculed.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_active_crm_scheculed_path(@active_crm_scheculed) %> |
+<%= link_to 'Back', active_crm_scheculeds_path %>
