@@ -33,6 +33,16 @@ module Guara
       end
       link_to(options[:add_label] || t("helpers.forms.#{name}"), '#', class: "add_fields " + options[:add_class].to_s , data: {id: id, fields: fields.gsub("\n", "")})
     end
+
+    def link_to_add_partial(name, new_record, options = {}, *args, &block)
+      options ||= {}
+      id = new_record.object_id
+      content = block.call(new_record)
+      content.gsub!("\n", "")
+      
+      #content=""
+      link_to(options[:add_label] || t("helpers.forms.#{name}"), '#', class: "add_fields " + options[:add_class].to_s , data: {id: id, fields: content })
+    end
   
     def nbsp(value)
       if value.nil? || ((value.kind_of? String) &&  value.empty?)

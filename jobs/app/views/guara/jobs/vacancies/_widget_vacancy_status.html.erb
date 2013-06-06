@@ -1,3 +1,24 @@
+<style type="text/css">
+	
+	 .li_status {
+		margin: 4px 0;
+	}
+
+	h2 {
+		margin: 20px 0px 10px;
+	}
+
+	legend {
+		margin-bottom: 0px;
+	}
+
+	.alert {
+		margin-bottom: 5px;
+	}
+	
+</style>
+
+
 <%
 	# process_instance
 	@vacancy = Guara::Jobs::Vacancy.find_by_process_instance_id @process_instance.id
@@ -6,19 +27,28 @@
 <div class="thumbnail">
 
 
-<ul>
+<ul class="li_status">
 <% @vacancy.status.routes.each do |vacancy_status| %>
-	<li><%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn" %><li>
+	<li class="li_status"><%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn btn-block" %><li>
 <% end %>
 </ul>
 </div>
 
+<h2><%= t("jobs.vacancy_status.title") %></h2>
 <div class="thumbnail">
-	<legend><%= t("jobs.vacancy_status.title") %></legend>
-	<ul>
-		<% @vacancy.histories.order("created_at desc").each do |history| %>
-		<li><%= history.user.name %> : <%= t("jobs.vacancy_status.%s" % history.status_to.name) %></li>
+	<ul class="li_status">
+		<% histories = @vacancy.histories.order("created_at desc")
+				history_last = histories.first
+						histories.each do |history| %>
+		
+		<li class="alert <%= 'alert-success' if history.id == history_last.id %>" >
+			<b><%= history.user.name %>:</b><br />
+			<%= t("jobs.vacancy_status.%s" % history.status_to.name) %>
+		</li>
+
 		<% end %>
 	</ul>
 </div>
+
+
 

@@ -265,5 +265,9 @@ class CreateGuaraJobsMigationV1 < ActiveRecord::Migration
       t.timestamps
     end
 
+    create_table :guara_jobs_attachments do |t|
+      t.references :professional
+    end
+
   end
 end

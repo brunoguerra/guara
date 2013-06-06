@@ -14,7 +14,7 @@
 		      </div> <!-- end cliente -->
 
 			  	<div class="control-group">
-            <%= label_tag :role, t("jobs.vacancy_reports.role"), :class => "control-label" %>
+            	<%= label_tag :role, t("jobs.vacancy_reports.role"), :class => "control-label" %>
             	<div class="controls">
 
 	          	<%= f.select(:role_id_in, options_from_collection_for_select( Guara::Jobs::Role.all, :id, :name),{include_blank: true}, 
@@ -35,8 +35,8 @@
 		      </div> <!-- end total vacancy -->
 
 		      <div class="control-group">
-            <%= label_tag :status_id_in, t("jobs.vacancy_reports.status"), :class => "control-label" %>
-          	<div class="controls">
+	            <%= label_tag :status_id_in, t("jobs.vacancy_reports.status"), :class => "control-label" %>
+	          	<div class="controls">
 
 	          	<%= f.select :status_id_in, Guara::Jobs::VacancyStatus.status_translation.map{|a, b| [b, a]}, 
 	          		{include_blank: true}, 

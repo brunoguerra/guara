@@ -20,6 +20,8 @@ module Guara
     	{
 			0 => :sigle,
 			1 => :married,
+			2 => :divorced,
+			3 => :widower
 		}
 	end
 
@@ -27,6 +29,8 @@ module Guara
 		{
 			0 => I18n.t("customer_pfs.sigle"),
 			1 => I18n.t("customer_pfs.married"),
+			2 => I18n.t("customer_pfs.divorced"),
+			3 => I18n.t("customer_pfs.widower")
 		}
 	end
 

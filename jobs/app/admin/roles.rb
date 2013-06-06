@@ -12,6 +12,7 @@ if defined?(ActiveAdmin)
 	    		f.buttons
 	    	end
 
+	    	config.sort_order = "name_asc"
 	      
 	    end
 	end

@@ -1,11 +1,31 @@
+<style type="text/css">
+	.span11 {
+		width: 94.48936%%;
+	}
+	.row-fluid [class*="span"]:first-child {
+		margin-left: 10px;
+	}
+
+	.row-fluid [class*="span"] {
+		min-height: 0px; 
+	}
+
+	.well {
+		margin-top: 5px;
+	}
+
+</style>
+
+
 <% @grouped_column_attrs_current_step.each do |group, column_attrs| 
 								group = 'default' if group.nil?
 							%>
-							<fieldset>
+								<fieldset class="span11">
 								<legend><%= t("jobs.process_instance.attrs_group.#{group}") %></legend>
+								<div class="well">
 								<% column_attrs.each do |column, attrs| %>
 									<% attrs.each do |step_attr| %>
-										<div class="control-group">
+										<div class="control-group box-white-data" >
 											<% if step_attr.options == 'component'  
 												@component = eval(step_attr.widget).new()
 							                    params[:process_instance_id] = params[:id]
@@ -14,13 +34,16 @@
 							                    @component.params = params 
 							                    %>
 												<%= @component.show.join("").html_safe %>
-							                    <%
-											 else %>
-												<%= show_span_tag step_attr.title %>
-												<%= show_attr_value(@process_instance, step_attr) %>
+							          <% else %>
+							          <div class="span11">
+							          	<div class="span3"><%= show_span_tag step_attr.title %></div>
+													<div class="span6"><%= show_attr_value(@process_instance, step_attr) %></div>
+												</div>
 											<% end %>
 										</div>
 									<% end %>
 								<% end %>
+							</div>
 							</fieldset>
 							<% end %>
+							

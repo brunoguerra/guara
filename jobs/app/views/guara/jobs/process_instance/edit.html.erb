@@ -1,9 +1,14 @@
+<style type="text/css">
+		legend {
+		margin-bottom: 0px;
+	}
+</style>
+
 <%= javascript_include_tag "guara/jquery.cookie" %>
 
 <navbar>
-			<%= render :partial => "guara/jobs/jobs/navbar", 
-      :locals => { active: :announcement_of_vacancies } %>
-		</navbar>
+	<%= render :partial => "guara/jobs/jobs/navbar", :locals => { active: :announcement_of_vacancies } %>
+</navbar>
 		
 <section class="show">
 	<div class="">
