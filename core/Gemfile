@@ -16,7 +16,7 @@ gem 'tinymce-rails'
 gem 'faker', '1.0.1'
 
 #login rules
-gem 'devise'
+#gem 'devise'
 gem 'cancan', '~> 1.6.8'
 
 #model
@@ -35,7 +35,7 @@ gem 'spreadsheet'
 gem 'ruby-rtf', '0.0.1'
 
 #extends
-gem 'active_extend', :path => '../../active_extend/'
+gem "active_extend",  :git => 'git@github.com:woese/active_extend.git'
 	
 group :assets do
   gem 'uglifier', '1.2.3'
