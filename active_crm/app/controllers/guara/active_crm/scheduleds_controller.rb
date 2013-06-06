@@ -1,5 +1,3 @@
-#require_dependency "guara/active_crm/application_controller"
-
 module Guara
   module ActiveCrm
     class ScheduledsController < Guara::BaseController
@@ -22,7 +20,7 @@ module Guara
         @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])
     
         respond_to do |format|
-          format.html # show.html.erb
+          format.html
           format.json { render json: @active_crm_scheduled }
         end
       end
@@ -30,7 +28,7 @@ module Guara
       def new
         @scheduled = ActiveCrm::Scheduled.new
         respond_to do |format|
-          format.html # new.html.erb
+          format.html
           format.json { render json: @scheduled }
         end
 
@@ -38,11 +36,11 @@ module Guara
       end
     
       def edit
-        @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])
+        @scheduled = ActiveCrm::Scheduled.find(params[:id])
       end
     
       def create
-        @active_crm_scheduled = ActiveCrm::Scheduled.new(params[:active_crm_scheduled])
+        @scheduled = ActiveCrm::Scheduled.new(params[:active_crm_scheduled])
     
         respond_to do |format|
           if @active_crm_scheduled.save
@@ -74,7 +72,7 @@ module Guara
         @active_crm_scheduled.destroy
     
         respond_to do |format|
-          format.html { redirect_to active_crm_scheduleds_url }
+          format.html { redirect_to scheduleds_url }
           format.json { head :no_content }
         end
       end
