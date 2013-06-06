@@ -20,12 +20,12 @@ module Guara
       initializer "guara.activeadmin" do |config|
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../../../app/admin']
       end
-      
+      #name: :jobs, resource: Guara::Jobs::Professional
       initializer 'guara.menu.guara.active_crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << { 
-          name: "guara.active_crm", resource: Guara::ActiveCrm::ActiveCrm, path: "guara.active_crm_index_path()",
+          name: "guara.active_crm",
           items: [
-              { name: :guara_check_analysis, resource: Guara::ActiveCrm::CheckRemote, path: "guara.check_analyses_path()" },
+              { name: :guara_scheduleds, resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduleds_path()" },
             ]
         }
         #Guara::Menus::MAINTENCE[:items] += [ { name: :guara_, resource: Guara::ActiveCrm:: path: "guara.maintence_guara_active_crm_xxx_path()" } ]
