@@ -12,12 +12,13 @@ module Guara
       end
       
       initializer 'guara.menu.crm.items' do |app|
+        puts Guara.to_yaml
         Guara::Menus::MODULES[:modules][:items] << { name: :customers,
                                                      resource: Guara::Customer,
                                                      path: "guara.customers_path()"
                                                     }
         
-        Guara::Menus::MAINTENCE[:items] +=
+        ::Guara::Menus::MAINTENCE[:items] +=
           [
             { name: :business_activities, resource: Guara::BusinessActivity, path: "guara.maintence_guara_business_activities_path()" },
             { name: :business_segments, resource: Guara::BusinessSegment, path: "guara.maintence_guara_business_segments_path()" },

@@ -19,7 +19,7 @@ module Guara
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../../../app/admin']
       end
       
-      initializer 'guara.menu.guara.active_crm.items' do |config|
+      initializer 'guara.active_crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << { 
           name: "guara.active_crm", resource: Guara::ActiveCrm::ActiveCrm, path: "guara.active_crm_index_path()",
           items: [
