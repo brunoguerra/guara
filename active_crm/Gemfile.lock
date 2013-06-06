@@ -1,12 +1,6 @@
-PATH
-  remote: .
-  specs:
-    guara_remote (0.0.1)
-      guara
-      guara_analysis
-
-PATH
-  remote: ../../active_extend/
+GIT
+  remote: https://github.com/woese/active_extend.git
+  revision: f249796a988c05eb6739c0c80d36d1532b2058d9
   specs:
     active_extend (0.0.3.1)
       rails (~> 3.2.9)
@@ -22,13 +16,13 @@ PATH
       bcrypt-ruby (= 3.0.1)
       bootstrap-sass (~> 2.3.0.0)
       bootstrap-will_paginate (= 0.0.6)
+      bootstrap-wysihtml5-rails
       brazilian-rails
       cancan (~> 1.6.8)
-      devise
+      devise (~> 2.1.2)
       formtastic (= 2.2.1)
       formtastic-bootstrap (= 2.0.0)
       inherited_resources (= 1.3.1)
-      jquery-rails (~> 2.2)
       meta_search (= 1.1.3)
       pg
       rails (~> 3.2.9)
@@ -49,21 +43,12 @@ PATH
       rails3-jquery-autocomplete
 
 PATH
-  remote: ../analysis/
+  remote: .
   specs:
-    guara_analysis (0.0.1)
+    guara_active_crm (0.0.1)
       guara
-
-PATH
-  remote: ../core/
-  specs:
-    guara (0.0.1)
       guara_core
       guara_crm
-      rails_config (= 0.3.2)
-      spreadsheet
-      wicked_pdf
-      wkhtmltopdf-binary
 
 GEM
   remote: http://rubygems.org/
@@ -107,7 +92,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    addressable (2.3.3)
+    addressable (2.3.4)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (3.0.2)
@@ -116,7 +101,9 @@ GEM
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.6)
       will_paginate
-    bourbon (3.1.3)
+    bootstrap-wysihtml5-rails (0.3.1.20)
+      railties (>= 3.0)
+    bourbon (3.1.6)
       sass (>= 3.2.0)
       thor
     brI18n (3.3.0)
@@ -150,7 +137,7 @@ GEM
     brstring (3.3.0)
       activesupport (>= 3.0.0)
     builder (3.0.4)
-    cancan (1.6.9)
+    cancan (1.6.10)
     capybara (2.0.3)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -172,7 +159,7 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     database_cleaner (0.7.1)
-    devise (2.2.3)
+    devise (2.1.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -190,18 +177,29 @@ GEM
       factory_girl (~> 2.6.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
-    ffaker (1.15.0)
-    ffi (1.6.0)
+    ffaker (1.16.1)
+    ffi (1.8.1)
+    formatador (0.2.4)
     formtastic (2.2.1)
       actionpack (>= 3.0)
     formtastic-bootstrap (2.0.0)
       formtastic (~> 2.2)
       formtastic-bootstrap
-    guard (1.6.2)
-      listen (>= 0.6.0)
+    guara (0.0.3)
+      bcrypt-ruby (~> 3.0)
+      cancan (~> 1.6.8)
+      devise (~> 2.1.2)
+      formtastic (~> 2.2.1)
+      formtastic-bootstrap (~> 2.0.0)
+      jquery-rails (~> 2.1.3)
+      meta_search (~> 1.1.3)
+      railties (~> 3.1)
+      will_paginate (~> 3.0.3)
+    guard (1.8.0)
+      formatador (>= 0.2.4)
+      listen (>= 1.0.0)
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
-      terminal-table (>= 1.4.3)
       thor (>= 0.14.6)
     guard-rspec (0.5.11)
       guard (>= 0.8.4)
@@ -209,22 +207,25 @@ GEM
       guard (>= 0.8.4)
       spork (>= 0.8.4)
     has_scope (0.5.1)
-    hike (1.2.2)
+    hike (1.2.3)
     i18n (0.6.1)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
       responders (~> 0.6)
     journey (1.0.4)
-    jquery-rails (2.2.0)
+    jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.7.7)
+    json (1.8.0)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    launchy (2.2.0)
+    launchy (2.3.0)
       addressable (~> 2.3)
-    listen (0.7.3)
+    listen (1.1.6)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      rb-kqueue (>= 0.2)
     lumberjack (1.0.3)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -239,11 +240,11 @@ GEM
     multi_json (1.2.0)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
-    pg (0.14.1)
+    pg (0.15.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
-    pry (0.9.12)
+    pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -266,8 +267,6 @@ GEM
       i18n (~> 0.5)
     rails3-jquery-autocomplete (1.0.11)
       rails (~> 3.0)
-    rails_config (0.3.2)
-      activesupport (>= 3.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -276,6 +275,11 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.4)
+    rb-fsevent (0.9.3)
+    rb-inotify (0.9.0)
+      ffi (>= 0.5.0)
+    rb-kqueue (0.2.0)
+      ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
     responders (0.9.3)
@@ -295,23 +299,23 @@ GEM
       rspec (~> 2.11.0)
     ruby-ole (1.2.11.6)
     rubyzip (0.9.9)
-    sass (3.2.7)
+    sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    select2-rails (3.3.1)
-      sass-rails (>= 3.2)
+    select2-rails (3.4.1)
+      sass-rails
       thor (~> 0.14)
-    selenium-webdriver (2.31.0)
+    selenium-webdriver (2.33.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
     shoulda-matchers (1.0.0)
-    slop (3.4.4)
+    slop (3.4.5)
     spork (0.9.0)
-    spreadsheet (0.8.3)
+    spreadsheet (0.8.5)
       ruby-ole (>= 1.0)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -319,17 +323,16 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
-    terminal-table (1.4.5)
     thor (0.18.1)
     tilt (1.4.1)
-    treetop (1.4.12)
+    treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.7)
-    wicked_pdf (0.9.5)
+    wicked_pdf (0.9.6)
       rails
     will_paginate (3.0.3)
     wkhtmltopdf-binary (0.9.9.1)
@@ -349,9 +352,7 @@ DEPENDENCIES
   email_spec (~> 1.2.1)
   factory_girl_rails (= 1.7.0)
   ffaker
-  guara!
-  guara_analysis!
-  guara_remote!
+  guara_active_crm!
   guara_core!
   guara_crm!
   guard

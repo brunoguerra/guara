@@ -1,7 +1,5 @@
 
 module Guara
-  module Guara
-    module ActiveCrm
-    end
-  end
+	module ActiveCrm
+	end
 end

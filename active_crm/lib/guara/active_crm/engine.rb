@@ -1,3 +1,5 @@
+require 'active_extend'
+
 module Guara
   module ActiveCrm
     class Engine < ::Rails::Engine
