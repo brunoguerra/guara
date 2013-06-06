@@ -24,7 +24,9 @@ $.mask = {
 	definitions: {
 		'9': "[0-9]",
 		'a': "[A-Za-z]",
-		'*': "[A-Za-z0-9]"
+		'*': "[A-Za-z0-9]",
+		'1': "[\?0-9]",
+		'b': "[\?A-Za-z]"
 	},
 	dataName: "rawMaskFn",
 	placeholder: '_',

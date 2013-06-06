@@ -21,7 +21,12 @@ module Guara
 
     	def load_scheduling_professionals()
         @vacancy      = @vacancy || Vacancy.find_by_process_instance_id(params[:process_instance_id])
-        @vacancy_scheduling_professionals = VacancySchedulingProfessional.find(:all, :conditions=> ["vacancy_id = ? AND interested = true ", @vacancy.id], :order=> "avaliate DESC")
+        #@vacancy_scheduling_professionals = VacancySchedulingProfessional.find(:all, :conditions=> ["vacancy_id = ? AND interested = true ", @vacancy.id], :order=> "avaliate DESC")
+
+        @vacancy_scheduling_professionals = VacancySchedulingProfessional.joins(:interview)
+        .where(:vacancy_id=> @vacancy.id)
+        .order("avaliate DESC")
+
         
         authorize! :read, Guara::Jobs::StepInstance
       end
@@ -81,27 +86,15 @@ module Guara
       end
 
       def load_customer_pj(process_instance_id)
-        step_attr_customer_pj = Guara::Jobs::ProcessInstance.find(process_instance_id).custom_process
-          .step.attrs.where("options ILIKE '%Guara::CustomerPj'").last()
-
-        customer_pj_id = Guara::Jobs::StepInstanceAttr
-          .where(:step_attr_id=> step_attr_customer_pj.id, :process_instance_id=> params[:process_instance_id])
-          .last().values.last().value
-
-        Guara::Customer.find(customer_pj_id) 
+        vacancy = Vacancy.find_by_process_instance_id(process_instance_id)
+        return vacancy.customer_pj
 
         authorize! :read, Guara::Jobs::StepInstance
       end
 
       def load_customer_pj_email(process_instance_id)
-        step_attr_email = Guara::Jobs::ProcessInstance.find(process_instance_id).custom_process
-          .step.attrs.where(:title=> "Email").last()
-
-        customer_pj_email = Guara::Jobs::StepInstanceAttr
-          .where(:step_attr_id=> step_attr_email.id, :process_instance_id=> params[:process_instance_id])
-          .last().value
-
-        return customer_pj_email
+        vacancy = Vacancy.find_by_process_instance_id(process_instance_id)
+        return vacancy.customer_pj.person.emails.last
 
         authorize! :read, Guara::Jobs::StepInstance
       end
