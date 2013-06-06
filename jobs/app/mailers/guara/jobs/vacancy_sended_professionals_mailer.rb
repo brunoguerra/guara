@@ -16,15 +16,16 @@ module Guara
 
 			def load_pdf_professional(vacancy_scheduling_professional, return_create=false)
 				@professional = vacancy_scheduling_professional.professional
+				@vacancy = vacancy_scheduling_professional.vacancy
 				
 		        @path_pdf  = Rails.root.join('../guara/jobs/lib/guara/jobs/vacancy_sended_professionals_pdf')
 	        	@file_name = "#{vacancy_scheduling_professional.vacancy_id}_#{@professional.id}.pdf"
 	          	@file_path  = "#{@path_pdf}/#{@file_name}"
 
-	          	if !File.exist?(@file_path)
+	          	#if !File.exist?(@file_path)
 	          		@interviewer_professional = vacancy_scheduling_professional.interview
 	          		generate_pdf_to_professional()
-	          	end
+	          	#end
 
 	          	return true if return_create == true
 

@@ -131,6 +131,7 @@ module Guara
       end
 
       def update
+        @process_instance = ProcessInstance.find params[:id]
         @step_instance_attrs = params[:step_instance_attrs]
         @step_id = @step_instance_attrs.delete(:step_id)
 

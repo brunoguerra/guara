@@ -2,13 +2,13 @@ module Guara
   	module Jobs
     	class ProfessionalsSynthesisController < BaseController
     		load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy"
-	    	load_and_authorize_resource :interview, :class => "Guara::Jobs::VacancyProfessionalsInterview"
+	    	#load_and_authorize_resource :interview, :class => "Guara::Jobs::VacancyProfessionalsInterview"
 	    	include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
 	      	helper ProcessInstanceHelper
 	      	
 	      	def index
 	      		load_interviews_professionals()
-    			render :partial => "guara/jobs/professionals_synthesis/widget_index", :locals => { vacancy: @vacancy}
+    				render :partial => "guara/jobs/professionals_synthesis/widget_index", :locals => { vacancy: @vacancy}
     	  	end
 
 	      	def load_interviews_professionals
@@ -39,9 +39,11 @@ module Guara
 	    		@a = params[:jobs_vacancy_professionals_interview]
 		        @interviewer_professional = VacancyProfessionalsInterview.find(@a[:id])
 		          
-		        if @interviewer_professional.update_attribute(:synthesis, @a[:synthesis])
+		        if @interviewer_professional.update_attributes(:synthesis=> @a[:synthesis], :date=> Time.now)
 		        	scheduling = VacancySchedulingProfessional.find @interviewer_professional.scheduling_id
+        			
         			VacancySendedProfessionalsMailer.load_pdf_professional(scheduling, true)
+		          
 		            render :json => {:success=> true}
 		        else
 		            render :json => {:data=> @interviewer_professional.errors, :success=> false} 
