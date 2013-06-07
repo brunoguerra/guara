@@ -1,0 +1,35 @@
+<div class="page-header"><%= t("active_crm.scheduled.index.title") %></div>
+
+<%= form_for @search, :url => scheduleds_path, :html => {:method => :get} do |f| %>
+	
+
+	<div class="controls">
+		<%= label_tag :user, t("active_crm.scheduled.user"), :class => "control-label" %>
+		<%= f.select(:user_id_in,options_from_collection_for_select([] + Guara::User.all, :id, :name, params[:search][:user_id_in]), 
+				{:include_blank => true}, 
+				{ :multiple => true, 
+					:style => "width: 200px;", 
+					:placeholder => t("active_crm.scheduled.user"), 
+					:class => "multiselect" })
+		%>
+	</div>
+
+	<div class="controls">
+		<%= label_tag :task_type, t("active_crm.scheduled.task_type"), :class => "control-label" %>
+		<%= f.select(:task_type_id_in,options_from_collection_for_select([] + Guara::TaskType.all, :id, :name, params[:search][:task_type_id_in]), 
+				{:include_blank => true}, 
+				{ :multiple => true, 
+					:style => "width: 200px;", 
+					:placeholder => t("active_crm.scheduled.task_type"), 
+					:class => "multiselect" })
+		%>
+	</div>
+
+	<div class="controls">
+		<%= label_tag :task_type, t("active_crm.scheduled.search_subject"), :class => "control-label" %>
+		<%= f.text_field :subject_contains %>
+	</div>
+
+  <%= f.submit t('helpers.forms.search'), :class => "btn btn-primary" %>
+
+<% end %>

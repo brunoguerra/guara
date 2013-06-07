@@ -1,0 +1,20 @@
+<%= semantic_form_for @scheduled, :url => @scheduled.new_record? ? scheduleds_path(@scheduled) :scheduled_path(@scheduled), :html => {:class => "well "}  do |f| %>
+
+		<fieldset>
+			<div class="">
+				<div class="span7">
+					<%= f.input :user_id, :label => t("active_crm.scheduled.user"), :as => :select, :collection => Guara::User.all, :class => "span3"  %>
+					<%= f.input :subject, :label => t("active_crm.scheduled.subject"), :as => :text, :input_html => { :class => 'autogrow', :rows => 5, :cols => 20, :maxlength => 190 } %>
+				</div>
+
+				<div class="span5">
+					<%= f.input :date_start, :as => :string, :label => t("active_crm.scheduled.date_start"), :input_html => { 'data-behaviour' => 'datepicker'} %>
+					
+					<%= f.input :date_finish, :as => :string, :label => t("active_crm.scheduled.date_finish"), :input_html => { 'data-behaviour' => 'datepicker'} %>
+
+					<%= f.input :task_type_id, :label => t("active_crm.scheduled.task_type"), :as =>  :select, :collection => Guara::TaskType.all %>
+				</div> 
+			</div>
+		</fieldset>
+		<%= f.submit class: "btn  btn-primary" %>
+<% end %>

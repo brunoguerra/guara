@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Subject:</b>
+  <%= @active_crm_scheduled.subject %>
+</p>
+
+<p>
+  <b>Date start:</b>
+  <%= @active_crm_scheduled.date_start %>
+</p>
+
+<p>
+  <b>Date finish:</b>
+  <%= @active_crm_scheduled.date_finish %>
+</p>
+
+<p>
+  <b>Task type:</b>
+  <%= @active_crm_scheduled.task_type.name %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @active_crm_scheduled.user.name %>
+</p>
+
+
+<%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %> |
+<%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>

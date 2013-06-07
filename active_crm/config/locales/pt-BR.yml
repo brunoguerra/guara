@@ -3,17 +3,18 @@
 pt-BR:
 
   active_crm:
-    check_analyses: &attr_check_analyses
-      
-      
-  system:
-    modules: &system_modules
-      "guara/active_crm/check_analyses": "Conferêcia Remota de Imagens"
-      
-  activerecord:
-    attributes:
-      "guara/active_crm/check_analyses":
-        <<: *attr_check_analyses
+    scheduled:
+      user: "Responsável"
+      search_subject: "Buscar no assunto"
+      task_type: "Tipo de Tarefa"
+      index:
+        title: "Buscar por Agendados"
+      edit: "Editar Agendamento"
 
-    models:
-      <<: *system_modules
+      date_start: "Data Inicial"
+      date_finish: "Data Final"
+      subject: "Assunto"
+      id: "Cod."
+      title: "Agendados"
+      successfully_save: "Agendamento realizado com sucesso."
+      successfully_update: "Agendamento atualizado com sucesso."
