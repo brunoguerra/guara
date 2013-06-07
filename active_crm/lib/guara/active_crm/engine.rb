@@ -13,7 +13,6 @@ module Guara
           Rails.application.config.cache_classes ? require(c) : load(c)
         end
       end
-
       
       initializer "guara.activeadmin" do |config|
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../../../app/admin']

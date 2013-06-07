@@ -12,7 +12,6 @@ module Guara
       end
       
       initializer 'guara.menu.crm.items' do |app|
-        puts Guara.to_yaml
         Guara::Menus::MODULES[:modules][:items] << { name: :customers,
                                                      resource: Guara::Customer,
                                                      path: "guara.customers_path()"

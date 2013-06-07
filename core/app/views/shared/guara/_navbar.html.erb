@@ -3,7 +3,9 @@
     <a class="brand" href="#"><%= title %></a>
     <ul class="nav">
 			<% options.each do |option| %>
-      	<li class="<%= "active" if active = option.name %>"><%= link_to option.title %></li>
+      	<li class="<%= "active" if active == option[:name] %>">
+					<%= link_to option[:title], option[:link], :class => "link_#{option[:name].gsub(/\s/,'')}" %>
+				</li>
 			<% end %>
     </ul>
   </div>

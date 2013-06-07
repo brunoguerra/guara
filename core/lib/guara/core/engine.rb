@@ -24,7 +24,6 @@ module Guara
         app.config.guara = Guara::Core::Environment.new
         require "#{File.dirname(__FILE__)}/../../../config/initializers/active_admin.rb"
         Dir["#{File.dirname(__FILE__)}/../../../config/guara/*.rb"].each { |f| require f;}
-        puts Guara::Menus::MODULES.to_yaml
       end
       
       initializer "guara.load_preferences", :before => "guara.environment" do
