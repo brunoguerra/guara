@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "guara_crm"
+
+  s.add_dependency "jquery-ui-rails"
   
   s.add_development_dependency 'pg', '~> 0.12.2'
   s.add_development_dependency 'rspec'

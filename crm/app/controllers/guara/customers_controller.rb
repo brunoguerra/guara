@@ -65,8 +65,12 @@ module Guara
       @selected_department = params[:department]
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
-      
-      render "show_detailed"
+        
+      if params[:format] == 'json'
+        render "show_detailed.html.erb", layout: false
+      else
+        render "show_detailed"
+      end
     end
   
     def disable

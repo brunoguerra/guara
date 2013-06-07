@@ -25,22 +25,23 @@
                       </thead>
 
                       <tbody>
-                        <% (@active_crm_scheculeds || []).each do |scheculed| %>
+                        <% @active_crm_scheduleds.each do |scheculed| %>
                           <tr>
                             <td><%= scheculed.id  %></td>
                             <td><%= link_to scheculed.subject, scheduled_path(scheculed) %></td>
                             <td><%= !scheculed.date_start.nil? ? scheculed.date_start.strftime("%d/%m/%Y") : ''  %></td>
                             <td><%= !scheculed.date_finish.nil? ? scheculed.date_finish.strftime("%d/%m/%Y") : ''  %></td>
                             <td><%= scheculed.task_type.name  %></td>
+                            <td><%= scheculed.user.name  %></td>
                             <td>
                               <%= index_btn_view scheduled_path(scheculed), "Exibir" %>
-                              <%= edit_btn_view edit_scheduled_path(scheculed), "Editar" %>
+                              <%= index_btn_edit edit_scheduled_path(scheculed), "Editar" %>
                             </td>
                           </tr>
                         <% end %>
                       </tbody>
                     </table>
-                    <%#= will_paginate(@active_crm_scheculeds) %>
+                    <%= will_paginate(@active_crm_scheduleds) %>
                     <%= link_to t('helpers.forms.new'), new_scheduled_path(), :class => "btn" %>
                   </div>
                 </div>

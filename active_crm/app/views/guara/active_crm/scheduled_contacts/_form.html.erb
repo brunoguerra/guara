@@ -1,0 +1,120 @@
+<style type="text/css">
+	.dropdown-submenu.pull-left > .dropdown-menu {
+		left: -93% !important;
+	}
+	.disabled{
+		display: none;
+	}
+	.dropup{
+		width: 120px;
+		display: inline;
+	}
+</style>
+<%= semantic_form_for @scheduled_contact, :html => { class: "well", onSubmit: "return verify_form();" },
+	:url => { :action => @scheduled_contact.new_record? ? 'create' : 'update', format: :json },
+	:remote => true do |f| %>
+
+	<div class="row">
+		<div class="span3">
+			<%= f.input :activity, input_html: { rows: 3, cols: 5} %>
+
+			<%= f.input :scheduled, :as=> :hidden %>
+			<%= f.input :result, :as=> :hidden %>
+			<%= f.input :contact_id, :as=> :hidden %>
+			<%= f.input :scheduled_id, :as=> :hidden %>
+			<%= f.input :classified_id, :as=> :hidden %>
+		</div>
+		<div  class="custom-span3-big disabled">
+			<div id="datepicker" class="controls"></div>
+
+			<div class="controls" style="margin-top:10px;">
+				<%= text_field_tag "hour", Time.now.strftime('%H:%M') %>
+			</div>
+		</div>
+	</div>
+
+
+	<li class="dropup">
+		<%= link_to t('active_crm.call_completed'), 'javascript:void(0);', 
+			id: "btn-completed-call", class: "btn dropdown-toggle", role: "button", "data-toggle"=> "dropdown" %>
+
+		<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
+		  <li role="presentation">
+		  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" onClick="completed('result', 1);">
+		  		Inscrito
+		  	</a>
+		  </li>
+		  <li role="presentation">
+		  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" onClick="completed('result', 3);">
+		  		Agendamento
+		  	</a>
+		  </li>
+		  <li role="presentation" class="dropdown-submenu pull-left">
+		  	<a role="menuitem" tabindex="-1" href="javascript:void(0);">
+		  		Participação Negada
+		  	</a>
+		  	<ul class="dropdown-menu">
+		      <li><a tabindex="-1" href="javascript:void(0);" onClick="completed('classified', 1);">Valor</a></li>
+		      <li>
+		      	<a tabindex="-1" href="javascript:void(0);" onClick="completed('classified', 2);">
+		      		Período
+		      	</a>
+		      </li>
+		      	<li>
+		      		<a tabindex="-1" href="javascript:void(0);" onClick="completed('classified', 3);">
+		      			Sem Interesse
+		      		</a>
+		  		</li>
+		    </ul>
+		  </li>
+		</ul>
+	</li>
+
+	<%= f.submit t('helpers.forms.save'), class: "btn btn-primary hidden btn-submit" %>
+<% end %>
+
+
+<script type="text/javascript">
+	$( "#datepicker" ).datepicker($.datepicker.regional[ "pt-BR" ]);
+	$('#btn-completed-call').click(function(){
+
+	});
+
+	function completed(type, value){
+		if(value == 3 && type == 'result'){
+			$('.custom-span3-big').removeClass('disabled');	
+		}
+		else{
+			$('.custom-span3-big').addClass('disabled');		
+		}
+
+		$('#active_crm_scheduled_contact_scheduled').val('');
+		$('#active_crm_scheduled_contact_result').val('');
+		$('#active_crm_scheduled_contact_classified_id').val('');
+
+		if(type=='result'){
+			$('#active_crm_scheduled_contact_result').val(value);
+			$('.btn-submit').show();
+		}
+		else if(type=='classified'){
+			$('#active_crm_scheduled_contact_result').val(2);
+			$('#active_crm_scheduled_contact_classified_id').val(value);
+			$('.btn-submit').show();
+		}
+		else{
+			$('.btn-submit').hide();
+		}
+	}
+
+	function verify_form(){
+		$('#active_crm_scheduled_contact_scheduled').val('');
+		if($('#active_crm_scheduled_contact_result').val()=='3'){
+			var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
+			$('#active_crm_scheduled_contact_scheduled').val(date+' '+$('#hour').val());
+		}
+		else{
+			$('#active_crm_scheduled_contact_scheduled').val('');	
+		}
+		return true;
+	}
+</script>
