@@ -1,0 +1,21 @@
+<table id="customer-to-register" class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="span2"><%= t("customers.code") %></th>
+      <th><%= t("helpers.label.customers.search.names") %></th>
+      <th class="span3"><%= t("active_crm.responsible") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    <% (@customers_to_register).each do |customer| %>
+      <tr customer-id="<%= customer.id %>">
+        <td><%= customer.id  %></td>
+        <td><%= customer.name %></td>
+        <td> </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>

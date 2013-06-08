@@ -2,4 +2,11 @@
  *= require guara/core
  *= require guara/crm
  *= require select2/select2.css
+ *= require jquery.ui.all
  */
+
+
+.ui-dialog .ui-dialog-titlebar-close span{
+	margin: -8px!important;
+	left:47% !important;
+}
