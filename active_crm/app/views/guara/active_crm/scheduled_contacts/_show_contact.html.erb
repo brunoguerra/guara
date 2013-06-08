@@ -1,0 +1,19 @@
+<div class="control-group">
+	<%= show_label_tag t('contacts.name') %>
+	<%= @contact.name %>
+</div>
+
+<div class="control-group">
+	<%= show_label_tag t('contacts.phone') %>
+	<%= @contact.phone %>
+</div>
+
+<div class="control-group">
+	<%= show_label_tag t('contacts.cell') %>
+	<%= @contact.cell %>
+</div>
+
+<div class="control-group">
+	<%= show_label_tag t('contacts.emails') %>
+	<%= concat_emails(@contact.emails) %>
+</div>
