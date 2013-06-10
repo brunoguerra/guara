@@ -1,6 +1,15 @@
-<h1>Editing active_crm_scheculed</h1>
+<section id="active_crm">
+	<h1><%= t("active_crm.scheduled.edit") %></h1>
+  <div class="row-fluid">
+    <div class="thumbnail span12">
 
-<%= render 'form' %>
+      <div class="caption">
+				<%= render 'form' %>
+			</div>
 
-<%= link_to 'Show', @active_crm_scheculed %> |
-<%= link_to 'Back', active_crm_scheculeds_path %>
+			<%= link_to t('helpers.forms.show'), scheduled_path(@scheduled), class: "btn" %>
+			<%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
+
+		</div>
+	</div>
+</section>
