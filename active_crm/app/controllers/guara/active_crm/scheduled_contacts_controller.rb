@@ -34,7 +34,7 @@ module Guara
                 data["customer_name"] = @scheduled_contact.contact.customer.name
                 data["contact_name"] = @scheduled_contact.contact.name
                 data["scheduled"] = @scheduled_contact.scheduled.nil? ? '' : @scheduled_contact.scheduled.strftime("%d/%m/%Y %H:%M")
-                data["status"] = ""
+                data["status"] = @scheduled_contact.status()
                 render :json => {success: true, data: data}
             end
 
