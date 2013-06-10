@@ -1,0 +1,48 @@
+
+  <div class="page-header">
+    <%=t('active_crm.scheduled.title')%>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th><%= t("active_crm.scheduled.id") %></th>
+        <th><%= t("active_crm.scheduled.user") %></th>
+        <th><%= t("active_crm.scheduled.date_start") %></th>
+        <th><%= t("active_crm.scheduled.date_finish") %></th>
+        <th><%= t("active_crm.scheduled.task_type") %></th>
+        <th><%= t("active_crm.scheduled.subject") %></th>
+        <th class="span1"><%= t("helpers.forms.actions") %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @active_crm_scheduleds.each do |scheduled| %>
+        <tr>
+          <td><%= scheduled.id  %></td>   
+          <td><%= scheduled.user.name if !scheduled.user.nil? %>                         
+          <td><%= !scheduled.date_start.nil? ? scheduled.date_start.strftime("%d/%m/%Y") : ''  %></td>
+          <td><%= !scheduled.date_finish.nil? ? scheduled.date_finish.strftime("%d/%m/%Y") : ''  %></td>
+          <td><%= scheduled.task_type.name if !scheduled.task_type.nil? %></td>                        
+          <td class="subject"><%= link_to scheduled.subject, scheduled_path(scheduled) %></td>
+          <td>
+            <%= index_btn_view scheduled_path(scheduled), "Exibir" %>
+            <%= index_btn_edit edit_scheduled_path(scheduled), "Editar" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate(@active_crm_scheduleds) %>
+  <%#= link_to t('helpers.forms.new'), new_scheduled_path(), :class => "btn" %>
+
+</div>
+
+
+<style type="text/css">
+  .subject {
+    text-overflow: ellipsis;  
+    max-height: 63px;
+  }
+</style>
