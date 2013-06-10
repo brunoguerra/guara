@@ -1,30 +1,48 @@
-<p id="notice"><%= notice %></p>
+<section id="active_crm">
+  <h1><%= t("active_crm.scheduled.title") %></h1>
+  <h3><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></h3>
+  <div class="row-fluid">
+    <div class="thumbnail span12">
+      <div class="caption">
+        <fieldset>
+          <div class="row well span12">
 
-<p>
-  <b>Subject:</b>
-  <%= @active_crm_scheculed.subject %>
-</p>
+            <div class="span7 box-gray-data">
+              <strong><%= t("active_crm.scheduled.user") %>:</strong>
+              <%= @active_crm_scheduled.user.name %>
+            </div>
 
-<p>
-  <b>Date start:</b>
-  <%= @active_crm_scheculed.date_start %>
-</p>
-
-<p>
-  <b>Date finish:</b>
-  <%= @active_crm_scheculed.date_finish %>
-</p>
-
-<p>
-  <b>Task type:</b>
-  <%= @active_crm_scheculed.task_type %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @active_crm_scheculed.user %>
-</p>
+            <div class="span7 box-gray-data">
+              <strong><%= t("active_crm.scheduled.subject") %>:</strong>
+              <%= @active_crm_scheduled.subject %>
+            </div>
 
 
-<%= link_to 'Edit', edit_active_crm_scheculed_path(@active_crm_scheculed) %> |
-<%= link_to 'Back', active_crm_scheculeds_path %>
+            <div class="span7 box-gray-data">
+              <strong><%= t("active_crm.scheduled.date_start") %>:</strong>
+              <%= @active_crm_scheduled.date_start %>
+            </div>
+
+            <div class="span7 box-gray-data">
+              <strong><%= t("active_crm.scheduled.date_finish") %>:</strong>
+              <%= @active_crm_scheduled.date_finish %>
+            </div>
+
+            <div class="span7 box-gray-data">
+              <strong><%= t("active_crm.scheduled.task_type") %>:</strong>
+              <%= @active_crm_scheduled.task_type.name %>
+            </div>
+
+        </div>
+    </fieldset>
+  </div>
+</section>
+<%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %>
+<%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
+
+
+<style type="text/css">
+  .row-fluid [class*="span7"]:first-child {
+      margin-left: 18px;
+  }
+</style>
