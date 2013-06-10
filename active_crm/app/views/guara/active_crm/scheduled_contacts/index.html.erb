@@ -38,12 +38,14 @@
                 <div class="thumbnail" style="margin-top:10px;">
                   <div class="caption">
                     <div class="page-header"><%= t("active_crm.customers_scheduled") %></div>
-                    <table class="table table-bordered table-striped">
+                    <table id="customer-scheduled" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th><%= t("helpers.label.customers.search.names") %></th>
                           <th class="span3"><%= t("active_crm.responsible") %></th>
                           <th class="span3"><%= t("active_crm.datetime") %></th>
+                          <th class="span3"><%= t("active_crm.activity") %></th>
+                          <th class="span3"><%= t("active_crm.status") %></th>
                         </tr>
                       </thead>
 
@@ -56,6 +58,8 @@
                             <td><%= customer.name %></td>
                             <td><%= scheduled_contact.contact.name %></td>
                             <td><%= scheduled_contact.scheduled %></td>
+                            <td><%= scheduled_contact.activity %></td>
+                            <td> </td>
                           </tr>
                         <% end
                         end %>
@@ -83,9 +87,14 @@
 </div>
 
 <script type="text/javascript">
+  var ignored_customers = [];
+  <% (session[:ignored_customers].nil? ? [] : session[:ignored_customers]).each do |customer_id| %>
+    ignored_customers.push(<%=customer_id%>);
+  <% end %>
+
   var ScheduledContacts = {
     current_customer: null,
-    ignored_customers: [],
+    ignored_customers: ignored_customers,
     container_customer: $('#dialog-modal-customer'),
     container_call: $('#dialog-modal-call'),
 
@@ -124,6 +133,15 @@
               'class': 'saveButtonClass',
               click: function() {
                   me.ignored_customers.push(me.current_customer);
+                  $.ajax({
+                    type: "GET",
+                    url: "/ignore_customer_session",
+                    data: {
+                      customer_id: me.current_customer
+                    }
+                  }).done(function( data ) {
+                    
+                  });
                   me.next_customer();
               }
           }
@@ -140,6 +158,18 @@
 
     open_dialog_call: function(contact_id){
       var me = this;
+      if($('.tab-content #index div#dialog-call').length==0){
+        $('.tab-content #index').append('<div id="dialog-call"></div><div id="dialog-scroll"></div>');
+      }
+
+      $('.tab-content #index div#dialog-call').load('<%=new_scheduled_scheduled_contact_path(params[:scheduled_id], :format=> 'json') %>?contact_id='+contact_id, function(){
+        $('#dialog-modal-customer').animate({
+          scrollTop: $('.tab-content #index div#dialog-scroll').offset().top
+        });
+      });
+
+      return true;
+
       me.container_call.html('Carregando...')
       .dialog({
         modal: true,
@@ -188,7 +218,6 @@
         alert('Todos os Clientes foram Ignorados nesta sessão!');
       }
     }
-
   };
 
   function paginate_call(){

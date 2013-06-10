@@ -10,7 +10,8 @@
 		display: inline;
 	}
 </style>
-<%= semantic_form_for @scheduled_contact, :html => { class: "well", onSubmit: "return verify_form();" },
+<%= semantic_form_for @scheduled_contact, :html => { class: "well scheduled_contact_submit", 
+	onSubmit: "return verify_form();" },
 	:url => { :action => @scheduled_contact.new_record? ? 'create' : 'update', format: :json },
 	:remote => true do |f| %>
 
@@ -49,22 +50,17 @@
 		  		Agendamento
 		  	</a>
 		  </li>
-		  <li role="presentation" class="dropdown-submenu pull-left">
+		  <li role="presentation" class="dropdown-submenu">
 		  	<a role="menuitem" tabindex="-1" href="javascript:void(0);">
 		  		Participação Negada
 		  	</a>
 		  	<ul class="dropdown-menu">
-		      <li><a tabindex="-1" href="javascript:void(0);" onClick="completed('classified', 1);">Valor</a></li>
-		      <li>
-		      	<a tabindex="-1" href="javascript:void(0);" onClick="completed('classified', 2);">
-		      		Período
-		      	</a>
-		      </li>
-		      	<li>
-		      		<a tabindex="-1" href="javascript:void(0);" onClick="completed('classified', 3);">
-		      			Sem Interesse
-		      		</a>
-		  		</li>
+		  		<% Guara::ActiveCrm::ScheduledClassified.all.each do |classified| %>
+		  			<li>
+		  				<a tabindex="-1" href="javascript:void(0);" 
+		  				onClick="completed('classified', <%=classified.id%>);"><%=classified.name%></a>
+		  			</li>
+		  		<% end %>
 		    </ul>
 		  </li>
 		</ul>
@@ -117,4 +113,23 @@
 		}
 		return true;
 	}
+
+	$('.scheduled_contact_submit')
+    .bind("ajax:success", function(evt, data, status, xhr){
+      var $form = $(this);
+      $form.find('textarea,input[type="text"],input[type="file"]').val("");
+      if(data.success == true){
+      	alert('Contato Contactado!');
+      	var customer_id = ScheduledContacts.current_customer;
+      	$('#customer-to-register tr[customer-id='+customer_id+']').remove();
+      	$('#customer-scheduled tbody').append('<tr>'+
+	        '<td>'+data.data.customer_name+'</td>'+
+	        '<td>'+data.data.contact_name+'</td>'+
+	        '<td>'+data.data.scheduled+'</td>'+
+	        '<td>'+data.data.activity+'</td>'+
+	        '<td>'+data.data.status+'</td>'+
+	    '</tr>');
+      	
+      }
+    });
 </script>

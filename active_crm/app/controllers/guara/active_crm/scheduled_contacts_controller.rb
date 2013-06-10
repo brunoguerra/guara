@@ -30,6 +30,17 @@ module Guara
             def create
                 @scheduled_contact = ScheduledContact.new(params[:active_crm_scheduled_contact])
                 @scheduled_contact.save  
+                data = @scheduled_contact.attributes
+                data["customer_name"] = @scheduled_contact.contact.customer.name
+                data["contact_name"] = @scheduled_contact.contact.name
+                data["scheduled"] = @scheduled_contact.scheduled.nil? ? '' : @scheduled_contact.scheduled.strftime("%d/%m/%Y %H:%M")
+                data["status"] = ""
+                render :json => {success: true, data: data}
+            end
+
+            def ignore_customer_session
+                session[:ignored_customers] = [] if session[:ignored_customers].nil?
+                session[:ignored_customers] << params[:customer_id] if !session[:ignored_customers].include?(params[:customer_id])
                 render :json => {success: true}
             end
 

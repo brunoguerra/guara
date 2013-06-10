@@ -7,6 +7,11 @@ module Guara
     	
     		attr_accessible :activity, :result, :scheduled, :scheduled_id, :contact_id, 
     		:classified_id
+
+        def status
+          
+        end
+
   		end
   	end
 end
