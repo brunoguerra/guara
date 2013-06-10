@@ -6,17 +6,19 @@ module Guara
 	    belongs_to :task_type, class_name: "Guara::TaskType"
 	    belongs_to :user, class_name: "Guara::User"
 
+	    has_many :customer_group, class_name: "Guara::ActiveCrm::ScheduledCustomerGroup", foreign_key: :scheduled_id
+
 	    def self.status 
 	    	{
 	    		0 => :open,
-	    	  1 => :completed
+	    	  	1 => :completed
 	    	}
 	    end
 
 	    def self.translate_status
 	    	{
 	    		0 => I18n.t("active_crm.scheduled.status.open"),
-	    	  1 => I18n.t("active_crm.scheduled.status.completed")
+	    	  	1 => I18n.t("active_crm.scheduled.status.completed")
 	    	}
 	    end
 

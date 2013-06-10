@@ -37,9 +37,14 @@
     </fieldset>
   </div>
 </section>
+<br>
 <%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %>
 <%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
-
+<% if @active_crm_scheduled.customer_group.first.nil? %>
+<%= link_to t("active_crm.scheduled_customer_groups"), scheduled_scheduled_customer_groups_path(params[:id]), class: "btn" %>
+<% else %>
+<%= link_to t("active_crm.scheduled_contacts"), scheduled_scheduled_contacts_path(params[:id]), class: "btn" %>
+<% end %>
 
 <style type="text/css">
   .row-fluid [class*="span7"]:first-child {
