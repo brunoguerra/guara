@@ -3,7 +3,11 @@
 pt-BR:
 
   active_crm:
+    title: "Call Center"
+
     scheduled:
+      id: "Cod."
+      title: "Agendamento"
       user: "Responsável"
       search_subject: "Buscar no assunto"
       task_type: "Tipo de Tarefa"
@@ -15,6 +19,12 @@ pt-BR:
       date_finish: "Data Final"
       subject: "Assunto"
       id: "Cod."
-      title: "Agendados"
       successfully_save: "Agendamento realizado com sucesso."
       successfully_update: "Agendamento atualizado com sucesso."
+
+      status:
+        title: "Estado"
+        open: "Aberto"
+        completed: "Concluido"
+
+

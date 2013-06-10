@@ -8,13 +8,26 @@
 				</div>
 
 				<div class="span5">
-					<%= f.input :date_start, :as => :string, :label => t("active_crm.scheduled.date_start"), :input_html => { 'data-behaviour' => 'datepicker'} %>
-					
-					<%= f.input :date_finish, :as => :string, :label => t("active_crm.scheduled.date_finish"), :input_html => { 'data-behaviour' => 'datepicker'} %>
 
-					<%= f.input :task_type_id, :label => t("active_crm.scheduled.task_type"), :as =>  :select, :collection => Guara::TaskType.all %>
+					<div class="controls span6">
+						<%= f.input :date_start, :as => :string, :label => t("active_crm.scheduled.date_start"), :input_html => { 'data-behaviour' => 'datetimepicker'} %>
+					</div>
+
+					<div class="controls span6">
+						<%= f.input :date_finish, :as => :string, :label => t("active_crm.scheduled.date_finish"), :input_html => { 'data-behaviour' => 'datetimepicker'}, :class =>"span2" %>
+					</div>
+
+					<div class="controls">
+						<%= f.input :task_type_id, :label => t("active_crm.scheduled.task_type"), :as =>  :select, :collection => Guara::TaskType.all %>
+					</div>
+
+					<div class="controls">
+						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :select, :collection => Guara::ActiveCrm::Scheduled.translate_status.map{ |a, b| [b, a] } %>
+					</div>
 				</div> 
 			</div>
 		</fieldset>
 		<%= f.submit class: "btn  btn-primary" %>
 <% end %>
+
+

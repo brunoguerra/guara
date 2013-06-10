@@ -5,29 +5,48 @@ module Guara
     class ScheduledsController < Guara::BaseController
       load_and_authorize_resource :custom_process, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
       
+      include Select2Helper
+      
       def index
-        @search = ActiveCrm::Scheduled.search(params[:search])
-        @active_crm_scheduleds = paginate(@search)
-        params[:search] = {} if params[:search].nil?
+        param_search = params[:search]
 
-        ActiveCrm::Scheduled.paginate(:page => params[:page], :per_page => 5)
+        if !param_search.nil? && param_search.size>0 
+          filter_multiselect param_search, :user_id_in
+          filter_multiselect param_search, :task_type_id_in
+        end
+
+        @search = ActiveCrm::Scheduled.search(param_search)
+        @active_crm_scheduleds = paginate(@search,  params[:page], 4)
+        
 
         @scheduled = ActiveCrm::Scheduled.new 
+
     
         respond_to do |format|
-          format.html 
-          format.json { render json: @active_crm_scheduleds }
+          format.html do
+            #
+          end
+
+          format.json do
+            render json: @active_crm_scheduled 
+          end
         end
 
         authorize! :read, @active_crm_scheduleds
       end
+
     
       def show
         @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])
     
         respond_to do |format|
-          format.html # show.html.erb
-          format.json { render json: @active_crm_scheduled }
+          format.html do
+            #
+          end
+
+          format.json do
+            render json: @active_crm_scheduled 
+          end
         end
 
         authorize! :read, @active_crm_scheduled
