@@ -15,16 +15,16 @@ module Guara
         def self.results
           {
             :registered => 1,
-            :scheduling => 2,
-            :participation_denied => 3
+            :participation_denied => 2,
+            :scheduling => 3
           }
         end
 
         def self.results_translated
           {
             1 => I18n.t("active_crm.results_translated.registered"),
-            2 => I18n.t("active_crm.results_translated.scheduling"),
-            3 => I18n.t("active_crm.results_translated.participation_denied")
+            2 => I18n.t("active_crm.results_translated.participation_denied"),
+            3 => I18n.t("active_crm.results_translated.scheduling")
           }
         end
 

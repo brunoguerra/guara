@@ -5,6 +5,8 @@ module Guara
     		skip_authorization_check
 
     		include ScheculedsHelper
+            include ScheculedContactsHelper
+            helper ScheculedContactsHelper
 
     		def index
     			params[:search] = {} if params[:search].nil?
@@ -34,7 +36,7 @@ module Guara
                 data["customer_name"] = @scheduled_contact.contact.customer.name
                 data["contact_name"] = @scheduled_contact.contact.name
                 data["scheduled"] = @scheduled_contact.scheduled.nil? ? '' : @scheduled_contact.scheduled.strftime("%d/%m/%Y %H:%M")
-                data["status"] = @scheduled_contact.status()
+                data["status"] = prepare_span_status(@scheduled_contact)
                 render :json => {success: true, data: data}
             end
 
