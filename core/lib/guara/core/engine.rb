@@ -15,9 +15,7 @@ module Guara
     class Engine < ::Rails::Engine
       isolate_namespace Guara
       engine_name 'guara'
-      
-      #config.autoload_paths << File.expand_path("../../config/guara", __FILE__)
-      
+            
       initializer "guara.activeadmin" do |app|
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../admin']
       end
@@ -25,7 +23,7 @@ module Guara
       initializer "guara.environment", :before => :load_config_initializers do |app|
         app.config.guara = Guara::Core::Environment.new
         require "#{File.dirname(__FILE__)}/../../../config/initializers/active_admin.rb"
-        Dir["#{File.dirname(__FILE__)}/../../../config/guara/*.rb"].each { |f| require f }
+        Dir["#{File.dirname(__FILE__)}/../../../config/guara/*.rb"].each { |f| require f;}
       end
       
       initializer "guara.load_preferences", :before => "guara.environment" do

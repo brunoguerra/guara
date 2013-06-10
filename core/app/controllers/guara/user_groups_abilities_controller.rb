@@ -1,7 +1,7 @@
 module Guara
   class UserGroupsAbilitiesController < BaseController
     load_and_authorize_resource :user_group, class: Guara::UserGroup
-    load_and_authorize_resource :abilities, through: :user_group, class: Guara::UserAbility
+    #load_and_authorize_resource :abilities, through: :user_group, class: Guara::UserAbility, :only => [:create]
     
     include AbilityHelper
     

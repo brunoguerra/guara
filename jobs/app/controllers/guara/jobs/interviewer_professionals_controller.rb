@@ -2,7 +2,7 @@ module Guara
   module Jobs
     class InterviewerProfessionalsController < BaseController
     	load_and_authorize_resource :vacancy, :class => "Guara::Jobs::Vacancy"
-    	load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
+    	#load_and_authorize_resource :scheduling, through: :vacancy, :class => "Guara::Jobs::VacancySchedulingProfessional"
     	include ::Guara::Jobs::ActiveProcess::ProcessStepComponent
       include ProcessInstanceHelper
       include FormAjaxHelper

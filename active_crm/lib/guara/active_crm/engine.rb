@@ -5,6 +5,8 @@ module Guara
     class Engine < ::Rails::Engine
       isolate_namespace Guara
       engine_name 'guara_active_crm'
+
+      require 'jquery-ui-rails'
       
       #TODO Initialize rspec_paths
       #config.rspec_paths << self.root
@@ -15,12 +17,11 @@ module Guara
           Rails.application.config.cache_classes ? require(c) : load(c)
         end
       end
-
       
       initializer "guara.activeadmin" do |config|
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../../../app/admin']
       end
-      #name: :jobs, resource: Guara::Jobs::Professional
+      
       initializer 'guara.menu.guara.active_crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << { 
 

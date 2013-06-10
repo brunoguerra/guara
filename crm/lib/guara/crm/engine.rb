@@ -17,7 +17,7 @@ module Guara
                                                      path: "guara.customers_path()"
                                                     }
         
-        Guara::Menus::MAINTENCE[:items] +=
+        ::Guara::Menus::MAINTENCE[:items] +=
           [
             { name: :business_activities, resource: Guara::BusinessActivity, path: "guara.maintence_guara_business_activities_path()" },
             { name: :business_segments, resource: Guara::BusinessSegment, path: "guara.maintence_guara_business_segments_path()" },

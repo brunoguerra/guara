@@ -1,3 +1,4 @@
+<div class="page-header"><%= t("active_crm.scheduled.new.title") %></div>
 <%= semantic_form_for @scheduled, :url => @scheduled.new_record? ? scheduleds_path(@scheduled) :scheduled_path(@scheduled), :html => {:class => "well "}  do |f| %>
 
 		<fieldset>

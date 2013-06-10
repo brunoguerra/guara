@@ -27,4 +27,7 @@ pt-BR:
         open: "Aberto"
         completed: "Concluido"
 
+      new:
+        title: "Novo Agendamento"
+
 

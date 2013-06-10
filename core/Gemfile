@@ -39,6 +39,7 @@ gem "active_extend",  :git => 'git@github.com:woese/active_extend.git'
 	
 group :assets do
   gem 'uglifier', '1.2.3'
+  gem "jquery-rails"
 end
 
 group :production do

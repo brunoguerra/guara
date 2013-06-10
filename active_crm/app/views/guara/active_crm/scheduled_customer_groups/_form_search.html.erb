@@ -1,0 +1,106 @@
+<style>
+	.row{
+		margin-left: 0!important;
+	}
+</style>
+<div class="page-header"><%= t("customers.index.title") %></div>
+<%= form_for :search, :html => { :class => "well form-search", :method => :get } do |f|  %>
+	
+	<div class="row">
+		<div class="control-group span3">
+			<%= f.label :name_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.text_field :name_contains, :class => "span11" %>
+			</div>
+		</div>
+
+		<div class="control-group span3">
+			<%= label_tag :activity, t("helpers.label.customers.search.activity"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.select(:customer_guara_customer_pj_type_activities_id_in,
+					options_for_select([nil]) + 
+					options_from_collection_for_select(Guara::BusinessActivity.all,
+						:id, 
+						:name,
+						params[:search][:customer_guara_customer_pj_type_activities_id_in]),
+					{}, 
+					{ :multiple => true, 
+						:style => "width: 206px;", 
+						:placeholder => t("customer_pjs.activities"), 
+						:class => "multiselect"  
+						})
+						%>
+			</div>
+		</div>
+
+		<div class="control-group span3">
+			<%= label_tag :total_employes, t("helpers.label.customers.search.employes_count"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.multiparameter_field :customer_guara_customer_pj_type_total_employes_btw, {:field_type => :number_field, :placeholder => t("commons.min"), :style => "width: 100px;" }, {:field_type => :number_field, :placeholder => t("commons.max"), :style => "width: 100px;margin-left:2px;"  }, :size => 5 %>
+			</div>
+		</div>
+
+		<div class="control-group span3">
+			<%= label_tag :id, t("helpers.label.customers.search.finished_in"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.text_field :finished_id, :class => 'span11' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="control-group span3">
+			<%= label_tag :segment, t("helpers.label.customers.search.segment"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.select(:customer_guara_customer_pj_type_activities_business_segment_id_in,
+				options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:customer_guara_customer_pj_type_activities_business_segment_id_in]), 
+				{}, 
+				{ :multiple => true, 
+					:style => "width: 206px;", 
+					:placeholder => t("customer_pjs.segments"), 
+					:class => "multiselect" 
+					})
+					%>
+			</div>
+		</div>
+
+		<div class="control-group span3">
+			<%= f.label :district_name_contains, t("helpers.label.customers.search.district"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.text_field :district_name_contains, :class => "span11" %>
+			</div>
+		</div>
+
+		<div class="control-group span3">
+			<%= label_tag :view_pair, t("helpers.label.customers.search.pairs_or_odds"), :class => "control-label" %>
+			<div class="controls">
+				<%= f.radio_button :pair_or_odd_id, "2" %>
+				<%= label_tag(:pair_or_odd_id_pair, "Pares") %>
+				<%= f.radio_button :pair_or_odd_id, "1" %>
+				<%= label_tag(:pair_or_odd_id_odd, "Impares") %>
+				<%= f.radio_button :pair_or_odd_id, "" %>
+				<%= label_tag(:pair_or_odd_id_odd, "Todos") %>
+			</div>
+		</div>
+
+		<div class="control-group span3">
+			<%= label_tag :doc, t("customers.doc"), :class => "control-label" %>
+        	<div class="controls">
+        		<%= f.text_field :doc_equals, :class => "span11" %>
+        	</div>
+		</div>
+	</div>
+
+	<%= submit_tag t("helpers.forms.search"), :class => "btn" %>
+	<%= link_to t('helpers.forms.save'), "javascript:void(0);", :class => 'btn btn-primary save-search' %>
+<% end %>
+
+
+<script type="text/javascript">
+	$('.save-search').click(function(){
+		$('form.form-search')
+			.attr('action', '<%= scheduled_scheduled_customer_groups_path(params[:scheduled_id]) %>')
+			.attr('method', 'post')
+			.submit();
+	});
+</script>

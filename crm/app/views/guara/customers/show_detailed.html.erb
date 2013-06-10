@@ -2,9 +2,9 @@
 
 	<%= render :partial => "navbar", :locals => { :active => :view } %>
 	<%= render :partial => "modules", :locals => { :active => :general} %>
-	<ul class="thumbnails">
+	<ul class="thumbnails container-thumbnails">
 
-		<li class="container">
+		<li class="container container-customer">
 			<div class="thumbnail">
 
 				<%= render partial: "businesses_done" %>
@@ -140,7 +140,7 @@
 			</div>
 		</li>
 <%	if can? :read, Guara::Contact %>
-		<li class="container">
+		<li class="container container-contacts">
 			<div class="thumbnail contacts">
 				<div class="caption">
 					<legend><%=t("contacts.side.title") %></legend>
@@ -151,7 +151,7 @@
 		</li>
 <% end %>
 <%	if can? :read, Guara::Task %>
-		<li class="container">
+		<li class="container container-tasks">
 			<div class="thumbnail contacts">
 				<div class="caption">
 					<legend><%=t("tasks.side.title") %></legend>

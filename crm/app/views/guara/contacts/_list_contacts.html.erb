@@ -19,14 +19,14 @@
 		    </thead>
 		    <tbody>
 		    <% @contacts.each do |contact| %>
-		      <tr>
-		      <td><%= contact.name %></td>
-		      <td><%= name_or_empty contact.department %></td>
-		      <td><%= contact.business_function %></td>
-		      <td><%= contact.phone %></br><%= contact.cell %></td>
-		      <td><%= concat_emails(contact.emails, "<br />") %></td>
-		      
-		      <td><%= index_btn_view [contact.customer, contact], "Exibir Contato" %></td>
+		      <tr contact-id="<%= contact.id %>">
+			      <td><%= contact.name %></td>
+			      <td><%= name_or_empty contact.department %></td>
+			      <td><%= contact.business_function %></td>
+			      <td><%= contact.phone %></br><%= contact.cell %></td>
+			      <td><%= concat_emails(contact.emails, "<br />") %></td>
+			      
+			      <td><%= index_btn_view [contact.customer, contact], "Exibir Contato" %></td>
 		      </tr>
 		    <% end %>
 		    </tbody>
