@@ -24,12 +24,14 @@ module Guara
       
       initializer 'guara.menu.guara.active_crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << { 
-          name: "guara.active_crm",
+
+          name: :active_crm,
           items: [
-              { name: :guara_scheduleds, resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduleds_path()" },
+              { name: "active_crm.scheduled", resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduleds_path()" },
             ]
         }
         #Guara::Menus::MAINTENCE[:items] += [ { name: :guara_, resource: Guara::ActiveCrm:: path: "guara.maintence_guara_active_crm_xxx_path()" } ]
+
       end
     
       config.generators do |g|

@@ -3,26 +3,24 @@
 	<%= render :partial => "/guara/customers/navbar", :locals => { :active => :professional } %>
 	<%= render :partial => "/guara/customers/modules", :locals => { :active => :professional } %>
 
-		<div class="row page-header have_jobs">
-			<legend class="span2"><small><%=  t("jobs.professional.index.title") %></small></legend>
+	<div class="row page-header have_jobs">
+		<legend class="span2"><small><%=  t("jobs.professional.index.title") %></small></legend>
+			
+			<div class="span9 well">	
+				<dt>
+					<dd><%= image_tag @professional.attachment.avatar.url(:small), :class => "avatar" if !@professional.attachment.nil? %></dd>
 				
-				<div class="span9 well">	
-					<dt>
-						<dd><%= image_tag @professional.attachment.avatar.url(:small), :class => "avatar" if !@professional.attachment.nil? %></dd>
-					
-						<dt><%= t("jobs.professional.resume_professional") %></dt><br />
-						<dd class= "resume_professional">
-							<%= nbsp @professional.resume_professional %>
-						</dd>
-					</dt>
+					<dt><%= t("jobs.professional.resume_professional") %></dt><br />
+					<dd class= "resume_professional">
+						<%= nbsp @professional.resume_professional %>
+					</dd>
+				</dt>
 
-					<dt><%= t("jobs.professional.have_job") %></dt>
-
-			    	<dd class="have_job_yes_no"><%= yes_or_no @professional.have_job %></dd>
-
-			    	<dd><%= link_to t('jobs.professional.attachment.curriculum.view'), @professional.attachment.curriculum.url, :target => '_blank' if !@professional.attachment.nil? %></dd>
-			</div>
+				<dt><%= t("jobs.professional.have_job") %></dt>
+		    	<dd class="have_job_yes_no"><%= yes_or_no @professional.have_job %></dd>
+		    	<dd><%= link_to t('jobs.professional.attachment.curriculum.view'), @professional.attachment.curriculum.url, :target => '_blank' if !@professional.attachment.nil? %></dd>
 		</div>
+	</div>
 		  
         <div class="row page-header">
 			<legend class="span2"><small><%=  t("jobs.professional.business_action") %></small></legend>
