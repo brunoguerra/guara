@@ -1,11 +1,35 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <%= wicked_pdf_stylesheet_link_tag "bootstrap.min.css" -%>
   </head>
+
+  <style type="text/css">
+
+    .line {border-bottom: solid 1px gray; width: 190px; margin-top: 20px; }
+      .line .right {float: right;}
+
+    .right {float: right;}
+
+    h3 {text-transform: capitalize;margin-bottom: -5px; }
+
+    center {margin-top: 40px;}
+
+    span {margin-top: -40px; display: block; }
+
+    .lead { text-transform: capitalize; margin-top: 20px;}
+
+    .professional {font-size: 18px;margin-top: 40px; }
+
+    .sintese {margin-top: 40px; text-align: justify;}
+
+  </style>
   
   <body>
+
     <% 
       email = "Nenhum Email Cadastrado"
       emails = @professional.person.emails
@@ -15,16 +39,41 @@
           email = email_first.email
         end
       end
-
     %>
-	  <h1> <%= @professional.person.name %> </h1>
-    <div class="control-group">
-       <b>Fone: </b> <%= @professional.person.phone %> <br />
-       <b>Email: </b> <%= email %>
-	  </div>
+      <header>
+         <%= wicked_pdf_image_tag "vacancy_reports/logosintese.png",
+            :alt => "CMGB",
+            :id => "id_img",
+            :width => "150px",
+            :height => "82px",
+            :class => "logo_sintese" %>
 
-    <div class="control-group">
-       <b>Sintese: </b> <%= @interviewer_professional.synthesis %>
+        <div class="line right">
+          <strong style="margin-left: 30px;" >Síntese - </strong>
+          <strong><%= @interviewer_professional.date.strftime('%d/%m/%Y') %></strong>
+        </div>  <br />
+
+        <span class="right"> CMGB* Serviço de RH - <%= @interviewer_professional.date.strftime('%Y') %></span>
+
+        </header>
+
+        <center>
+          <h3>Empresa: <%= @vacancy.customer_pj.person.name %></h3>
+          <h3>Cargo: <%= @vacancy.role.name %></h3>
+        </center>
+
+        <div class="control-group">
+          <p class="professional"><b>Candidato: </b><%= @professional.person.name %><br />
+          <b>Fone: </b><%= @professional.person.phone %><br />       
+          <b>Email:</b><%= email %></p>
+        </div>
+
+      <div class="control-group">
+         <p class="sintese"><b>Síntese: </b><br />
+         <%= @interviewer_professional.synthesis %></p> 
+      </div>
     </div>
+
+
   </body>
 </html>

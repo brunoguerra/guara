@@ -6,5 +6,6 @@ Guara::Core::Engine.routes.prepend do
 		end
 		
 		match "/active_crm",    to: "active_crm#index"
+		match "/ignore_customer_session",  to: "scheduled_contacts#ignore_customer_session"
   	end
 end

@@ -16,10 +16,15 @@ module Guara
 
                 @customers_to_register = paginate(@search)
                 @customers_scheduled = paginate(@search_scheduled)
+
+                respond_to do |format|
+                    format.html
+                    format.js{ render 'index.js.erb' }
+                end
     		end
 
             def create
-                @scheduled_customer_group = ScheduledCustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id))
+                @scheduled_customer_group = ScheduledCustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
 
                 respond_to do |format|
                   if @scheduled_customer_group.save
@@ -31,6 +36,7 @@ module Guara
                   end
                 end
             end
+            
     	end
 	end
 end

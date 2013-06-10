@@ -1,7 +1,7 @@
 module Guara
   module ActiveCrm
     class ScheduledsController < Guara::BaseController
-      load_and_authorize_resource :custom_process, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new]
+      load_and_authorize_resource :custom_process, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new, :show]
       
       def index
         @search = ActiveCrm::Scheduled.search(params[:search])
@@ -23,6 +23,8 @@ module Guara
           format.html
           format.json { render json: @active_crm_scheduled }
         end
+
+        authorize! :read, @active_crm_scheduled
       end
     
       def new
@@ -76,6 +78,7 @@ module Guara
           format.json { head :no_content }
         end
       end
+
     end
   end
 end
