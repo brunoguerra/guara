@@ -6,6 +6,8 @@ module Guara
       load_and_authorize_resource :scheduled, :class => "Guara::ActiveCrm::Scheduled::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
       
       include Select2Helper
+      include ScheculedsHelper
+      helper ScheculedsHelper
       
       def index
         param_search = params[:search]
