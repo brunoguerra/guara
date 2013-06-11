@@ -3,7 +3,7 @@
 module Guara
   module ActiveCrm
     class ScheduledsController < Guara::BaseController
-      load_and_authorize_resource :custom_process, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
+      load_and_authorize_resource :scheduled, :class => "Guara::ActiveCrm::Scheduled::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
       
       include Select2Helper
       
@@ -15,11 +15,11 @@ module Guara
           filter_multiselect param_search, :task_type_id_in
         end
 
-        @search = ActiveCrm::Scheduled.search(param_search)
+        @search = ActiveCrm::Scheduled::Scheduled.search(param_search)
         @active_crm_scheduleds = paginate(@search,  params[:page], 4)
         
 
-        @scheduled = ActiveCrm::Scheduled.new 
+        @scheduled = ActiveCrm::Scheduled::Scheduled.new 
 
     
         respond_to do |format|
@@ -34,16 +34,19 @@ module Guara
 
         authorize! :read, @active_crm_scheduleds
       end
-
-    
+          
       def show
-        @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
     
         respond_to do |format|
+<<<<<<< HEAD
           format.html do
             #
           end
 
+=======
+          format.html
+>>>>>>> 0f58c941bbdea11d8a16c832083fc24403c92223
           format.json do
             render json: @active_crm_scheduled 
           end
@@ -53,24 +56,32 @@ module Guara
       end
     
       def new
-        @scheduled = ActiveCrm::Scheduled.new
+        @scheduled = ActiveCrm::Scheduled::Scheduled.new
         respond_to do |format|
           format.html # new.html.erb
           format.json { render json: @scheduled }
         end
 
-        authorize! :create, ActiveCrm::Scheduled
+        authorize! :create, ActiveCrm::Scheduled::Scheduled
       end
     
       def edit
+<<<<<<< HEAD
         @scheduled = Scheduled.find(params[:id])
 
+=======
+        @scheduled = Scheduled::Scheduled.find(params[:id])
+>>>>>>> 0f58c941bbdea11d8a16c832083fc24403c92223
         authorize! :update, @active_crm_scheduled
       end
     
       def create
-        @active_crm_scheduled = ActiveCrm::Scheduled.new(params[:active_crm_scheduled])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled])
         authorize! :create, @active_crm_scheduled
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f58c941bbdea11d8a16c832083fc24403c92223
         respond_to do |format|
           if @active_crm_scheduled.save
             format.html { redirect_to scheduleds_path, notice: t("active_crm.scheduled.successfully_save") }
@@ -83,7 +94,7 @@ module Guara
       end
     
       def update
-        @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
     
         respond_to do |format|
           if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled])
@@ -99,7 +110,7 @@ module Guara
       end
     
       def destroy
-        @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
         @active_crm_scheduled.destroy
     
         respond_to do |format|

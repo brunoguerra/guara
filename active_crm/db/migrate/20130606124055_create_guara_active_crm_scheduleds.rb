@@ -6,6 +6,7 @@ class CreateGuaraActiveCrmScheculeds < ActiveRecord::Migration
       t.date :date_finish
       t.references :task_type
       t.references :user
+      t.integer :status
 
       t.timestamps
     end

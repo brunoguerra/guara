@@ -1,3 +1,4 @@
+<div class="page-header"><%= t("active_crm.scheduled.new.title") %></div>
 <%= semantic_form_for @scheduled, :url => @scheduled.new_record? ? scheduleds_path(@scheduled) :scheduled_path(@scheduled), :html => {:class => "well "}  do |f| %>
 
 		<fieldset>
@@ -22,7 +23,7 @@
 					</div>
 
 					<div class="controls">
-						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :select, :collection => Guara::ActiveCrm::Scheduled.translate_status.map{ |a, b| [b, a] } %>
+						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :select, :collection => Guara::ActiveCrm::Scheduled::Scheduled.translate_status.map{ |a, b| [b, a] } %>
 					</div>
 				</div> 
 			</div>
