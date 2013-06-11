@@ -33,6 +33,11 @@ module Guara
 
   			return search
   		end
+
+      def table_tr_filter(label, value)
+        raw("<tr><td><strong>#{label}:</strong> #{value}</td></tr>")
+      end
+
   	end
   end
 end
