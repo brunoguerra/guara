@@ -91,7 +91,7 @@
     ignored_customers.push(<%=customer_id%>);
   <% end %>
 
-  ScheduledContacts.init(ignored_customers, '<%=new_scheduled_scheduled_contact_path(params[:scheduled_id], :format=> 'json') %>');
+  ScheduledContacts.init(ignored_customers, '<%=new_scheduled_scheduled_customer_group_scheduled_contact_path(params[:scheduled_id], params[:scheduled_customer_group_id], :format=> 'json') %>');
   paginate_call();
 
 </script>

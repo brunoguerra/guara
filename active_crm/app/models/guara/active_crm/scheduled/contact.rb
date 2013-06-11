@@ -5,9 +5,8 @@ module Guara
           belongs_to :classified
       		belongs_to :contact, class_name: "Guara::Contact"
           belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deals"
-          belongs_to :schedule, class_name: "Guara::ActiveCrm::Scheduled::Scheduled", foreign_key: :scheduled_id
         
-          attr_accessible :activity, :result, :scheduled, :scheduled_id, :contact_id, 
+          attr_accessible :activity, :result, :scheduled, :contact_id, 
           :classified_id, :deal_id
 
 

@@ -22,7 +22,6 @@
 			<%= f.input :scheduled, :as=> :hidden %>
 			<%= f.input :result, :as=> :hidden %>
 			<%= f.input :contact_id, :as=> :hidden %>
-			<%= f.input :scheduled_id, :as=> :hidden %>
 			<%= f.input :classified_id, :as=> :hidden %>
 		</div>
 		<div  class="custom-span3-big disabled">
@@ -40,9 +39,12 @@
 			id: "btn-completed-call", class: "btn dropdown-toggle", role: "button", "data-toggle"=> "dropdown" %>
 
 		<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-			<% Guara::ActiveCrm::Scheduled::Contact.results_translated().each do |key, value| %>
+			<% 
+			participation_denied = Guara::ActiveCrm::Scheduled::Contact.results()[:participation_denied]
+
+			Guara::ActiveCrm::Scheduled::Contact.results_translated().each do |key, value| %>
 				
-				<% if Guara::ActiveCrm::Scheduled::Contact.results()[:participation_denied] == key %>
+				<% if participation_denied == key %>
 					<li role="presentation" class="dropdown-submenu">
 					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%=key%>);">
@@ -81,7 +83,7 @@
 	});
 
 	function completed(type, value){
-		if(value == 3 && type == 'result'){
+		if(value == <%=participation_denied%> && type == 'result'){
 			$('.custom-span3-big').removeClass('disabled');	
 		}
 		else{
@@ -108,7 +110,7 @@
 
 	function verify_form(){
 		$('#active_crm_scheduled_contact_scheduled').val('');
-		if($('#active_crm_scheduled_contact_result').val()=='3'){
+		if($('#active_crm_scheduled_contact_result').val()=='<%=participation_denied%>'){
 			var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
 			$('#active_crm_scheduled_contact_scheduled').val(date+' '+$('#hour').val());
 		}
