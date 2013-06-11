@@ -23,7 +23,7 @@
 					</div>
 
 					<div class="controls">
-						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :select, :collection => Guara::ActiveCrm::Scheduled.translate_status.map{ |a, b| [b, a] } %>
+						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :select, :collection => Guara::ActiveCrm::Scheduled::Scheduled.translate_status.map{ |a, b| [b, a] } %>
 					</div>
 				</div> 
 			</div>
