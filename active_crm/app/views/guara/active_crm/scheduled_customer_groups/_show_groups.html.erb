@@ -1,0 +1,42 @@
+<section id="active_crm">
+  
+  <h3><%= t("active_crm.scheduled_customer_groups.title") +" "+ "#{@scheduled_customer_groups.id if !@scheduled_customer_groups.nil? }"  %></h3>
+  <div class="row-fluid">
+    <div class="thumbnail span12">
+      <div class="caption">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="brand" href="#"><%= t("active_crm.scheduled_customer_groups.title") +" "+ "#{@scheduled_customer_groups.id if !@scheduled_customer_groups.nil? }"  %></div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="span12 box-gray-data">
+            <strong><%= t("active_crm.scheduled_customer_groups.business_activities") %>:</strong>
+            <% @active_crm_scheduled.customer_group.each do |group| %>
+              <%= group.business_activities if !group.business_activities.nil? %></td>
+            <% end %>
+          </div>
+
+
+        </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+              <!--<thead>
+                <tr>
+                  <th><%#= t("active_crm.scheduled_customer_groups.business_activities") %></th>
+                  <th><%#= t("active_crm.scheduled_customer_groups.business_segments") %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <%# @active_crm_scheduled.customer_group.each do |group| %>
+                  <td><%#= group.business_activities if !group.business_activities.nil? %></td>
+                  <td><%#= group.business_segments if !group.business_activities.nil? %></td>
+                <%# end %>
+                </tr>
+              </tbody>-->

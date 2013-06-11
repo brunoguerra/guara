@@ -1,53 +1,52 @@
 <section id="active_crm">
-  <h1><%= t("active_crm.scheduled.title") %></h1>
+  <h1><%= t("active_crm.scheduled.planning_contact") %></h1>
   <h3><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></h3>
   <div class="row-fluid">
     <div class="thumbnail span12">
       <div class="caption">
         <fieldset>
           <div class="row well span12">
-
-            <div class="span7 box-gray-data">
+            <div class="span6 box-gray-data">
               <strong><%= t("active_crm.scheduled.user") %>:</strong>
               <%= @active_crm_scheduled.user.name %>
             </div>
 
-            <div class="span7 box-gray-data">
+            <div class="span6 box-gray-data">
+              <strong><%= t("active_crm.scheduled.date_start") %>:</strong>
+              <%= @active_crm_scheduled.date_start %>
+            </div>
+
+            <div class="span6 box-gray-data">
               <strong><%= t("active_crm.scheduled.subject") %>:</strong>
               <%= @active_crm_scheduled.subject %>
             </div>
 
 
-            <div class="span7 box-gray-data">
-              <strong><%= t("active_crm.scheduled.date_start") %>:</strong>
-              <%= @active_crm_scheduled.date_start %>
-            </div>
-
-            <div class="span7 box-gray-data">
+            <div class="span6 box-gray-data">
               <strong><%= t("active_crm.scheduled.date_finish") %>:</strong>
               <%= @active_crm_scheduled.date_finish %>
             </div>
 
-            <div class="span7 box-gray-data">
+            <div class="span6 box-gray-data">
               <strong><%= t("active_crm.scheduled.task_type") %>:</strong>
               <%= @active_crm_scheduled.task_type.name %>
             </div>
-
         </div>
     </fieldset>
   </div>
 </section>
 <br>
+
 <%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %>
 <%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
-<% if @active_crm_scheduled.customer_group.first.nil? %>
-<%= link_to t("active_crm.scheduled_customer_groups"), scheduled_scheduled_customer_groups_path(params[:id]), class: "btn" %>
-<% else %>
-<%= link_to t("active_crm.scheduled_contacts"), scheduled_scheduled_contacts_path(params[:id]), class: "btn" %>
-<% end %>
+<%= link_to t("active_crm.scheduled_customer_groups.new"), scheduled_scheduled_customer_groups_path(params[:id]), class: "btn" %>
+
+
+ <%= render :partial => 'guara/active_crm/scheduled_customer_groups/show_groups' %>
+
 
 <style type="text/css">
-  .row-fluid [class*="span7"]:first-child {
-      margin-left: 18px;
+  .row-fluid [class*="span6"] {
+      margin-left: 0px;
   }
 </style>
