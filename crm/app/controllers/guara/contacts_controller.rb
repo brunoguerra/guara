@@ -26,10 +26,26 @@ module Guara
     def multi
       authorize! :edit, Guara::Contact
       @customer = Customer.find params[:customer_id]
-      if @customer.update_attributes params[:customer]
-        redirect_to :controller => :contacts, :action => :index
-      else
-        render "_list_editable"
+
+      respond_to do |format|
+        if @customer.update_attributes params[:customer]
+          format.html { redirect_to :controller => :contacts, :action => :index }
+          format.json do 
+            contacts_json = []
+            @customer.contacts.each do |contact|
+              contacts_json << contact.attributes
+            end
+            render :json => { success: true, data: contacts_json }
+          end 
+          format.js do 
+            @contacts = @customer.contacts
+            render :partial => "guara/contacts/list_contacts.js.erb" 
+          end
+        else
+          format.html { render "_list_editable" }
+          format.json { render :json => { success: false } }
+          format.js
+        end
       end
     end
   

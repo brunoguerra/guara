@@ -9,8 +9,11 @@
     overflow-y: scroll!important;
     height: 165px!important;
   }
-
+  .container-thumbnails .container{
+    width: 98%!important;
+  }
 </style>
+
 <section id="active_crm">
     <navbar></navbar>
 
@@ -59,7 +62,7 @@
                             <td><%= scheduled_contact.contact.name %></td>
                             <td><%= scheduled_contact.scheduled %></td>
                             <td><%= scheduled_contact.activity %></td>
-                            <td><%= prepare_span_status(scheduled_contact) %></td>
+                            <td><%= raw(prepare_span_status(scheduled_contact)) %></td>
                           </tr>
                         <% end
                         end %>
@@ -78,13 +81,9 @@
     </div>
 </section>
 
-<div id="dialog-modal-customer" title="Cliente a Contactar" class="no-close">
-  
-</div>
+<div id="dialog-modal-customer" title="Cliente a Contactar" class="no-close"></div>
 
-<div id="dialog-modal-call" title="Cadastro de Ligação" class="no-close">
-  
-</div>
+<%= javascript_include_tag 'guara/active_crm/scheduled_contacts' %>
 
 <script type="text/javascript">
   var ignored_customers = [];
@@ -92,160 +91,7 @@
     ignored_customers.push(<%=customer_id%>);
   <% end %>
 
-  var ScheduledContacts = {
-    current_customer: null,
-    ignored_customers: ignored_customers,
-    container_customer: $('#dialog-modal-customer'),
-    container_call: $('#dialog-modal-call'),
-
-    init: function(){
-      var me = this;
-      $('#container_table #customer-to-register tbody tr').click(function(){
-        me.open_dialog_customer($(this));
-      });
-    },
-
-    reorganize_view_customer: function(){
-      var clone = $('.container-contacts').clone();
-      $('.container-contacts').remove();
-      $('.container-thumbnails').append(clone);
-      $('.box-white-data.activities').width(210);
-    },
-
-    open_dialog_customer: function(tr){
-      var me = this;
-      me.current_customer = tr.attr('customer-id');
-      me.container_customer.html('Carregando...')
-      .dialog({
-        modal: true,
-        draggable: false,
-        height: ($(window).height() - 60),
-        width: 1000, //($(window).width() - 200),
-        open: function( event, ui ) {
-          var container = $(me.container_customer.parent('div.ui-dialog.ui-widget'));
-          container
-            .css('top', '50px')
-            .css('position', 'fixed');
-        },
-        buttons: [
-          {
-              text: "Próximo Cliente",
-              'class': 'saveButtonClass',
-              click: function() {
-                  me.ignored_customers.push(me.current_customer);
-                  $.ajax({
-                    type: "GET",
-                    url: "/ignore_customer_session",
-                    data: {
-                      customer_id: me.current_customer
-                    }
-                  }).done(function( data ) {
-                    
-                  });
-                  me.next_customer();
-              }
-          }
-        ]
-      })
-      .load('/customers/'+ tr.attr('customer-id')+'.json', function(){
-        me.reorganize_view_customer();
-
-        $('.container-contacts table tr[contact-id]').click(function(){
-          me.open_dialog_call($(this).attr('contact-id'));
-        });
-      });
-    },
-
-    open_dialog_call: function(contact_id){
-      var me = this;
-      if($('.tab-content #index div#dialog-call').length==0){
-        $('.tab-content #index').append('<div id="dialog-call"></div><div id="dialog-scroll"></div>');
-      }
-
-      $('.tab-content #index div#dialog-call').html('Carregando...').load('<%=new_scheduled_scheduled_contact_path(params[:scheduled_id], :format=> 'json') %>?contact_id='+contact_id, function(){
-        $('#dialog-modal-customer').animate({
-          scrollTop: $('.tab-content #index div#dialog-scroll').offset().top
-        });
-      });
-
-      return true;
-
-      me.container_call.html('Carregando...')
-      .dialog({
-        modal: true,
-        draggable: false,
-        height: 450,
-        width: 900,
-        open: function( event, ui ) {
-          var container = $(me.container_call.parent('div.ui-dialog.ui-widget'));
-          container.center()
-          .css('top', '65px')
-          .css('position', 'fixed');
-        }
-      })
-      .load('<%=new_scheduled_scheduled_contact_path(params[:scheduled_id], :format=> 'json') %>?contact_id='+contact_id, function(){
-        
-      });
-    },
-
-    is_customer_ignored: function(customer_id){
-      var me     = this,
-      is_ignored = false,
-      ignoreds   = me.ignored_customers;
-      
-      for(var i in ignoreds){
-        if(customer_id == ignoreds[i]){
-          is_ignored = true;
-        }
-      }
-      return is_ignored;
-    },
-
-    next_customer: function(){
-      var me = this,
-      next_customer = false;
-      $('#container_table #customer-to-register tbody tr').each(function(){
-        if(next_customer === false){
-          if(me.is_customer_ignored($(this).attr('customer-id')) === false){
-            me.current_customer = $(this).attr('customer-id');
-            next_customer = true;
-            me.open_dialog_customer($(this));
-          }
-        }
-      });
-
-      if(me.is_customer_ignored(me.current_customer) === true){
-        alert('Todos os Clientes foram Ignorados nesta sessão!');
-      }
-    }
-  };
-
-  function paginate_call(){
-    $('.pagination a').each(function(){
-      if($(this).attr('href').match('.js?') === false){
-        var url = $(this).attr('href').replace('?', '.js?');
-      }
-      else{
-        var url = $(this).attr('href');
-      }
-      $(this).attr('href', url)
-      .click(function(e){
-        e.preventDefault();
-        var url = $(this).attr('href');
-        
-        $.ajax({
-          dataType : 'script',
-          url : url,
-          success : function(script){
-            paginate_call();
-            ScheduledContacts.init();
-          }
-        });
-      });
-    });
-  }
-
-  ScheduledContacts.init();
+  ScheduledContacts.init(ignored_customers, '<%=new_scheduled_scheduled_contact_path(params[:scheduled_id], :format=> 'json') %>');
   paginate_call();
 
 </script>

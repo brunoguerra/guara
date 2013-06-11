@@ -40,16 +40,16 @@
 			id: "btn-completed-call", class: "btn dropdown-toggle", role: "button", "data-toggle"=> "dropdown" %>
 
 		<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-			<% Guara::ActiveCrm::ScheduledContact.results_translated().each do |key, value| %>
+			<% Guara::ActiveCrm::Scheduled::Contact.results_translated().each do |key, value| %>
 				
-				<% if Guara::ActiveCrm::ScheduledContact.results()[:participation_denied] == key %>
+				<% if Guara::ActiveCrm::Scheduled::Contact.results()[:participation_denied] == key %>
 					<li role="presentation" class="dropdown-submenu">
 					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%=key%>);">
 					  		<%=value %>
 					  	</a>
 					  	<ul class="dropdown-menu">
-					  		<% Guara::ActiveCrm::ScheduledClassified.all.each do |classified| %>
+					  		<% Guara::ActiveCrm::Scheduled::Classified.all.each do |classified| %>
 					  			<li>
 					  				<a tabindex="-1" href="javascript:void(0);" 
 					  				onClick="completed('classified', <%=classified.id%>);"><%=classified.name%></a>
