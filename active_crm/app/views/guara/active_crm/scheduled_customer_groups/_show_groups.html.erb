@@ -1,42 +1,42 @@
+<style>
+  caption h3, thead tr h4{
+    text-align: center;
+  }
+</style>
 <section id="active_crm">
   
   <h3><%= t("active_crm.scheduled_customer_groups.title") +" "+ "#{@scheduled_customer_groups.id if !@scheduled_customer_groups.nil? }"  %></h3>
   <div class="row-fluid">
     <div class="thumbnail span12">
-      <div class="caption">
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="brand" href="#"><%= t("active_crm.scheduled_customer_groups.title") +" "+ "#{@scheduled_customer_groups.id if !@scheduled_customer_groups.nil? }"  %></div>
-          </div>
-        </div>
-        <fieldset>
-          <div class="span12 box-gray-data">
-            <strong><%= t("active_crm.scheduled_customer_groups.business_activities") %>:</strong>
-            <% @active_crm_scheduled.customer_group.each do |group| %>
-              <%= group.business_activities if !group.business_activities.nil? %></td>
+      <div class="caption">     
+
+        <caption><h3>Filtros</h3></caption>
+            <% 
+            i = 0
+            @active_crm_scheduled.customer_group.each do |group| 
+                i += 1
+              %>
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th><h4>Grupo de Cliente <%=i%></h4></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= render :partial => 'guara/active_crm/scheduled_customer_groups/tr_group_customer', locals: {group: group, i: i} %>
+                  <tr>
+                    <td>
+                      <h4>Resumo</h4>
+                      <div><span>Total de Clientes:</span> <%= group.deals.count() %><div>
+                      <div><span>Total de Inscritos:</span> <%= group.count_registered() %><div>
+                      <div><span>Total de Agendados:</span> <%= group.count_scheduled() %><div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> 
             <% end %>
-          </div>
-
-
-        </fieldset>
-        </div>
+          
       </div>
     </div>
   </div>
 </section>
-
-
-              <!--<thead>
-                <tr>
-                  <th><%#= t("active_crm.scheduled_customer_groups.business_activities") %></th>
-                  <th><%#= t("active_crm.scheduled_customer_groups.business_segments") %></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                <%# @active_crm_scheduled.customer_group.each do |group| %>
-                  <td><%#= group.business_activities if !group.business_activities.nil? %></td>
-                  <td><%#= group.business_segments if !group.business_activities.nil? %></td>
-                <%# end %>
-                </tr>
-              </tbody>-->

@@ -22,11 +22,11 @@ module Guara
                     format.js{ render 'index.js.erb' }
                 end
 
-                authorize! :read, Guara::ActiveCrm::ScheduledCustomerGroup
+                authorize! :read, Guara::ActiveCrm::Scheduled::CustomerGroup
     		end
 
             def create
-                @scheduled_customer_group = Guara::ActiveCrm::ScheduledCustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
+                @scheduled_customer_group = Guara::ActiveCrm::Scheduled::CustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
                 authorize! :new, @scheduled_customer_group
 
                 respond_to do |format|
