@@ -36,7 +36,6 @@ module Guara
                   end
                 end
             end
-            
     	end
 	end
 end

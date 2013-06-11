@@ -3,12 +3,12 @@ module Guara
   	module ScheculedContactsHelper
 
   		def prepare_span_status(record)
-  			return raw("<span class='#{get_class_color(record)}'>#{record.status}</span>")
+  			return "<span class='#{get_class_color(record)}'>#{record.status}</span>"
   		end
 
   		private
   		def get_class_color(record)
-  			results = Guara::ActiveCrm::ScheduledContact.results
+  			results = Guara::ActiveCrm::Scheduled::Contact.results
   			if results[:registered] == record.result
   				class_color = 'label label-success'
   			elsif results[:scheduling] == record.result
