@@ -2,7 +2,7 @@
 module Guara
   	module ActiveCrm
     	class ScheduledCustomerGroupsController < Guara::BaseController
-    		skip_authorization_check
+    		load_and_authorize_resource :scheduled_customer_group, :class => "Guara::ActiveCrm::ScheduledCustomerGroup", :except => [:index, :create]
     		
             include Select2Helper
             include ScheculedsHelper
@@ -21,20 +21,24 @@ module Guara
                     format.html
                     format.js{ render 'index.js.erb' }
                 end
+
+                authorize! :read, Guara::ActiveCrm::ScheduledCustomerGroup
     		end
 
             def create
-                @scheduled_customer_group = ScheduledCustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
+                @scheduled_customer_group = Guara::ActiveCrm::ScheduledCustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
+                authorize! :new, @scheduled_customer_group
 
                 respond_to do |format|
                   if @scheduled_customer_group.save
-                    format.html { redirect_to scheduled_scheduled_customer_group_path(params[:scheduled_id], @scheduled_customer_group), notice: 'Scheduled Customer Group created.' }
+                    format.html { redirect_to scheduled_path(params[:scheduled_id]) }
                     format.json { render json: @scheduled_customer_group, status: :created, location: @scheduled_customer_group }
                   else
                     format.html { render action: "new" }
                     format.json { render json: @scheduled_customer_group.errors, status: :unprocessable_entity }
                   end
                 end
+
             end
     	end
 	end

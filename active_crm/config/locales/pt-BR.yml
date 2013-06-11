@@ -30,4 +30,10 @@ pt-BR:
       new:
         title: "Novo Agendamento"
 
+      planning_contact: "Planejamento de Contato"
+
+    scheduled_customer_groups: 
+      title: "Grupo de Cliente"
+      new: "Novo Grupo"
+
 

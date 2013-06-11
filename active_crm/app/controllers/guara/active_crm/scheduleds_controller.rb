@@ -17,10 +17,8 @@ module Guara
 
         @search = ActiveCrm::Scheduled::Scheduled.search(param_search)
         @active_crm_scheduleds = paginate(@search,  params[:page], 4)
-        
 
         @scheduled = ActiveCrm::Scheduled::Scheduled.new 
-
     
         respond_to do |format|
           format.html do
@@ -28,7 +26,7 @@ module Guara
           end
 
           format.json do
-            render json: @active_crm_scheduled 
+            render json: @active_crm_scheduled
           end
         end
 
@@ -36,17 +34,14 @@ module Guara
       end
           
       def show
+
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
-    
         respond_to do |format|
-<<<<<<< HEAD
+
           format.html do
             #
           end
-
-=======
-          format.html
->>>>>>> 0f58c941bbdea11d8a16c832083fc24403c92223
+          
           format.json do
             render json: @active_crm_scheduled 
           end
@@ -66,26 +61,18 @@ module Guara
       end
     
       def edit
-<<<<<<< HEAD
-        @scheduled = Scheduled.find(params[:id])
-
-=======
         @scheduled = Scheduled::Scheduled.find(params[:id])
->>>>>>> 0f58c941bbdea11d8a16c832083fc24403c92223
+        
         authorize! :update, @active_crm_scheduled
       end
     
       def create
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled])
         authorize! :create, @active_crm_scheduled
-<<<<<<< HEAD
-=======
-
->>>>>>> 0f58c941bbdea11d8a16c832083fc24403c92223
         respond_to do |format|
           if @active_crm_scheduled.save
-            format.html { redirect_to scheduleds_path, notice: t("active_crm.scheduled.successfully_save") }
-            format.json { render json: scheduleds_path, status: :created, location: @active_crm_scheduled }
+            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("active_crm.scheduled.successfully_save") }
+            format.json { render json: scheduled_path(@active_crm_scheduled), status: :created, location: @active_crm_scheduled }
           else
             format.html { render action: "new" }
             format.json { render json: @active_crm_scheduled.errors, status: :unprocessable_entity }
@@ -98,7 +85,7 @@ module Guara
     
         respond_to do |format|
           if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled])
-            format.html { redirect_to scheduleds_path(@scheduled), notice: t("active_crm.scheduled.successfully_update") }
+            format.html { redirect_to scheduled_path(@scheduled), notice: t("active_crm.scheduled.successfully_update") }
             format.json { head :no_content }
           else
             format.html { render action: "edit" }

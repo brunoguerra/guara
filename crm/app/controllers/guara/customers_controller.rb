@@ -215,7 +215,9 @@ module Guara
         @customer_type = preferences_customer_type?.to_s
       end
       
-      2.times { @customer.phones.build if @customer.phones.size < 2 }
+      if !@customer.nil? 
+        2.times { @customer.phones.build if @customer.phones.size < 2 }
+      end
     end
   
     def custom_load_creator
