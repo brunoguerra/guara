@@ -5,7 +5,7 @@
 </style>
 <div class="page-header"><%= t("customers.index.title") %></div>
 <%= form_for :search, :html => { :class => "well form-search", :method => :get } do |f|  %>
-	
+	<%= raw("<input name='authenticity_token' type='hidden' value='#{form_authenticity_token}'>") if params[:action] == 'edit' %>
 	<div class="row">
 		<div class="control-group span3">
 			<%= f.label :name_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
@@ -98,9 +98,21 @@
 
 <script type="text/javascript">
 	$('.save-search').click(function(){
-		$('form.form-search')
-			.attr('action', '<%= scheduled_scheduled_customer_groups_path(params[:scheduled_id]) %>')
-			.attr('method', 'post')
-			.submit();
+		<% if params[:action] == 'edit' %>
+			if($('form.form-search input[name=_method]').length == 0){
+				$('form.form-search').append('<input name="_method" type="hidden" value="put">');
+			}
+
+			$('form.form-search')
+				.attr('action', '<%= scheduled_scheduled_customer_group_path(params[:scheduled_id], params[:id]) %>')
+				.attr('method', 'post')
+				.submit();
+				
+		<% else %>
+			$('form.form-search')
+				.attr('action', '<%= scheduled_scheduled_customer_groups_path(params[:scheduled_id]) %>')
+				.attr('method', 'post')
+				.submit();
+		<% end %>
 	});
 </script>

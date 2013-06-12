@@ -30,7 +30,7 @@ module Guara
   			search[:pair_or_odd_id] = record.pair_or_odd if !record.pair_or_odd.empty?
   			search[:doc_equals] = record.doc_equals if !record.doc_equals.empty?
   			search[:district_name_contains] = record.district_contains if !record.district_contains.empty?
-
+        
   			return search
   		end
 
