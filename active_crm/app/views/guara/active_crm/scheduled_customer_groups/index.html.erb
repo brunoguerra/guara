@@ -41,36 +41,6 @@
                   </div>
                 </div>
 
-                <div class="thumbnail" style="margin-top:10px;">
-                  <div class="caption">
-                    <div class="page-header"><%= t("active_crm.customers_scheduled") %></div>
-                    <table class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th><%= t("helpers.label.customers.search.names") %></th>
-                          <th class="span3"><%= t("active_crm.responsible") %></th>
-                          <th class="span3"><%= t("active_crm.datetime") %></th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        
-                        <% (@customers_scheduled || []).each do |customer| 
-                          customer.load_scheduled_contacts().each do |scheduled_contact|
-                          %>
-                          <tr>
-                            <td><%= customer.name %></td>
-                            <td><%= scheduled_contact.contact.name %></td>
-                            <td><%= scheduled_contact.scheduled %></td>
-                          </tr>
-                        <% end
-                        end %>
-
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
               </li>
 
             </ul>

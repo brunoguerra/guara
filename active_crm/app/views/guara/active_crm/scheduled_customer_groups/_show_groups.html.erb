@@ -25,11 +25,19 @@
                 <tbody>
                   <%= render :partial => 'guara/active_crm/scheduled_customer_groups/tr_group_customer', locals: {group: group, i: i} %>
                   <tr>
-                    <td>
-                      <h4>Resumo</h4>
-                      <div><span>Total de Clientes:</span> <%= group.deals.count() %><div>
-                      <div><span>Total de Inscritos:</span> <%= group.count_registered() %><div>
-                      <div><span>Total de Agendados:</span> <%= group.count_scheduled() %><div>
+                    <td style="background-color:#FFF;">
+                      <div class="well">
+                        <h4>Resumo</h4>
+                        <div><span>Total de Clientes:</span> <%= group.count_customers() %></div>
+                        <div><span>Total de Inscritos:</span> <%= group.count_registered() %></div>
+                        <div><span>Total de Agendados:</span> <%= group.count_scheduled() %></div>
+                      </div>
+                      <div>
+                        <%= link_to t('active_crm.edit_group_customer'), 
+                        edit_scheduled_scheduled_customer_group_path(params[:id], group.id), class: 'btn' %>
+                        <%= link_to t('active_crm.contact_customers'), 
+                        scheduled_scheduled_customer_group_scheduled_contacts_path(params[:id], group.id), class: 'btn' %>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
