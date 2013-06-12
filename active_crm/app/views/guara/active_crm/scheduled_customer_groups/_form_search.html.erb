@@ -5,7 +5,7 @@
 </style>
 <div class="page-header"><%= t("customers.index.title") %></div>
 <%= form_for :search, :html => { :class => "well form-search", :method => :get } do |f|  %>
-	<%= raw("<input name='authenticity_token' type='hidden' value='#{form_authenticity_token}'>") if params[:action] == 'edit' %>
+	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
 	<div class="row">
 		<div class="control-group span3">
 			<%= f.label :name_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
