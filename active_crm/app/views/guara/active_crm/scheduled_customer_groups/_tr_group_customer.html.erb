@@ -23,14 +23,14 @@
 <% end %>
 
 <% if !group.pair_or_odd.nil? %>
-    <% if group.pairs_or_odds == '1' %>
+    <% if group.pair_or_odds == '1' %>
       <% value = 'Impares' %>
-    <% elsif group.pairs_or_odds == '2' %>
+    <% elsif group.pair_or_odds == '2' %>
       <% value = 'Pares' %>
     <% else %>
       <% value = 'Todos' %>
     <% end %>
-    <%= table_tr_filter(t("helpers.label.customers.search.pairs_or_odds"), value) %>
+    <%= table_tr_filter(t("helpers.label.customers.search.pair_or_odds"), value) %>
 <% end %>
 
 <% if !group.doc_equals.nil? && !group.doc_equals.empty? %>
