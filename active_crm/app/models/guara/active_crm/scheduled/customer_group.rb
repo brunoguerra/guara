@@ -6,7 +6,9 @@ module Guara
 	    		:scheduled_id, :name_contains, :finished_id, :pair_or_odd, :doc_equals, :district_contains
 
 	    		has_many :deals, class_name: "Guara::ActiveCrm::Scheduled::Deals", foreign_key: :groups_id
-
+          
+          include Guara::ActiveCrm::ScheculedsHelper
+          
 	    		def count_registered
 	    			table_contact = Guara::ActiveCrm::Scheduled::Contact
 		            table_deals   = Guara::ActiveCrm::Scheduled::Deals
@@ -15,6 +17,10 @@ module Guara
 		              #{table_contact.table_name}.result = #{table_contact.results()[:registered]}")
 		              .count()
 	    		end
+	    		
+	    		def count_customers
+	    		  Guara::Customer.search(prepare_filter_search({}, self)).count()
+    		  end
 
 	    		def count_scheduled
 	    			table_contact = Guara::ActiveCrm::Scheduled::Contact
