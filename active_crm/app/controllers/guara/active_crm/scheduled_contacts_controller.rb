@@ -14,10 +14,10 @@ module Guara
     			search = prepare_filter_search(params[:search], scheduled_customer_group)
     			
     			@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search)
-                @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search)
+          @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search)
 
-                @customers_to_register = paginate(@search, params[:page], 5)
-                @customers_scheduled = paginate(@search_scheduled)
+          @customers_to_register = paginate(@search, params[:page], 40)
+          @customers_scheduled = paginate(@search_scheduled)
     		end
 
             def new
