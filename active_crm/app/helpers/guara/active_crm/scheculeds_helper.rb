@@ -38,6 +38,15 @@ module Guara
         raw("<tr><td><strong>#{label}:</strong> #{value}</td></tr>")
       end
 
+      def search_scheduled(params)
+        search = {}
+        search[:task_type_id_in] = params[:group_scheduled_task_type_id_in] if !params[:group_scheduled_task_type_id_in].nil?
+        search[:date_start_gteq] = params[:group_scheduled_date_start_gteq] if !params[:group_scheduled_date_start_gteq].nil?
+        search[:date_start_lteq] = params[:group_scheduled_date_start_lteq] if !params[:group_scheduled_date_start_lteq].nil?
+        search[:user_id_in]      = params[:group_scheduled_user_id_in]      if !params[:group_scheduled_user_id_in].nil?
+        return search
+      end
+
   	end
   end
 end
