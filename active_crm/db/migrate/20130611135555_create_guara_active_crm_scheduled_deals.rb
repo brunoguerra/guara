@@ -6,6 +6,7 @@ class CreateGuaraActiveCrmScheduledDeals < ActiveRecord::Migration
       t.datetime :date_start
       t.datetime :date_finish
       t.references :groups
+      t.boolean :closed, default: false
 
       t.timestamps
     end
