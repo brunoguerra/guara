@@ -1,0 +1,169 @@
+<style type="text/css">
+	.row{
+		margin-left: 0;
+	}
+</style>
+<%= form_for :search, :url => scheduled_deals_path, :html => {:method => :get} do |f| %>
+	<div class="row">
+		
+		<div>
+			<div class="control-group span4">
+				<%= f.label :group_scheduled_task_type_id_in, t("active_crm.scheduled.task_type"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.select(:group_scheduled_task_type_id_in,
+						options_for_select([nil]) + 
+						options_from_collection_for_select(Guara::TaskType.all,
+							:id, 
+							:name,
+							params[:search][:group_scheduled_task_type_id_in]),
+						{}, 
+						{
+							:style => "width: 282px;", 
+							:class => "multiselect"  
+						})
+					%>
+				</div>
+			</div>
+
+			<div class="control-group span4">
+				<%= f.label :group_scheduled_task_type_id_in, t("active_crm.scheduled.date_start"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.text_field "group_scheduled_date_start_gteq", :class=>"date_format", "data-behaviour"=> 'datepicker' %>
+				</div>
+			</div>
+
+			<div class="control-group span4">
+				<%= f.label :count_registered, raw("#{t("active_crm.scheduled.registered")} >="), :class => "control-label" %>
+				<div class="controls">
+					<%= f.text_field :count_registered %>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div class="control-group span4">
+				<%= f.label :group_scheduled_user_id_in, t("active_crm.scheduled.user"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.select(:group_scheduled_user_id_in,
+						options_for_select([nil]) + 
+						options_from_collection_for_select(Guara::User.all,
+							:id, 
+							:name,
+							params[:search][:group_scheduled_user_id_in]),
+						{}, 
+						{
+							:style => "width: 282px;", 
+							:class => "multiselect"  
+						})
+					%>
+				</div>
+			</div>
+
+			<div class="control-group span4">
+				<%= f.label "date_start_lteq", t("active_crm.scheduled.date_finish"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.text_field "group_scheduled_date_start_lteq", :class=>"date_format", "data-behaviour"=> 'datepicker' %>
+				</div>
+			</div>
+
+			<div class="control-group span4">
+				<%= f.label :count_contacted, raw("#{t("active_crm.scheduled.contacted")} >="), :class => "control-label" %>
+				<div class="controls">
+					<%= f.text_field :count_contacted %>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div class="control-group span4">
+				<%= f.label :group_scheduled_id_in, t("active_crm.scheduled.scheduled"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.select(:group_scheduled_id_in,
+						options_for_select([nil]) + 
+						options_from_collection_for_select(@scheduleds,
+							:id, 
+							:name,
+							params[:search][:group_scheduled_id_in]),
+						{}, 
+						{
+							:style => "width: 282px;", 
+							:class => "multiselect"
+						})
+					%>
+				</div>
+			</div>
+
+			<div class="control-group span4">
+				<%= f.label :groups_id_in, t("active_crm.scheduled.group"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.select(:groups_id_in,
+						options_for_select([nil]) + 
+						options_from_collection_for_select(@customer_groups,
+							:id, 
+							:name,
+							params[:search][:groups_id_in]),
+						{}, 
+						{
+							:style => "width: 282px;", 
+							:class => "multiselect"  
+						})
+					%>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<%= submit_tag t("helpers.forms.search"), :class => "btn" %>
+<% end %>
+
+
+<script type="text/javascript">
+	$('#search_group_scheduled_task_type_id_in,  #search_group_scheduled_date_start_gteq, #search_group_scheduled_date_start_lteq, #search_group_scheduled_user_id_in').change(function(){
+		load_scheduled();
+	});
+	$('#search_group_scheduled_id_in').change(function(){
+		$.ajax({
+			type: "GET",
+		    url: "<%= multiselect_group_scheduled_deals_path() %>",
+		    data: {
+		    	scheduled_id: $('#search_group_scheduled_id_in').val()
+		    }
+		}).done(function( data ) {
+		    $('#search_groups_id_in').html('').append('<option value=""></option>');
+		    for (var i=0;i<data.data.length;i++){
+		    	$('#search_groups_id_in').append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');
+		    }
+
+		    $('#search_groups_id_in').select2("destroy");
+		    $('#search_groups_id_in').select2();
+		});
+	});
+
+	function load_scheduled(){
+		var scheduled		= $('#search_group_scheduled_id_in');
+		var task_type 		= $('#search_group_scheduled_task_type_id_in');
+		var date_start_gteq = $('#search_group_scheduled_date_start_gteq');
+		var date_start_lteq = $('#search_group_scheduled_date_start_lteq');
+		var user 			= $('#search_group_scheduled_user_id_in');
+		
+		var data = {};
+		data[task_type.attr('name')] = task_type.val();
+		data[date_start_gteq.attr('name')] = date_start_gteq.val();
+		data[date_start_lteq.attr('name')] = date_start_lteq.val();
+		data[user.attr('name')] = user.val();
+
+		$.ajax({
+			type: "GET",
+		    url: "<%= multiselect_scheduleds_scheduled_deals_path() %>",
+		    data: data
+		}).done(function( data ) {
+		    scheduled.html('').append('<option value=""></option>');
+		    for (var i=0;i<data.data.length;i++){
+		    	scheduled.append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');
+		    }
+
+		    scheduled.select2("destroy");
+		    scheduled.select2();
+		});
+	}
+</script>
