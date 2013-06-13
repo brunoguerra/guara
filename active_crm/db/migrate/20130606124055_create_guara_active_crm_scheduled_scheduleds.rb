@@ -1,4 +1,4 @@
-class CreateGuaraActiveCrmScheduleds < ActiveRecord::Migration
+class CreateGuaraActiveCrmScheduledScheduleds < ActiveRecord::Migration
   def change
     create_table :guara_active_crm_scheduled_scheduleds do |t|
       t.string :subject

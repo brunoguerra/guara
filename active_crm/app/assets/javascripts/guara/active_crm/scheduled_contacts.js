@@ -36,6 +36,7 @@
       $('.container-contacts').remove();
       $('.container-thumbnails').append(clone);
       $('.box-white-data.activities').width(210);
+			$('#navbar').remove();
     },
 
     open_dialog_confirm: function(title, html, call){
