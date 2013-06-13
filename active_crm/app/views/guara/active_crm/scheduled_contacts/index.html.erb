@@ -27,7 +27,7 @@
                     
                     <div class="thumbnail" style="margin-top:10px;">
                   <div class="caption">
-                    <div class="page-header"><%= t("active_crm.customers_to_register") %></div>
+                    <div class="page-header"><%= t("active_crm.scheduled.customers_to_register") %></div>
                     
                     <div id="container_table">
                       <%= render :partial => 'customers_to_register' %>
@@ -40,14 +40,14 @@
 
                 <div class="thumbnail" style="margin-top:10px;">
                   <div class="caption">
-                    <div class="page-header"><%= t("active_crm.customers_scheduled") %></div>
+                    <div class="page-header"><%= t("active_crm.scheduled.customers_scheduled") %></div>
                     <table id="customer-scheduled" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th class="span4"><%= t("helpers.label.customers.search.names") %></th>
-                          <th><%= t("active_crm.responsible") %></th>
-                          <th><%= t("active_crm.datetime") %></th>
-                          <th><%= t("active_crm.activity") %></th>
+                          <th><%= t("active_crm.scheduled.responsible") %></th>
+                          <th><%= t("active_crm.scheduled.datetime") %></th>
+                          <th><%= t("active_crm.scheduled.activity") %></th>
                         </tr>
                       </thead>
 

@@ -5,8 +5,8 @@ module Guara
     		skip_authorization_check
 
     		include ScheculedsHelper
-            include ScheculedContactsHelper
-            helper ScheculedContactsHelper
+            include ScheduledContactsHelper
+            helper ScheduledContactsHelper
 
     		def index
     			params[:search] = {} if params[:search].nil?
