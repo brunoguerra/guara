@@ -1,6 +1,6 @@
 module Guara
   module ActiveCrm
-  	module ScheculedContactsHelper
+  	module ScheduledContactsHelper
 
   		def prepare_span_status(record)
   			return "<span class='#{get_class_color(record)}'>#{record.status}</span>"

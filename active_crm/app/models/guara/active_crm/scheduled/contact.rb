@@ -9,7 +9,6 @@ module Guara
           attr_accessible :activity, :result, :scheduled, :contact_id, 
           :classified_id, :deal_id
 
-
           def status
             return self.classified.nil? ? Contact.results_translated()[self.result] : self.classified.name
           end

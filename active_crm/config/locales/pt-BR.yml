@@ -22,6 +22,7 @@ pt-BR:
       successfully_save: "Agendamento realizado com sucesso."
       successfully_update: "Agendamento atualizado com sucesso."
 
+
       status:
         title: "Estado"
         open: "Aberto"
@@ -31,6 +32,21 @@ pt-BR:
         title: "Novo Agendamento"
 
       planning_contact: "Planejamento de Contato"
+
+      responsible: "Responsável"
+      next_contact: "Próximo Contato"
+      activity: "Resultado"
+      status: "Situação"
+      total_registered: "Inscritos"
+      total_contacted: "contactados"
+      consultant: "Consultor"
+      call_historic: "Histórico de Ligações"
+      edit_group_customer: "Editar Grupo"
+      contact_customers: "Contactar Clientes"
+      customers_to_register: "Clientes à Contactar"
+      customers_scheduled: "Clientes Agendados"
+      datetime: "Data/Hora"
+      call_completed: "Ligação Completada"
 
     scheduled_customer_groups: 
       title: "Grupo de Cliente"
