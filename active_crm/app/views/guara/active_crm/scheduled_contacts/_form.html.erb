@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<div class="span3">
-			<%= f.input :activity, input_html: { rows: 3, cols: 5} %>
+			<%= f.input :activity, label: t('active_crm.scheduled.activity'), input_html: { rows: 3, cols: 5} %>
 
 			<%= f.input :scheduled, :as=> :hidden %>
 			<%= f.input :result, :as=> :hidden %>
@@ -35,7 +35,7 @@
 
 
 	<li class="dropup">
-		<%= link_to t('active_crm.call_completed'), 'javascript:void(0);', 
+		<%= link_to t('active_crm.scheduled.call_completed'), 'javascript:void(0);', 
 			id: "btn-completed-call", class: "btn dropdown-toggle", role: "button", "data-toggle"=> "dropdown" %>
 
 		<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">

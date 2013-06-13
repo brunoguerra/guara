@@ -7,6 +7,7 @@ class CreateGuaraActiveCrmScheduledContacts < ActiveRecord::Migration
       t.references :classified
       t.datetime :scheduled
       t.integer :scheduled_id
+      t.boolean :enabled default: true
 
       t.timestamps
     end

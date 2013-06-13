@@ -5,6 +5,11 @@ Guara::Core::Engine.routes.prepend do
 				resources :scheduled_contacts
 			end
 		end
+
+		resources :scheduled_deals do
+			get 'multiselect_scheduleds', :on => :collection
+			get 'multiselect_group', :on => :collection
+		end
 		
 		match "/active_crm",    to: "active_crm#index"
 		match "/ignore_customer_session",  to: "scheduled_contacts#ignore_customer_session"

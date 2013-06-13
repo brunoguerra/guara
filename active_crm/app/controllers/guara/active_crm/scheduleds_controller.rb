@@ -38,12 +38,10 @@ module Guara
       def show
 
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
-        respond_to do |format|
+        @customer_groups = @active_crm_scheduled.customer_group
 
-          format.html do
-            #
-          end
-          
+        respond_to do |format|
+          format.html {}
           format.json do
             render json: @active_crm_scheduled 
           end
