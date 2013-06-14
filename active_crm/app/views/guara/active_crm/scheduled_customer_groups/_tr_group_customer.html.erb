@@ -1,39 +1,39 @@
-<% if !group.name_contains.nil? && !group.name_contains.empty? %>
+<% if !group.name_contains.to_s.empty? %>
   <%= table_tr_filter(t("helpers.label.customers.search.names"), group.name_contains) %>
 <% end %>
 
-<% if !group.business_activities.nil? && !group.business_activities.empty? %>
+<% if group.business_activities.to_s.empty? %>
   <%= table_tr_filter(t("customer_pjs.activities"), group.business_activities.split(',').map{ |key| Guara::BusinessActivity.find(key).name }.join(', ')) %>
 <% end %>
 
-<% if !group.business_segments.nil? && !group.business_segments.empty? %>
+<% if !group.business_segments.to_s.empty? %>
 <%= table_tr_filter(t("customer_pjs.segments"), group.business_segments.split(',').map{ |key| Guara::BusinessSegment.find(key).name }.join(', ')) %>
 <% end %>
 
-<% if (!group.employes_min.nil? && !group.employes_min.empty?) &&  
-    (!group.employes_max.nil? && !group.employes_max.empty?) %>
+<% if (!group.employes_min.to_s.empty?) &&  
+    (!group.employes_max.to_s.empty?) %>
     <%= table_tr_filter(t("helpers.label.customers.search.employes_count"), "#{t("commons.min")}: #{group.employes_min} à #{t("commons.max")}: #{group.employes_max}") %>
 <% end %>
 
-<% if !group.finished_id.nil? && !group.finished_id.empty? %>
+<% if !group.finished_id.to_s.empty? %>
   <%= table_tr_filter(t("helpers.label.customers.search.finished_in"), group.finished_id) %>
 <% end %>
 
-<% if !group.finished_id.nil? && !group.finished_id.empty? %>
+<% if !group.district_contains.to_s.empty? %>
   <%= table_tr_filter(t("helpers.label.customers.search.district"), group.district_contains) %>
 <% end %>
 
-<% if !group.pair_or_odd.nil? && !group.pair_or_odd.empty? %>
-    <% if group.pairs_or_odds == '1' %>
+<% if !group.pair_or_odd.nil? %>
+    <% if group.pair_or_odd == '1' %>
       <% value = 'Impares' %>
-    <% elsif group.pairs_or_odds == '2' %>
+    <% elsif group.pair_or_odd == '2' %>
       <% value = 'Pares' %>
     <% else %>
       <% value = 'Todos' %>
     <% end %>
-    <%= table_tr_filter(t("helpers.label.customers.search.pairs_or_odds"), value) %>
+    <%= table_tr_filter(t("helpers.label.customers.search.pair_or_odd"), value) %>
 <% end %>
 
-<% if !group.doc_equals.nil? && !group.doc_equals.empty? %>
+<% if !group.doc_equals.to_s.empty? %>
   <%= table_tr_filter(t("customers.doc"), group.doc_equals) %>
 <% end %>

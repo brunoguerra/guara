@@ -1,9 +1,10 @@
 module Guara
   class TaskType < ActiveRecord::Base
     attr_accessible :enabled, :name, :company_business, :company_business_id
-  
+    
     include ActiveExtend::ActiveDisablable
-  
+    default_scope order(:name)
+    
     belongs_to :company_business
   
     def self.for_business(company_business)

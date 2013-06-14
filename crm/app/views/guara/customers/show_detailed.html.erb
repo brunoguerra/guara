@@ -1,4 +1,4 @@
-<section class="show">
+<section class="show" id="customer_show">
 
 	<%= render :partial => "navbar", :locals => { :active => :view } %>
 	<%= render :partial => "modules", :locals => { :active => :general} %>
@@ -13,35 +13,35 @@
 					
 					
 					
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customer_#{@customer.customer.prefix}s.doc") %></b>
 							<br><%= nbsp @customer.doc %>
 						</p>
 					</div>
 					
-					<div class="box-white-data">
+					<div class="box-gray-data">
 						<p>
 							<b><%=  t("customer_#{@customer.customer.prefix}s.doc_rg") %></b>
 							</br><%= nbsp @customer.doc_rg %>
 						</p>
 					</div>
 
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customer.site") %></b>
 							<br><%= nbsp @customer.site %>
 						</p>
 					</div>
 
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customers.social_link") %></b>
 							<br><%= nbsp @customer.social_link %>
 						</p>
 					</div>
 
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customers.address") %></b>
 							<br><%= nbsp @customer.format_address %>
@@ -60,21 +60,21 @@
 				</div>
 
 				<div class="span4">
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customers.phone") %></b>
 							<br><%= nbsp @customer.phone %>, <%= inline_list @customer.phones, :phone %>
 						</p>
 					</div>
 					
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customers.emails") %></b>
 							<br><%= nbsp inline_list @customer.emails, :email %>
 						</p>
 					</div>
 
-					<div class="dl-horizontal box-white-data notes autoscroll block4">
+					<div class="dl-horizontal box-gray-data notes autoscroll block4">
 						<p>
 							<b><%=  t("customers.notes") %></b>
 							<%= nbsp simple_format(@customer.notes) %>
@@ -84,7 +84,7 @@
 
 
 				<div class="span3">
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b>Completo?</b>
 							<span class="badge <%= @customer.complete? ? "badge-success" : "badge-important" %>"><%= format_boolean @customer.complete %></span>
@@ -96,14 +96,14 @@
 					</div>
 					
 					<% if @customer_type == "pj" %>
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customer_pjs.total_employes") %></b>
 							<br><%= nbsp @customer.customer.total_employes %>
 						</p>
 					</div>
 					
-					<div class="box-white-data">					
+					<div class="box-gray-data">					
 						<p>
 							<b><%=  t("customers.associateds") %></b>
 							<ul>
@@ -118,7 +118,7 @@
 						</p>
 					</div>
 					
-					<div class="box-white-data activities" style="overflow-y: scroll; height: 140px; width: 263px;">
+					<div class="box-gray-data activities" style="overflow-y: scroll; height: 140px; width: 263px;">
 								<ul style="margin:0px;"><%  @customer.customer.activities.joins(:business_segment).order("guara_business_segments.name").group_by(&:business_segment).each do |segment, activities| %>
 											<li>
 												<b><i class="icon-th"></i>&nbsp;<%= segment.name %></b>

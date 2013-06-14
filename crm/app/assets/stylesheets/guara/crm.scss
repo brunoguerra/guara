@@ -10,8 +10,7 @@
 .select2-container-multi .select2-choices .select2-search-field input {
 	margin: auto;
 	padding: auto;
-	height: 30px;
-	
+	height: 30px;	
 }
 
 #customer_phone_input, #customer_phones_attributes_0_phone_input, #customer_phones_attributes_1_phone_input {
@@ -38,3 +37,26 @@
  	font-weight: bold;
 }
 
+#customer_show.show {
+	
+	h1, h2, h3, h4 {
+		margin-bottom: 0px;
+	}
+	
+	h2 {
+		font-size: 1.4em;
+		letter-spacing: -1px;
+		text-align: inherit;
+		font-weight: bold;
+		color: inherit;
+	}
+	
+	legend small {
+		font-size: 16px;
+	}
+	
+	p {
+		font-size: 12px;
+	}
+	
+}

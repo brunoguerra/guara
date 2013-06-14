@@ -1,5 +1,5 @@
 <style type="text/css">
-  .container-contacts table tr[contact-id], #customer-to-register tr{
+  .container-contacts table tr[contact-id], #customer-to-register tr, #customer-scheduled tr{
     cursor: pointer;
   }
   #customer-to-register tr:hover{
@@ -27,7 +27,7 @@
                     
                     <div class="thumbnail" style="margin-top:10px;">
                   <div class="caption">
-                    <div class="page-header"><%= t("active_crm.customers_to_register") %></div>
+                    <div class="page-header"><%= t("active_crm.scheduled.customers_to_register") %></div>
                     
                     <div id="container_table">
                       <%= render :partial => 'customers_to_register' %>
@@ -40,32 +40,29 @@
 
                 <div class="thumbnail" style="margin-top:10px;">
                   <div class="caption">
-                    <div class="page-header"><%= t("active_crm.customers_scheduled") %></div>
+                    <div class="page-header"><%= t("active_crm.scheduled.customers_scheduled") %></div>
                     <table id="customer-scheduled" class="table table-bordered table-striped">
                       <thead>
                         <tr>
                           <th class="span4"><%= t("helpers.label.customers.search.names") %></th>
-                          <th><%= t("active_crm.responsible") %></th>
-                          <th><%= t("active_crm.datetime") %></th>
-                          <th><%= t("active_crm.activity") %></th>
-                          <th><%= t("active_crm.status") %></th>
+                          <th><%= t("active_crm.scheduled.responsible") %></th>
+                          <th><%= t("active_crm.scheduled.datetime") %></th>
+                          <th><%= t("active_crm.scheduled.activity") %></th>
                         </tr>
                       </thead>
 
                       <tbody>
                         
-                        <% (@customers_scheduled || []).each do |customer| 
-                          customer.load_scheduled_contacts().each do |scheduled_contact|
-                          %>
-                          <tr>
-                            <td><%= customer.name %></td>
-                            <td><%= scheduled_contact.contact.name %></td>
-                            <td><%= scheduled_contact.scheduled %></td>
-                            <td><%= scheduled_contact.activity %></td>
-                            <td><%= raw(prepare_span_status(scheduled_contact)) %></td>
-                          </tr>
-                        <% end
-                        end %>
+                        <% (@customers_scheduled || []).each do |customer| %>
+                            <% customer.load_scheduled_contacts(params[:scheduled_customer_group_id]).each do |scheduled_contact|%>
+                            <tr customer-id="<%=customer.id%>" contact-id="<%=scheduled_contact.contact_id%>">
+                              <td><%= customer.name %></td>
+                              <td><%= scheduled_contact.contact.name %></td>
+                              <td><%= scheduled_contact.scheduled %></td>
+                              <td><%= scheduled_contact.activity %></td>
+                            </tr>
+                            <% end %>
+                        <% end %>
 
                       </tbody>
                     </table>
@@ -82,6 +79,7 @@
 </section>
 
 <div id="dialog-modal-customer" title="Cliente a Contactar" class="no-close"></div>
+<div id="dialog-confirm" title="Deseja Encerrar Negociação?"></div>
 
 <%= javascript_include_tag 'guara/active_crm/scheduled_contacts' %>
 
@@ -91,7 +89,11 @@
     ignored_customers.push(<%=customer_id%>);
   <% end %>
 
-  ScheduledContacts.init(ignored_customers, '<%=new_scheduled_scheduled_customer_group_scheduled_contact_path(params[:scheduled_id], params[:scheduled_customer_group_id], :format=> 'json') %>');
+  ScheduledContacts.init(
+    ignored_customers, 
+    '<%=new_scheduled_scheduled_customer_group_scheduled_contact_path(params[:scheduled_id], params[:scheduled_customer_group_id], :format=> 'json') %>',
+    '<%= close_negociation_path() %>',
+    '<%= params[:scheduled_customer_group_id] %>');
   paginate_call();
 
 </script>

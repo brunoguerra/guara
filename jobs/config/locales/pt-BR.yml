@@ -10,6 +10,19 @@ pt-BR:
       widget:
         title: "Indicador (Fechamento de Vagas)"
 
+      link: "Relatórios"
+      total: "Nº Vagas"
+      customer_pj: "Empresa"
+      role: "Cargo"
+      status: "Status"
+      consultant: "Consultor(a)"
+      elaboration_reports: "Elaboração do Relatório"
+      date_start: "Abertura"
+      monitoring_reports: "Relatório de Acompanhamento de Vaga"
+      step: "Etapa"
+      generation_reports: "Gerar Relatório"
+      type: "Tipo Vaga"
+
     announcement_of_vacancies:
       index:
         title: "Anúncio de Vagas"
@@ -24,18 +37,7 @@ pt-BR:
         title: "Customização de Processo"
         link: "Customização de Processo"
 
-    vacancy_reports:
-      link: "Relatórios"
-      total: "Nº Vagas"
-      customer_pj: "Empresa"
-      role: "Cargo"
-      status: "Status"
-      consultant: "Consultor(a)"
-      elaboration_reports: "Elaboração do Relatório"
-      date_start: "Abertura"
-      monitoring_reports: "Relatório de Acompanhamento de Vaga"
-      step: "Etapa"
-      generation_reports: "Gerar Relatório"
+
       
     process_instance:
       date_start: "Data Inicial"
@@ -158,6 +160,13 @@ pt-BR:
       reopened_reposition: "Reaberto Reposição"
       closed_total: "Fecha Total"
       closed_partial: "Fechado Parcial"
+
+    vacancy_type:
+      effective: "Efetivo"
+      temporary: "Temporário"
+      professional_person: "Profissional Liberal"
+      judicial_persons: "Pessoa Jurídica"
+      trainee: "Estágio"
 
   jobs_business_actions:
     title: "Área de Atuação"

@@ -19,6 +19,7 @@ module Guara
           filter_multiselect param_search, :role_id_in
           filter_multiselect param_search, :status_id_in
           filter_multiselect param_search, :consultant_id_in
+          filter_multiselect param_search, :type_id_in
         end
 
         @search = Vacancy.search(param_search)
@@ -29,7 +30,10 @@ module Guara
             #
           end
           format.pdf do
-            render :pdf => "vacancy_reports.pdf", :template => 'guara/jobs/vacancies/index'
+            render  :pdf => "vacancy_reports.pdf", 
+                    :template => 'guara/jobs/vacancies/index',
+                    :margin => {:top     => 0}, 
+                    :lowquality                     => true,
           end
         end
       end

@@ -1,21 +1,33 @@
   var ScheduledContacts = {
+    customer_group: null,
     current_customer: null,
     ignored_customers: null,
     new_scheduled_contacts: null,
+    close_negociation: null,
     javascript_crm: null,
     container_customer: $('#dialog-modal-customer'),
     container_call: $('#dialog-modal-call'),
 
-    init: function(ignored_customers, new_scheduled_contacts){
+    init: function(ignored_customers, new_scheduled_contacts, close_negociation, customer_group){
       var me = this;
       if(ignored_customers){
         me.ignored_customers = ignored_customers;
+      }
+      if(customer_group){
+        me.customer_group = customer_group;
+      }
+      if(close_negociation){
+        me.close_negociation = close_negociation;
       }
       if(new_scheduled_contacts){
         me.new_scheduled_contacts = new_scheduled_contacts; 
       }
       $('#container_table #customer-to-register tbody tr').click(function(){
         me.open_dialog_customer($(this));
+      });
+
+      $('#customer-scheduled tbody tr').click(function(){
+        me.open_dialog_customer($(this), true);
       });
     },
 
@@ -24,9 +36,28 @@
       $('.container-contacts').remove();
       $('.container-thumbnails').append(clone);
       $('.box-white-data.activities').width(210);
+			$('#navbar').remove();
     },
 
-    open_dialog_customer: function(tr){
+    open_dialog_confirm: function(title, html, call){
+      $( "#dialog-confirm" ).attr('title', title)
+        .html(html)
+        .dialog({
+          resizable: false,
+          height:180,
+          modal: true,
+          buttons: {
+            Ok: function() {
+              call($(this));
+            },
+            Cancelar: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+    },
+
+    open_dialog_customer: function(tr, contact_scheduled){
       var me = this;
       me.current_customer = tr.attr('customer-id');
       me.container_customer.html('Carregando...')
@@ -42,6 +73,28 @@
             .css('position', 'fixed');
         },
         buttons: [
+          {
+              text: "Encerrar Negociação",
+              'class': 'closeButtonClass',
+              click: function() {
+                me.open_dialog_confirm('Encerrar Negociação?', 'Deseja Encerrar a Negociação?', function(dialog){
+                  dialog.html('Aguarde...');
+                  $.ajax({
+                    type: "POST",
+                    url: me.close_negociation,
+                    data: {
+                      customer_id: me.current_customer,
+                      customer_group: me.customer_group
+                    }
+                  }).done(function( data ) {
+                    if(data.success==true){
+                      $('tbody tr[customer-id="'+me.current_customer+'"]').remove();
+                    }
+                    dialog.dialog( "close" );
+                  });
+                });
+              }
+          },
           {
               text: "Próximo Cliente",
               'class': 'saveButtonClass',
@@ -66,6 +119,11 @@
         $('select.multiselect').removeClass('multiselect');
         me.initialize_js_customer();
         me.call_container_contacts();
+
+        if(contact_scheduled){
+          me.open_dialog_call(tr.attr('contact-id'));
+        }
+
       });
     },
 
@@ -141,7 +199,7 @@
 
       $('.tab-content #index div#dialog-call').html('Carregando...').load(me.new_scheduled_contacts+'?contact_id='+contact_id, function(){
         $('#dialog-modal-customer').animate({
-          scrollTop: $('#btn-completed-call').offset().top
+          scrollTop: $('#active_crm_scheduled_contact_activity').offset().top - 350
         });
       });
     },

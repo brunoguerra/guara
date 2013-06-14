@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<div class="span3">
-			<%= f.input :activity, input_html: { rows: 3, cols: 5} %>
+			<%= f.input :activity, label: t('active_crm.scheduled.activity'), input_html: { rows: 3, cols: 5} %>
 
 			<%= f.input :scheduled, :as=> :hidden %>
 			<%= f.input :result, :as=> :hidden %>
@@ -35,16 +35,16 @@
 
 
 	<li class="dropup">
-		<%= link_to t('active_crm.call_completed'), 'javascript:void(0);', 
+		<%= link_to t('active_crm.scheduled.call_completed'), 'javascript:void(0);', 
 			id: "btn-completed-call", class: "btn dropdown-toggle", role: "button", "data-toggle"=> "dropdown" %>
 
 		<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
 			<% 
-			participation_denied = Guara::ActiveCrm::Scheduled::Contact.results()[:participation_denied]
-
+			@participation_denied = Guara::ActiveCrm::Scheduled::Contact.results()[:participation_denied]
+			@scheduling = Guara::ActiveCrm::Scheduled::Contact.results()[:scheduling]
 			Guara::ActiveCrm::Scheduled::Contact.results_translated().each do |key, value| %>
 				
-				<% if participation_denied == key %>
+				<% if @participation_denied == key %>
 					<li role="presentation" class="dropdown-submenu">
 					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%=key%>);">
@@ -83,7 +83,7 @@
 	});
 
 	function completed(type, value){
-		if(value == <%=participation_denied%> && type == 'result'){
+		if(value == <%= @scheduling %> && type == 'result'){
 			$('.custom-span3-big').removeClass('disabled');	
 		}
 		else{
@@ -110,7 +110,7 @@
 
 	function verify_form(){
 		$('#active_crm_scheduled_contact_scheduled').val('');
-		if($('#active_crm_scheduled_contact_result').val()=='<%=participation_denied%>'){
+		if($('#active_crm_scheduled_contact_result').val()=='<%=@scheduling%>'){
 			var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
 			$('#active_crm_scheduled_contact_scheduled').val(date+' '+$('#hour').val());
 		}
@@ -126,15 +126,22 @@
       $form.find('textarea,input[type="text"],input[type="file"]').val("");
       if(data.success == true){
       	alert('Contato Contactado!');
+
       	var customer_id = ScheduledContacts.current_customer;
-      	$('#customer-to-register tr[customer-id='+customer_id+']').remove();
-      	$('#customer-scheduled tbody').append('<tr>'+
-	        '<td>'+data.data.customer_name+'</td>'+
-	        '<td>'+data.data.contact_name+'</td>'+
-	        '<td>'+data.data.scheduled+'</td>'+
-	        '<td>'+data.data.activity+'</td>'+
-	        '<td>'+data.data.status+'</td>'+
-	    '</tr>');
+      	$('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]').remove();
+      	if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact.results()[:scheduling] %>){
+	      	$('#customer-scheduled tbody')
+	      	.append('<tr customer-id="'+data.data.customer_id+'" contact-id="'+data.data.contact_id+'">'+
+		        '<td>'+data.data.customer_name+'</td>'+
+		        '<td>'+data.data.contact_name+'</td>'+
+		        '<td>'+data.data.scheduled+'</td>'+
+		        '<td>'+data.data.activity+'</td>'+
+		    '</tr>');      		
+
+		    $('#customer-scheduled tbody tr').click(function(){
+		        ScheduledContacts.open_dialog_customer($(this), true);
+	     	});
+      	}
       	
       }
     });
