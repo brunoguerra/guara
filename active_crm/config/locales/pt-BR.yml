@@ -22,7 +22,6 @@ pt-BR:
       successfully_save: "Agendamento realizado com sucesso."
       successfully_update: "Agendamento atualizado com sucesso."
 
-
       status:
         title: "Estado"
         open: "Aberto"
