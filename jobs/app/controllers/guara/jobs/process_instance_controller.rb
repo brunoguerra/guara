@@ -126,7 +126,7 @@ module Guara
           if value.class == Array
             @step_instance_attr = StepInstanceAttr.create(step_attr_val)
             value.each do |attr|
-              @step_instance_attr.step_instance_attr_multis.create :value=> attr
+              @step_instance_attr.step_instance_attr_multis.create :value=> attr if @step_instance_attr.step_instance_attr_multis.find_by_value(attr).nil?
             end
           else
             step_attr_val[:value] = value
