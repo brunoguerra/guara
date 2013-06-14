@@ -9,7 +9,6 @@
   <div class="row-fluid">
     <div class="thumbnail span12">
       <div class="caption">     
-
         <caption><h3>Filtros</h3></caption>
             <% 
             i = 0
@@ -27,8 +26,8 @@
                   <tr>
                     <td>
                       <h4>Resumo</h4>
-                      <div><span>Total de Clientes:</span> <%= group.deals.count() %><div>
-                      <div><span>Total de Inscritos:</span> <%= group.count_registered() %><div>
+                      <div><span>Total de Clientes:</span><%= group.deals.count() %><div>
+                      <div><span>Total de Inscritos:</span><%= group.count_registered() %><div>
                       <div><span>Total de Agendados:</span> <%= group.count_scheduled() %><div>
                     </td>
                   </tr>
