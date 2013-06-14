@@ -24,7 +24,7 @@
               <%= link_to t("jobs.announcement_of_vacancies.index.link"), process_instance_index_path %>
             </li>
 
-            <li <%= 'class=active' if active == :custom_process %> >
+            <li <%= 'class=active' if active == :custom_process %> style="display:none;">
               <%= link_to t("jobs.custom_process.title"), custom_process_path %>
             </li>
 

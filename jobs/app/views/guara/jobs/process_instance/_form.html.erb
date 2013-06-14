@@ -25,8 +25,8 @@
 <h2><%= @current_step.name %></h2>
 
 <%= semantic_form_for :step_instance_attrs, 
-	:url => process_instance_path(@process_instance), 
-	:html => {:class => "well stickem-container row", :onsubmit=> "return validate()"}, :method => "put"  do |f| %>
+	:url => @process_instance.new_record? ? process_instance_index_path(@process_instance) : process_instance_path(@process_instance), 
+	:html => {:class => "well stickem-container row", :onsubmit=> "return validate()"} do |f| %>
 	
 
 		<div class="row-fluid">
@@ -63,6 +63,14 @@
 			<% end %>
 			</div>
 		</div>
+
+		<% if @process_instance.new_record? %>
+			<%= f.hidden_field "process_instance[process_id]", :value => @process_instance.process_id %>
+			<%= f.hidden_field "process_instance[date_start]", :value => @process_instance.date_start %>
+			<%= f.hidden_field "process_instance[finished]", :value => @process_instance.finished %>
+			<%= f.hidden_field "process_instance[user_using_process]", :value => @process_instance.user_using_process %>
+			<%= f.hidden_field "process_instance[state]", :value => @process_instance.state %>
+		<% end %>
 
 	<%= f.hidden_field "step_id", :value => @current_step.id %>
     <% unless @embedded %>

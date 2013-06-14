@@ -125,7 +125,7 @@
       var $form = $(this);
       $form.find('textarea,input[type="text"],input[type="file"]').val("");
       if(data.success == true){
-      	alert('Contato Contactado!');
+      	alert('Ligação Completada!');
 
       	var customer_id = ScheduledContacts.current_customer;
       	$('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]').remove();
