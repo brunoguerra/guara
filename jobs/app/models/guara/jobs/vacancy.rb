@@ -11,6 +11,23 @@ module Guara
                       :total, 
                       :salary_id, 
                       :consultant_id
+                      
+      scope :resume_type, lambda {|type_id|
+        types = VacancyResume.type()
+        
+        if types[type_id] == :number_of_jobs_posted_within
+          joins(:scheduling_professionals=> :sended)
+
+        elsif types[type_id] == :number_of_clients_open
+          where("status_id IN (1,7,8)")
+
+        elsif types[type_id] == :amount_of_vacancy_that_was_accepted_candidates_to_the_client
+          joins(:scheduling_professionals).where(:interested=> true)
+          
+        elsif types[type_id] == :amount_of_vacancy_that_was_accepted_candidates_to_the_client
+            
+        end
+      }
 
       belongs_to :process_instance
       belongs_to :role
@@ -22,6 +39,7 @@ module Guara
 
       @user_changed = nil
 
+      has_many :scheduling_professionals, class_name: "Guara::Jobs::VacancySchedulingProfessional"
       has_many :histories, class_name: "Guara::Jobs::VacancyStatusHistory"
 
       def customer_pj_id_multi=(ids)

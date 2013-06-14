@@ -1,12 +1,21 @@
 <div class="page-header"><%= t("jobs.vacancy_reports.elaboration_reports") %></div>
 
-	<%= form_for @search,:url => vacancies_path ,
+	<%= form_for @search,:url => url_search,
 		:html => { :class => "well form-search", :method => :get } do |f|  %>
 		
 		<fieldset>
 		  <div class="row">
+		  	<% if !@vacancies_resume.nil? %>
+		  		<div class="control-group">
+	            	<%= label_tag "resume_type", t("jobs.vacancy_reports.resume_type"), :class => "control-label" %>
+	            	<div class="controls">
+			          	<%= select_tag('resume_type', options_for_select(Guara::Jobs::VacancyResume.type_translated().map{|a, b| [b, a]}, params[:resume_type]), {:class=> "multiselect", style: 'width:220px;'}) %>
+	    			</div>
+		    	</div>
+		  	<% end %>
 
-			  	<div class="control-group">
+
+			  <div class="control-group">
 			      <%= f.label :customer_pj_person_name_contains, t("jobs.vacancy_reports.customer_pj"), :class => "control-label" %>
 			      <div class="controls">
 			      	<%= f.text_field :customer_pj_person_name_contains %>
@@ -18,8 +27,7 @@
             	<div class="controls">
 
 	          	<%= f.select(:role_id_in, options_from_collection_for_select( Guara::Jobs::Role.all, :id, :name),{include_blank: true}, 
-							{ :multiple => true, 
-								:style => "width: 220px;", 
+							{ 	:style => "width: 220px;", 
 								:placeholder => t("jobs.vacancy_reports.role"), 
 							  :class => "multiselect" 
 							})
@@ -41,7 +49,6 @@
 	          	<%= f.select :status_id_in, Guara::Jobs::VacancyStatus.status_translation.map{|a, b| [b, a]}, 
 	          		{include_blank: true}, 
 							  {:class => "multiselect",
-	          		:multiple => true, 
 								:style => "width: 220px;", 
 								:placeholder => t("jobs.vacancy_reports.status")}
 
@@ -50,13 +57,12 @@
 		      </div> <!-- end status -->
 
 			  	<div class="control-group">
-            <%= label_tag :consultant, t("jobs.vacancy_reports.role"), :class => "control-label" %>
+            <%= label_tag :consultant, t("jobs.vacancy_reports.consultant"), :class => "control-label" %>
             	<div class="controls">
 
 	          	<%= f.select(:consultant_id_in, options_from_collection_for_select( Guara::Jobs::Consultant.all, :id, :name),{include_blank: true}, 
-								{ :multiple => true, 
-									:style => "width: 220px;", 
-									:placeholder => t("jobs.vacancy_reports.consultant"), 
+								{ :style => "width: 220px;", 
+								  :placeholder => t("jobs.vacancy_reports.consultant"), 
 								  :class => "multiselect" 
 								})
               %>
