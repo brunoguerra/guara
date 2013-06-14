@@ -47,6 +47,8 @@ Guara::Core::Engine.routes.prepend do
 		  get "change_status"
 	  end
 
+	  resources :vacancy_resume
+
 	end
   
   
