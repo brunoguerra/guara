@@ -220,7 +220,9 @@ module Guara
 
         if @step_values_invalid
           @step_order.each do |step|
-            @step_previous = step if step.next == @process_instance.step.id
+            if step.next == @process_instance.step.id
+              @step_previous = step 
+            end
           end
         end
       end
