@@ -114,7 +114,17 @@
           }
         ]
       })
-      .load('/customers/'+ tr.attr('customer-id')+'.json', function(){
+      .load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
+        if(status=='error'){
+          var error = $('#alert-error');
+          if(error.length){
+            me.container_customer.html('<div id="alert-error" class="alert alert-error"></div>');
+            var error = $('#alert-error');
+          }
+          console.info(error);
+          error.html('<strong>Erro ao Carregar Cliente</strong>, Por favor tente Novamente!');
+          return true;
+        }
         me.reorganize_view_customer();
         $('select.multiselect').removeClass('multiselect');
         me.initialize_js_customer();

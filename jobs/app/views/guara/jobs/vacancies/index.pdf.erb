@@ -74,7 +74,7 @@
                     <td><%= v.role.name if !v.role.nil? %></td>
                     <td><%= v.total %></td>
                     <td><%= Guara::Jobs::VacancyStatus.status_translation[v.status_id] %></td>
-                    <td><%= v.process_instance.step.name if !v.process_instance.nil? %></td>
+                    <td><%= v.process_instance.step.name %></td>
                     <td><%= !v.process_instance.date_start.nil? ? v.process_instance.date_start.strftime("%d/%m/%Y") : ''  %></td>
                     <td><%= v.consultant.name if !v.consultant.nil? %></td>
                   </tr>
