@@ -203,14 +203,25 @@ module Guara
         @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
-
-
-         authorize! :read, @custom_process
+        
+        load_step_valid()
+        authorize! :read, @custom_process
 
         if @embedded
           render :partial => "guara/jobs/process_instance/details_current_stage"
         else
           render
+        end
+      end
+
+      def load_step_valid
+        @step_previous = @process_instance.step
+        @step_values_invalid = @process_instance.step.step_attrs_vals(@process_instance.id).empty?
+
+        if @step_values_invalid
+          @step_order.each do |step|
+            @step_previous = step if step.next == @process_instance.step.id
+          end
         end
       end
       
