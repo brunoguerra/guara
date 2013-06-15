@@ -26,7 +26,7 @@
 
 <%= semantic_form_for :step_instance_attrs, 
 	:url => @process_instance.new_record? ? process_instance_index_path(@process_instance) : process_instance_path(@process_instance), 
-	:html => {:class => "well stickem-container row", :onsubmit=> "return validate()"} do |f| %>
+	:html => {:class => "well stickem-container row", :onsubmit=> "return validate()"}, method: @process_instance.new_record? ? 'post' : 'put' do |f| %>
 	
 
 		<div class="row-fluid">

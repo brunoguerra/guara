@@ -32,8 +32,16 @@
               <%= link_to t("jobs.professional.search.link"), professionals_search_path %>
             </li>
 
-            <li <%= 'class=active' if active == :vacancy_reports %> >
-              <%= link_to t("jobs.vacancy_reports.link"), vacancies_path %>
+
+            <li class="dropdown <%= 'active' if active == :vacancy_reports %>" >
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <%= t("jobs.vacancy_reports.link") %>
+                  <b class="caret"></b>
+                </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to t("jobs.vacancy_reports.general"), vacancies_path, "tabindex"=> "-1" %></li>
+                <li><%= link_to t("jobs.vacancy_reports.resume"), vacancy_resume_index_path, "tabindex"=> "-1" %></li>
+              </ul>
             </li>
 
 

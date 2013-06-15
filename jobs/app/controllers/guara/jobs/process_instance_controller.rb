@@ -126,7 +126,7 @@ module Guara
           if value.class == Array
             @step_instance_attr = StepInstanceAttr.create(step_attr_val)
             value.each do |attr|
-              @step_instance_attr.step_instance_attr_multis.create :value=> attr
+              @step_instance_attr.step_instance_attr_multis.create :value=> attr if @step_instance_attr.step_instance_attr_multis.find_by_value(attr).nil?
             end
           else
             step_attr_val[:value] = value
@@ -203,14 +203,27 @@ module Guara
         @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
-
-
-         authorize! :read, @custom_process
+        
+        load_step_valid()
+        authorize! :read, @custom_process
 
         if @embedded
           render :partial => "guara/jobs/process_instance/details_current_stage"
         else
           render
+        end
+      end
+
+      def load_step_valid
+        @step_previous = @process_instance.step
+        @step_values_invalid = @process_instance.step.step_attrs_vals(@process_instance.id).empty?
+
+        if @step_values_invalid
+          @step_order.each do |step|
+            if step.next == @process_instance.step.id
+              @step_previous = step 
+            end
+          end
         end
       end
       

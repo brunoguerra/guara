@@ -49,7 +49,7 @@
           <li class="span4">
             <div class="thumbnail">
               <div class="caption">
-                <%= render :partial => 'form_search' %>
+                <%= render :partial => 'form_search', locals: {url_search: vacancies_path } %>
                 <% params[:format] = :pdf %>
                 <%= link_to raw('<i  class="icon-list"></i> Gerar Relatório'), 
                   vacancies_path(params), 
