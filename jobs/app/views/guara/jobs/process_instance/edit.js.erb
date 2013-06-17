@@ -1,0 +1,14 @@
+<%
+	
+	#field_form_name nome que deve estar no form
+	@controller = Guara::Jobs::ProfessionalsController.new
+	@controller.request = request
+	@controller.response = response
+	@controller.params = params
+	res = @controller.search
+	@professionals = @controller.searched_professionals
+	@search = @controller.searched_search
+	params[:mode] = "advanced"
+%>
+$('#professional_search_list').html('<%= escape_javascript(render partial: 'guara/jobs/professionals/list_professionals.html.erb') %>');
+paginate_call();
