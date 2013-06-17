@@ -67,6 +67,7 @@ module Guara
       def update
           @a = params[:jobs_vacancy_scheduling_professional]
           load_vacancy_professionals_interview(@a[:vacancy_id], @a[:professional_id], params[:step_instance_attrs][:step_id])
+          @interview.save
           initialize_interview()
           @scheduling.update_attributes(@a)
           

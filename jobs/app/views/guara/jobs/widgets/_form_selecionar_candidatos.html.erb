@@ -14,7 +14,15 @@
 	.control-group .row{
 		margin-left: 0px!important;
 	}
+	#s2id_select_professionals_professionals_selecteds ul.select2-choices{
+		overflow-y: auto;
+		max-height: 200px;
+	}
 </style>
+
+<div class="control-group">
+	<%= form_ajax("select_professional", render(:partial => "guara/jobs/professionals/search_results"), "professionals_ajax_form_complete") %>
+</div>
 
 <script>
 	$(function() {
@@ -55,10 +63,32 @@
 
 	function professionals_ajax_form_complete(data, status) {
 		$("#professional_search_list").html(data.responseText);
-		console.log(data.responseText);
 		alertDialog('<%= t("jobs.professionals.search.complete") %>');
 	}
+
+	function paginate_call(){
+	    $('.pagination a').each(function(){
+	      if($(this).attr('href').match('.js?') === null){
+	        var url = $(this).attr('href').replace('?', '.js?');
+	      }
+	      else{
+	        var url = $(this).attr('href');
+	      }
+	      $(this).attr('href', url)
+	      .click(function(e){
+	        e.preventDefault();
+	        var url = $(this).attr('href');
+	        
+	        $.ajax({
+	          dataType : 'script',
+	          url : url,
+	          success : function(script){
+	            paginate_call();
+	          }
+	        });
+	      });
+	    });
+	}
+
+	paginate_call();
 </script>
-<div class="control-group">
-	<%= form_ajax("select_professional", render(:partial => "guara/jobs/professionals/search_results"), "professionals_ajax_form_complete") %>
-</div>

@@ -8,13 +8,20 @@
 
 	<ul class="thumbnails">
 		<li class="span9">
-			<h2><%=@process_instance.custom_process.step.name %></h2>
+			<% if @process_instance.custom_process.step != @step_previous %>
+				<h2><%=@process_instance.custom_process.step.name %></h2>
+				<div class="thumbnail" style="padding:10px;">
+					<%= render :partial => 'details_initial_stage', :locals=> {:grouped_column_attrs_step_init=> @grouped_column_attrs_step_init, :no_button=> true } %>
+				</div>
+			<% end %>
+
+			<h2><%=@step_previous.name %></h2>
 			<div class="thumbnail" style="padding:10px;">
-				<%= render :partial => 'details_initial_stage', :locals=> {:grouped_column_attrs_step_init=> @grouped_column_attrs_step_init, :no_button=> true } %>
+				<%= render :partial => 'details_current_stage', :locals=> {:grouped_column_attrs_current_step=> @grouped_column_attrs_current_step, :no_button=> true } %>
 				
 				<div class="row offset1">
 					<% if @process_instance.custom_process.enabled == true %>
-						<%= link_to 'Editar ' + @step_previous.name, edit_process_instance_path(@process_instance), :class=> "btn" %>  
+						<%= link_to 'Editar ' + @step_previous.name, edit_process_instance_path(@process_instance, edit_step: @step_previous.id), :class=> "btn" %>  
 						<%= link_to 'Proxima Etapa ' + @step_previous.parent.name, process_instance_alter_state_process_instance_path(:id=> @process_instance.id, :state=> @step_previous.parent.id), :class=> "btn" if !@step_previous.parent.nil? %> 
 					<% end %>	
 				</div>
