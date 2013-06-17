@@ -48,7 +48,7 @@ class JobsMigrationV2 < ActiveRecord::Migration
     add_column :guara_jobs_vacancies, :type_id, :integer
     add_column :guara_jobs_vacancies, :total, :integer
     add_column :guara_jobs_vacancies, :salary_id, :integer
-    add_column :guara_jobs_vacancies, :consultante_id, :integer
+    add_column :guara_jobs_vacancies, :consultant_id, :integer
 
     
     

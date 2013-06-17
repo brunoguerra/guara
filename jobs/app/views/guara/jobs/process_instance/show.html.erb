@@ -14,8 +14,8 @@
 				
 				<div class="row offset1">
 					<% if @process_instance.custom_process.enabled == true %>
-						<%= link_to 'Editar ' + @process_instance.step.name, edit_process_instance_path(@process_instance), :class=> "btn" %>  
-						<%= link_to 'Proxima Etapa ' + @process_instance.step.parent.name, process_instance_alter_state_process_instance_path(:id=> @process_instance.id, :state=> @process_instance.step.parent.id), :class=> "btn" if !@process_instance.step.parent.nil? %> 
+						<%= link_to 'Editar ' + @step_previous.name, edit_process_instance_path(@process_instance), :class=> "btn" %>  
+						<%= link_to 'Proxima Etapa ' + @step_previous.parent.name, process_instance_alter_state_process_instance_path(:id=> @process_instance.id, :state=> @step_previous.parent.id), :class=> "btn" if !@step_previous.parent.nil? %> 
 					<% end %>	
 				</div>
 			</div>
@@ -30,7 +30,8 @@
 			<h2><%= t('jobs.process_instance.steps') %></h2>
 			<div class="thumbnail">
 				<% @step_order.each do |s| %>
-				<%= link_to s.name, process_instance_show_step_path(:id=> @process_instance.id, :edit_step=> s.id), :class=> "btn btn-block" %> 
+				<% next if @step_values_invalid == true and s == @process_instance.step %>
+				<%= link_to s.name, process_instance_show_step_path(:id=> @process_instance.id, :edit_step=> s.id), :class=> "btn btn-block"  %> 
 				<% end %>
 			</div>
 		</li>

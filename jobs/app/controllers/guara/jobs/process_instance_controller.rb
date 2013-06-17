@@ -32,8 +32,7 @@ module Guara
 
       def new
         @custom_process = Vacancy.custom_process
-        @process_instance = ProcessInstance.new
-        @process_instance.update_attributes({
+        @process_instance = ProcessInstance.new({
           :process_id=> @custom_process.id,
           :date_start=> Time.now.to_s(:db),
           :finished=> false,
@@ -41,12 +40,19 @@ module Guara
           :state=> @custom_process.step_init
         })
 
+        load_step_and_step_attrs
+        
         authorize! :read, @custom_process
+      end
 
+      def create
+        @process_instance = ProcessInstance.new(params[:step_instance_attrs][:process_instance])
         if @process_instance.save
-          redirect_to edit_process_instance_path(@process_instance)
+          params[:step_instance_attrs].delete(:process_instance)
+          params[:id] = @process_instance.id
+          update
         else
-          render :index
+          redirect_to new_process_instance_path(process_id: params[:process_instance][:process_id])
         end
       end
 
@@ -60,8 +66,20 @@ module Guara
       end
 
       def edit
+        authorize! :read, @custom_process
+
         @process_instance = ProcessInstance.find params[:id]
         
+        load_step_and_step_attrs
+
+        if @embedded
+          render :partial => "guara/jobs/process_instance/form"
+        else
+
+        end
+      end
+
+      def load_step_and_step_attrs
         if params[:edit_step].nil?
           @current_step = @process_instance.step
           params[:edit_step] = @current_step.id
@@ -69,16 +87,8 @@ module Guara
           @current_step = Step.find params[:edit_step]
         end
 
-        authorize! :read, @custom_process
-        
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@current_step)
         @grouped_column_attrs_step_init    = load_grouped_columned_attrs(@process_instance.custom_process.step, true)
-
-        if @embedded
-          render :partial => "guara/jobs/process_instance/form"
-        else
-
-        end
       end
       
       def load_grouped_columned_attrs(step, reject_resume_false=false)
@@ -103,7 +113,7 @@ module Guara
         return grouped_column_attrs
       end
 
-      def create_step_instance_attrs        
+      def create_step_instance_attrs
         attrs = []
         @step_instance_attrs.each do |key, value|
           step_attr_val = {
@@ -116,7 +126,7 @@ module Guara
           if value.class == Array
             @step_instance_attr = StepInstanceAttr.create(step_attr_val)
             value.each do |attr|
-              @step_instance_attr.step_instance_attr_multis.create :value=> attr
+              @step_instance_attr.step_instance_attr_multis.create :value=> attr if @step_instance_attr.step_instance_attr_multis.find_by_value(attr).nil?
             end
           else
             step_attr_val[:value] = value
@@ -193,14 +203,27 @@ module Guara
         @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
-
-
-         authorize! :read, @custom_process
+        
+        load_step_valid()
+        authorize! :read, @custom_process
 
         if @embedded
           render :partial => "guara/jobs/process_instance/details_current_stage"
         else
           render
+        end
+      end
+
+      def load_step_valid
+        @step_previous = @process_instance.step
+        @step_values_invalid = @process_instance.step.step_attrs_vals(@process_instance.id).empty?
+
+        if @step_values_invalid
+          @step_order.each do |step|
+            if step.next == @process_instance.step.id
+              @step_previous = step 
+            end
+          end
         end
       end
       
