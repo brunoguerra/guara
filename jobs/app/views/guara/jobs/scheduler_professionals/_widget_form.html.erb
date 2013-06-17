@@ -1,3 +1,22 @@
+<% @professional = Guara::Jobs::Professional.find(params[:professional_id]).person %>
+
+<div class="professional_contact">
+	<div class="control-group">
+		<%= show_label_tag t('contacts.name') %>
+		<%= @professional.name %>
+	</div>
+
+	<div class="control-group">
+		<%= show_label_tag t('contacts.phone') %>
+		<%= inline_list @professional.phones, :phone %>
+	</div>
+
+	<div class="control-group">
+		<%= show_label_tag t('contacts.emails') %>
+		<%= inline_list @professional.emails %>
+	</div>
+</div>
+
 <%= semantic_form_for @vacancy_scheduling, 
 :url => vacancy_scheduler_professional_path(@vacancy), 
 :html => {:class => "well", :onsubmit=> "return vacancy_scheduler_professional_submit();"}  do |f| %>
@@ -25,6 +44,7 @@
 <script type="text/javascript">
 	function vacancy_scheduler_professional_submit(){
 		var data = {},
+		retorno  = true,
 		form     = '#form_candidate_selected form',
 		inputs   = $(form + ' input[name*=jobs_vacancy_scheduling_professional]'),
 		method   = $(form + ' input[name*=_method]'),
@@ -37,16 +57,30 @@
 			data['_method'] = 'put';
 		}
 		data['jobs_vacancy_scheduling_professional[interested]'] = true;
+
+		$.each( data, function( key, value ) {
+		  	if(value == ""){
+				retorno = false
+			}
+		});
+
+		if(retorno == false){
+			alert('Todos os Campos São Obrigatórios!');
+			return false;
+		}
+
 		$.ajax({
 		  type: "POST",
 		  url: $(form).attr('action'),
 		  data: data,
 		}).done(function( data ) {
 		  	if(data.success == true){
-		  		var btn = $('#button_'+data.data.professional_id);
-		  		btn.clone()
-		  			.attr('onClick', "schedule_professional("+data.data.professional_id+", true); ")
-		  			.appendTo('#candidates_scheduled');
+		  		professional_id = data.data.vacancy_scheduling_professional.professional_id;
+		  		var btn = $('#button_'+professional_id);
+		  		var clone = btn.clone();
+	  			var p = $(clone)
+	  				.attr('onClick', "schedule_professional("+professional_id+", true); ")
+	  				.appendTo('#candidates_scheduled');
 		  		btn.remove();
 		  		alert('Agendamento Salvo');
 		  		$('#form_candidate_selected').empty();
