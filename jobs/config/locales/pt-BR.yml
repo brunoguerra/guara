@@ -10,6 +10,7 @@ pt-BR:
       widget:
         title: "Indicador (Fechamento de Vagas)"
 
+      
       link: "Relatórios"
       total: "Nº Vagas"
       customer_pj: "Empresa"
@@ -18,10 +19,13 @@ pt-BR:
       consultant: "Consultor(a)"
       elaboration_reports: "Elaboração do Relatório"
       date_start: "Abertura"
-      monitoring_reports: "Relatório de Acompanhamento de Vaga"
       step: "Etapa"
       generation_reports: "Gerar Relatório"
       type: "Tipo Vaga"
+
+      vacancy_reports: 
+        title: "Relatórios"
+        monitoring_reports: "Relatório de Acompanhamento de Vaga"
 
     announcement_of_vacancies:
       index:
