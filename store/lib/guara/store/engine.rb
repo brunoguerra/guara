@@ -19,7 +19,6 @@ module Guara
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../../../app/admin']
       end
       
-      
       initializer 'guara.menu.crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << :stock
        

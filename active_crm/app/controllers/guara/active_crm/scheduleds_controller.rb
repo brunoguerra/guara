@@ -1,13 +1,9 @@
-#require_dependency "guara/active_crm/application_controller"
-
 module Guara
   module ActiveCrm
     class ScheduledsController < Guara::BaseController
-      load_and_authorize_resource :scheduled, :class => "Guara::ActiveCrm::Scheduled::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
+      load_and_authorize_resource :scheduled, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
       
       include Select2Helper
-      include ScheculedsHelper
-      helper ScheculedsHelper
       
       def index
         param_search = params[:search]
@@ -36,12 +32,9 @@ module Guara
       end
           
       def show
-
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
-        @customer_groups = @active_crm_scheduled.customer_group
-
         respond_to do |format|
-          format.html {}
+          format.html
           format.json do
             render json: @active_crm_scheduled 
           end
@@ -53,7 +46,7 @@ module Guara
       def new
         @scheduled = ActiveCrm::Scheduled::Scheduled.new
         respond_to do |format|
-          format.html # new.html.erb
+          format.html
           format.json { render json: @scheduled }
         end
 
@@ -62,13 +55,13 @@ module Guara
     
       def edit
         @scheduled = Scheduled::Scheduled.find(params[:id])
-        
         authorize! :update, @active_crm_scheduled
       end
     
       def create
-        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled_scheduled])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled])
         authorize! :create, @active_crm_scheduled
+
         respond_to do |format|
           if @active_crm_scheduled.save
             format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("active_crm.scheduled.successfully_save") }
@@ -84,7 +77,7 @@ module Guara
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
     
         respond_to do |format|
-          if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled_scheduled])
+          if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled])
             format.html { redirect_to scheduled_path(@scheduled), notice: t("active_crm.scheduled.successfully_update") }
             format.json { head :no_content }
           else
@@ -101,10 +94,11 @@ module Guara
         @active_crm_scheduled.destroy
     
         respond_to do |format|
-          format.html { redirect_to active_crm_scheduleds_url }
+          format.html { redirect_to scheduleds_url }
           format.json { head :no_content }
         end
       end
+
     end
   end
 end

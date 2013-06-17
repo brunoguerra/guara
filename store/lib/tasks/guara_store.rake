@@ -35,13 +35,10 @@ namespace :guara do
     
     namespace :db do
       
-      task migrate: :environment do
-        execute_task "db:create"
+      task migrations: :environment do
         execute_task "guara:install:migrations"
         execute_task "guara_crm:install:migrations"
-        execute_task "spree:install:migrations"
         execute_task "guara_store:install:migrations"
-        execute_task "db:migrate"
       end
     end
     
