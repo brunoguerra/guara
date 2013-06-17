@@ -71,8 +71,10 @@ module Guara
         @process_instance = ProcessInstance.find params[:id]
         
         load_step_and_step_attrs
-
-        if @embedded
+        
+        if params[:format] == 'js'
+          render 'edit.js.erb'
+        elsif @embedded && params[:format] != 'js'
           render :partial => "guara/jobs/process_instance/form"
         else
 
@@ -200,11 +202,13 @@ module Guara
       
       def show
         @process_instance = ProcessInstance.find params[:id]
-        @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
-        @grouped_column_attrs_current_step = load_grouped_columned_attrs(@process_instance.step)
         @step_order = @process_instance.steps_previous_current
-        
         load_step_valid()
+
+        @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
+        @grouped_column_attrs_current_step = load_grouped_columned_attrs(@step_previous)
+        
+        
         authorize! :read, @custom_process
 
         if @embedded

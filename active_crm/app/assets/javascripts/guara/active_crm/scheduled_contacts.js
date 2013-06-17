@@ -117,14 +117,18 @@
       .load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
         if(status=='error'){
           var error = $('#alert-error');
-          if(error.length){
+          if(error.length == 0){
             me.container_customer.html('<div id="alert-error" class="alert alert-error"></div>');
             var error = $('#alert-error');
           }
-          console.info(error);
           error.html('<strong>Erro ao Carregar Cliente</strong>, Por favor tente Novamente!');
+          $('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').hide();
           return true;
         }
+        else{
+          $('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').show();
+        }
+
         me.reorganize_view_customer();
         $('select.multiselect').removeClass('multiselect');
         me.initialize_js_customer();
