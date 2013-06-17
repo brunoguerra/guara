@@ -12,7 +12,7 @@ module Guara
 
       @@opened   = VacancyStatus.new(id: 1, name: "opened")
       @@paused   = VacancyStatus.new(id: 2, name: "paused")
-      @@closed   = VacancyStatus.new(id: 3, name: "opened")
+      @@closed   = VacancyStatus.new(id: 3, name: "closed")
 
       @@canceled            = VacancyStatus.new(id: 4, name: "canceled", parent: @@closed)
       @@closed_total        = VacancyStatus.new(id: 5, name: "closed_total", parent: @@closed)

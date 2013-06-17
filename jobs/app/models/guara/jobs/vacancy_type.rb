@@ -19,6 +19,10 @@ module Guara
   				}
   			end
 
+        def self.find(id)
+          VacancyType.new(id: id, name: self.type_translated[id.to_i]) 
+        end
+
   			def self.type_translated
   				{
   					0 => I18n.t("jobs.vacancy_type.effective"),

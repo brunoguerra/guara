@@ -18,6 +18,10 @@
 
     span {margin-top: -40px; display: block; }
 
+    .search_result {
+      margin-top: 30px;
+    }
+
   </style>
 
 
@@ -72,7 +76,7 @@
                     <td><%= v.role.name if !v.role.nil? %></td>
                     <td><%= v.total %></td>
                     <td><%= Guara::Jobs::VacancyStatus.status_translation[v.status_id] %></td>
-                    <td><%= v.process_instance.step.name if !v.process_instance.nil? %></td>
+                    <td><%= v.process_instance.step.name %></td>
                     <td><%= !v.process_instance.date_start.nil? ? v.process_instance.date_start.strftime("%d/%m/%Y") : ''  %></td>
                     <td><%= v.consultant.name if !v.consultant.nil? %></td>
                   </tr>
@@ -80,6 +84,34 @@
               </tbody>
             </table>
 
+          </div>
+
+          <div class="search_result">
+            <b><%= t("jobs.vacancies.search_result")%></b><br />
+            <div>  
+            <%= "#{t('jobs.vacancies.customer_pj')}: #{params[:search][:customer_pj_person_name_contains]}" if !params[:search][:customer_pj_person_name_contains].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancies.role')}: #{Guara::Jobs::Role.find(params[:search][:role_id_equals]).name}" if !params[:search][:role_id_equals].empty? %>
+            </div>
+
+            <div>
+            <%= "#{t('jobs.vacancies.total')}: #{params[:search][:total_equals]}" if !params[:search][:total_equals].empty? %>
+            </div>
+
+            <div>
+            <%= "#{t('jobs.vacancies.status')}: #{Guara::Jobs::VacancyStatus.status_translation()[params[:search][:status_id_equals].to_i]}" if !params[:search][:status_id_equals].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancies.consultant')}: #{Guara::Jobs::Consultant.find(params[:search][:consultant_id_equals].to_i).name}" if !params[:search][:consultant_id_equals].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancies.type')}: #{Guara::Jobs::VacancyType.find(params[:search][:type_id_equals].to_i).name}" if !params[:search][:type_id_equals].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancies.date_start')}: #{params[:search][:process_instance_date_start_gteq]} à #{params[:search][:process_instance_date_start_lteq]}" if !params[:search][:process_instance_date_start_gteq].empty? and !params[:search][:process_instance_date_start_lteq].empty?%>
+            </div><br />
+            <b><%= " Total de Vagas: #{@vacancy.count()}" %></b>
           </div>
       </li>
     </ul>

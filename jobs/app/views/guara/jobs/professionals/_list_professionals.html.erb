@@ -21,15 +21,19 @@
 				<td><%= p.person.name %></td>
 				<td>
 					<ul><% business_action_last = nil %>
-						<% p.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
-							<h5>
-							<% if (business_action_last.nil? || business_action_last.id != r.business_action.id)%>
-							<%= r.business_action.name %> :
-							<% end %>
-							</h5>
-							<li>- <%= r.name %><br></li>
-							<% business_action_last = r.business_action %>
-						<% end %>
+						<% 
+							if !p.vacancy_specification.nil?
+								p.vacancy_specification.roles.joins(:business_action).order('guara_jobs_business_actions.name').each do |r| %>
+								<h5>
+								<% if (business_action_last.nil? || business_action_last.id != r.business_action.id)%>
+								<%= r.business_action.name %> :
+								<% end %>
+								</h5>
+								<li>- <%= r.name %><br></li>
+								<% business_action_last = r.business_action %>
+							<% end 
+							end
+							%>
 					</ul>
 				</td>
 				<td>

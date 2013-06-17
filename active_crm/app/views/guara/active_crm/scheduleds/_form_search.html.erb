@@ -2,7 +2,6 @@
 
 <%= form_for @search, :url => scheduleds_path, :html => {:method => :get} do |f| %>
 	
-
 	<div class="control-group">
 		<%= label_tag :user, t("active_crm.scheduled.user"), :class => "control-label" %>
 		<%= f.select(:user_id_in,options_from_collection_for_select( Guara::User.all, :id, :name ), 

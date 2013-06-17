@@ -76,7 +76,6 @@ module Guara
 
                 return deal
             end
-
     	end
     end
 end

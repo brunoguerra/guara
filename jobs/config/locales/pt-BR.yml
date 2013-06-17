@@ -10,7 +10,6 @@ pt-BR:
       widget:
         title: "Indicador (Fechamento de Vagas)"
 
-      
       link: "Relatórios"
       total: "Nº Vagas"
       customer_pj: "Empresa"
@@ -22,6 +21,7 @@ pt-BR:
       step: "Etapa"
       generation_reports: "Gerar Relatório"
       type: "Tipo Vaga"
+      search_result: "Relatório elaborado aparti do(s) filtro(s):"
 
       vacancy_reports: 
         title: "Relatórios"
@@ -40,8 +40,6 @@ pt-BR:
       index:
         title: "Customização de Processo"
         link: "Customização de Processo"
-
-
       
     process_instance:
       date_start: "Data Inicial"

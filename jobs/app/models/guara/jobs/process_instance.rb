@@ -8,7 +8,7 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
   #@deprecated Utilizar o acesso por step
   has_many :step_instance_attrs, :dependent => :destroy
 
-  has_one :vacancy
+  has_one :vacancy, :dependent => :destroy
   
   after_save :after_save
   

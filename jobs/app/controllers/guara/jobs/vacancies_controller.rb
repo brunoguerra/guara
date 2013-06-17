@@ -14,6 +14,7 @@ module Guara
       end
       
       def index
+        params[:search] = {} if params[:search].nil?
         param_search = params[:search]
         if !param_search.nil? && param_search.size>0 
           filter_multiselect param_search, :role_id_in
