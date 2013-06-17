@@ -23,9 +23,14 @@ pt-BR:
       type: "Tipo Vaga"
       search_result: "Relatório elaborado aparti do(s) filtro(s):"
 
-      vacancy_reports: 
+    vacancy_reports:
+      link: "Relatórios"
+      
+      reports: 
         title: "Relatórios"
         monitoring_reports: "Relatório de Acompanhamento de Vaga"
+        general: "Geral"
+        resume: "Resumos"
 
     announcement_of_vacancies:
       index:
