@@ -17,6 +17,14 @@ module Guara
 			   	  	")
 			    }
 
+			    scope :no_interested, lambda {
+			    	where("#{Contact.table_name}.result = #{Contact.results[:participation_denied]}")
+			    }
+
+			    scope :registered, lambda {
+			    	where("#{Contact.table_name}.result = #{Contact.results[:registered]}")
+			    }
+
 			    scope :count_contacted, lambda{|value|
 			    	where("(
 			   	  		SELECT count(*) FROM #{Contact.table_name} as c WHERE c.deal_id = #{Deals.table_name}.id AND

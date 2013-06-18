@@ -21,6 +21,8 @@ pt-BR:
       id: "Cod."
       successfully_save: "Agendamento realizado com sucesso."
       successfully_update: "Agendamento atualizado com sucesso."
+      historic_scheduled_contact_selected: "Histórico de Agendamento do Contato Selecionado"
+
 
       status:
         title: "Estado"
@@ -36,8 +38,12 @@ pt-BR:
       next_contact: "Próximo Contato"
       activity: "Resultado"
       status: "Situação"
+      scheduled: "Agendados"
+      group: "Grupos"
+      registered: "Registrados"
+      contacted: "Contactados"
       total_registered: "Inscritos"
-      total_contacted: "contactados"
+      total_contacted: "Contactados"
       consultant: "Consultor"
       call_historic: "Histórico de Ligações"
       edit_group_customer: "Editar Grupo"
@@ -51,4 +57,9 @@ pt-BR:
       title: "Grupo de Cliente"
       new: "Novo Grupo"
 
+    scheduled_deals:
+      title: "Negociações"
+
+    scheduled_classifieds:
+      title: "Classificações (Não Interessados)"
 

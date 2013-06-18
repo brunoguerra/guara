@@ -21,6 +21,7 @@ module Guara
 
   			return class_color
   		end
+      
   	end
   end
 end

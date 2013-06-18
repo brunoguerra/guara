@@ -1,0 +1,157 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <%= wicked_pdf_stylesheet_link_tag "bootstrap.min.css" -%>
+  </head>
+
+  <style type="text/css">
+
+    .line {border-bottom: solid 1px gray; width: 190px; margin-top: 20px; }
+      .line .right {float: right;}
+
+    .right {float: right;}
+
+    h3 {text-transform: capitalize;margin-bottom: -5px; }
+
+    center {margin-top: 40px;}
+
+    span {margin-top: -40px; display: block; }
+
+    .lead { text-transform: capitalize; margin-top: 20px;}
+
+    .professional {font-size: 18px;margin-top: 40px; }
+
+    .sintese {margin-top: 40px; text-align: justify;}
+
+  </style>
+  
+  <body>
+      <header>
+         <%= wicked_pdf_image_tag "vacancy_reports/logosintese.png",
+            :alt => "CMGB",
+            :id => "id_img",
+            :width => "150px",
+            :height => "82px",
+            :class => "logo_sintese" %>
+
+        <div class="line right">
+          <strong style="margin-left: 30px;" >Síntese - </strong>
+          <strong><%= "" %></strong>
+        </div>  <br />
+
+        <span class="right"> CMGB* Serviço de RH -</span>
+
+        </header>
+
+        <% 
+        filter_valid = false
+        params[:search].each do |key, value|
+          filter_valid true if !value.empty?
+        end
+
+        if filter_valid == true %>
+          <div class="page-header">Filtros de Pesquisa</div>
+          <div class="well" style="background-color: #fff;">
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.task_type")}: #{Guara::TaskType.find(params[:search][:group_scheduled_task_type_id_in].to_i).name}</div>") if !params[:search][:group_scheduled_task_type_id_in].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.date_start")}: #{group_scheduled_date_start_gteq}</div>") if !params[:search][:group_scheduled_date_start_gteq].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.date_finish")}: #{group_scheduled_date_start_lteq}</div>") if !params[:search][:group_scheduled_date_start_lteq].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.user")}: #{Guara::User.find(params[:search][:group_scheduled_user_id_in].to_i).name}</div>") if !params[:search][:group_scheduled_user_id_in].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.registered")} >= : #{params[:search][:count_registered]}</div>") if !params[:search][:count_registered].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.contacted")} >= : #{params[:search][:count_contacted]}</div>") if !params[:search][:count_contacted].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.scheduled")} >= : #{Guara::ActiveCrm::Scheduled::Scheduled.find(params[:search][:groups_id_in]).name}</div>") if !params[:search][:groups_id_in].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.group")}: #{Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:search][:group_scheduled_id_in]).name}</div>") if !params[:search][:group_scheduled_id_in].empty? %>
+
+            <%= raw("<div class=\"well\">#{t("helpers.label.customers.search.names")}: #{Guara::Customer.find(params[:search][:customer_pj_id_in]).name}</div>") if !params[:search][:customer_pj_id_in].empty? %>
+          </div>
+        <% end %>
+
+        <div class="page-header">Resultados</div>
+        <div class="well" style="background-color: #fff;">
+          <div>
+            <div class="well" style="width:42%;float:right;margin-left:15px;min-height:60px;">
+              <div><b>Total de Ligações por Usuários: </b></div>
+              <% @scheduled_deals.group_by(&:user_id).each do |user_id, contact| %>
+                <div>
+                  <b><%=Guara::User.find(user_id).name %>:</b> 
+                  <%= contact.count() %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="well" style="width:43%;float:left;">
+              <b>Total de Ligações para Clientes:</b> 
+              <%= @scheduled_deals.count() %>
+            </div>
+
+          </div>
+
+          <div style="width:43%;float:left;">
+            <div class="well" style="width:100%;float:left;">
+              <b>Total de Inscritos:</b> 
+              <%= @deals.registered().search(params[:search]).count() %>
+            </div>
+
+            <div class="well" style="width:100%;float:left;">
+              <b>Total de Não Interessados:</b> 
+              <%= @deals.no_interested().search(params[:search]).count() %>
+            </div>
+          </div>
+
+          <div style="clear:both;"></div>
+        </div>
+
+
+<!--
+        <div>
+            <div class="page-header">
+              Resultado da Pesquisa
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                  <div class="well span6">
+                    <b>Total de Ligações para Clientes:</b> 
+                    <%= @scheduled_deals.count() %></div>
+                  
+                  <div class="well span6">
+                    <div><b>Total de Ligações por Usuários: </b></div>
+                    <% @scheduled_deals.group_by(&:user_id).each do |user_id, contact| %>
+                      <div>
+                        <b><%=Guara::User.find(user_id).name %>:</b> 
+                        <%= contact.count() %>
+                      </div>
+                    <% end %>
+                  </div>
+              </div>
+              <div style="clear:both;">
+                <div class="span12">
+                  <div class="well span6">
+                    <b>Total de Inscritos:</b> 
+                    <%= @deals.registered().search(params[:search]).count() %>
+                  </div>
+
+                  <div class="well span6">
+                    <b>Total de Não Interessados:</b> 
+                    <%= @deals.no_interested().search(params[:search]).count() %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>-->
+
+
+
+
+
+  </body>
+</html>
