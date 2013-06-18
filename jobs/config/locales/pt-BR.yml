@@ -36,6 +36,8 @@ pt-BR:
       monitoring_reports: "Relatório de Acompanhamento de Vaga"
       step: "Etapa"
       generation_reports: "Gerar Relatório"
+      general: "Geral"
+      resume: "Resumo"
 
       number_of_jobs_posted_within: "quantidade de vagas enviada dentro do prazo"
       number_of_clients_open: "quantidade de clientes em aberto"
