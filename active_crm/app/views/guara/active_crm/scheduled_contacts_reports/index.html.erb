@@ -67,8 +67,10 @@
 
 <script type="text/javascript">
 	$('.generate_pdf').click(function(){
+		var search = "";
 		if(window.location.href.split('?')[1]!=undefined){
-			window.location = "<%= scheduled_contacts_reports_path(:format=> 'pdf')%>?"+window.location.href.split('?')[1];
+			search = window.location.href.split('?')[1];
 		}
+		window.location = "<%= scheduled_contacts_reports_path(:format=> 'pdf')%>?"+search;
 	});
 </script>

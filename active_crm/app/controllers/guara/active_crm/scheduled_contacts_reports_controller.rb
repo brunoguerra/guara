@@ -12,10 +12,10 @@ module Guara
 
     		def index
     			params[:search] = {} if params[:search].nil?
-    			@deals = Scheduled::Deals.select("#{Scheduled::Contact.table_name}.*")
-				.joins(:contacts)
 
-				@scheduled_deals = @search = @deals.search(params[:search])
+    			@deals = Guara::ActiveCrm::Scheduled::Deals.select("#{Scheduled::Contact.table_name}.*").joins(:contacts)
+
+				@scheduled_deals = @search = @deals.search(params[:search])                
 
     			load_selects
     			authorize! :read, Guara::ActiveCrm::Scheduled::Deals

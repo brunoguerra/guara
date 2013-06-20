@@ -63,3 +63,6 @@ pt-BR:
     scheduled_classifieds:
       title: "Classificações (Não Interessados)"
 
+    scheduled_contacts_reports:
+      title: "Histórico de Ligações"
+
