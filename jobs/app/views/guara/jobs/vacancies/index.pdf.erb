@@ -18,6 +18,10 @@
 
     span {margin-top: -40px; display: block; }
 
+    .search_result {
+      margin-top: 30px;
+    }
+
   </style>
 
 
@@ -36,7 +40,7 @@
       :class => "logo_sintese" %>
 
     <div class="line right">
-      <strong style="margin-left: 30px;" >Relatório - </strong>
+      <strong style="margin-left: 30px;" >Relatório - <%= Time.now.strftime('%d/%m/%y') %></strong>
       <strong><%= %></strong>
     </div>  <br />
 
@@ -55,7 +59,6 @@
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th><%= t("jobs.vacancy_reports.id") %></th>
                   <th><%= t("jobs.vacancy_reports.customer_pj") %></th>
                   <th><%= t("jobs.vacancy_reports.role") %></th>
                   <th><%= t("jobs.vacancy_reports.total") %></th>
@@ -69,7 +72,6 @@
               <tbody>
                 <% @vacancy.each do |v|  %>
                   <tr>
-                    <td><%= v.process_instance_id if !v.process_instance_id.nil? %></td>
                     <td><%= v.customer_pj.name if !v.customer_pj.nil? %></td>
                     <td><%= v.role.name if !v.role.nil? %></td>
                     <td><%= v.total %></td>
@@ -82,6 +84,35 @@
               </tbody>
             </table>
 
+          </div>
+
+          <div class="search_result">
+            <br />
+            <b><%= t("jobs.vacancy_reports.search_result")%></b><br />
+            <div>  
+            <%= "#{t('jobs.vacancy_reports.customer_pj')}: #{params[:search][:customer_pj_person_name_contains]}" if !params[:search][:customer_pj_person_name_contains].nil? and !params[:search][:customer_pj_person_name_contains].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancy_reports.role')}: #{Guara::Jobs::Role.find(params[:search][:role_id_in]).name}" if !params[:search][:role_id_in].nil? and !params[:search][:role_id_in].empty? %>
+            </div>
+
+            <div>
+            <%= "#{t('jobs.vacancy_reports.total')}: #{params[:search][:total_equals]}" if !params[:search][:total_equals].nil? and !params[:search][:total_equals].empty? %>
+            </div>
+
+            <div>
+            <%= "#{t('jobs.vacancy_reports.status')}: #{Guara::Jobs::VacancyStatus.status_translation()[params[:search][:status_id_in].to_i]}" if !params[:search][:status_id_in].nil? and !params[:search][:status_id_in].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancy_reports.consultant')}: #{Guara::Jobs::Consultant.find(params[:search][:consultant_id_in].to_i).name}" if !params[:search][:consultant_id_in].nil? and !params[:search][:consultant_id_in].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancy_reports.type')}: #{Guara::Jobs::VacancyType.find(params[:search][:type_id_in].to_i).name}" if !params[:search][:type_id_in].nil? and !params[:search][:type_id_in].empty? %>
+            </div>
+            <div>
+            <%= "#{t('jobs.vacancy_reports.date_start')}: #{params[:search][:process_instance_date_start_gteq]} à #{params[:search][:process_instance_date_start_lteq]}" if !params[:search][:process_instance_date_start_gteq].nil? and !params[:search][:process_instance_date_start_gteq].empty? and !params[:search][:process_instance_date_start_lteq].empty?%>
+            </div><br />
+            <b><%= " Total de Vagas: #{@vacancy.count()}" %></b>
           </div>
       </li>
     </ul>

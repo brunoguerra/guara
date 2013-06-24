@@ -5,7 +5,7 @@ module Guara
     		load_and_authorize_resource :scheduled_customer_group, :class => "Guara::ActiveCrm::Scheduled::CustomerGroup", :except => [:index, :create]
     		
             include Select2Helper
-            include ScheculedsHelper
+            include ScheduledsHelper
 
     		def index
     			params[:search] = {} if params[:search].nil?

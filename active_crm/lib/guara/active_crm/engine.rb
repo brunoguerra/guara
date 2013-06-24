@@ -22,15 +22,19 @@ module Guara
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../../../app/admin']
       end
       
+
       initializer 'guara.menu.guara.active_crm.items' do |config|
         Guara::Menus::MODULES[:modules][:items] << { 
 
           name: :active_crm,
           items: [
               { name: "active_crm.scheduled", resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduleds_path()" },
+              { name: "active_crm.scheduled_deals", resource: Guara::ActiveCrm::Scheduled::Deals, path: "guara.scheduled_deals_path()" },
+              { name: "active_crm.scheduled_contacts_reports", resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduled_contacts_reports_path()" }
             ]
         }
-        #Guara::Menus::MAINTENCE[:items] += [ { name: :guara_, resource: Guara::ActiveCrm:: path: "guara.maintence_guara_active_crm_xxx_path()" } ]
+        
+        Guara::Menus::MAINTENCE[:items] += [ { name: "active_crm.scheduled_classifieds", resource: Guara::ActiveCrm::Scheduled::Classified, path: "guara.maintence_guara_active_crm_scheduled_classifieds_path()" } ]
 
       end
     

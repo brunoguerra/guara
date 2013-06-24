@@ -7,7 +7,7 @@ module Guara
           belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deals"
         
           attr_accessible :activity, :result, :scheduled, :contact_id, 
-          :classified_id, :deal_id
+          :classified_id, :deal_id, :user_id
 
           def status
             return self.classified.nil? ? Contact.results_translated()[self.result] : self.classified.name
