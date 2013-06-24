@@ -4,6 +4,7 @@ module Guara
       load_and_authorize_resource :scheduled, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
       
       include Select2Helper
+      helper ScheduledsHelper
       
       def index
         param_search = params[:search]
@@ -33,6 +34,8 @@ module Guara
           
       def show
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
+        @customer_groups = @active_crm_scheduled.customer_group
+
         respond_to do |format|
           format.html
           format.json do

@@ -3,7 +3,7 @@
 		margin-left: 0;
 	}
 </style>
-<%= form_for :search, :url => scheduled_deals_path, :html => {:method => :get} do |f| %>
+<%= form_for :search, :url => url, :html => {:method => :get} do |f| %>
 	<div class="row">
 		
 		<div>
@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :group_scheduled_task_type_id_in, t("active_crm.scheduled.date_start"), :class => "control-label" %>
+				<%= f.label :group_scheduled_date_start_gteq, t("active_crm.scheduled.date_start"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.text_field "group_scheduled_date_start_gteq", :class=>"date_format", "data-behaviour"=> 'datepicker' %>
 				</div>
@@ -110,6 +110,24 @@
 					%>
 				</div>
 			</div>
+
+			<div class="control-group span4">
+				<%= f.label :customer_pj_id_in, t("helpers.label.customers.search.names"), :class => "control-label" %>
+				<div class="controls">
+					<%= f.select(:customer_pj_id_in,
+						options_for_select([nil]) + 
+						options_from_collection_for_select(@customers,
+							:id, 
+							:name,
+							params[:search][:customer_pj_id_in]),
+						{}, 
+						{
+							:style => "width: 282px;", 
+							:class => "multiselect"  
+						})
+					%>
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -121,6 +139,11 @@
 	$('#search_group_scheduled_task_type_id_in,  #search_group_scheduled_date_start_gteq, #search_group_scheduled_date_start_lteq, #search_group_scheduled_user_id_in').change(function(){
 		load_scheduled();
 	});
+
+	$('#search_groups_id_in').change(function(){
+		load_customer();
+	});
+
 	$('#search_group_scheduled_id_in').change(function(){
 		$.ajax({
 			type: "GET",
@@ -164,6 +187,27 @@
 
 		    scheduled.select2("destroy");
 		    scheduled.select2();
+		});
+	}
+
+	function load_customer(){
+		var data = {};
+		var select = $('#search_customer_pj_id_in');
+		var scheduled = $('#search_group_scheduled_id_in');
+		data[scheduled.attr('name')] = scheduled.val();
+
+		$.ajax({
+			type: "GET",
+		    url: "<%= multiselect_customer_scheduled_deals_path() %>",
+		    data: data
+		}).done(function( data ) {
+		    select.html('').append('<option value=""></option>');
+		    for (var i=0;i<data.data.length;i++){
+		    	select.append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');
+		    }
+
+		    select.select2("destroy");
+		    select.select2();
 		});
 	}
 </script>

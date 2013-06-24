@@ -1,6 +1,6 @@
 module Guara
   module ActiveCrm
-  	module ScheculedsHelper
+  	module ScheduledsHelper
 
   		def prepare_filter_save(search, scheduled_id)
   			search[:customer_guara_customer_pj_type_activities_business_segment_id_in].delete_if {|hash| hash.to_s.empty?} if !search[:customer_guara_customer_pj_type_activities_business_segment_id_in].nil?
@@ -45,6 +45,36 @@ module Guara
         search[:date_start_lteq] = params[:group_scheduled_date_start_lteq] if !params[:group_scheduled_date_start_lteq].nil?
         search[:user_id_in]      = params[:group_scheduled_user_id_in]      if !params[:group_scheduled_user_id_in].nil?
         return search
+      end
+
+      def load_scheduleds_select(params)
+          search = search_scheduled(params)
+          if search.empty?
+            return Scheduled::Scheduled.limit(25).search(search).order(:id)
+          else
+            return Scheduled::Scheduled.search(search).order(:id)
+          end
+      end
+
+      def load_group_select(params)
+          if params[:group_scheduled_id_in].nil? or params[:group_scheduled_id_in].empty?
+              return Scheduled::CustomerGroup.order(:id).limit(25)
+          else
+              return Scheduled::CustomerGroup.where(:scheduled_id=> params[:group_scheduled_id_in]).order(:id).limit(25)
+          end
+      end
+
+      def load_customer_select(params)
+        if params[:group_scheduled_id_in].nil? or params[:group_scheduled_id_in].empty?
+          return Guara::Customer.where(customer_type: 'Guara::CustomerPj').limit(25)
+        else
+          params_search = prepare_filter_search({}, Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:id])) if params[:search].nil?
+          filter_multiselect params_search, :customer_guara_customer_pj_type_activities_business_segment_id_in
+          filter_multiselect params_search, :customer_guara_customer_pj_type_activities_id_in
+          
+          return Guara::Customer.customer_contact(params[:group_scheduled_id_in]).search(params_search)
+
+        end
       end
 
   	end

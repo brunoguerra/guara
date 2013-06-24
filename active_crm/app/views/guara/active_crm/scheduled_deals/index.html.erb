@@ -9,16 +9,16 @@
                     
                     <div class="thumbnail" style="margin-top:10px;">
                       <div class="caption">
-                        <div class="page-header"><%= t("active_crm.negociation") %></div>
+                        <div class="page-header"><%= t("active_crm.scheduled_deals.title") %></div>
                           
-                          <%= render partial: 'form_search' %>
+                          <%= render partial: 'form_search', locals: {url: scheduled_deals_path } %>
 
                           <table class="table table-bordered">
                             <thead>
                               <tr>
                                 <th><%= t("active_crm.scheduled.task_type") %></th>
                                 <th><%= t("active_crm.scheduled.total_registered") %></th>
-                                <th><%= t("active_crm.total_contacted") %></th>
+                                <th><%= t("active_crm.scheduled.total_contacted") %></th>
                                 <th><%= t("active_crm.scheduled.date_start") %></th>
                                 <th><%= t("active_crm.scheduled.consultant") %></th>
                                 <th><%= t("helpers.forms.actions") %></th>

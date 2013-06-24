@@ -23,58 +23,58 @@
 		      </div> <!-- end cliente -->
 
 			  	<div class="control-group">
-            	<%= label_tag :role, t("jobs.vacancy_reports.role"), :class => "control-label" %>
-            	<div class="controls">
+	            	<%= label_tag :role, t("jobs.vacancy_reports.role"), :class => "control-label" %>
+	            	<div class="controls">
 
-	          	<%= f.select(:role_id_in, options_from_collection_for_select( Guara::Jobs::Role.all, :id, :name),{include_blank: true}, 
-							{ 	:style => "width: 220px;", 
-								:placeholder => t("jobs.vacancy_reports.role"), 
-							  :class => "multiselect" 
-							})
-              		%>
-     			 </div>
+		          	<%= f.select(:role_id_in, options_from_collection_for_select( Guara::Jobs::Role.all, :id, :name),{include_blank: true}, 
+								{ 	:style => "width: 220px;", 
+									:placeholder => t("jobs.vacancy_reports.role"), 
+								  :class => "multiselect" 
+								})
+	              		%>
+	     			 </div>
 		    	</div><!-- end role -->
 
-		      <div class="control-group">
-		      	<%= f.label :total_equals, t("jobs.vacancy_reports.total"), :class => "control-label" %>
-			      <div class="controls">
-			      	<%= f.text_field :total_equals %>
-			      </div>
-		      </div> <!-- end total vacancy -->
+		      	<div class="control-group">
+			      	<%= f.label :total_equals, t("jobs.vacancy_reports.total"), :class => "control-label" %>
+				      <div class="controls">
+				      	<%= f.text_field :total_equals %>
+				      </div>
+		      	</div> <!-- end total vacancy -->
 
 		      <div class="control-group">
-	            <%= label_tag :status_id_in, t("jobs.vacancy_reports.status"), :class => "control-label" %>
-	          	<div class="controls">
+		            <%= label_tag :status_id_in, t("jobs.vacancy_reports.status"), :class => "control-label" %>
+		          	<div class="controls">
 
-	          	<%= f.select :status_id_in, Guara::Jobs::VacancyStatus.status_translation.map{|a, b| [b, a]}, 
-	          		{include_blank: true}, 
-							  {:class => "multiselect",
-								:style => "width: 220px;", 
-								:placeholder => t("jobs.vacancy_reports.status")}
+		          	<%= f.select :status_id_in, Guara::Jobs::VacancyStatus.status_translation.map{|a, b| [b, a]}, 
+		          		{include_blank: true}, 
+								  {:class => "multiselect",
+									:style => "width: 220px;", 
+									:placeholder => t("jobs.vacancy_reports.status")}
 
-	          	%>
-   			 		</div>
+		          	%>
+	   			 		</div>
 		      </div> <!-- end status -->
 
 			  	<div class="control-group">
-            <%= label_tag :consultant, t("jobs.vacancy_reports.consultant"), :class => "control-label" %>
-            	<div class="controls">
+		            <%= label_tag :consultant, t("jobs.vacancy_reports.consultant"), :class => "control-label" %>
+		            	<div class="controls">
 
-	          	<%= f.select(:consultant_id_in, options_from_collection_for_select( Guara::Jobs::Consultant.all, :id, :name),{include_blank: true}, 
-								{ :style => "width: 220px;", 
-								  :placeholder => t("jobs.vacancy_reports.consultant"), 
-								  :class => "multiselect" 
-								})
-              %>
-     			 </div>
+			          	<%= f.select(:consultant_id_in, options_from_collection_for_select( Guara::Jobs::Consultant.all, :id, :name),{include_blank: true}, 
+										{ :style => "width: 220px;", 
+										  :placeholder => t("jobs.vacancy_reports.consultant"), 
+										  :class => "multiselect" 
+										})
+		              %>
+		     			 </div>
 		    	</div> <!-- end consultant -->
 
 		    	<div class="control-group">
-		        <%= label_tag :process_instance_date_start_gteq, t('jobs.vacancy_reports.date_start'), :class => "control-label" %>
-		        <div class="controls">
-		          <%= f.text_field :process_instance_date_start_gteq, :class=>"input-small date_format" %> à 
-		          <%= f.text_field :process_instance_date_start_lteq, :class=>"input-small date_format" %>
-		        </div>
+			        <%= label_tag :process_instance_date_start_gteq, t('jobs.vacancy_reports.date_start'), :class => "control-label" %>
+			        <div class="controls">
+			          <%= f.text_field :process_instance_date_start_gteq, :class=>"input-small date_format" %> à 
+			          <%= f.text_field :process_instance_date_start_lteq, :class=>"input-small date_format" %>
+			        </div>
 		    	</div> <!-- end date -->
 
 			   <div class="form-actions span3">

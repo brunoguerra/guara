@@ -8,8 +8,36 @@
 	.custom-span7-medium{
 		width: 572px;	
 	}
+	#dialog-call .thumbnails{
+		margin-left: 0px;
+	}
 </style>
 <ul class="thumbnails">
+	<li style="width:880px;margin-left:12px;">
+		<div class="thumbnail">
+			<div class="page-header"><%= t("active_crm.scheduled.historic_scheduled_contact_selected") %></div>
+
+			<table class="table table-bordered table-striped">
+	          <thead>
+	            <tr>
+	              <th><%= t("active_crm.scheduled.datetime") %></th>
+	              <th><%= t("active_crm.scheduled.activity") %></th>
+	            </tr>
+	          </thead>
+
+	          <tbody>
+	            <% (Guara::ActiveCrm::Scheduled::Contact.where(deal_id: @deal.id, contact_id: @contact.id) || []).each do |scheduled_contact|%>
+	                <tr>
+	                  <td><%= scheduled_contact.scheduled %></td>
+	                  <td><%= scheduled_contact.activity %></td>
+	                </tr>
+	            <% end %>
+
+	          </tbody>
+	        </table>
+		</div>
+	</div>
+
   	<li class="span4">
   		<div class="thumbnail">
 			<%= render :partial => "show_contact.html.erb" %>

@@ -10,7 +10,7 @@ module Guara
 	    		has_many :deals, class_name: "Guara::ActiveCrm::Scheduled::Deals", foreign_key: :groups_id
 	    		belongs_to :scheduled
 
-	    		include Guara::ActiveCrm::ScheculedsHelper
+	    		include Guara::ActiveCrm::ScheduledsHelper
 
 	    		def name
 	    			@name = "Grupo de Cliente #{self.id}"
