@@ -2,9 +2,29 @@
 # task :guara_core do
 #   # Task goes here
 # end
+#
+
+require 'guara/rake'
+
+Rake.application.remove_task 'guara:install'
+
 namespace :guara do
+  
+  desc "Running migrate task"    
+  task migrate: :environment do
+    execute_task 'guara:install:migrations'
+    execute_task 'db:migrate'
+  end
+  
+  desc "Install Guara Core"      
+  task install: :environment do
+    execute_task 'guara:migrate'
+    execute_task 'guara:db:seeds'
+  end
+  
   namespace :db do
-    
+
+    desc "Feed db whith guara core seed"    
     task seeds: :environment do
       Guara::Core::Engine.load_seed
     end
