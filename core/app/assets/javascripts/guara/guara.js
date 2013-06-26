@@ -1,1 +1,1 @@
-//= require core
+//= require guara/core

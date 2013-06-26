@@ -8,12 +8,12 @@ describe "User pages" do
   
   describe "index" do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.build(:user) }
 
     before(:all) { 30.times { FactoryGirl.create(:user) } }
     after(:all)  { User.delete_all }
 
-    before(:each) do
+    before(:each) do    
       able(user, "read", "user")
       able(user, "create", "user")
       sign_in user
@@ -112,6 +112,31 @@ describe "User pages" do
       it { should have_link(I18n.t("sign.out.link"), href: destroy_user_session_path) }
       specify { user.reload.name.should  == new_name }
       specify { user.reload.email.should == new_email }
+    end
+    
+    it "should select primaty company branch" do
+      let(:company_branch) { Factory(:company_branch) }
+      
+      before do
+        
+        @primary_company_branch = company_branch
+        user.primary_company_branch = nil
+        user.save
+        
+        sign_in user
+        visit edit_user_path(user)
+      end
+      
+      it "editing with first" do
+        select(company_branch.name, :from => I18n.t("users.primary_company_branch"))
+        click_button autotitle_update("User") 
+        #
+        user.reload.primary_company_branch.should be_eq(@primary_company_branch)
+      end
+    end
+    
+    it "" do
+      
     end
   end
   

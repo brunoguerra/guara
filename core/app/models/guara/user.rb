@@ -46,7 +46,10 @@ module Guara
     has_many :tasks
   
     has_many :assigned_tasks, class_name: "Task", foreign_key: "assigned_id"
-  
+    
+    #Company Area <==========
+    belongs_to :primary_company_branch, class_name: "CompanyBranch"
+    has_many :company_branches
     belongs_to :primary_company_business, class_name: "CompanyBusiness"
   
     #GROUPS<=================

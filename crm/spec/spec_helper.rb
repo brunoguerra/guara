@@ -1,14 +1,14 @@
 puts "Loading guara_crm/spec/spec_helper..."
-require 'rubygems'
-require "rails"
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+#require 'rubygems' cleanup
+#require "rails" cleanup
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../spec/dummy/config/environment", __FILE__)
 
-require 'action_controller' #fixing inherited resources not load on engine mode
+#require 'action_controller' #fixing inherited resources not load on engine mode cleanup
 require 'spork'
-require "capybara/rspec"
+#require "capybara/rspec" cleanup
 require "guara_core"
 require "database_cleaner"
 #require File.dirname(__FILE__) + '/../app/helpers/guara/base_helper.rb'
@@ -23,15 +23,13 @@ include Guara::BaseHelper
   end
 end
 
-require 'rspec/rails'
+#require 'rspec/rails' cleanup
+
 require 'rspec/autorun'
 require 'factory_girl'
 require 'ffaker'
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[File.expand_path("../support/*.rb", __FILE__)].each {|f| require f}
-
+require
 
 #capybara
 #Capybara.javascript_driver = :webkit
@@ -68,16 +66,6 @@ RSpec.configure do |config|
       full_example_description = "Starting #{self.class.description} #{@method_name}"
       Rails.logger.info("\n\n#{full_example_description}\n#{'-' * (full_example_description.length)}")      
   end
-end
-
-
-
-Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However, 
-  # if you change any configuration or code from libraries loaded here, you'll
-  # need to restart spork for it take effect.
-  # This file is copied to spec/ when you run 'rails generate rspec:install'
-  
 end
 
 Spork.each_run do

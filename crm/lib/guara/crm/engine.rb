@@ -1,3 +1,4 @@
+require 'devise'
 require 'rails3-jquery-autocomplete'
 require 'active_extend'
 
