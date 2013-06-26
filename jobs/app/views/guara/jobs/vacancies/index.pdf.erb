@@ -40,7 +40,7 @@
       :class => "logo_sintese" %>
 
     <div class="line right">
-      <strong style="margin-left: 30px;" >Relatório - </strong>
+      <strong style="margin-left: 30px;" >Relatório - <%= Time.now.strftime('%d/%m/%y') %></strong>
       <strong><%= %></strong>
     </div>  <br />
 
@@ -53,7 +53,7 @@
           <div class="caption">
 
             <center>
-              <h3><%=t('jobs.vacancies.vacancy_reports.monitoring_reports')%></h3>
+              <h3><%=t('jobs.vacancies.reports.monitoring_reports')%></h3>
             </center>
             
             <table class="table table-bordered table-striped">

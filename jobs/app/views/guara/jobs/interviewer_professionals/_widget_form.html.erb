@@ -62,8 +62,16 @@
 			  data: data,
 			}).done(function( data ) {
 				if(data.success==true){
-					alert('Entrevista Atualizada');
+						alert('Entrevista Atualizada');
 			  		$('#form_candidate_selected').empty();
+			  		$('#candidates_scheduled table th[professional-id="'+data.data.professional_id+'"]').each(function(){
+			  			if($(this).attr('container')=='date'){
+			  				$(this).html($.datepicker.formatDate('dd/mm/yy', new Date(data.data.date_time_interviewee)));
+			  			}
+			  			else if($(this).attr('container')=='status'){
+			  					$(this).html('<span class="badge badge-success">Sim</span>');	
+			  			}
+			  		});
 				}			
 			});
 		}

@@ -13,7 +13,7 @@
 
 	<div class="control-group">
 		<%= show_label_tag t('contacts.emails') %>
-		<%= inline_list @professional.emails %>
+		<%= concat_emails @professional.emails %>
 	</div>
 </div>
 
@@ -106,12 +106,20 @@
 		  data: data,
 		}).done(function( data ) {
 			if(data.success == true){
-				var btn = $('#button_'+data.data.professional_id);
-		  		btn.clone()
-		  			.attr('onClick', "schedule_professional("+data.data.professional_id+"); ")
-		  			.appendTo('#candidates_unscheduled');
+					console.info(data);
+					if(data.data.vacancy_scheduling_professional){
+						var professional_id = data.data.vacancy_scheduling_professional.professional_id;
+					}
+					else{
+						var professional_id = data.data.professional_id;
+					}
+		  		var btn = $('#button_'+professional_id);
+		  		var clone = btn.clone();
+	  			var p = $(clone)
+	  				.attr('onClick', "schedule_professional("+professional_id+", true); ")
+	  				.appendTo('#candidates_scheduled');
 		  		btn.remove();
-		  		alert('Agendamento Excluido');
+		  		alert('Agendamento Salvo');
 		  		$('#form_candidate_selected').empty();
 			}
 		});

@@ -66,7 +66,6 @@ module Guara
       
       def update()
         @params = params[:jobs_vacancy_scheduling_professional]
-        puts @params.to_yaml
         @vacancy_scheduling = VacancySchedulingProfessional.find(:first, :conditions=> ['vacancy_id = ? AND professional_id = ?', @params[:vacancy_id], @params[:professional_id] ])
 
         if @vacancy_scheduling.update_attributes(@params)

@@ -22,16 +22,14 @@ pt-BR:
       generation_reports: "Gerar Relatório"
       type: "Tipo Vaga"
       search_result: "Relatório elaborado aparti do(s) filtro(s):"
-
-    vacancy_reports:
-      link: "Relatórios"
-      
       reports: 
         title: "Relatórios"
         monitoring_reports: "Relatório de Acompanhamento de Vaga"
         general: "Geral"
-        resume: "Resumos"
-
+        resume_professional: "Resumos"
+    
+    vacancy_reports:
+      link: "Relatórios"
     announcement_of_vacancies:
       index:
         title: "Anúncio de Vagas"
