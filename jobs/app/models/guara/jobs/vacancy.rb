@@ -7,6 +7,7 @@ module Guara
                       :system_name, 
                       :customer_pj_id, 
                       :role_id, 
+                      :type,
                       :type_id, 
                       :total, 
                       :salary_id, 
@@ -28,6 +29,7 @@ module Guara
             
         end
       }
+
 
       belongs_to :process_instance
       belongs_to :role

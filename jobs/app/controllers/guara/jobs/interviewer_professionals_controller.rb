@@ -73,9 +73,9 @@ module Guara
           
           if @scheduling
             update_embeded_process()
-            render :json => {:success=> true}
+            render :json => {:success=> true, :data=> @scheduling}
           else
-            render :json => {:data=> @vacancy_scheduling.errors, :success=> false} 
+            render :json => {:data=> @scheduling.errors, :success=> false} 
           end
       end
 

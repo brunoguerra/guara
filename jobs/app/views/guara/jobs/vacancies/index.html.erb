@@ -18,11 +18,11 @@
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th><%= t("jobs.vacancy_reports.customer_pj") %></th>
-                      <th><%= t("jobs.vacancy_reports.role") %></th>
-                      <th><%= t("jobs.vacancy_reports.total") %></th>
-                      <th><%= t("jobs.vacancy_reports.status") %></th>
-                      <th><%= t("jobs.vacancy_reports.consultant") %></th>
+                      <th><%= t("jobs.vacancies.customer_pj") %></th>
+                      <th><%= t("jobs.vacancies.role") %></th>
+                      <th><%= t("jobs.vacancies.total") %></th>
+                      <th><%= t("jobs.vacancies.status") %></th>
+                      <th><%= t("jobs.vacancies.consultant") %></th>
                       <th class="span1"><%= t("helpers.forms.actions") %></th>
                     </tr>
                   </thead>
@@ -54,7 +54,7 @@
                 <%= link_to raw('<i  class="icon-list"></i> Gerar Relatório'), 
                   vacancies_path(params), 
                   :class => "btn", 
-                  :title=> t("jobs.vacancy_reports.generation_reports"), 
+                  :title=> t("jobs.vacancies.reports.title"), 
                   :target => "_blank" 
                 %>
               </div>

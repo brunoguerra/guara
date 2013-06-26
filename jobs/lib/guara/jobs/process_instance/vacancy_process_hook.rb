@@ -36,6 +36,7 @@ module Guara
               end
             end
           end
+          puts vacancy.to_yaml
           vacancy.save!
         end
         
