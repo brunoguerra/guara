@@ -23,7 +23,6 @@ pt-BR:
       successfully_update: "Agendamento atualizado com sucesso."
       historic_scheduled_contact_selected: "Histórico de Agendamento do Contato Selecionado"
 
-
       status:
         title: "Estado"
         open: "Aberto"
@@ -37,7 +36,7 @@ pt-BR:
       responsible: "Responsável"
       next_contact: "Próximo Contato"
       activity: "Resultado"
-      status: "Situação"
+      situation: "Situação"
       scheduled: "Agendados"
       group: "Grupos"
       registered: "Registrados"

@@ -8,6 +8,7 @@ module Guara
             vals2 = vals.dup
             sels = [] if sels.class == String || sels.nil?
             vals.strip!
+
             if (vals =~ /^\$/) == 0
                 model = vals[1..1000].constantize
                 if (model.respond_to?(:select_options))
@@ -30,6 +31,9 @@ module Guara
               model_options = ids_db.size > 0 ? model.where("id IN (#{ids_db.join(',')})") : []
               rec.select_opts = options_for_select(model_options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
               rec
+            elsif (vals =~ /model_eval:\/([^\s]*)\//)==0
+                options = eval($1)
+                rec.select_opts = options_for_select(options.map { |ff| [ff.name, ff.id] }, (sels || []).collect { |fs| fs[:value] })
             else
                 index = -1
                 rec.select_opts = options_for_select(vals.split(',').each { |ff| index+=1; [index, ff] }, sels.collect { |fs| fs[:value] })
@@ -54,6 +58,8 @@ module Guara
                         record = model.where("id = #{id}").first()
                     end
                     return record.name
+                elsif (vals =~ /model_eval:\/([^\s]*)\//)==0
+                    return record = eval($1).where(:id => id).first().name
                 else
                     return id
                 end    

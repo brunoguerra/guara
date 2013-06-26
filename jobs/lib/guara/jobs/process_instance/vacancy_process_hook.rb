@@ -24,7 +24,6 @@ module Guara
       
       def self.step_instance_after_save(step_instance_attrs, process_instance, step)
         vacancy = Guara::Jobs::Vacancy.where(process_instance_id: process_instance).first
-
         if step.level==0
           step_instance_attrs.each do |sattr|
             sys_name = sattr.step_attr.system_name.to_s
