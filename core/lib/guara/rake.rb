@@ -1,4 +1,4 @@
-
+require 'rake'
 
 def execute_task task
   t = Rake::Task[task]

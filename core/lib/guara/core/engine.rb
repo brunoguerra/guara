@@ -1,6 +1,8 @@
 require 'devise'
 require 'cancan'
-=begin
+require 'active_admin'
+require 'wicked_pdf'
+
   require 'inherited_resources'
   require 'will_paginate'
   require 'bootstrap-sass'
@@ -8,9 +10,7 @@ require 'cancan'
   require 'jquery-rails'
   require 'rails-i18n'
   require 'activeadmin'
-  require 'wicked_pdf'
   require 'guara/rake'
-=end
 
 module Guara
   module Core
