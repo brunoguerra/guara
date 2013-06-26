@@ -29,9 +29,9 @@
 	      	 <th><%= p.consultant.name %></th>
 	      	 <th><%= p.professional.person.name %></th>
 	      	 <th><%= p.local %></th>
-	      	 <th><%= !p.date_time.nil? ? p.date_time.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+	      	 <th><%= !p.date_time.nil? ? format_datetime p.date_time : "" %></th>
 	      	 <th>
-	      	 	<%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %>
+	      	 	<%= !p.date_time_interviewee.nil? ? format_datetime p.date_time_interviewee : "" %>
 	      	 </th>
 	      	 <th>
 	      	 	<% if !p.date_time_interviewee.nil? %>

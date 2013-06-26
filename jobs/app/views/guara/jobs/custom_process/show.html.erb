@@ -44,7 +44,7 @@ input, textarea, select {
 				        		<%= 'btn-warning' if c.enabled == false %>" 
 				        			type="button" href="?released=<%= c.id %>">
 					        		<b>Id:</b> <%= c.id %>, 
-					        		<b>Criado em:</b> <%= c.created_at.strftime("%d/%m/%Y") %>
+					        		<b>Criado em:</b> <%= format_date c.created_at %>
 				        		</a>
 				        	<% end %>
 			        	</div>

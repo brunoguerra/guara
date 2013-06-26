@@ -39,8 +39,8 @@
 					      	 <th><%= p.consultant.name %></th>
 					      	 <th><%= p.professional.person.name %></th>
 					      	 <th><%= p.local %></th>
-					      	 <th><%= !p.date_time.nil? ? p.date_time.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
-					      	 <th container="date" professional-id="<%=p.professional_id%>"><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+					      	 <th><%= !p.date_time.nil? ? format_datetime p.date_time : "" %></th>
+					      	 <th container="date" professional-id="<%=p.professional_id%>"><%= !p.date_time_interviewee.nil? ? format_datetime p.date_time_interviewee : "" %></th>
 					      	 <th container="status" professional-id="<%=p.professional_id%>">
 					      	 	<% if !p.date_time_interviewee.nil? %>
 					      	 		<span class="badge badge-success">Sim</span>

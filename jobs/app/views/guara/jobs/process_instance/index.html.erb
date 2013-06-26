@@ -39,8 +39,8 @@
                         <td><%= link_to p.id, process_instance_path(p) %></td>
                         <td><%= show_attr_value(p, business_attr) %></td>
                         <td><%= show_attr_value(p, role_attr) %></td>
-                        <td><%= !p.date_start.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
-                        <td><%= !p.date_finish.nil? ? p.date_finish.strftime("%d/%m/%Y") : ''  %></td>
+                        <td><%= !p.date_start.nil? ? format_date p.date_start : ''  %></td>
+                        <td><%= !p.date_finish.nil? ? format_date p.date_finish : ''  %></td>
                         <td><%= p.step.name  %></td>
                         <td>
                           <%= index_btn_view process_instance_path(p), "Exibir Processo" %>

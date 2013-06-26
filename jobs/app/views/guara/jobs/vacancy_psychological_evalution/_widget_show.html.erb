@@ -17,8 +17,8 @@
            <th><%= customer_interview.id %></th>
            <th><%= customer_interview.scheduling.consultant.name %></th>
            <th><%= customer_interview.scheduling.professional.person.name %></th>
-           <th><%= customer_interview.psychological.date_evaluation.strftime("%d/%m/%Y") if !customer_interview.psychological.nil? %></th>
-           <th><%= customer_interview.psychological.date_send_report.strftime("%d/%m/%Y") if !customer_interview.psychological.nil? %></th>
+           <th><%= format_date customer_interview.psychological.date_evaluation if !customer_interview.psychological.nil? %></th>
+           <th><%= format_date customer_interview.psychological.date_send_report if !customer_interview.psychological.nil? %></th>
            <th>
             <%
               if customer_interview.psychological.nil? %>

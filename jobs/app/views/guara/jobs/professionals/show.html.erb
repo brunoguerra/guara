@@ -66,7 +66,7 @@
 							<%= f.situation %><br /></li>
 
 							<li><dt><%= t("jobs.professional.date_conclusion") %>: </dt>
-							<%= f.date_conclusion.strftime("%d/%m/%y") %><br /></li>
+							<%= format_date f.date_conclusion %><br /></li>
 
 
  						<% end %>
@@ -97,11 +97,11 @@
 								
 
 								<li><dt><%= t("jobs.professional.date_admission") %>:</dt>
-								<%= c.date_admission.strftime("%d/%m/%y") if !c.date_admission.nil? %><br /></li>
+								<%= format_date c.date_admission if !c.date_admission.nil? %><br /></li>
 
 
 								<li><dt><%= t("jobs.professional.date_resignation") %>:</dt>
-								<%= c.date_resignation.strftime("%d/%m/%y") if !c.date_resignation.nil? %><br /></li></ul>	
+								<%= format_date c.date_resignation if !c.date_resignation.nil? %><br /></li></ul>	
 						<% end %>                 
 						</div>
 

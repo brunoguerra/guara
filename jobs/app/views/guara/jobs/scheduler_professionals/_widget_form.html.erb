@@ -27,7 +27,7 @@
       		"data-behaviour" => "datetimepicker",
       		:value=> !@vacancy_scheduling.new_record? ? 
       			(@vacancy_scheduling.date_time.nil? ? "" : 
-      			@vacancy_scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") ) : ""
+      			format_datetime @vacancy_scheduling.date_time ) : ""
       	} %>
       <%= f.input :local, :label => t("vacancy_scheduling.local") %>
       <%= f.input :consultant_id, :as => :select, :label => t("vacancy_scheduling.consultant_id") ,:collection => Guara::Jobs::Consultant.all %>

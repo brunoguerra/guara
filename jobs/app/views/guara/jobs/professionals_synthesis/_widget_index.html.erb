@@ -21,7 +21,7 @@
 					      <tr>
 					      	 <th><%= p.id %></th>
 					      	 <th><%= p.professional.person.name %></th>
-					      	 <th><%= !p.date_time_interviewee.nil? ? p.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : "" %></th>
+					      	 <th><%= !p.date_time_interviewee.nil? ? format_datetime p.date_time_interviewee : "" %></th>
 					      	 <th><%= Guara::Jobs::LevelAvaliation.levels_translated()[p.avaliate] %></th>
 					      	 <th id="professional_synthesis_<%= p.id2 %>">
 					      	 	

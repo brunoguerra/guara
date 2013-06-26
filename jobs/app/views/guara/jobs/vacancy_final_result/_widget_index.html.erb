@@ -31,8 +31,8 @@
 					        <tr>
 					           <th><%= psychological.id %></th>
 					           <th><%= psychological.scheduling.professional.person.name %></th>
-					           <th><%= psychological.date_evaluation.strftime("%d/%m/%Y") %></th>
-					           <th><%= psychological.date_send_report.strftime("%d/%m/%Y") %></th>
+					           <th><%= format_date psychological.date_evaluation %></th>
+					           <th><%= format_date psychological.date_send_report %></th>
 					           <th>
 					      	 	<% if psychological.vacancy_final_result.nil? %>
 					      	 			<span class="badge badge-important">Não</span>

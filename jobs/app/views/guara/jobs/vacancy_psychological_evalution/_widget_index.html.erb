@@ -29,7 +29,7 @@
 					      <tr>
 					      	 <th><%= customer_interview.id %></th>
 					      	 <th><%= customer_interview.scheduling.professional.person.name %></th>
-					      	 <th><%= customer_interview.return_date.strftime("%d/%m/%Y") %></th>
+					      	 <th><%= format_date customer_interview.return_date %></th>
 					      	 <th>
 					      	 	<%
 					      	 		if customer_interview.psychological.nil? %>

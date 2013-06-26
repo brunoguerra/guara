@@ -16,7 +16,7 @@
 
 <div class="control-group">
 	<%= content_tag :span, t('interviewer_professionals.date_time')+":", :class => "strong"  %>
-	<%= @scheduling.date_time.strftime("%d/%m/%Y %H:%M:%S") %>
+	<%= format_datetime @scheduling.date_time %>
 </div>
 
 <%= render :partial => "guara/jobs/interviewer_professionals/widget_form", :locals => { vacancy: vacancy, embedded: embedded } %>

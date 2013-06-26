@@ -28,7 +28,7 @@
 
 	          <div class="control-group">
 	            <%= show_label_tag t('available_on') %>
-				<%= @product.available_on != nil ? @product.available_on.strftime("%d/%m/%Y") : @product.available_on %>
+				<%= format_datetime @product.available_on %>
 	          </div>
 
 	          <div class="control-group">

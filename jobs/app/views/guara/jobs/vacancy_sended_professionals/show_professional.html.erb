@@ -50,10 +50,10 @@
 
         <div class="line right">
           <strong style="margin-left: 30px;" >Síntese - </strong>
-          <strong><%= @interviewer_professional.date.strftime('%d/%m/%Y') %></strong>
+          <strong><%= format_date @interviewer_professional.date %></strong>
         </div>  <br />
 
-        <span class="right"> CMGB* Serviço de RH - <%= @interviewer_professional.date.strftime('%Y') %></span>
+        <span class="right"> CMGB* Serviço de RH - <%= format_date @interviewer_professional.date, '%Y' %></span>
 
         </header>
 

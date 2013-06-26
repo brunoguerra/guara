@@ -30,7 +30,7 @@
 	      	 		<% end
 	      	  	%>
 	      	 </th>
-	      	 <th><%= customer_interview.return_date.strftime("%d/%m/%Y") if !customer_interview.nil? %></th>
+	      	 <th><%= format_date customer_interview.return_date if !customer_interview.nil? %></th>
 	      	 <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[customer_interview.return_interview] if !customer_interview.nil? %>
 	      	 </th>
 	      </tr>

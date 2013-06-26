@@ -28,7 +28,7 @@
 		        <td><%= link_to p.name, product_path(p.id)  %></td>
 		        <td><%= p.description  %></td>
 		        <td>
-		        	<%= p.available_on != nil ? p.available_on.strftime("%d/%m/%Y") : p.available_on %>
+		        	<%= p.available_on != nil ? format_date p.available_on : p.available_on %>
 		        </td>
 		        <td><%= number_to_currency(p.price, :locale => :br)  %></td>
 		        <td><%= p.stock  %></td>

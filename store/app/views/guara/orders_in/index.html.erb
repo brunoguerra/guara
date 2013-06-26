@@ -28,8 +28,8 @@
 				   <% @orders.each do |order| %>
 					  <tr>
 					    <td><%= order.person.name %></td>
-					    <td><%= order.date_init.strftime("%d/%m/%Y") %></td>
-					    <td><%= order.state_date.strftime("%d/%m/%Y") %></td>
+					    <td><%= format_date order.date_init %></td>
+					    <td><%= format_date order.state_date %></td>
 					    <td><%= Guara::OrderState.status_translated[order.state] %></td>
 					    <td>
 					    	<%= index_btn_view orders_in_path(order), t("helpers.forms.show") %>

@@ -19,7 +19,7 @@
            
            <th><%= Guara::Jobs::CustomerInterviewReturn.levels_translated()[psychologic.vacancy_final_result.result] if !psychologic.vacancy_final_result.nil? %></th>
           
-           <th><%= psychologic.vacancy_final_result.work_start_date.strftime('%d/%m/%Y') if !psychologic.vacancy_final_result.nil? and  !psychologic.vacancy_final_result.work_start_date.nil? %>
+           <th><%= format_date psychologic.vacancy_final_result.work_start_date if !psychologic.vacancy_final_result.nil? and  !psychologic.vacancy_final_result.work_start_date.nil? %>
            </th>
            
            <th><%= psychologic.vacancy_final_result.salary if !psychologic.vacancy_final_result.nil?%></th>

@@ -18,7 +18,7 @@
 					        </div>
 					        <div class="control-group">
 					            <%= show_label_tag t('date_init') %>
-								<%= @orders_in.date_init.strftime("%d/%m/%Y") %>
+								<%= format_date @orders_in.date_init %>
 					        </div>
 						</div>
 

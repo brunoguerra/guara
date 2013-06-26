@@ -33,7 +33,7 @@
                                     <td><%= deal.group.scheduled.task_type.name %></td>
                                     <td><%= contacts_registered %></td>
                                     <td><%= deal.contacts.where(enabled: true).count() %></td>
-                                    <td><%= deal.date_start.strftime("%d/%m/%Y %H:%M") %></td>
+                                    <td><%= format_datetime deal.date_start %></td>
                                     <td><%= deal.group.scheduled.user.name %></td>
                                     <td>
                                       <%= index_btn_view scheduled_deal_path(deal), 'Exibir' %>

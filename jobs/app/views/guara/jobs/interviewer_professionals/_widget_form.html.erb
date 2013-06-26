@@ -6,7 +6,7 @@
 		:label => t("interviewer_professionals.date_time_interviewee"),
 		:input_html=> {
       		"data-behaviour" => "datetimepicker",
-      		:value=> !@scheduling.date_time_interviewee.nil? ? @scheduling.date_time_interviewee.strftime("%d/%m/%Y %H:%M:%S") : ""
+      		:value=> !@scheduling.date_time_interviewee.nil? ? format_datetime @scheduling.date_time_interviewee : ""
       	} %>
     <%= embedded %>  	
     <div class="formtastic step_instance_attrs">
