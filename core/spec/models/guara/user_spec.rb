@@ -12,7 +12,6 @@
 require 'spec_helper'
 
 module Guara
-
   include UsersHelper
 
   describe Guara::User do
@@ -266,6 +265,19 @@ module Guara
       it { @user.able?(SystemModule.CITY, SystemAbility.CREATE).should be_true }
       it { @user.able?(SystemModule.USER, SystemAbility.READ).should be_true }
       it { @user.able?(SystemModule.USER, SystemAbility.CREATE).should_not be_true }
+    end
+
+    describe "company branches" do
+      
+      it { should respond_to(:company_branches) }
+      
+      it { should respond_to(:primary_company_branch) }
+      
+      it "user have many company branch" do
+        2.times { @user.company_branches.build }
+        @user.company_branches.size.should be(2)
+      end
+      
     end
   
   end

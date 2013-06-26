@@ -21,7 +21,6 @@ gem 'cancan', '~> 1.6.8'
 
 #model
 gem "meta_search"
-gem 'activeadmin', '0.5.0'
 
 #criptar
 gem 'bcrypt-ruby', '3.0.1'
@@ -33,9 +32,6 @@ gem 'rails-i18n'
 #converters
 gem 'spreadsheet'
 gem 'ruby-rtf', '0.0.1'
-
-#extends
-gem "active_extend",  :git => 'git@github.com:woese/active_extend.git'
 	
 group :assets do
   gem 'uglifier', '1.2.3'

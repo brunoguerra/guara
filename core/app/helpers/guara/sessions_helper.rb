@@ -24,5 +24,17 @@ module Guara
     def preferences_customer_type?
       session[:customer_type] || :pj
     end
+    
+    def current_company_branch
+      @current_branch || self.default_company_branch
+    end
+
+    def default_company_branch
+      User.company_branch_primary
+    end
+
+    def current_company_branch=(company_brach)
+      @current_branch = company_branch
+    end
   end
 end

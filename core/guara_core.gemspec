@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'formtastic-bootstrap', '2.0.0'
   
   s.add_dependency "pg"
-  s.add_dependency 'active_extend'
+  s.add_dependency 'active_extend', '~> 0.0.3'
   s.add_dependency 'activeadmin', '0.5.0'
   s.add_dependency 'inherited_resources', '1.3.1'
   
@@ -44,8 +44,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency  'faker', '1.0.1'
 
   #login rules
-  s.add_dependency  'devise', '~>2.1.2'
-  s.add_dependency  'cancan', '~> 1.6.8'
+  s.add_dependency  'devise', '2.2.4'
+  s.add_dependency  'cancan', '1.6.10'
 
   #model
   s.add_dependency  "meta_search", "1.1.3"

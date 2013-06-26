@@ -1,4 +1,3 @@
-Rails.application.routes.draw do
-
-  mount Guara::Core::Engine => "/guara_core"
+Dummy::Application.routes.draw do
+  mount Guara::Core::Engine, at: "/"
 end

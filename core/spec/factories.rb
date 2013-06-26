@@ -6,7 +6,7 @@ FactoryGirl.define do
 
   factory :user, :class => Guara::User do
     sequence(:name)  { Faker::Name.name }
-    sequence(:email) { |n| "person_#{n}@example.com"}   
+    sequence(:email) { |n| "person_#{n}@example.com" }   
     password "foobar"
     password_confirmation "foobar"
     enabled true
@@ -66,6 +66,10 @@ FactoryGirl.define do
   end
   
   factory :status do
+    name { Faker::Name.first }
+  end
+
+  factory :company_branch do
     name { Faker::Name.first }
   end
 
