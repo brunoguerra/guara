@@ -8,9 +8,12 @@
 
 	          	<%= f.select :vacancy_status_id_in, Guara::Jobs::VacancyStatus.status_translation.map{|a, b| [b, a]}, 
 	          		{include_blank: true}, 
-							  {
-								:style => "width: 230px;", 
-								:placeholder => t("jobs.vacancy_reports.status")}
+				  	{
+						:style => "width: 230px;", 
+						:class => "multiselect",
+						:multiple => true,
+						:placeholder => t("jobs.vacancy_reports.status")
+					}
 
 	          	%>
 			</div>

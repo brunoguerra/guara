@@ -38,6 +38,7 @@ pt-BR:
       generation_reports: "Gerar Relatório"
       general: "Geral"
       resume: "Resumo"
+      resume_type: "Tipo de Resumo"
       search_result: "Filtros de Pesquisa"
 
       number_of_jobs_posted_within: "quantidade de vagas enviada dentro do prazo"
