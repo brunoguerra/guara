@@ -195,6 +195,7 @@ module Guara
             end
             return @label.join(", ").html_safe
         end
+
       end
   end
 end
