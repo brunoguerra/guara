@@ -1,0 +1,33 @@
+<div class="control-group">
+    <div class="controls">
+		<a href="javascript:void(0);" class="btn send_mailer_customer">Enviar Validação Por Email</a>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$('.send_mailer_customer').click(function(){
+		if(validate()==true){
+			$.ajax({
+			  type: "GET",
+			  url: "<%=vacancy_send_customer_validation_path(Guara::Jobs::Vacancy.find_by_process_instance_id(params[:id]))%>",
+			  data: { 
+			  	data: {
+			  		date: $('input.date_format').val(), 
+			  		contact: $('select.multiselect').val()[0],
+			  		notes: $('textarea').val() 
+			  	}
+			  }
+			}).done(function( data ) {
+			  	if(data.success==true){
+			  		alert("Email Enviado!");
+			  	}
+			  	else{
+			  		alert("Erro ao Enviar Email!");
+			  	}
+			}).fail(function(){
+				alert("Erro ao Enviar Email!");
+			});			
+		}
+	});
+</script>

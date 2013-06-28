@@ -12,6 +12,18 @@ module Guara
         @vacancy.change_status!(status_to_change, current_user)
         redirect_to process_instance_path(@vacancy.process_instance)
       end
+
+      def send_customer_validation
+        @vacancy = Vacancy.find params[:vacancy_id]
+        authorize! :read, @vacancy
+
+        SendedCustomerValidationsMailer.validation_email({
+          :customer=> @vacancy.customer_pj.person,
+          :data=> params[:data]
+        }).deliver
+
+        render :json => {:success=> true}
+      end
       
       def index
         param_search = params[:search]

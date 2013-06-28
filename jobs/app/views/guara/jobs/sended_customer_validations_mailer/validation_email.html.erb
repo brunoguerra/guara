@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá, <%= @customer.name %></h1>
+    <p>Segue os Dados de Validação:</p>
+
+    <p><b>Data de Validação:</b> <%=@data[:date]%></p>
+    <p><b>Responsável:</b> <%=Guara::Contact.find(@data[:contact]).name %></p>
+    <p><b>Notas:</b> <%=@data[:notes]%></p>
+    
+  </body>
+</html>
