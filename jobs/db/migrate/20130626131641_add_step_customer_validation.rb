@@ -51,5 +51,15 @@ class AddStepCustomerValidation < ActiveRecord::Migration
 		  	column: 1,
 		  	position: 2
 	  	)
+
+	  	@new_step.attrs.create(
+	  		title: 'Enviar Validação por Email',
+		  	type_field: 'widget',
+		  	widget: 'send_validation_customer',
+		  	resume: false,
+		  	required: false,
+		  	column: 1,
+		  	position: 3
+	  	)
 	end
 end
