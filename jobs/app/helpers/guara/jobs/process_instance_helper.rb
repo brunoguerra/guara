@@ -40,7 +40,7 @@ module Guara
             end
     	end
 
-        def get_value_model(vals, id)
+        def get_value_model(vals, id, record_all=false)
             vals.strip!
             vals2 = vals.dup
             if !(vals.nil? && vals.empty?)
@@ -49,7 +49,7 @@ module Guara
                     model = eval model
                     
                     record = model.find id
-                    return record.name
+                    return record_all == false ? record.name : record
                 elsif (vals =~ /url:([^\s]*)&/)==0                    
                     model = eval vals2.scan(/&([^\s]*)/).flatten()[0]
                     if model == Guara::CustomerPj
@@ -57,15 +57,28 @@ module Guara
                     else
                         record = model.where("id = #{id}").first()
                     end
-                    return record.name
+                    return record_all == false ? record.name : record
                 elsif (vals =~ /model_eval:\/([^\s]*)\//)==0
-                    return record = eval($1).where(:id => id).first().name
+                    return record_all == false ? eval($1).where(:id => id).first().name : eval($1).where(:id => id).first()
                 else
                     return id
                 end    
             else                
                 return id
             end
+        end
+
+        def get_records(attr_value)
+            @records = []
+           if attr_value.class == Array
+                attr_value.each do |attr|
+                    @records << get_value_model(attr[:step_attr_option], attr[:value], true)
+                end
+            elsif attr_value.class == String
+                @records << attr_value
+            end
+
+            return @records
         end
 
     	def show_label_tag(label)
@@ -184,6 +197,10 @@ module Guara
 
         def show_attr_value(process_instance, step_attr)
             attr_value = get_attr_value(process_instance, step_attr)
+
+            if step_attr.type_field == 'widget' && step_attr.options != 'component' && File.exist?(File.expand_path("../../../../views/guara/jobs/widgets/_show_#{step_attr.widget}.html.erb",  __FILE__))
+                return render partial: "guara/jobs/widgets/show_#{step_attr.widget}", locals: {records: get_records(attr_value)}
+            end           
 
             @label = []
             if attr_value.class == Array

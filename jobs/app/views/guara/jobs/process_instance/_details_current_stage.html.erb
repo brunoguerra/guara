@@ -38,10 +38,14 @@
 							                    @component.params = params 
 							                    %>
 												<%= @component.show.join("").html_safe %>
-							          <% else %>
-							          <div class="span11">
-							          	<div class="span3"><%= show_span_tag step_attr.title %></div>
-													<div class="span6"><%= show_attr_value(@process_instance, step_attr) %></div>
+							        		<% else %>
+									          	<div class="span11">
+									          		<div class="span3">
+									          			<%= show_span_tag step_attr.title %>
+									          		</div>
+													<div class="span8">
+														<%= show_attr_value(@process_instance, step_attr) %>
+													</div>
 												</div>
 											<% end %>
 										</div>
