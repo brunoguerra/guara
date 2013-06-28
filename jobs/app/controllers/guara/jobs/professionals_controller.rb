@@ -57,7 +57,7 @@ module Guara
 		    if !param_search.nil? && param_search.size>0 
       		filter_multiselect param_search, :vacancy_specification_roles_business_action_id_in
       		filter_multiselect param_search, :formations_level_education_id_in
-      		filter_multiselect param_search, :professional_languages_laguage_name_in
+      		filter_multiselect param_search, :professional_languages_laguage_id_in
     		end
 
     		
