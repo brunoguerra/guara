@@ -26,12 +26,14 @@
 	          </thead>
 
 	          <tbody>
-	            <% (Guara::ActiveCrm::Scheduled::Contact.where(deal_id: @deal.id, contact_id: @contact.id) || []).each do |scheduled_contact|%>
+	            <% if !@deal.nil?
+	            (Guara::ActiveCrm::Scheduled::Contact.where(deal_id: @deal.id, contact_id: @contact.id) || []).each do |scheduled_contact|%>
 	                <tr>
 	                  <td><%= scheduled_contact.scheduled %></td>
 	                  <td><%= scheduled_contact.activity %></td>
 	                </tr>
-	            <% end %>
+	            <% end 
+	            end %>
 
 	          </tbody>
 	        </table>

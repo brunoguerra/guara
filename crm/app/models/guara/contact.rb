@@ -21,6 +21,10 @@ module Guara
     default_scope includes(:department).order("guara_business_departments.name, guara_contacts.name")
     
     #=========================== search <--------------------------------------------  
+
+    scope :with_department_name, lambda {
+      select('id, concat(guara_business_departments.name, " - ", guara_contacts.name) as name')
+    }
   
   
     def self.search_by_name(results, name)

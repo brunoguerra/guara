@@ -16,12 +16,16 @@ module Guara
         ]
 
       helper CrudHelper
+      helper ProcessInstanceHelper
+      include Select2Helper
 
       attr_accessor :embedded
 
       def index
         params[:search] = {:finished_is_false=> true} if params[:search].nil?
         params[:search][:finished_is_false] = true if params[:search][:finished_is_true] == '0'
+
+        filter_multiselect params[:search], :vacancy_status_id_in
 
         @search = ProcessInstance.joins(:custom_process).where(:guara_jobs_custom_processes=> {:name=> 'vacancy'})
         .order('id DESC').search(params[:search])
@@ -83,7 +87,7 @@ module Guara
 
       def load_step_and_step_attrs
         if params[:edit_step].nil?
-          @current_step = @process_instance.step
+          @current_step = params[:action] == 'new' ? @process_instance.step : @process_instance.step.parent 
           params[:edit_step] = @current_step.id
         else
           @current_step = Step.find params[:edit_step]
@@ -153,7 +157,7 @@ module Guara
         StepInstanceAttr.delete_all("step_id = #{@step_id} AND process_instance_id = #{params[:id]}")
 
         create_step_instance_attrs()
-        set_next_step_to_process_instance()
+        @process_instance.update_attribute(:state, @step_id)
 
         if !@embedded
           redirect_to process_instance_show_step_path(:id=> params[:id], :edit_step=> @step_id)
@@ -172,16 +176,6 @@ module Guara
           @next_step_valid = 0
         end
         authorize! :read, Guara::Jobs::ProcessInstance
-      end
-
-      def set_next_step_to_process_instance()
-        load_next_step_to_process_instance()
-
-        if !@next_step.nil? and @next_step_valid > 0
-          @process_instance.update_attributes :state=> @next_step
-          @process_instance.save
-        end 
-        authorize! :update, Guara::Jobs::ProcessInstance
       end
 
       def finish_process_instance
@@ -203,7 +197,8 @@ module Guara
       def show
         @process_instance = ProcessInstance.find params[:id]
         @step_order = @process_instance.steps_previous_current
-        load_step_valid()
+        @step_previous = @process_instance.step
+        #load_step_valid()
 
         @grouped_column_attrs_step_init = load_grouped_columned_attrs(@process_instance.custom_process.step)
         @grouped_column_attrs_current_step = load_grouped_columned_attrs(@step_previous)
@@ -218,19 +213,6 @@ module Guara
         end
       end
 
-      def load_step_valid
-        @step_previous = @process_instance.step
-        @step_values_invalid = @process_instance.step.step_attrs_vals(@process_instance.id).empty?
-
-        if @step_values_invalid
-          @step_order.each do |step|
-            if step.next == @process_instance.step.id
-              @step_previous = step 
-            end
-          end
-        end
-      end
-      
       def embeded_call(action, process_instance, params, request, response)
         params = params.dup
         params[:id] = process_instance.id
@@ -253,6 +235,7 @@ module Guara
         render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ? or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).limit(25).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
         authorize! :read, Guara::Jobs::ProcessInstance
       end
+      
     end
   end
 end

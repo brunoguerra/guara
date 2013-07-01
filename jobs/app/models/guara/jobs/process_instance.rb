@@ -47,4 +47,5 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
       self.hook_after_save()
     end
   end
+
 end

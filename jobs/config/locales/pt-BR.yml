@@ -24,6 +24,13 @@ pt-BR:
         title: "Customização de Processo"
         link: "Customização de Processo"
 
+    profile_updated_at:
+      six_months: "Seis Meses"
+      one_year: "Um Ano"
+      one_year_and_six_months: "Um Ano e Seis Meses"
+      two_years: "Dois Anos"
+      title: "Atualização de Curriculum"
+
     vacancy_reports:
       link: "Relatórios"
       total: "Nº Vagas"
@@ -38,6 +45,7 @@ pt-BR:
       generation_reports: "Gerar Relatório"
       general: "Geral"
       resume: "Resumo"
+      resume_type: "Tipo de Resumo"
       search_result: "Filtros de Pesquisa"
 
       number_of_jobs_posted_within: "quantidade de vagas enviada dentro do prazo"

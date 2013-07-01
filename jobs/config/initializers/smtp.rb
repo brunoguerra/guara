@@ -3,7 +3,7 @@
     :port                 => 587,
     :domain               => 'localhost:3000',
     :user_name            => "maciel@woese.com",
-    :password             => "*********",
+    :password             => "franciscomaciel",
     :authentication       => 'plain',
     :enable_starttls_auto => true  
   }

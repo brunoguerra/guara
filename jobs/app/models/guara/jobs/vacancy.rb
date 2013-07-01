@@ -14,7 +14,7 @@ module Guara
                       
       scope :resume_type, lambda {|type_id|
         types = VacancyResume.type()
-        
+
         if types[type_id] == :number_of_jobs_posted_within
           joins(:scheduling_professionals=> :sended)
 
@@ -24,8 +24,8 @@ module Guara
         elsif types[type_id] == :amount_of_vacancy_that_was_accepted_candidates_to_the_client
           joins(:scheduling_professionals).where(:interested=> true)
           
-        elsif types[type_id] == :amount_of_vacancy_that_was_accepted_candidates_to_the_client
-            
+        elsif types[type_id] == :number_of_jobs_that_were_rework_re_selection
+          where("status_id IN (7,8)")  
         end
       }
 

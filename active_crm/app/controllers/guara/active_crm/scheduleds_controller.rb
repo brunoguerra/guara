@@ -62,7 +62,7 @@ module Guara
       end
     
       def create
-        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled_scheduled])
         authorize! :create, @active_crm_scheduled
 
         respond_to do |format|
@@ -80,8 +80,8 @@ module Guara
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
     
         respond_to do |format|
-          if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled])
-            format.html { redirect_to scheduled_path(@scheduled), notice: t("active_crm.scheduled.successfully_update") }
+          if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled_scheduled])
+            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("active_crm.scheduled.successfully_update") }
             format.json { head :no_content }
           else
             format.html { render action: "edit" }
