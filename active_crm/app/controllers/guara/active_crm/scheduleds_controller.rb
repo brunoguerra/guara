@@ -17,7 +17,7 @@ module Guara
         @search = ActiveCrm::Scheduled::Scheduled.search(param_search)
         @active_crm_scheduleds = paginate(@search,  params[:page], 4)
 
-        @scheduled = ActiveCrm::Scheduled::Scheduled.new 
+        @scheduled = ActiveCrm::Scheduled::Scheduled.new(:user_id=> current_user.id, status: 0)
     
         respond_to do |format|
           format.html do
@@ -47,7 +47,8 @@ module Guara
       end
     
       def new
-        @scheduled = ActiveCrm::Scheduled::Scheduled.new
+        @scheduled = ActiveCrm::Scheduled::Scheduled.new(:user_id=> current_user.id, status: 0)
+
         respond_to do |format|
           format.html
           format.json { render json: @scheduled }
