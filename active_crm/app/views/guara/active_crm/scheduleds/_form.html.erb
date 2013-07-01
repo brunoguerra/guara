@@ -5,6 +5,7 @@
 			<div class="">
 				<div class="span7">
 					<%= f.input :user_id, :label => t("active_crm.scheduled.user"), :as => :select, :collection => Guara::User.all, :class => "span3"  %>
+					
 					<%= f.input :subject, :label => t("active_crm.scheduled.subject"), :as => :text, :input_html => { :class => 'autogrow', :rows => 5, :cols => 20, :maxlength => 190 } %>
 				</div>
 
@@ -23,7 +24,7 @@
 					</div>
 
 					<div class="controls">
-						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :select, :collection => Guara::ActiveCrm::Scheduled::Scheduled.translate_status.map{ |a, b| [b, a] } %>
+						<%= f.input :status, :label => t("active_crm.scheduled.status.title"), :as => :hidden %>
 					</div>
 				</div> 
 			</div>

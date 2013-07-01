@@ -12,10 +12,13 @@
   .container-thumbnails .container{
     width: 98%!important;
   }
+  .autoscroll.block4{
+    max-height: 240px;
+  }
 </style>
 
 <section id="active_crm">
-    <navbar></navbar>
+    <%= render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :false} %>
 
     <div>
         <div class="row-fluid">
