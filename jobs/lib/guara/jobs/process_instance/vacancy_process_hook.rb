@@ -41,17 +41,15 @@ module Guara
       end
 
       def self.finish_process_actions()
+        actions = []
         VacancyStatus::CLOSE_ACTIONS.each do |close_action|
-            [{
+            actions << {
               title: I18n.t("jobs.vacancy_status.%s" % close_action.name),
-              path: vacancy_change_status_path(vacancy, status_id: close_action.id)
-              },
-             {
-              title: I18n.t("jobs.vacancy_status.%s" % close_action.name),
-              path: vacancy_change_status_path(vacancy, status_id: close_action.id)
-             }
-            ]
+              path: Guara::Core::Engine.routes.url_helpers.vacancy_change_status_path(self, status_id: close_action.id)
+            }
         end
+
+        actions
       end
       
     end
