@@ -84,7 +84,7 @@ module Guara
       end
 
       def next_routes()
-        if process_instance.step.last? && VacancyStatus.status_eq?(self,  VacancyStatus::OPENED)
+        if process_instance.step.last? && VacancyStatus.status_eq?(self.status,  VacancyStatus::OPENED)
           Vacancy.CLOSE_ACTIONS + self.status.routes
         else
           self.status.routes

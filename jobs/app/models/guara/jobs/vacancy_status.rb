@@ -57,9 +57,9 @@ module Guara
         }
       end
 
-      def self.status_eq?(vacancy, status)
-        vacancy.status.id == status.id || 
-          ((vacancy.status.parent!=nil) && (vacancy.status.parent.id == status.id))
+      def self.status_eq?(status_a, status_b)
+        status_a.id == status_b.id || 
+          ((status_a.parent!=nil) && (status_a.parent.id == status_b.id))
       end
     end
   end
