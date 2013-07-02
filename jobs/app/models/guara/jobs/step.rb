@@ -16,7 +16,7 @@ class Guara::Jobs::Step < ActiveRecord::Base
 	#@TODO: change parent to next
 	belongs_to :parent, class_name: "Step", foreign_key: "next"
 
-	delegate :next, :parent
+	alias_method :next, :parent
   
   #@deprecated
   belongs_to :custom_process
@@ -32,6 +32,6 @@ class Guara::Jobs::Step < ActiveRecord::Base
 	end
 
 	def last?
-		next.nil?
+	  self.next.nil?
 	end
 end
