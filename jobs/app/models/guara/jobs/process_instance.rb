@@ -48,4 +48,8 @@ class Guara::Jobs::ProcessInstance < ActiveRecord::Base
     end
   end
 
+  def finish!
+    self.finished = true
+  end
+
 end

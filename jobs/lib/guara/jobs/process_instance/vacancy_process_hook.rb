@@ -46,7 +46,7 @@ module Guara
             actions << {
               title: I18n.t("jobs.vacancy_status.%s" % close_action.name),
               path: Guara::Core::Engine.routes.url_helpers.vacancy_change_status_path(self, status_id: close_action.id)
-              }
+            }
         end
 
         actions
