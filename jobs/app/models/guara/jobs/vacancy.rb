@@ -95,6 +95,9 @@ module Guara
         if status.routes.include?(new_status)
 
           self.status_id = new_status.id
+          if VacancyStatus.status_eq?(self.status,  VacancyStatus::CLOSED)
+            process_instance.finish
+          end
         else
           raise "Status invalid. Status %s not in router %s" % [new_status.name, status.routes.map(&:name).join(", ")]
         end

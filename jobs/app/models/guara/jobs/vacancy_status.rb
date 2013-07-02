@@ -29,7 +29,11 @@ module Guara
       @@reopened_reposition.routes      = @@opened.routes
       @@reopened_others.routes          = @@opened.routes
       
-      CLOSE_ACTIONS                         = [@@closed_total, @@closed_partial]
+      CLOSE_ACTIONS                     = [@@closed_total, @@closed_partial]
+
+      OPENED = @@opened
+      PAUSED = @@paused
+      CLOSED = @@closed
 
     	def self.enum
     		{
