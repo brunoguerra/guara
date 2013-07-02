@@ -22,7 +22,7 @@ class CreateGuaraJobsMigationV1 < ActiveRecord::Migration
     create_table :guara_jobs_step_attrs do |t|
       t.string   :title
       t.integer  :position
-      t.string   :options
+      t.text   :options
       t.string   :widget
       t.string   :group
       t.string   :type_field

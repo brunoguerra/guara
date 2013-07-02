@@ -10,5 +10,9 @@ module Guara
     belongs_to :state
     
     validates :addressable, presence: true
+
+    def to_s
+    	[self.address, ((self.district && self.district.name) || ""), ((self.district && self.district.city && self.district.city.name) || ""), ((self.district && self.district.city && self.district.city.state.name) || "")].join(", ")
+    end
   end
 end

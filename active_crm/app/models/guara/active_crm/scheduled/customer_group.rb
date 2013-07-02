@@ -10,7 +10,7 @@ module Guara
 	    		has_many :deals, class_name: "Guara::ActiveCrm::Scheduled::Deals", foreign_key: :groups_id
 	    		belongs_to :scheduled
 
-	    		include Guara::ActiveCrm::ScheculedsHelper
+	    		include Guara::ActiveCrm::ScheduledsHelper
 
 	    		def name
 	    			@name = "Grupo de Cliente #{self.id}"
@@ -41,6 +41,15 @@ module Guara
 		              .where("#{table_deals.table_name}.groups_id = #{self.id} AND 
 		              #{table_contact.table_name}.result = #{table_contact.results()[:scheduling]} AND enabled = true")
 		              .count()
+	    		end
+
+	    		def count_schedule
+	    			search = prepare_filter_search({}, self)
+	    			table_deals = Guara::ActiveCrm::Scheduled::Deals
+	    			table_customer = Guara::Customer
+    				return Guara::Customer.where("#{table_customer.table_name}.customer_type = 'Guara::CustomerPj' AND 
+    					#{table_customer.table_name}.id NOT IN(select a1.customer_pj_id from #{table_deals.table_name} as a1 where a1.groups_id = #{self.id})")
+    				.search(search).count()
 	    		end
 	  		end
 	  	end

@@ -39,7 +39,8 @@ module Guara
       
       # sets the manifests / assets to be precompiled, even when initialize_on_precompile is false
       initializer "guara.assets.precompile", :group => :all do |app|
-        app.config.assets.precompile += %w(guara/guara.css guara/guara.js)        
+        #app.config.assets.precompile += %w(guara/guara.css guara/guara.js guara/home_admin.css guara/custumer_search.css.scss guara/custumer_search.css.scss)        
+        app.config.assets.precompile += %W(*.css *.js *.scss)
       end
       
       initializer "guara.devise" do

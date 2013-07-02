@@ -4,6 +4,7 @@ module Guara
       load_and_authorize_resource :scheduled, :class => "Guara::ActiveCrm::Scheduled", :except => [:index, :new, :create, :show, :edit, :update]
       
       include Select2Helper
+      helper ScheduledsHelper
       
       def index
         param_search = params[:search]
@@ -16,7 +17,7 @@ module Guara
         @search = ActiveCrm::Scheduled::Scheduled.search(param_search)
         @active_crm_scheduleds = paginate(@search,  params[:page], 4)
 
-        @scheduled = ActiveCrm::Scheduled::Scheduled.new 
+        @scheduled = ActiveCrm::Scheduled::Scheduled.new(:user_id=> current_user.id, status: 0)
     
         respond_to do |format|
           format.html do
@@ -33,6 +34,8 @@ module Guara
           
       def show
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
+        @customer_groups = @active_crm_scheduled.customer_group
+
         respond_to do |format|
           format.html
           format.json do
@@ -44,7 +47,8 @@ module Guara
       end
     
       def new
-        @scheduled = ActiveCrm::Scheduled::Scheduled.new
+        @scheduled = ActiveCrm::Scheduled::Scheduled.new(:user_id=> current_user.id, status: 0)
+
         respond_to do |format|
           format.html
           format.json { render json: @scheduled }
@@ -59,7 +63,7 @@ module Guara
       end
     
       def create
-        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled])
+        @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.new(params[:active_crm_scheduled_scheduled])
         authorize! :create, @active_crm_scheduled
 
         respond_to do |format|
@@ -77,8 +81,8 @@ module Guara
         @active_crm_scheduled = ActiveCrm::Scheduled::Scheduled.find(params[:id])
     
         respond_to do |format|
-          if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled])
-            format.html { redirect_to scheduled_path(@scheduled), notice: t("active_crm.scheduled.successfully_update") }
+          if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled_scheduled])
+            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("active_crm.scheduled.successfully_update") }
             format.json { head :no_content }
           else
             format.html { render action: "edit" }

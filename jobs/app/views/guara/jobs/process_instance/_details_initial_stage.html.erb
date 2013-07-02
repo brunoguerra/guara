@@ -4,7 +4,7 @@
 	}
 
 	.control-group, .show .field_with_errors {
-		text-transform: none !important;
+		/*text-transform: none !important;*/
 	}
 
 	.span11 {
@@ -58,4 +58,4 @@
 		<% end %>
 	</fieldset>
 	<% end %>
-	<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> params[:edit_step]), :class=> "btn" if no_button == false && @process_instance.custom_process.enabled == true %> 
+	<%= link_to 'Editar Etapa', edit_process_instance_path(:id=> @process_instance.id, :edit_step=> @process_instance.custom_process.step_init), :class=> "btn" if no_button == false && @process_instance.custom_process.enabled == true %> 

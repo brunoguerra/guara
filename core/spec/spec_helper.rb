@@ -8,6 +8,7 @@ require File.expand_path("../../spec/dummy/config/environment", __FILE__)
 
 #require 'action_controller' #fixing inherited resources not load on engine mode cleanup
 require 'spork'
+require 'faker'
 require "guara_core"
 require "database_cleaner"
 require File.dirname(__FILE__) + '/../app/helpers/guara/base_helper.rb'
@@ -31,12 +32,7 @@ require 'guara/test_support/configuration'
 
 Guara::TestSupport.configure!
 
-RSpec.configure do |config|
-  
-end
-
-Spork.prefork do
-  
+Spork.prefork do  
 end
 
 puts "done!"

@@ -45,6 +45,7 @@ Guara::Core::Engine.routes.prepend do
 		  resource :vacancy_psychological_evaluation_evaluation, controller: "VacancyProfessionalsPsychologicalEvaluation" 
 		  resource :vacancy_final_result, controller: "VacancyFinalResult"
 		  get "change_status"
+		  get "send_customer_validation"
 	  end
 
 	  resources :vacancy_resume

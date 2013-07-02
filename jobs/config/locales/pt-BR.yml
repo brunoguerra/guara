@@ -43,6 +43,35 @@ pt-BR:
       index:
         title: "Customização de Processo"
         link: "Customização de Processo"
+
+    profile_updated_at:
+      six_months: "Seis Meses"
+      one_year: "Um Ano"
+      one_year_and_six_months: "Um Ano e Seis Meses"
+      two_years: "Dois Anos"
+      title: "Atualização de Curriculum"
+
+    vacancy_reports:
+      link: "Relatórios"
+      total: "Nº Vagas"
+      customer_pj: "Empresa"
+      role: "Cargo"
+      status: "Status"
+      consultant: "Consultor(a)"
+      elaboration_reports: "Elaboração do Relatório"
+      date_start: "Abertura"
+      monitoring_reports: "Relatório de Acompanhamento de Vaga"
+      step: "Etapa"
+      generation_reports: "Gerar Relatório"
+      general: "Geral"
+      resume: "Resumo"
+      resume_type: "Tipo de Resumo"
+      search_result: "Filtros de Pesquisa"
+
+      number_of_jobs_posted_within: "quantidade de vagas enviada dentro do prazo"
+      number_of_clients_open: "quantidade de clientes em aberto"
+      amount_of_vacancy_that_was_accepted_candidates_to_the_client: "quantidade de vaga que o houve aceitação dos candidatos ao cliente"
+      number_of_jobs_that_were_rework_re_selection: "quantidade de vaga que houve retrabalho(reseleção)"
       
     process_instance:
       date_start: "Data Inicial"

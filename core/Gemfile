@@ -3,35 +3,7 @@ source 'https://rubygems.org'
 eval(File.read(File.dirname(__FILE__) + '/../common_dependencies.rb'))
 
 
-# view
-gem 'bootstrap-sass', '~> 2.3.0.0'
-gem 'bootstrap-will_paginate', '0.0.6'
-
-# Forms
-gem 'will_paginate', '3.0.3'
-gem 'rails3-jquery-autocomplete'
-gem 'tinymce-rails'
-
-#test support
-gem 'faker', '1.0.1'
-
-#login rules
-#gem 'devise'
-gem 'cancan', '~> 1.6.8'
-
-#model
-gem "meta_search"
-
-#criptar
-gem 'bcrypt-ruby', '3.0.1'
-
-#BR
-gem 'brazilian-rails'
-gem 'rails-i18n'
-
-#converters
-gem 'spreadsheet'
-gem 'ruby-rtf', '0.0.1'
+gemspec
 	
 group :assets do
   gem 'uglifier', '1.2.3'
@@ -57,6 +29,7 @@ group :test do
   #MAC OS Especific
   gem 'rb-fsevent', '0.9.1', :require => false
   gem 'growl', '1.0.3', :require => false
+  gem 'faker'
 
   #Cucumber
   gem 'cucumber-rails', '1.2.1', :require => false

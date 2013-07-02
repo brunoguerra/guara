@@ -4,7 +4,7 @@ module Guara
     	class ScheduledContactsController < Guara::BaseController
     		skip_authorization_check
 
-    		include ScheculedsHelper
+    		include ScheduledsHelper
             include ScheduledContactsHelper
             helper ScheduledContactsHelper
 
@@ -14,17 +14,18 @@ module Guara
     			search = prepare_filter_search(params[:search], scheduled_customer_group)
     			
     			@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search)
-          @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search)
+                @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search)
 
-          @customers_to_register = paginate(@search, params[:page], 40)
-          @customers_scheduled = paginate(@search_scheduled)
+                @customers_to_register = paginate(@search, params[:page], 40)
+                @customers_scheduled = paginate(@search_scheduled)
     		end
 
             def new
                 @contact = Guara::Contact.find(params[:contact_id])
-                @scheduled_contact = Scheduled::Contact.new(
-                    :contact_id=> params[:contact_id]
-                )
+                @scheduled_contact = Scheduled::Contact.new(contact_id: params[:contact_id], user_id: current_user.id)
+
+                @deal = Guara::ActiveCrm::Scheduled::Deals.where(:customer_pj_id=> @contact.person_id, :groups_id=> params[:scheduled_customer_group_id]).first
+
                 render 'new.html.erb', layout: false
             end
 

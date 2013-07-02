@@ -1,6 +1,6 @@
 <%= render :partial => "navbar", :locals => { :active => :index } %>
 
-<% provide(:title, 'All users') %>		
+<% provide(:title, I18n.t('users.index.title')) %>		
 
 <table class="table table-bordered table-striped">
 <thead>
@@ -25,7 +25,7 @@
 	    	</span>
 	    </td>
 	    <td><%= index_btn_edit edit_user_path(c), t("helpers.forms.edit") %>
-					<%= index_btn_disable user_path(c), t("helpers.forms.destroy") %></td>
+					<%= index_btn_disable user_path(c), t("helpers.forms.disable") %></td>
 	</tr>  
 	<% end %>
 </table>

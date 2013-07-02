@@ -29,18 +29,13 @@
                   </thead>
 
                   <tbody>
-                    <% @process_instance.each do |p|
-                      custom_process = p.custom_process 
-                      business_attr = custom_process.step.attrs.where("options ILIKE '%Guara::CustomerPj'").first()
-                      role_attr = custom_process.step.attrs.where(:options=> '$Guara::Jobs::Role').first()
-                      %>
-                      
+                    <% @process_instance.each do |p| %>                      
                       <tr class="<%= p.custom_process.enabled == false ? 'warning' : '' %>">
                         <td><%= link_to p.id, process_instance_path(p) %></td>
-                        <td><%= show_attr_value(p, business_attr) %></td>
-                        <td><%= show_attr_value(p, role_attr) %></td>
-                        <td><%= !p.date_start.nil? ? format_date p.date_start : ''  %></td>
-                        <td><%= !p.date_finish.nil? ? format_date p.date_finish : ''  %></td>
+                        <td><%= p.vacancy.customer_pj.person.name if !p.vacancy.customer_pj.nil? %></td>
+                        <td><%= p.vacancy.role.name if !p.vacancy.role.nil? %></td>
+                        <td><%= !p.date_start.nil? ? p.date_start.strftime("%d/%m/%Y") : ''  %></td>
+                        <td><%= !p.date_finish.nil? ? p.date_finish.strftime("%d/%m/%Y") : ''  %></td>
                         <td><%= p.step.name  %></td>
                         <td>
                           <%= index_btn_view process_instance_path(p), "Exibir Processo" %>

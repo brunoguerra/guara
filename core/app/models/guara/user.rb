@@ -18,7 +18,7 @@ module Guara
     #attr_readonly :admin
     attr_accessible :name, :email, :password, :password_confirmation, :admin, :remember_me, :users_has_groups, 
                     :primary_group, :primary_group_id, :secundary_groups, :secundary_group_ids, :primary_company_business, :primary_company_business_id,
-                    :type_id
+                    :type_id, :primary_company_branch_id, :primary_company_branch, :company_branch_ids
   
     # Include default devise modules. Others available are:
     # :token_authenticatable, :confirmable,
@@ -48,8 +48,8 @@ module Guara
     has_many :assigned_tasks, class_name: "Task", foreign_key: "assigned_id"
     
     #Company Area <==========
-    belongs_to :primary_company_branch, class_name: "CompanyBranch"
-    has_many :company_branches
+    belongs_to :primary_company_branch, class_name: "Guara::CompanyBranch"
+    has_and_belongs_to_many :company_branches, class_name: "Guara::CompanyBranch", :join_table => 'guara_company_branches_users'
     belongs_to :primary_company_business, class_name: "CompanyBusiness"
   
     #GROUPS<=================

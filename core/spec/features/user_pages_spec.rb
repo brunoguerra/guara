@@ -20,14 +20,16 @@ describe "User pages" do
       visit users_path
     end
 
-    it { should have_selector('title', text: 'All users') }
-    it { should have_selector('h1',    text: 'All users') }
+    it "elements basic" do
+      should have_selector('title', text: I18n.t('users.index.title'))
+      should have_selector('a.brand', text: I18n.t('users.index.title'))
+    end
 
     describe "pagination" do
 
-      it { should have_selector('div.pagination') }
+      it "should list group of each user" do
+        should have_selector('div.pagination')
 
-      it "should list each user" do
         User.paginate(page: 1).each do |user|
           page.should have_selector('li', text: user.name)
         end
@@ -45,13 +47,14 @@ describe "User pages" do
           sign_out
           sign_in admin
           visit users_path
+          bt_disable = "a[href=#{destroy_user_path(User.first)}]"
         end
         
-        it { should have_link(I18n.t('helpers.forms.disable'), href: user_path(User.first)) }
+        it { should have_css(bt_disable) }
         it "should be able to delete another user" do
-          expect { click_link(I18n.t('helpers.forms.disable')) }.to change(User, :count).by(-1)
+          expect { find(bt_disable).click() }.to change(User, :count).by(-1)
         end
-        it { should_not have_link(I18n.t('helpers.forms.disable'), href: user_path(admin)) }
+        it { should_not have_css("a[href=#{destroy_user_path(admin)}]") }
       end
     end
     
@@ -84,14 +87,17 @@ describe "User pages" do
     before do
       able_update(user, SystemModule.USER)
       able_create(user, SystemModule.USER)
+
+      #login_as(user, :scope => :user)
       sign_in user
+
       visit edit_user_path(user)
     end
 
     describe "page" do
       it { should have_selector('h1',    text: I18n.t("users.edit.title")) }
       it { should have_selector('title', text: I18n.t("users.edit.title")) }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
+      # review it { should have_link(I18n.t('user.profile.change'), href: 'http://gravatar.com/emails') }
     end
 
     describe "with valid information" do
@@ -114,20 +120,22 @@ describe "User pages" do
       specify { user.reload.email.should == new_email }
     end
     
-    it "should select primaty company branch" do
-      let(:company_branch) { Factory(:company_branch) }
+    context "company branch" do
       
+      let(:company_branch) { Factory(:company_branch) }
+
       before do
         
         @primary_company_branch = company_branch
         user.primary_company_branch = nil
         user.save
-        
-        sign_in user
-        visit edit_user_path(user)
+      end
+
+      after do
+        sign_out user
       end
       
-      it "editing with first" do
+      it "should editing with first user wiith company branch" do
         select(company_branch.name, :from => I18n.t("users.primary_company_branch"))
         click_button autotitle_update("User") 
         #

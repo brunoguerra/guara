@@ -69,8 +69,8 @@ FactoryGirl.define do
     name { Faker::Name.first }
   end
 
-  factory :company_branch do
-    name { Faker::Name.first }
+  factory :company_branch, :class => Guara::CompanyBranch do
+    name { Faker::Name.first_name }
   end
 
 end

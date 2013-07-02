@@ -219,8 +219,13 @@ pt-BR:
     title: "Usuários"
     link: "Usuários"
     all: "Todos os Usuários"
+    primary_company_branch: "Empresa Primaria"
+    company_branches: "Accesso as Empresas"
     created_at: "Criado em"
     updated_at: "Atualizado em"
+    index:
+      tilte: "Usuários"
+      link: "Usuários"
     edit:
       title: "Edição do Usuário"
       link: "Editar"
@@ -251,7 +256,11 @@ pt-BR:
   business_segments:
     link: "Segmentos"
     title: "Segmentos"
-    
+  
+  company_branches:
+    link: "Filiais"
+    title: "Filiais"
+
   business_activities:
     link: "Atividades"
     title: "Atividades"
@@ -427,7 +436,7 @@ pt-BR:
     forms: &forms_commons
       cancel: "Cancelar"
       edit: "Editar"
-      update: "Atualizar"
+      update: "Salvar"
       add: "Adicionar"
       create: "Criar"
       new: "Novo"
@@ -466,8 +475,8 @@ pt-BR:
   will_paginate:
     previous_label: "Anteriores"
     next_label: "Próximos"
-        
-        
+    
+    
   # [Formtastic]
   
   formtastic:
@@ -483,3 +492,12 @@ pt-BR:
   system:
     modules: &core_modules
       "guara/city": "Cidades"
+      "guara/state": "Estado"
+      "guara/district": "Bairro"
+      "guara/user": "Usuários"
+      "guara/company_branch": "Filiais"
+      "guara/company_segment": "Área de Negócio"
+
+  activerecord:
+    models:
+      <<: *core_modules

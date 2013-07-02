@@ -3,18 +3,19 @@ module Guara
     	class ScheduledDealsController < Guara::BaseController
     		load_and_authorize_resource :scheduled_deal, :class => "Guara::ActiveCrm::Scheduled::Deals", except: [:multiselect_scheduleds, :multiselect_group]
 
-    		include ScheculedsHelper
+    		include ScheduledsHelper
             include ScheduledContactsHelper
 
-            helper ScheculedsHelper
+            helper ScheduledsHelper
             helper ScheduledContactsHelper
 
     		def index
     			params[:search] = {} if params[:search].nil?
                 @search = Scheduled::Deals.search(params[:search])
                 @scheduled_deals = paginate(@search)
-                @scheduleds = load_scheduleds_select
-                @customer_groups = load_group_select
+                @scheduleds = load_scheduleds_select(params[:search])
+                @customer_groups = load_group_select(params[:search])
+                @customers = load_customer_select(params[:search])
     		end
 
             def show
@@ -24,7 +25,7 @@ module Guara
             end
 
     		def multiselect_scheduleds
-    			@scheduleds = load_scheduleds_select
+    			@scheduleds = load_scheduleds_select(params[:search])
     			render json: {success: true, data: @scheduleds.collect { |c| { :id => c.id.to_s, :name => c.name } } }
 
                 authorize! :read, Scheduled::Scheduled
@@ -35,25 +36,6 @@ module Guara
                 render json: {success: true, data: @groups.collect { |c| { :id => c.id.to_s, :name => c.name } } }
 
                 authorize! :read, Scheduled::CustomerGroup 
-            end
-
-    		private
-    		def load_scheduleds_select
-    			search = search_scheduled(params[:search])
-                if search.empty?
-                	return Scheduled::Scheduled.limit(25).search(search).order(:id)
-                else
-                	return Scheduled::Scheduled.search(search).order(:id)
-                end
-    		end
-
-            private
-            def load_group_select
-                if params[:search][:group_scheduled_id_in].nil?
-                    return Scheduled::CustomerGroup.order(:id).limit(25)
-                else
-                    return Scheduled::CustomerGroup.where(:scheduled_id=> params[:search][:group_scheduled_id_in]).order(:id).limit(25)
-                end
             end
 
     	end
