@@ -1,0 +1,25 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container" style="width: auto;">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= link_to t('active_crm.title'), root_path(), class: :brand %>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li class="<%= 'active' if active == :scheduleds %>">
+            <%= link_to t('active_crm.scheduled.title'), scheduleds_path() %>
+          </li>
+          <li class="<%= 'active' if active == :scheduled_contacts_reports %>">
+            <%= link_to t('active_crm.scheduled_contacts_reports.title'), scheduled_contacts_reports_path() %>
+          </li>
+          <li class="<%= 'active' if active == :scheduled_deals %>">
+            <%= link_to t('active_crm.scheduled_deals.title'), scheduled_deals_path() %>
+          </li>
+      	</ul>
+      </div><!-- /.nav-collapse -->
+    </div>
+  </div>
+</div>

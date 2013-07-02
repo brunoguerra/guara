@@ -1,4 +1,5 @@
 <section id="active_crm">
+  <%= render :partial => 'navbar', locals: {active: :scheduleds} rescue '' %>
   <h1><%= t("active_crm.scheduled.planning_contact") %></h1>
   <h3><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></h3>
   
