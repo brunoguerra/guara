@@ -32,9 +32,9 @@
 
 
 <ul class="li_status">
-<% @vacancy.status.routes.each do |vacancy_status| %>
+	<% @vacancy.next_routes.each do |vacancy_status| %>
 	<li class="li_status"><%= link_to t("jobs.vacancy_status.%s" % vacancy_status.name), vacancy_change_status_path(@vacancy, status_id: vacancy_status.id), :class => "btn btn-block" %><li>
-<% end %>
+	<% end %>
 </ul>
 </div>
 

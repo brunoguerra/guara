@@ -82,6 +82,14 @@ module Guara
       def status
         VacancyStatus.enum[self.status_id]
       end
+
+      def next_routes()
+        if process_instance.step.last? && VacancyStatus.status_eq?(self,  VacancyStatus::OPENED)
+          Vacancy.CLOSE_ACTIONS + self.status.routes
+        else
+          self.status.routes
+        end
+      end
       
       def change_status(new_status)
         if status.routes.include?(new_status)

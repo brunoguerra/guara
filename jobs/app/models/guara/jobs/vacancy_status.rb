@@ -19,9 +19,8 @@ module Guara
       @@closed_partial      = VacancyStatus.new(id: 6, name: "closed_partial", parent: @@closed)
       @@reopened_reposition = VacancyStatus.new(id: 7, name: "reopened_reposition", parent: @@opened)
       @@reopened_others     = VacancyStatus.new(id: 8, name: "reopened_others", parent: @@opened)
-
       
-      @@opened.routes                   = [@@paused, @@closed_total, @@closed_partial, @@canceled]
+      @@opened.routes                   = [@@paused, @@canceled]
       @@paused.routes                   = [@@reopened_others, @@reopened_reposition, @@canceled] 
       @@canceled.routes                 = [@@reopened_others, @@reopened_reposition]
       @@closed.routes                   = [@@reopened_others, @@reopened_reposition] 
@@ -30,6 +29,7 @@ module Guara
       @@reopened_reposition.routes      = @@opened.routes
       @@reopened_others.routes          = @@opened.routes
       
+      CLOSE_ACTIONS                         = [@@closed_total, @@closed_partial]
 
     	def self.enum
     		{
@@ -57,7 +57,10 @@ module Guara
         }
       end
 
-
+      def self.status_eq?(vacancy, status)
+        vacancy.status.id == status.id || 
+          ((vacancy.status.parent!=nil) && (vacancy.status.parent.id == status.id))
+      end
     end
   end
 end

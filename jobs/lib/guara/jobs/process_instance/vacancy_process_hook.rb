@@ -35,10 +35,23 @@ module Guara
               end
             end
           end
-          puts vacancy.to_yaml
           vacancy.save!
         end
         
+      end
+
+      def self.finish_process_actions()
+        VacancyStatus.CLOSE_ACTIONS.each do |close_action|
+            [{
+              title: I18n.t("jobs.vacancy_status.%s" % close_action.name),
+              path: vacancy_change_status_path(vacancy, status_id: close_action.id)
+              },
+             {
+              title: I18n.t("jobs.vacancy_status.%s" % close_action.name),
+              path: vacancy_change_status_path(vacancy, status_id: close_action.id)
+             }
+            ]
+        end
       end
       
     end
