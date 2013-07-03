@@ -26,15 +26,15 @@ module Guara
     end
     
     def current_company_branch
-      @current_branch || self.default_company_branch
+      Guara::CompanyBranch.find_by_id(session[:current_branch]) || self.default_company_branch
     end
 
     def default_company_branch
-      User.company_branch_primary
+      current_user.primary_company_branch
     end
 
-    def current_company_branch=(company_brach)
-      @current_branch = company_branch
+    def set_current_company_branch(company_branch)
+      session[:current_branch] = company_branch
     end
   end
 end

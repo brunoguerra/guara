@@ -4,7 +4,7 @@ module Guara
     before_filter :signed_in_user, only: [:home]
     #before_filter :authenticate_user!, only: [:home, :edit, :update, :destroy]  #devise
     skip_authorization_check :only => [:home]
-    
+        
     def home
       if signed_in?
         @micropost  = current_user.microposts.build

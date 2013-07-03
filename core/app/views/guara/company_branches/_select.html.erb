@@ -1,0 +1,13 @@
+<div class="company_branches">
+	<div class="btn-group">
+    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+      <%= current_company_branch.name %><span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+    <% current_user.company_branches.each do |company_branch| %>
+      <li><%= link_to company_branch.name, change_branch_user_session_path(company_branch_id: company_branch.id) unless local_assigns[:locals][:current].to_s == company_branch.id.to_s %></li>
+    <% end %>
+    </ul>
+  </div>
+	
+</div>

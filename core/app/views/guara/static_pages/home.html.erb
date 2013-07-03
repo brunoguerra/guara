@@ -5,6 +5,7 @@
 			<div class="user_info">
 				<%= render 'shared/guara/user_info' %>
 			</div>
+			<%= render "guara/company_branches/select", :locals => { current: current_company_branch.id } if current_user.company_branches.size>0 %>
 			<div class="user_info">
 				<%= render 'shared/guara/notifies' %>	
 			</div>

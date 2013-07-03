@@ -342,7 +342,7 @@ pt-BR:
     link: "Suporte"
   
   developer:
-    link: Woese
+    link: BitWon
   
 
   contact:
@@ -380,6 +380,12 @@ pt-BR:
       all: "Tudo"
       step: "Etapas"
       step_instance: "Instância das Etapas"
+      "guara/city": "Cidades"
+      "guara/state": "Estado"
+      "guara/district": "Bairro"
+      "guara/user": "Usuários"
+      "guara/company_branch": "Filiais"
+      "guara/company_segment": "Área de Negócio"
       
     abilities:
       READ: "Ler"
@@ -387,49 +393,13 @@ pt-BR:
       UPDATE: "Atualizar"
       DELETE: "Apagar"
       DISABLE: "Desabilitar"
-  
+
+
+  # ====================== Global >
+
+
   #Rails <===================================
-  
-  activerecord:
-    errors:
-      messages:
-        record_invalid: 'Registro Inválido'
-        
-    attributes:
-      "guara/user":
-        <<: *attr_users
-      
-      "guara/customer":
-          <<: *attr_customer
-      
-      "guara/customer_pj":
-          <<: *attr_customer_pj
-      
-      "guara/contact":
-          <<: *attr_contacts
-      
-      "guara/task":
-          <<: *attr_tasks
-      
-      "guara/feedback":
-          <<: *attr_feedbacks
-      
-      "guara/task_type":
-          <<: *attr_task_types
-          
-      "guara/city":
-          <<: *attr_cities
-      
-      "guara/state":
-          <<: *attr_states
-      
-      "guara/district":
-          <<: *attr_districts
-      
-    models: 
-      <<: *system_modules
-      
-  
+
   helpers:
     <<: *commons
     
@@ -487,17 +457,48 @@ pt-BR:
   
   # ========================== Components >
 
-  #Global <==================================
-
-  system:
-    modules: &core_modules
-      "guara/city": "Cidades"
-      "guara/state": "Estado"
-      "guara/district": "Bairro"
-      "guara/user": "Usuários"
-      "guara/company_branch": "Filiais"
-      "guara/company_segment": "Área de Negócio"
-
   activerecord:
+    errors:
+      messages:
+        record_invalid: 'Registro Inválido'
+    
+    attributes:
+      "guara/user":
+        <<: *attr_users
+      
+      "guara/customer":
+          <<: *attr_customer
+      
+      "guara/customer_pj":
+          <<: *attr_customer_pj
+      
+      "guara/contact":
+          <<: *attr_contacts
+      
+      "guara/task":
+          <<: *attr_tasks
+      
+      "guara/feedback":
+          <<: *attr_feedbacks
+      
+      "guara/task_type":
+          <<: *attr_task_types
+          
+      "guara/city":
+          <<: *attr_cities
+      
+      "guara/state":
+          <<: *attr_states
+      
+      "guara/district":
+          <<: *attr_districts
+
     models:
-      <<: *core_modules
+      <<: *system_modules
+
+
+  attributes:
+    name: "Nome"
+    enabled: "Ativo"
+    created_at: "Criado em"
+    updated_at: "Atualizado em"

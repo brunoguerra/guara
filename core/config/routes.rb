@@ -26,6 +26,7 @@ Guara::Core::Engine.routes.draw do
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  get '/users/company_branch/:company_branch_id/change', to: 'sessions#change', as: 'change_branch_user_session'
 
   #authenticate
   #match '/signup',  to: 'users#new'

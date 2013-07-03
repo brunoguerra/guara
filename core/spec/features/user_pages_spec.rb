@@ -56,8 +56,7 @@ describe "User pages" do
         end
         it { should_not have_css("a[href=#{destroy_user_path(admin)}]") }
       end
-    end
-    
+    end 
   end
   
   describe "profile page" do
@@ -87,7 +86,6 @@ describe "User pages" do
     before do
       able_update(user, SystemModule.USER)
       able_create(user, SystemModule.USER)
-
       #login_as(user, :scope => :user)
       sign_in user
 
@@ -110,7 +108,7 @@ describe "User pages" do
         fill_in I18n.t("users.password_confirmation"), with: user.password
         click_button autotitle_update("User")
         user.reload
-        sign_in user
+        
         visit user_path(user)
       end
 
@@ -128,18 +126,20 @@ describe "User pages" do
         
         @primary_company_branch = company_branch
         user.primary_company_branch = nil
+        #refresh page
+        visit edit_user_path(user)
         user.save
       end
 
       after do
-        sign_out user
+        sign_out
       end
       
       it "should editing with first user wiith company branch" do
         select(company_branch.name, :from => I18n.t("users.primary_company_branch"))
         click_button autotitle_update("User") 
         #
-        user.reload.primary_company_branch.should be_eq(@primary_company_branch)
+        user.reload.primary_company_branch.id.should be(@primary_company_branch.id)
       end
     end
     

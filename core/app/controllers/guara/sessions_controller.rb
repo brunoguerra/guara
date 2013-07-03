@@ -1,9 +1,12 @@
 
 module Guara
-  class SessionsController < Devise::SessionsController
-    skip_authorization_check :only => [:new, :create]
+  class SessionsController < Guara::BaseController
 
-    def new
+    def change
+    	authorize! :read, :customer
+    	set_current_company_branch(params['company_branch_id'])
+    	redirect_to root_path
     end
+
   end
 end

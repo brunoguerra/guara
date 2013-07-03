@@ -41,7 +41,7 @@ module Guara
 
         #capybara
         config.include Warden::Test::Helpers
-        Warden.test_mode!
+        #Warden.test_mode!
 
         self.config_transactional config
         config.infer_base_class_for_anonymous_controllers = false

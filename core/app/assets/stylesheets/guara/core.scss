@@ -9,3 +9,8 @@
  *= require guara/users
  */
 
+section.container {
+	td, li, p, span, a, input, button {
+		text-transform: uppercase;
+	}
+}
