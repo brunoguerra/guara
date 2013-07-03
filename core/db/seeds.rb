@@ -11,6 +11,7 @@ module Guara
                          { name: 'State' },
                          { name: 'City' },
                          { name: 'District' },
+                         { name: 'CompanyBranch' }
                       ])                   
 
     admin_group = UserGroup.create!(name: "Administrators", system: true)

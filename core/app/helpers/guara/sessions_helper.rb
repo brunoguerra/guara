@@ -1,13 +1,9 @@
 # encoding: utf-8
 
 module Guara
-  module SessionsHelper    
-    def signed_in?
-      !current_user.nil?
-    end
-
+  module SessionsHelper
     def signed_in_user
-      unless signed_in?
+      unless user_signed_in?
         store_location
         redirect_to new_user_session_path, notice: t("session.erros.restrict_redirected")
       end

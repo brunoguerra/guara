@@ -220,7 +220,7 @@ pt-BR:
     link: "Usuários"
     all: "Todos os Usuários"
     primary_company_branch: "Empresa Primaria"
-    company_branches: "Accesso as Empresas"
+    company_branches: "Acesso as Empresas"
     created_at: "Criado em"
     updated_at: "Atualizado em"
     index:

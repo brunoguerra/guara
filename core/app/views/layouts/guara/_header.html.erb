@@ -5,7 +5,7 @@
 			<nav>
 				<ul class="nav pull-right">
 					<li><%= link_to t("home.link"), guara.root_path %></li>
-					<% if signed_in? %>
+					<% if user_signed_in? %>
 
 						<%= build_menu_modules() %>
 						

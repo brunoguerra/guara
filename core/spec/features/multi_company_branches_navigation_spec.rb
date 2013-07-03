@@ -2,11 +2,16 @@ require 'spec_helper'
 
 feature "Multi Company Branches Navigation" do
 	
+	include Guara::SessionsHelper
+
 	let(:user) { Factory(:user) }
+	let(:admin) { Factory(:admin) }
 
 	before do
 		user.company_branches = Array.new(2) { Factory(:company_branch) }
-		user.save!
+		user.save
+
+		able user, :read, 'company_branch'
 
 		sign_in user
 	end
@@ -15,11 +20,10 @@ feature "Multi Company Branches Navigation" do
 			visit root_path()
 
 			within('.company_branches') do
-				select(user.company_branches.first, I18n.t('company_branches.title'))
+				click_on user.company_branches.first.name
 			end
 
-			except(current_company_branch).to be(user.company_branches.first)
-
+			expect(find('#current_branch')).to have_content(user.company_branches.first.name)
 	end
 
 end
