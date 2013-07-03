@@ -21,8 +21,8 @@
         <tr>
           <td><%= scheduled.id  %></td>   
           <td><%= scheduled.user.name if !scheduled.user.nil? %>                         
-          <td><%= !scheduled.date_start.nil? ? format_date scheduled.date_start : ''  %></td>
-          <td><%= !scheduled.date_finish.nil? ? format_date scheduled.date_finish : ''  %></td>
+          <td><%= format_date(scheduled.date_start) %></td>
+          <td><%= format_date(scheduled.date_finish) %></td>
           <td><%= scheduled.task_type.name if !scheduled.task_type.nil? %></td>                        
           <td class="subject"><%= link_to scheduled.subject, scheduled_path(scheduled) %></td>
           <td>
