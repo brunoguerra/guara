@@ -1,7 +1,7 @@
 <section id="active_crm">
   <%= render :partial => 'navbar', locals: {active: :scheduleds} rescue '' %>
-  <h1><%= t("active_crm.scheduled.planning_contact") %></h1>
-  <h3><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></h3>
+  <h3><small><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></small>
+    <%= t("active_crm.scheduled.planning_contact") %></h1>
   
   <div class="row-fluid">
     <div class="thumbnail span12">
@@ -35,13 +35,14 @@
             </div>
         </div>
     </fieldset>
-  </div>
-</section>
-<br>
 
 <%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %>
 <%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
 <%= link_to t("active_crm.scheduled_customer_groups.new"), scheduled_scheduled_customer_groups_path(params[:id]), class: "btn" %>
+    
+  </div>
+</section>
+<br>
 
 
  <%= render :partial => 'guara/active_crm/scheduled_customer_groups/show_groups' %>

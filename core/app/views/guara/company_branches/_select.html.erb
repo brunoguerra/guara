@@ -1,7 +1,7 @@
 <div class="company_branches">
 	<div class="btn-group">
-    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" >
-      <span id="current_branch"><%= current_company_branch && current_company_branch.name %><span class="caret"></span></span>
+    <button class="btn btn-success dropdown-toggle" data-toggle="dropdown" id="current_branch">
+      <%= current_company_branch && current_company_branch.name %><span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
     <% current_user.company_branches.each do |company_branch| %>

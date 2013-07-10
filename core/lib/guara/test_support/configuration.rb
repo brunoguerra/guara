@@ -37,7 +37,7 @@ module Guara
         config.include Guara::Core::Engine.routes.url_helpers
         config.include Guara::BaseHelper
 
-        config.include Utilities
+        config.include Guara::TestSupport::Utilities
 
         #capybara
         config.include Warden::Test::Helpers

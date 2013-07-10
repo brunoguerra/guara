@@ -492,8 +492,20 @@ overflow: hidden;
 	min-height: 120px;
 }
 
+.block3 {
+  min-height: 180px;
+}
+
 .block4 {
 	min-height: 240px;
+}
+
+.block2.autoscroll {
+  height: 180px;
+}
+
+.block4.autoscroll {
+  height: 240px;
 }
 
 .autoscroll {

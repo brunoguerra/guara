@@ -2,7 +2,7 @@
   <%= table_tr_filter(t("helpers.label.customers.search.names"), group.name_contains) %>
 <% end %>
 
-<% if group.business_activities.to_s.empty? %>
+<% if !group.business_activities.nil? && !group.business_activities.to_s.empty? %>
   <%= table_tr_filter(t("customer_pjs.activities"), group.business_activities.split(',').map{ |key| Guara::BusinessActivity.find(key).name }.join(', ')) %>
 <% end %>
 

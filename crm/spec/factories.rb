@@ -1,7 +1,8 @@
 puts "loading crm/factories..."
 
 #core factories
-load Rails.root.join('../../../core/spec/factories.rb')
+load File.expand_path('../../../core/spec/factories.rb', __FILE__)
+
 
 FactoryGirl.define do
 

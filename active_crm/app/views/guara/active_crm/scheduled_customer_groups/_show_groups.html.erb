@@ -1,26 +1,13 @@
-<style>
-  caption h3, thead tr h4{
-    text-align: center;
-  }
-</style>
-<section id="active_crm">
-  
-  <h3><%= t("active_crm.scheduled_customer_groups.title") +" "+ "#{@scheduled_customer_groups.id if !@scheduled_customer_groups.nil? }"  %></h3>
-  <div class="row-fluid">
-    <div class="thumbnail span12">
-      <div class="caption">     
-        <caption><h3>Filtros</h3></caption>
+  <ul class="thumbnails">
+
             <% 
             i = 0
             @customer_groups.each do |group| 
                 i += 1
               %>
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th><h4>Grupo de Cliente <%=i%></h4></th>
-                  </tr>
-                </thead>
+
+    <li class="thumbnail span4">
+              <table class="table table-striped">
                 <tbody>
                   <%= render :partial => 'guara/active_crm/scheduled_customer_groups/tr_group_customer', locals: {group: group, i: i} %>
                   <tr>
@@ -42,9 +29,9 @@
                   </tr>
                 </tbody>
               </table> 
+    </li>
             <% end %>
           
-      </div>
+      </ul>
     </div>
   </div>
-</section>
