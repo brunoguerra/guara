@@ -2,6 +2,7 @@
  *= require guara/core
  *= require select2/select2.css
  *= require guara/bootstrap_custom
+ *= require_self
  */
 
 #customer_show #title h1 {
@@ -64,4 +65,11 @@
 		margin-left: 10px;
 	}
 	
+}
+
+
+
+.ui-widget {
+ font-size: 11px;
+
 }

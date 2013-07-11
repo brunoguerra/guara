@@ -1,23 +1,22 @@
 
 <ul class="tasks-list">
 <% items.each do |item|  %>
-	<div class="alert <%= task_alert_level_class(item) %>" id="task<%= item.id %>" onClick="task_show(<%= item.id %>)">
+	<li class="span3 alert <%= task_alert_level_class(item) %>" id="task<%= item.id %>" onClick="task_show(<%= item.id %>)">
     <code><%= format_datetime(item.due_time) %></code>
 		<b><%= t("tasks.name") %>: <%= item.name %></b>
 		<i><%= item.contact.name if !item.contact.nil? %></i>
 
 		<%= name_or_empty(item.type) %>
-	</div>
+	</li>
 <% end %>
-
-	<div class="modal-task modal hide fade" style="display:none">
-		<div class="modal-body">
-		</div>
-		<div class="modal-footer">
-			<a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>
-		</div>
-	</div>
-<ul>
+</ul>
+<div class="modal-task modal hide fade" style="display:none">
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <a id="close" class="btn btn-primary"><%= t("helpers.close") %></a>
+  </div>
+</div>
 <script>
 
 var reg = new RegExp("\\999999", "gm");

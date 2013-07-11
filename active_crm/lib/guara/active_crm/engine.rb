@@ -5,8 +5,6 @@ module Guara
     class Engine < ::Rails::Engine
       isolate_namespace Guara
       engine_name 'guara_active_crm'
-
-      require 'jquery-ui-rails'
       
       #TODO Initialize rspec_paths
       #config.rspec_paths << self.root
