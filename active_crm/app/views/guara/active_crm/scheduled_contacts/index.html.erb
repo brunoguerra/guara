@@ -1,81 +1,56 @@
-<style type="text/css">
-  .container-contacts table tr[contact-id], #customer-to-register tr, #customer-scheduled tr{
-    cursor: pointer;
-  }
-  #customer-to-register tr:hover{
-    background-color: #fff;
-  }
-  .container-customer .thumbnail{
-    overflow-y: scroll!important;
-    height: 165px!important;
-  }
-  .container-thumbnails .container{
-    width: 98%!important;
-  }
-  .autoscroll.block4{
-    max-height: 240px;
-  }
-</style>
+<%= stylesheet_link_tag "guara/active_crm/scheduleds" %>
 
 <section id="active_crm">
     <%= render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :false} %>
 
     <div>
-        <div class="row-fluid">
+        <div>
             <ul class="thumbnails">
 
-              <li class="span12">
-                <div class="thumbnail">
-                  <div class="caption">
-                    
-                    <div class="thumbnail" style="margin-top:10px;">
-                  <div class="caption">
-                    <div class="page-header"><%= t("active_crm.scheduled.customers_to_register") %></div>
-                    
-                    <div id="container_table">
-                      <%= render :partial => 'customers_to_register' %>
-                      <%= will_paginate(@customers_to_register) %>
+              <li class="active_crm customers span12">
+
+                  <div class="panel">
+
+                    <div id="contactables-list" class="list span12">
+                      <h6><%= t("active_crm.scheduled.customers_to_register") %></h6>
+                      <div id="container_table">
+                        <%= render :partial => 'customers_to_register' %>
+                        <%= will_paginate(@customers_to_register) %>
+                      </div>
                     </div>
 
-
+                    <div id="customer_show" class="list span12" ></div>
                   </div>
-                </div>
 
-                <div class="thumbnail" style="margin-top:10px;">
-                  <div class="caption">
-                    <div class="page-header"><%= t("active_crm.scheduled.customers_scheduled") %></div>
-                    <table id="customer-scheduled" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th class="span4"><%= t("helpers.label.customers.search.names") %></th>
-                          <th><%= t("active_crm.scheduled.responsible") %></th>
-                          <th><%= t("active_crm.scheduled.datetime") %></th>
-                          <th><%= t("active_crm.scheduled.activity") %></th>
+              </li>
+              <li class="span12">                
+                <h6><%= t("active_crm.scheduled.customers_scheduled") %></h6>
+                <table id="customer-scheduled" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th class="span4"><%= t("helpers.label.customers.search.names") %></th>
+                      <th><%= t("active_crm.scheduled.responsible") %></th>
+                      <th><%= t("active_crm.scheduled.datetime") %></th>
+                      <th><%= t("active_crm.scheduled.activity") %></th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    
+                    <% (@customers_scheduled || []).each do |customer| %>
+                        <% customer.load_scheduled_contacts(params[:scheduled_customer_group_id]).each do |scheduled_contact|%>
+                        <tr customer-id="<%=customer.id%>" contact-id="<%=scheduled_contact.contact_id%>">
+                          <td><%= customer.name %></td>
+                          <td><%= scheduled_contact.contact.name %></td>
+                          <td><%= scheduled_contact.scheduled %></td>
+                          <td><%= scheduled_contact.activity %></td>
                         </tr>
-                      </thead>
-
-                      <tbody>
-                        
-                        <% (@customers_scheduled || []).each do |customer| %>
-                            <% customer.load_scheduled_contacts(params[:scheduled_customer_group_id]).each do |scheduled_contact|%>
-                            <tr customer-id="<%=customer.id%>" contact-id="<%=scheduled_contact.contact_id%>">
-                              <td><%= customer.name %></td>
-                              <td><%= scheduled_contact.contact.name %></td>
-                              <td><%= scheduled_contact.scheduled %></td>
-                              <td><%= scheduled_contact.activity %></td>
-                            </tr>
-                            <% end %>
                         <% end %>
+                    <% end %>
 
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                  </div>
-                </div>
-
-            </li>
+                  </tbody>
+                </table>
+              </li>
           </ul>
         </div>
     </div>

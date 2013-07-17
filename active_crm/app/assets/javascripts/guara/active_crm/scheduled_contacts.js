@@ -5,8 +5,10 @@
     new_scheduled_contacts: null,
     close_negociation: null,
     javascript_crm: null,
-    container_customer: $('#dialog-modal-customer'),
+    container_customer: $('#customer_show'),
     container_call: $('#dialog-modal-call'),
+    top_element: $('#contactables-list'),
+    scroll_top_margin: 100,
 
     init: function(ignored_customers, new_scheduled_contacts, close_negociation, customer_group){
       var me = this;
@@ -23,7 +25,8 @@
         me.new_scheduled_contacts = new_scheduled_contacts; 
       }
       $('#container_table #customer-to-register tbody tr').click(function(){
-        me.open_dialog_customer($(this));
+        //me.open_dialog_customer($(this));
+        me.slide_customer_content($(this));
       });
 
       $('#customer-scheduled tbody tr').click(function(){
@@ -44,7 +47,7 @@
         .html(html)
         .dialog({
           resizable: false,
-          height:180,
+          height: 180,
           modal: true,
           buttons: {
             Ok: function() {
@@ -57,7 +60,74 @@
         });
     },
 
-    open_dialog_customer: function(tr, contact_scheduled){
+    slide_customer_content: function(tr, contact_scheduled) {
+
+      this.current_customer = tr.attr('customer-id');
+      console.log(this);
+      console.log(tr.offset());
+      console.log(tr.width());
+      console.log(tr.height());
+
+      var me = this;
+
+      this.container_customer.show();
+      this.container_customer.html('Carregando...').load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
+        if(status=='error'){
+          var error = $('#alert-error');
+          if(error.length == 0){
+            me.container_customer.html('<div id="alert-error" class="alert alert-error"></div>');
+            var error = $('#alert-error');
+          }
+          error.html('<strong>Erro ao Carregar Cliente</strong>, Por favor tente Novamente!');
+          $('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').hide();
+          return true;
+        }
+        else{
+          $('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').show();
+        }
+
+        me.reorganize_view_customer();
+        $('select.multiselect').removeClass('multiselect');
+        me.initialize_js_customer();
+        me.call_container_contacts();
+
+        if(contact_scheduled){
+          me.open_dialog_call(tr.attr('contact-id'));
+        }
+
+        $(".active_crm .panel").animate({"left": -(me.container_customer.position().left)}, 600);
+
+        me.container_customer.append(me.add_bt_back());
+        me.scroll_top();
+
+      })
+    },
+
+    add_bt_back: function() {
+      var me = this;
+      var a_btn = $('<a class="btn">Back</a>');
+        a_btn.on('click', function() {
+          me.slide_to_list();
+        });
+
+      return a_btn;
+    },
+
+    slide_to_list: function() {
+      this.scroll_top();
+      
+      $(".active_crm .panel").animate({"left": 0}, 600);
+      this.container_customer.hide(600);
+
+    },
+
+    scroll_top: function() {
+      $('html, body').animate({
+         scrollTop: $(this.top_element).offset().top - this.scroll_top_margin,
+     }, 600);
+    },
+
+    /*open_dialog_customer: function(tr, contact_scheduled){
       var me = this;
       me.current_customer = tr.attr('customer-id');
       me.container_customer.html('Carregando...')
@@ -139,7 +209,7 @@
         }
 
       });
-    },
+    },*/
 
     call_container_contacts: function(){
       var me = this;

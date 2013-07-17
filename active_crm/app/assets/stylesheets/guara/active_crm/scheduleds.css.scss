@@ -1,0 +1,42 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+ .container-contacts table tr[contact-id], #customer-to-register tr, #customer-scheduled tr{
+    cursor: pointer;
+  }
+  #customer-to-register tr:hover{
+    background-color: #fff;
+  }
+  .container-customer .thumbnail{
+    overflow-y: scroll!important;
+    height: 165px!important;
+  }
+  .container-thumbnails .container{
+    width: 98%!important;
+  }
+  .autoscroll.block4{
+    max-height: 240px;
+  }
+
+.active_crm.customers {
+  overflow: hidden;
+  position: relative;
+  list.span12 {
+    margin-left: 0px;
+  }
+  .panel {
+    position:relative;
+    left:0;
+    width:1900px;
+    height: 100%;
+    margin: 0;
+
+    .list {
+      margin: 0;
+      display: inline;
+
+    }
+  }
+}

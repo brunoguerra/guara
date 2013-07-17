@@ -424,6 +424,11 @@ input[type="text"], input[type="text"].search-query{
 }
 
 
+.select2-container, .select2-drop, .select2-search, .select2-search input {
+  width: 100%;
+}
+
+
 /* CUSTOMER SHOW2 :: BEGIN*/
 table thead tr th, table tbody tr td{
   
