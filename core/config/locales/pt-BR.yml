@@ -6,6 +6,10 @@ pt-BR:
     all: "Todos"
     min: "Mínimo"
     max: "Máximo"  
+    day: "Dia"
+    days: "Dias"
+    month: "Mês"
+    months: "Meses"
     
   app:
     title:

@@ -1,0 +1,101 @@
+<%# encoding: utf-8 %>
+
+var scheduled_contacts_form_js_init = (function() {
+  $( "#datepicker" ).datepicker($.datepicker.regional[ "pt-BR" ]);
+  $("#hour").mask("99:99");
+  $('.scheduled_contact_submit')
+    .bind("ajax:success", function(evt, data, status, xhr){
+      
+    var $form = $(this);
+    $form.find('textarea,input[type="text"],input[type="file"]').val("");
+    if(data.success == true){
+      showMessage("<%= I18n.t('active_crm.scheduled.call_completed') %>");
+
+      var customer_id = ScheduledContacts.current_customer;
+      console.log($('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]'));
+      $('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]').remove();
+
+      if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>){
+        $('#customer-scheduled tbody')
+        .append('<tr customer-id="'+data.data.customer_id+'" contact-id="'+data.data.contact_id+'">'+
+          '<td>'+data.data.customer_name+'</td>'+
+          '<td>'+data.data.contact_name+'</td>'+
+          '<td>'+data.data.scheduled+'</td>'+
+          '<td>'+data.data.activity+'</td>'+
+          '</tr>');         
+
+        $('#customer-scheduled tbody tr').click(function(){
+            ScheduledContacts.open_dialog_customer($(this), true);
+        });
+
+      }
+      
+    }
+  });
+});
+
+function completed(type, value){
+  var deal_result = value;
+
+  if(value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %> && type == 'result'){
+    $('.custom-span3-big').removeClass('disabled'); 
+  }
+  else{
+    $('.custom-span3-big').addClass('disabled');
+  }
+
+  $('#active_crm_scheduled_contact_scheduled').val('');
+  $('#active_crm_scheduled_contact_result').val('');
+  $('#active_crm_scheduled_contact_classified_id').val('');
+
+  if(type=='result'){
+    $('#active_crm_scheduled_contact_result').val(deal_result);
+    $('.btn-submit').show();
+  }
+  else if(type=='classified'){
+    deal_result = 2;
+    $('#active_crm_scheduled_contact_result').val(deal_result);
+    $('#active_crm_scheduled_contact_classified_id').val(value);
+    $('.btn-submit').show();
+  }
+  else{
+    $('.btn-submit').hide();
+  }
+
+  contact_status_label(deal_result);
+}
+
+/** **
+ * Labels status
+ *
+ */
+function contact_status_label(value) {
+  var labels = ["<%= I18n.t("active_crm.results_translated.registered") %>", 
+                 "<%= I18n.t("active_crm.results_translated.participation_denied") %>",
+                 "<%= I18n.t("active_crm.results_translated.scheduling") %>"],
+      badges = [".badge-success",
+                ".badge-important",
+                ".badge-warning"],
+      $label_container = $('#active_crm_scheduled_contact_status_label_panel'),
+      $label = $('#active_crm_scheduled_contact_status_label');
+      
+  /* badges */
+  for (var b in badges) { $(badges[b], $label_container).addClass('hide'); }
+  $(badges[value-1], $label_container).removeClass('hide');
+ 
+  $label.html(labels[value-1]);
+  $label_container.removeClass('hide');
+}
+
+
+function verify_form(){
+  $('#active_crm_scheduled_contact_scheduled').val('');
+  if($('#active_crm_scheduled_contact_result').val()=='<%=@scheduling%>'){
+    var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
+    $('#active_crm_scheduled_contact_scheduled').val(date+' '+$('#hour').val());
+  }
+  else{
+    $('#active_crm_scheduled_contact_scheduled').val(''); 
+  }
+  return true;
+}

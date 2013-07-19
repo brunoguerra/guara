@@ -415,7 +415,7 @@ var ScheduledContacts = {
         if(me.is_customer_ignored($(this).attr('customer-id')) === false){
           me.current_customer = $(this).attr('customer-id');
           next_customer = true;
-          me.open_dialog_customer($(this));
+          me.slide_customer_content($(this));
         }
       }
     });
