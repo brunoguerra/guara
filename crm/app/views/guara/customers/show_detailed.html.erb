@@ -141,22 +141,15 @@
 		</li>
 <%	if can? :read, Guara::Contact %>
 		<li class="container container-contacts">
-			<div class="thumbnail contacts">
-				<div class="caption">
-					<legend><%=t("contacts.side.title") %></legend>
-					<%= render :partial => "guara/contacts/list_contacts" %>
-					
-				</div>
-			</div>
+			<%= render :partial => "guara/contacts/list_contacts" %>
 		</li>
 <% end %>
+
 <%	if can? :read, Guara::Task %>
 		<li class="container container-tasks">
 			<div class="thumbnail contacts">
-				<div class="caption">
-					<legend><%=t("tasks.side.title") %></legend>
+					<div><h6><%=t("tasks.side.title") %></h6></div>
 					<%= render :partial => "guara/tasks/side_panel" %>
-				</div>
 			</div>
 		</li>
 <% end %>

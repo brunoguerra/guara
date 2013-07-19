@@ -1,12 +1,11 @@
 
 <ul class="tasks-list">
 <% items.each do |item|  %>
-	<li class="span3 alert <%= task_alert_level_class(item) %>" id="task<%= item.id %>" onClick="task_show(<%= item.id %>)">
-    <code><%= format_datetime(item.due_time) %></code>
-		<b><%= t("tasks.name") %>: <%= item.name %></b>
-		<i><%= item.contact.name if !item.contact.nil? %></i>
-
-		<%= name_or_empty(item.type) %>
+	<li id="task<%= item.id %>" onClick="task_show(<%= item.id %>)">
+      <span class="label label-<%= task_alert_level_class(item) %>"><%= format_datetime(item.due_time) %></span>
+      <b><%= t("tasks.name") %>: <%= item.name %></b>
+		  <i><%= item.contact.name if !item.contact.nil? %></i>
+		  <%= name_or_empty(item.type) %>
 	</li>
 <% end %>
 </ul>

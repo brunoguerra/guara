@@ -516,3 +516,19 @@ overflow: hidden;
 .autoscroll {
 	overflow-y: scroll;
 }
+
+body {
+  font-family: "Helvetica Neue", Verdana, Helvetica, Arial, sans-serif;
+}
+
+.container {
+  font-size: 12px;
+}
+
+.navbar {
+  font-size: 14px;
+
+  .container {
+    font-size: 14px;
+  }
+}

@@ -32,6 +32,9 @@
 				<%= text_field_tag "hour", Time.now.strftime('%H:%M') %>
 			</div>
 		</div>
+		<div id="scheduled_contact_label" class="span3 disabled">
+					<label id="active_crm_scheduled_contact_status_label"></label>
+		</div>
 	</div>
 
 
@@ -40,16 +43,18 @@
 			id: "btn-completed-call", class: "btn dropdown-toggle", role: "button", "data-toggle"=> "dropdown" %>
 
 		<ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-			<% 
-			@participation_denied = Guara::ActiveCrm::Scheduled::Contact.results()[:participation_denied]
-			@scheduling = Guara::ActiveCrm::Scheduled::Contact.results()[:scheduling]
-			Guara::ActiveCrm::Scheduled::Contact.results_translated().each do |key, value| %>
 				
-				<% if @participation_denied == key %>
+				<li role="presentation">
+					  <a role="menuitem" tabindex="-1" href="javascript:void(0);" 
+					  	onClick="completed('result', <%=Guara::ActiveCrm::Scheduled::Contact::ACCEPT %>);">
+					  		<span class="badge badge-success"><i class="icon-thumbs-up" /></span> <%= I18n.t("active_crm.results_translated.registered") %>
+					  	</a>
+					</li>
+
 					<li role="presentation" class="dropdown-submenu">
 					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
-					  	onClick="completed('result', <%=key%>);">
-					  		<%=value %>
+					  	onClick="completed('result', <%=Guara::ActiveCrm::Scheduled::Contact::DENIED%>);">
+					  		<span class="badge badge-important "><i class="icon-thumbs-down" /></span> <%= I18n.t("active_crm.results_translated.participation_denied") %>
 					  	</a>
 					  	<ul class="dropdown-menu">
 					  		<% Guara::ActiveCrm::Scheduled::Classified.all.each do |classified| %>
@@ -60,16 +65,13 @@
 					  		<% end %>
 					    </ul>
 					</li>    
-				<% else %>
-					<li role="presentation">
-					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
-					  	onClick="completed('result', <%=key%>);">
-					  		<%=value %>
+				
+				<li role="presentation">
+					  	<a  role="menuitem" tabindex="-1" href="javascript:void(0);" 
+					  	onClick="completed('result', <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>);">
+					  		<span class="badge badge-warning "><i class="icon-hand-right" /></span> <%= I18n.t("active_crm.results_translated.scheduling") %>
 					  	</a>
 					</li>
-				<% end %>
-				
-			<% end %>
 		</ul>
 	</li>
 
@@ -79,12 +81,13 @@
 
 <script type="text/javascript">
 	$( "#datepicker" ).datepicker($.datepicker.regional[ "pt-BR" ]);
+
 	$('#btn-completed-call').click(function(){
 
 	});
 
 	function completed(type, value){
-		if(value == <%= @scheduling %> && type == 'result'){
+		if(value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %> && type == 'result'){
 			$('.custom-span3-big').removeClass('disabled');	
 		}
 		else{
@@ -107,7 +110,22 @@
 		else{
 			$('.btn-submit').hide();
 		}
+		contact_status_label(value)
 	}
+
+	/** **
+   * Labels status
+   *
+   */
+	function contact_status_label(value) {
+		var labels = ["<%= I18n.t("active_crm.results_translated.registered") %>", 
+									 "<%= I18n.t("active_crm.results_translated.participation_denied") %>",
+									 "<%= I18n.t("active_crm.results_translated.scheduling") %>"];
+		label = labels[value];
+		$('#active_crm_scheduled_contact_status_label').html(label);
+		$('#scheduled_contact_label').removeClass('disabled');
+	}
+
 
 	function verify_form(){
 		$('#active_crm_scheduled_contact_scheduled').val('');
@@ -126,24 +144,26 @@
       var $form = $(this);
       $form.find('textarea,input[type="text"],input[type="file"]').val("");
       if(data.success == true){
-      	alert('Ligação Completada!');
+      	alert(<%= t('active_crm.scheduled.call_completed') %>);
 
       	var customer_id = ScheduledContacts.current_customer;
       	$('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]').remove();
-      	if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact.results()[:scheduling] %>){
+
+      	if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>){
 	      	$('#customer-scheduled tbody')
 	      	.append('<tr customer-id="'+data.data.customer_id+'" contact-id="'+data.data.contact_id+'">'+
 		        '<td>'+data.data.customer_name+'</td>'+
 		        '<td>'+data.data.contact_name+'</td>'+
 		        '<td>'+data.data.scheduled+'</td>'+
 		        '<td>'+data.data.activity+'</td>'+
-		    '</tr>');      		
+				    '</tr>');      		
 
-		    $('#customer-scheduled tbody tr').click(function(){
-		        ScheduledContacts.open_dialog_customer($(this), true);
-	     	});
+			    $('#customer-scheduled tbody tr').click(function(){
+			        ScheduledContacts.open_dialog_customer($(this), true);
+		     	});
+
       	}
-      	
+      
       }
     });
 </script>

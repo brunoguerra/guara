@@ -13,8 +13,8 @@
 	}
 </style>
 
-<ul class="thumbnails">
-	<li style="width:880px;margin-left:12px;">
+<ul class="thumbnails spans">
+	<li class="span12">
 		<div class="thumbnail">
 			<div class="page-header"><%= t("active_crm.scheduled.historic_scheduled_contact_selected") %></div>
 
@@ -39,16 +39,17 @@
 	          </tbody>
 	        </table>
 		</div>
-	</div>
+	</li>
 
-  	<li class="span4">
+  <li class="span4">
   		<div class="thumbnail">
 			<%= render :partial => "show_contact.html.erb" %>
 		</div>
 	</li>
 
-	<li class="custom-span7-medium">
+	<li class="span8">
 		<div class="thumbnail">
 			<%= render :partial => "form.html.erb" %>
 		</div>
 	</li>
+</ul>

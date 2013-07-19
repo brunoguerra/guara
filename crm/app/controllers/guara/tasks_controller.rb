@@ -6,6 +6,7 @@ module Guara
     include FormAjaxHelper
 
     helper CustomersHelper
+    helper TasksHelper
     
     def initialize()
       super

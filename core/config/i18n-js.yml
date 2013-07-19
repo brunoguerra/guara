@@ -1,0 +1,5 @@
+translations:
+- file: 'public/javascripts/en.js'
+  only: 'en.*'
+- file: 'vendor/assets/javascripts/guara/core/pt-BR.js'
+  only: 'pt-BR.*'

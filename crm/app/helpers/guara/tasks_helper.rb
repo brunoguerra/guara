@@ -3,13 +3,13 @@ module Guara
 
     def task_alert_level_class(task)
     
-      return "alert-success" if (task.done?)
+      return "success" if (task.done?)
     
       case task.due_critical_level
         when 3
-          "alert-error"        
+          "important"        
         when 2
-          "alert-info"
+          "info"
         else
           ""
       end

@@ -50,7 +50,7 @@ pt-BR:
       customers_to_register: "Clientes à Contactar"
       customers_scheduled: "Clientes Agendados"
       datetime: "Data/Hora"
-      call_completed: "Ligação Completada"
+      call_completed: "Fim da Ligação"
 
     scheduled_customer_groups: 
       title: "Grupo de Cliente"
@@ -64,4 +64,15 @@ pt-BR:
 
     scheduled_contacts_reports:
       title: "Histórico de Ligações"
+
+  system:
+    modules: &system_modules
+      'guara/active_crm/scheduled/classified': "Call Center - Tipos de Desistências"
+
+
+  activerecord:
+    models:
+      <<: *system_modules
+
+
 

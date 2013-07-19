@@ -23,6 +23,10 @@
 	}
 }
 
+.thumbnail.contacts > div {
+	height: 40px;
+}
+
 #contactsListModal.modal.fade.in {
 		top: 5%;
 }
@@ -64,10 +68,11 @@
 	[class*="span"] {
 		margin-left: 4px;
 	}
-	
+
+	.thumbnails.spans {
+		margin-left: -4px;
+	}	
 }
-
-
 
 .ui-widget {
  font-size: 11px;

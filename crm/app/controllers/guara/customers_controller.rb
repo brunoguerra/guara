@@ -12,6 +12,7 @@ module Guara
 
     helper CrudHelper
     helper CustomersHelper
+    helper TasksHelper
   
     def index
       @sels = params["sels"] || []

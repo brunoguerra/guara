@@ -5,6 +5,7 @@ module Guara
       
       include Select2Helper
       helper ScheduledsHelper
+      helper TasksHelper
       
       def index
         param_search = params[:search]

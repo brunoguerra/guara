@@ -9,15 +9,55 @@
   #customer-to-register tr:hover{
     background-color: #fff;
   }
-  .container-customer .thumbnail{
-    overflow-y: scroll!important;
+  .container-customer .collapsed {
     height: 165px!important;
   }
-  .container-thumbnails .container{
-    width: 98%!important;
-  }
-  .autoscroll.block4{
-    max-height: 240px;
+
+  .container-customer {
+
+    .thumbnail {
+      position: relative;
+    }
+
+    .btn.more {
+      border: 1px solid;
+      padding: 5px;
+
+      position: absolute;
+      width: 20px;
+      height: 10px;
+
+      bottom: 0px;
+      right: 0px;
+      color: #eee;
+      &:after {
+        background: no-repeat url(/assets/glyphicons-halflings.png);
+        width: 20px;
+        height:  20px;
+        content:  " ";
+        position: absolute;
+        left: 50%;
+        margin-left: -7px;
+        background-position: -288px -120px;
+      }
+    }
+
+    .thumbnail.collapsed .btn.more {
+      right: 0px;
+      top: 148px;
+      width: 100%;
+
+      &:after { 
+        background-position: -313px -119px;
+      }
+    }
+
+    .container-thumbnails .container{
+      width: 98%!important;
+    }
+    .autoscroll.block4{
+      max-height: 240px;
+    }
   }
 
 .active_crm.customers {

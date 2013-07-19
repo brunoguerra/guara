@@ -10,6 +10,10 @@
     <%= stylesheet_link_tag "guara/" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/guara/shim' %>
+    <script type="text/javascript">
+      I18n.defaultLocale = "<%= I18n.default_locale %>";
+      I18n.locale = "<%= I18n.locale %>";
+    </script>
   </head>
   <body>
     <%= render 'layouts/guara/header' %>

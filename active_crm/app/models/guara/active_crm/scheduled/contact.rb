@@ -13,6 +13,10 @@ module Guara
             return self.classified.nil? ? Contact.results_translated()[self.result] : self.classified.name
           end
 
+          ACCEPT = 1
+          DENIED = 2
+          SCHEDULED = 3
+
           def self.results
             {
               :registered => 1,
