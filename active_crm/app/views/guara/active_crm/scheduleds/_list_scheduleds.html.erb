@@ -6,11 +6,10 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th><%= t("active_crm.scheduled.id") %></th>
+        <th><%= t("active_crm.scheduled.task_type") %></th>
         <th><%= t("active_crm.scheduled.user") %></th>
         <th><%= t("active_crm.scheduled.date_start") %></th>
         <th><%= t("active_crm.scheduled.date_finish") %></th>
-        <th><%= t("active_crm.scheduled.task_type") %></th>
         <th class="span1"><%= t("helpers.forms.actions") %></th>
       </tr>
     </thead>
@@ -18,11 +17,11 @@
     <tbody>
       <% @active_crm_scheduleds.each do |scheduled| %>
         <tr>
-          <td><%= link_to scheduled.id, scheduled_path(scheduled)  %></td>   
+          <td><%= link_to scheduled.id.to_s + ' - ' + name_or_empty(scheduled.task_type), scheduled_path(scheduled) %></td>
           <td><%= scheduled.user.name if !scheduled.user.nil? %>                         
           <td><%= format_date(scheduled.date_start) %></td>
           <td><%= format_date(scheduled.date_finish) %></td>
-          <td><%= link_to name_or_empty(scheduled.task_type), scheduled_path(scheduled) %></td>                        
+           
           <td>
             <%= index_btn_view scheduled_path(scheduled), "Exibir" %>
             <%= index_btn_edit edit_scheduled_path(scheduled), "Editar" %>

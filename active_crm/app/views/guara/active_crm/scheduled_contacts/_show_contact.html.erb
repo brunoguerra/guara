@@ -5,7 +5,8 @@
 
 <div class="control-group">
 	<%= show_label_tag t('contacts.phone') %>
-	<%= @contact.phone %>
+  <b><%= @contact.customer.phone %></b>
+  <%= @contact.phone %>
 </div>
 
 <div class="control-group">
