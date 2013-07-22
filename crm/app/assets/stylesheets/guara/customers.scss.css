@@ -1,0 +1,46 @@
+
+
+.notes .complete {
+  background: #ffffff;
+  
+  border: 1px solid #f1f1f1;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  
+  padding: 5px;
+  
+  position: absolute;
+  float: left;
+  width: 380px;
+  height: 300px;
+  overflow: scroll;
+  display: none;
+}
+
+.4blocks {
+  min-height: 230px;
+}
+.autoscroll {
+  overflow-y: scroll;
+}
+
+.activities .complete {
+  background: #ffffff;
+  
+  border: 1px solid #f1f1f1;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  
+  padding: 5px;
+  
+  position: absolute;
+  float: left;
+  width: 450px;
+  height: 300px;
+  margin-left: -250px;
+  
+  display: none;
+  overflow: scroll;
+}
+
+</style>
