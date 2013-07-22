@@ -10,13 +10,13 @@ module Guara
   	def index
   		params[:search] = {} if params[:search].nil?
   		scheduled_customer_group = Scheduled::CustomerGroup.find(params[:scheduled_customer_group_id])
-  		search = prepare_filter_search(params[:search], scheduled_customer_group)
+  		search_params = prepare_filter_search(params[:search], scheduled_customer_group)
   		
-  		@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search)
-          @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search)
+  		@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search_params)
+      @customers_to_register = paginate(@search, params[:page], 40)
 
-          @customers_to_register = paginate(@search, params[:page], 40)
-          @customers_scheduled = paginate(@search_scheduled)
+      @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search_params)
+      @customers_scheduled = paginate(@search_scheduled)
   	end
 
       def new
@@ -31,7 +31,7 @@ module Guara
       def create
           @scheduled_contact = Scheduled::Contact.new(params[:active_crm_scheduled_contact])
           @scheduled_contact.deal = create_deal(@scheduled_contact.contact.person_id, params[:scheduled_customer_group_id])
-          Scheduled::Contact.update_all("enabled = false ", "deal_id = #{@scheduled_contact.deal_id} AND contact_id = #{@scheduled_contact.contact_id}")
+          Scheduled::Contact.update_all("enabled = false ", "deal_id = #{@scheduled_contact.deal_id} AND contact_id = #{@scheduled_contact.contact_id} and enabled=true and result=#{Scheduled::Contact::SCHEDULED}")
           @scheduled_contact.save
           data = prepare_data_json()
           render :json => {success: true, data: data}

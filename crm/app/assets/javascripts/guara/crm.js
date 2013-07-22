@@ -23,10 +23,15 @@ jQuery(function() {
     var inp, 
         select, 
         url_json,
-        placeholder;
+        placeholder,
+        minimumInputLength = 3;
 
     if ($(this).attr("data-placeholder") != null) {
       placeholder = $(this).attr("data-placeholder");
+    }
+
+    if ($(this).attr("data-minimumInputLength") != null) {
+      minimumInputLength = $(this).attr("data-minimumInputLength");
     }
 
     if ($(this).attr("data-json-url") != null) {
@@ -36,6 +41,8 @@ jQuery(function() {
       $($(this).parent()).append(inp);
       $(inp).select2({
         maximumInputLength: 20,
+        allowClear: true,
+        minimumInputLength: minimumInputLength,
         placeholder: placeholder,
         ajax: {
           data: function(term, page) {
@@ -45,11 +52,6 @@ jQuery(function() {
             };
           },
           dataType: 'json',
-          results: function(data, term) {
-            return {
-              results: data
-            };
-          },
           url: url_json
         },
         initSelection: function(element, callback) {
@@ -93,6 +95,7 @@ jQuery(function() {
     } else {
       return $(this).select2({
         maximumInputLength: 20,
+        allowClear: true,
         placeholder: placeholder,
       });
     }
