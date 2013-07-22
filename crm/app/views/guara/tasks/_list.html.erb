@@ -1,5 +1,5 @@
 
-<ul class="tasks-list">
+<ul class="tasks-list content">
 <% items.each do |item|  %>
 	<li id="task<%= item.id %>" onClick="task_show(<%= item.id %>)">
       <span class="label label-<%= task_alert_level_class(item) %>"><%= format_datetime(item.due_time) %></span>

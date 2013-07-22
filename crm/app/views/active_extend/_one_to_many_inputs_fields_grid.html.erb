@@ -1,16 +1,19 @@
+
+
+  <% if defined?(with_titles) && with_titles==true %>
 <fieldset>
-<table>
-	<thead class="table table-bordered table-striped">
-		<% if defined?(with_titles) && with_titles==true %>	
-			<% inputs.each do |input,options| %>
-			<th>
-				<%= f.label input %>
-			</th>
-			<% end  %>
-			<th></th>
-		<% end  %>
+<table class="table table-bordered table-striped">
+	<thead>
+		<% inputs.each { |input,options| %>
+		<th>
+			<%= f.label input %>
+		</th>
+		<% } #end  %>
+		<th></th>
 	</thead>
 	<tbody>
+<% end %>
+
 		<tr>
 			<% inputs.each do |input,options| %>
 			<% options[:label] = false   %>
@@ -24,11 +27,10 @@
 				<i class="icon-remove"></i>
 				<% end  %>
 			</td>
-
-			
-
 		</tr>
-		
+
+<% if (defined?(with_footer) && with_footer==true) %>	
 	</tbody>
 </table>
 </fieldset>
+<% end %>

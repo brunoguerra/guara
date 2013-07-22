@@ -6,22 +6,24 @@
 
  inputs = {
 						:name => { placeholder: t("contacts.name") },
-						:department => { :input_html => { class: "multiselect span2" } },
+						:department => { :input_html => { class: "multiselect span2 span2-force" } },
 						:business_function => { placeholder: t("contacts.business_function") },
 						:phone => { placeholder: t("contacts.phone") },
 						:cell => { placeholder: t("contacts.cell") },
 						:emails_concat => { :as => :string, placeholder: t("contacts.emails") },
  					}
-  first = true
-
+  first   = true
+  last_i  = @customer.contacts.size-1
+  i       = -1
 	options = local_assigns[:options] || {}
 	options.merge!(:add_class => "btn btn-primary pull-right")
 %>
 
-<%= semantic_form_for @customer, :url => multi_customer_contacts_path(@customer), :method => :post do |f| %>
+<%= semantic_form_for @customer, :url => multi_customer_contacts_path(@customer), :method => :post, :html => { :class => "compact" } do |f| %>
 
-	<%= f.semantic_fields_for :contacts do |flds_builder, i| %>
-		<%= render 'active_extend/one_to_many_inputs_fields_grid', f: flds_builder, inputs: inputs, with_titles: first %>
+	<%= f.semantic_fields_for :contacts do |flds_builder| %>
+	<% i+=1 %>
+		<%= render 'active_extend/one_to_many_inputs_fields_grid', f: flds_builder, inputs: inputs, with_titles: first, with_footer: (last_i==i) %>
 		<% first=false  %>
 	<% end %>
 

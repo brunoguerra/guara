@@ -1,4 +1,20 @@
 
+.compact {
+	margin: 0px;
+	padding: 0px;
+}
+
+.content {
+	margin: 10px 5px;
+}
+
+ul.content {
+  margin: 10px 5px;
+	li {
+		padding: 5px;
+	}
+}
+
 @import "bootstrap/variables";
 
 $rowHeight: 24px;
@@ -139,7 +155,6 @@ body .modal {
 }
 
 .tasks.side {
-	margin: -20px 0 0 0;
 	
 	.tasks-list {
 		margin: 0;
@@ -169,3 +184,4 @@ body .modal {
 	}
 	
 }
+

@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "guara/customers" %>
 <section class="show" id="customer_show">
 
 	<%= render :partial => "navbar", :locals => { :active => :view } %>
@@ -147,9 +148,15 @@
 
 <%	if can? :read, Guara::Task %>
 		<li class="container container-tasks">
-			<div class="thumbnail contacts">
-					<div><h6><%=t("tasks.side.title") %></h6></div>
-					<%= render :partial => "guara/tasks/side_panel" %>
+			<ul class="nav nav-tabs" id="myTab">
+  			<li class="active"><a href="#index" data-toggle="tab"><%=t("tasks.side.title") %></a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active thumbnail">
+					<div class="content">
+						<%= render :partial => "guara/tasks/side_panel" %>
+					</div>
+				</div>
 			</div>
 		</li>
 <% end %>
@@ -197,52 +204,5 @@ $(function(){
 });
 
 </script>
-
-<style>
-
-.notes .complete {
-	background: #ffffff;
-	
-	border: 1px solid #f1f1f1;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	
-	padding: 5px;
-	
-	position: absolute;
-	float: left;
-	width: 380px;
-	height: 300px;
-	overflow: scroll;
-	display: none;
-}
-
-.4blocks {
-	min-height: 230px;
-}
-.autoscroll {
-	overflow-y: scroll;
-}
-
-.activities .complete {
-	background: #ffffff;
-	
-	border: 1px solid #f1f1f1;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	
-	padding: 5px;
-	
-	position: absolute;
-	float: left;
-	width: 450px;
-	height: 300px;
-	margin-left: -250px;
-	
-	display: none;
-	overflow: scroll;
-}
-
-</style>
 
 </section>

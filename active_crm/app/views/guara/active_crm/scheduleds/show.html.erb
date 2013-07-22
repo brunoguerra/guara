@@ -1,53 +1,54 @@
-<section id="active_crm">
-  <%= render :partial => 'navbar', locals: {active: :scheduleds} rescue '' %>
-  <h3><small><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></small>
-    <%= t("active_crm.scheduled.planning_contact") %></h1>
-  
-  <div class="row-fluid">
-    <div class="thumbnail span12">
-      <div class="caption">
-        <fieldset>
-          <div class="row well span12">
-            <div class="span6 box-gray-data">
-              <strong><%= t("active_crm.scheduled.user") %>:</strong>
-              <%= @active_crm_scheduled.user.name %>
-            </div>
-
-            <div class="span6 box-gray-data">
-              <strong><%= t("active_crm.scheduled.date_start") %>:</strong>
-              <%= @active_crm_scheduled.date_start %>
-            </div>
-
-            <div class="span6 box-gray-data">
-              <strong><%= t("active_crm.scheduled.subject") %>:</strong>
-              <%= @active_crm_scheduled.subject %>
-            </div>
-
-
-            <div class="span6 box-gray-data">
-              <strong><%= t("active_crm.scheduled.date_finish") %>:</strong>
-              <%= @active_crm_scheduled.date_finish %>
-            </div>
-
-            <div class="span6 box-gray-data">
-              <strong><%= t("active_crm.scheduled.task_type") %>:</strong>
-              <%= @active_crm_scheduled.task_type.name %>
-            </div>
-        </div>
-    </fieldset>
-
-<%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %>
-<%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
-<%= link_to t("active_crm.scheduled_customer_groups.new"), scheduled_scheduled_customer_groups_path(params[:id]), class: "btn" %>
+<div class="span12">
+  <section id="active_crm">
+    <%= render :partial => 'navbar', locals: {active: :scheduleds} rescue '' %>
+    <h3><small><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></small>
+      <%= t("active_crm.scheduled.planning_contact") %></h1>
     
-  </div>
-</section>
-<br>
+    <div class="row-fluid">
+      <div class="thumbnail span12">
+        <div class="caption">
+          <fieldset>
+            <div class="row well span12">
+              <div class="span6 box-gray-data">
+                <strong><%= t("active_crm.scheduled.user") %>:</strong>
+                <%= @active_crm_scheduled.user.name %>
+              </div>
+
+              <div class="span6 box-gray-data">
+                <strong><%= t("active_crm.scheduled.date_start") %>:</strong>
+                <%= @active_crm_scheduled.date_start %>
+              </div>
+
+              <div class="span6 box-gray-data">
+                <strong><%= t("active_crm.scheduled.subject") %>:</strong>
+                <%= @active_crm_scheduled.subject %>
+              </div>
 
 
- <%= render :partial => 'guara/active_crm/scheduled_customer_groups/show_groups' %>
+              <div class="span6 box-gray-data">
+                <strong><%= t("active_crm.scheduled.date_finish") %>:</strong>
+                <%= @active_crm_scheduled.date_finish %>
+              </div>
 
+              <div class="span6 box-gray-data">
+                <strong><%= t("active_crm.scheduled.task_type") %>:</strong>
+                <%= @active_crm_scheduled.task_type.name %>
+              </div>
+          </div>
+      </fieldset>
 
+  <%= link_to t('helpers.forms.edit'), edit_scheduled_path(@active_crm_scheduled), class: "btn" %>
+  <%= link_to t('helpers.forms.back'), scheduleds_path(), class: "btn" %>
+  <%= link_to t("active_crm.scheduled_customer_groups.new"), scheduled_scheduled_customer_groups_path(params[:id]), class: "btn" %>
+      
+    </div>
+  </section>
+  <section class="nested groups">
+    <div class="row-fluid">
+     <%= render :partial => 'guara/active_crm/scheduled_customer_groups/show_groups' %>
+    </div>
+  </section>
+</div>
 <style type="text/css">
   .row-fluid [class*="span6"] {
       margin-left: 0px;

@@ -1,37 +1,33 @@
   <ul class="thumbnails">
-
-            <% 
-            i = 0
-            @customer_groups.each do |group| 
-                i += 1
-              %>
-
+    <% 
+    i = 0
+    @customer_groups.each do |group| 
+        i += 1
+      %>
     <li class="thumbnail span4">
-              <table class="table table-striped">
-                <tbody>
-                  <%= render :partial => 'guara/active_crm/scheduled_customer_groups/tr_group_customer', locals: {group: group, i: i} %>
-                  <tr>
-                    <td style="background-color:#FFF;">
-                      <div class="well">
-                        <h4>Resumo</h4>
-                        <div><span>Total de Clientes:</span> <%= group.count_customers() %></div>
-                        <div><span>Total de Inscritos:</span> <%= group.count_registered() %></div>
-                        <div><span>Total de Agendados:</span> <%= group.count_scheduled() %></div>
-                        <div><span>Total de Clientes à Agendar:</span> <%= group.count_schedule() %></div>
-                      </div>
-                      <div>
-                        <%= link_to t('active_crm.scheduled.edit_group_customer'), 
-                        edit_scheduled_scheduled_customer_group_path(params[:id], group.id), class: 'btn' %>
-                        <%= link_to t('active_crm.scheduled.contact_customers'), 
-                        scheduled_scheduled_customer_group_scheduled_contacts_path(params[:id], group.id), class: 'btn' %>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> 
+      <table class="table table-striped">
+        <tbody>
+          <%= render :partial => 'guara/active_crm/scheduled_customer_groups/tr_group_customer', locals: {group: group, i: i} %>
+          <tr>
+            <td style="background-color:#FFF;">
+              <div class="well">
+                <h4>Resumo</h4>
+                <div><span>Total de Clientes:</span> <%= group.count_customers() %></div>
+                <div><span>Total de Inscritos:</span> <%= group.count_registered() %></div>
+                <div><span>Total de Agendados:</span> <%= group.count_scheduled() %></div>
+                <div><span>Total de Clientes à Agendar:</span> <%= group.count_schedule() %></div>
+              </div>
+              <div>
+                <%= link_to t('active_crm.scheduled.edit_group_customer'), 
+                edit_scheduled_scheduled_customer_group_path(params[:id], group.id), class: 'btn' %>
+                <%= link_to t('active_crm.scheduled.contact_customers'), 
+                scheduled_scheduled_customer_group_scheduled_contacts_path(params[:id], group.id), class: 'btn' %>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table> 
     </li>
-            <% end %>
+    <% end %>
           
-      </ul>
-    </div>
-  </div>
+</ul>

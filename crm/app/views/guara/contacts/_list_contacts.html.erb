@@ -6,7 +6,7 @@
 <div class="tab-content">
   <div class="tab-pane active" id="index">
 		<% if @contacts %>
-		  <table class="table table-bordered table-striped">
+		  <table class="table table-bordered table-striped compact">
 		    <thead>
 		      <tr>
 		        <th class="span3"><%= t("contacts.name") %></th>
@@ -45,4 +45,3 @@
     $('#myTab a:first').tab('show');
   })
 </script>
-<br />
