@@ -12,7 +12,7 @@ var scheduled_contacts_form_js_init = (function() {
       showMessage("<%= I18n.t('active_crm.scheduled.call_completed') %>");
 
       var customer_id = ScheduledContacts.current_customer;
-      console.log($('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]'));
+
       $('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]').remove();
 
       if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>){
@@ -25,10 +25,15 @@ var scheduled_contacts_form_js_init = (function() {
           '</tr>');         
 
         $('#customer-scheduled tbody tr').click(function(){
-            ScheduledContacts.open_dialog_customer($(this), true);
+            ScheduledContacts.slide_customer_content($(this), true);
         });
 
       }
+
+      ScheduledContacts.open_dialog_info("<%= I18n.t('helpers.forms.new_sucess') %>",  "<%= I18n.t('helpers.forms.new_sucess') %>", function() {
+        ScheduledContacts.scroll_top();
+        ScheduledContacts.dialog_call_close();
+      });
       
     }
   });
@@ -37,10 +42,9 @@ var scheduled_contacts_form_js_init = (function() {
 function completed(type, value){
   var deal_result = value;
 
-  if(value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %> && type == 'result'){
-    $('.custom-span3-big').removeClass('disabled'); 
-  }
-  else{
+  if((value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>) && (type == 'result')) {
+    $('.custom-span3-big').removeClass('disabled');
+  } else {
     $('.custom-span3-big').addClass('disabled');
   }
 
@@ -88,14 +92,28 @@ function contact_status_label(value) {
 }
 
 
-function verify_form(){
-  $('#active_crm_scheduled_contact_scheduled').val('');
-  if($('#active_crm_scheduled_contact_result').val()=='<%=@scheduling%>'){
+function verify_form(form){
+
+  if ($('#active_crm_scheduled_contact_result').val().toString().trim()=='') {
+    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('active_crm.scheduled.validation.result.empty'); %>");
+    return false;
+  }
+
+  if ($('#active_crm_scheduled_contact_activity').val().toString().trim()=='') {
+    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('active_crm.scheduled.validation.activity.empty'); %>");
+    return false;
+  }
+
+  if($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>'){
     var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
     $('#active_crm_scheduled_contact_scheduled').val(date+' '+$('#hour').val());
-  }
-  else{
+  } else {
     $('#active_crm_scheduled_contact_scheduled').val(''); 
   }
+
+  console.log(form);
+
+  form.submit();
+
   return true;
 }

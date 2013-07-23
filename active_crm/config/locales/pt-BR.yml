@@ -52,6 +52,14 @@ pt-BR:
       datetime: "Data/Hora"
       call_completed: "Fim da Ligação"
 
+
+      validation:
+        activity:
+          empty: "Favor, verificar o campo resultado."
+        result:
+          empty: "Favor, classifique o contato"
+
+
     scheduled_customer_groups: 
       title: "Grupo de Cliente"
       new: "Novo Grupo"

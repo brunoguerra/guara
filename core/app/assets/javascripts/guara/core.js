@@ -9,7 +9,7 @@
 //= require guara/jquery.price_format.min.js
 //= require guara/jquery-numeric.js
 //= require guara/fcbk.js
-//= require select2/select2.min
+//= require select2/select2
 //= require active_admin
 //= #require i18n
 //= #require i18n/translations

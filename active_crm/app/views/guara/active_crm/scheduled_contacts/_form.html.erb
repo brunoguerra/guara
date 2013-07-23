@@ -11,8 +11,7 @@
 		display: inline;
 	}
 </style>
-<%= semantic_form_for @scheduled_contact, :html => { class: "well scheduled_contact_submit", 
-	onSubmit: "return verify_form();" },
+<%= semantic_form_for @scheduled_contact, :html => { class: "well scheduled_contact_submit", id: "scheduled_contact_form" },
 	:url => { :action => @scheduled_contact.new_record? ? 'create' : 'update', format: :json },
 	:remote => true do |f| %>
 
@@ -45,7 +44,7 @@
 					  		<% Guara::ActiveCrm::Scheduled::Classified.all.each do |classified| %>
 					  			<li>
 					  				<a tabindex="-1" href="javascript:void(0);" 
-					  				onClick="completed('classified', <%=classified.id%>);"><%=classified.name%></a>
+					  				onClick="completed('classified', <%=classified.id%>);"><%= classified.name %></a>
 					  			</li>
 					  		<% end %>
 					    </ul>
@@ -74,7 +73,7 @@
 			</div>
 		</div>
 
-			<div><%= f.submit t('helpers.forms.save'), class: "btn btn-primary hidden btn-submit pull-right" %></div>
+			<div><%= f.button t('helpers.forms.save'), class: "btn btn-primary hidden btn-submit pull-right", :type => :button, :onclick => "return verify_form($('#scheduled_contact_form'));" %></div>
 
 	</div>
 

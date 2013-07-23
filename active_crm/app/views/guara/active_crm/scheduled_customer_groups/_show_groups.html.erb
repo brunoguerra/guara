@@ -11,17 +11,19 @@
           <tr>
             <td style="background-color:#FFF;">
               <div class="well">
-                <h4>Resumo</h4>
-                <div><span>Total de Clientes:</span> <%= group.count_customers() %></div>
-                <div><span>Total de Inscritos:</span> <%= group.count_registered() %></div>
-                <div><span>Total de Agendados:</span> <%= group.count_scheduled() %></div>
-                <div><span>Total de Clientes à Agendar:</span> <%= group.count_schedule() %></div>
+                <h4>Totais</h4>
+                <div><span>Clientes:</span>  <span class="pull-right"><%= group.count_customers() %></span></div>
+                <div><span>Inscritos:</span> <span class="pull-right"><%= group.count_registered() %></span></div>
+                <div><span>Agendados:</span> <span class="pull-right"><%= group.count_scheduled() %></span></div>
+                <div><span>Clientes à Agendar:</span> <span class="pull-right"><%= group.count_schedule() %></span></div>
               </div>
               <div>
-                <%= link_to t('active_crm.scheduled.edit_group_customer'), 
-                edit_scheduled_scheduled_customer_group_path(params[:id], group.id), class: 'btn' %>
-                <%= link_to t('active_crm.scheduled.contact_customers'), 
-                scheduled_scheduled_customer_group_scheduled_contacts_path(params[:id], group.id), class: 'btn' %>
+                <p>
+                  <%= link_to ('<i class="icon-play-circle" ></i> ' + t('active_crm.scheduled.contact_customers')).html_safe, 
+                  scheduled_scheduled_customer_group_scheduled_contacts_path(params[:id], group.id), class: 'btn  btn-small' %>
+                  <%= link_to ('<i class="icon-edit" ></i> ' + t('helpers.forms.edit')).html_safe, 
+                  edit_scheduled_scheduled_customer_group_path(params[:id], group.id), class: 'btn btn-small' %>
+                </p>
               </div>
             </td>
           </tr>

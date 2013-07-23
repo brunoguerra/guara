@@ -46,7 +46,7 @@ var ScheduledContacts = {
 		$('#navbar').remove();
   },
 
-  open_dialog_confirm: function(title, html, call){
+  open_dialog_confirm: function(title, html, callback){
     $( "#dialog-confirm" ).attr('title', title)
       .html(html)
       .dialog({
@@ -55,11 +55,27 @@ var ScheduledContacts = {
         modal: true,
         buttons: {
           Ok: function() {
-            call($(this));
+            callback($(this));
           },
           Cancelar: function() {
             $( this ).dialog( "close" );
           }
+        }
+      });
+  },
+
+  open_dialog_info: function(title, html, callback){
+    $( "#dialog-confirm" ).attr('title', title)
+      .html(html)
+      .dialog({
+        resizable: false,
+        height: 180,
+        modal: true,
+        buttons: {
+          Ok: function() {
+            $( this ).dialog( "close" );
+            if (callback!=null) callback($(this));
+          },
         }
       });
   },
@@ -72,10 +88,6 @@ var ScheduledContacts = {
   slide_customer_content: function(tr, contact_scheduled) {
 
     this.current_customer = tr.attr('customer-id');
-    console.log(this);
-    console.log(tr.offset());
-    console.log(tr.width());
-    console.log(tr.height());
 
     var me = this;
 
@@ -172,22 +184,28 @@ var ScheduledContacts = {
     var me = this;
     var btn = $('<a>'+I18n.t('active_crm.scheduled.contacts.ending_deal')+'</a>').addClass('btn btn-danger');
     btn.on('click', function() {
-              me.open_dialog_confirm(I18n.t('active_crm.scheduled.contacts.ending_deal')+ '?', I18n.t('active_crm.scheduled.contacts.ending_deal')+ '?', function(dialog){
-                dialog.html(I18n.t('waiting'));
-                $.ajax({
-                  type: "POST",
-                  url: me.close_negociation,
-                  data: {
-                    customer_id: me.current_customer,
-                    customer_group: me.customer_group
-                  }
-                }).done(function( data ) {
-                  if(data.success==true){
-                    $('tbody tr[customer-id="'+me.current_customer+'"]').remove();
-                  }
-                  dialog.dialog( "close" );
-                });
-              });
+      me.open_dialog_confirm(I18n.t('active_crm.scheduled.contacts.ending_deal')+ '?', I18n.t('active_crm.scheduled.contacts.ending_deal_text'), function(dialog){
+        dialog.html(I18n.t('waiting'));
+        $.ajax({
+          type: "POST",
+          url: me.close_negociation,
+          data: {
+            customer_id: me.current_customer,
+            customer_group: me.customer_group
+          }
+        }).done(function( data ) {
+          if(data.success==true) {
+            $('tbody tr[customer-id="'+me.current_customer+'"]').remove();
+            dialog.dialog( "close" );
+            setTimeout(function() {
+              me.next_customer();
+            }, 500);
+            me.scroll_top();
+            setTimeout(function() { me.open_dialog_info("<%= I18n.t('helpers.forms.new_success') %>", "<%= I18n.t('helpers.forms.new_success') %>"); }, 500);
+          }
+          setTimeout(function() { dialog.dialog( "close" ) }, 3000);
+        });
+      });
     });
     return btn;
   },
@@ -211,94 +229,6 @@ var ScheduledContacts = {
     );
     return btn;
   },
-
-  /**
-  * ------------------------------------------------------------>
-  */
-
-  /*open_dialog_customer: function(tr, contact_scheduled){
-    var me = this;
-    me.current_customer = tr.attr('customer-id');
-    me.container_customer.html('Carregando...')
-    .dialog({
-      modal: true,
-      draggable: false,
-      height: ($(window).height() - 60),
-      width: ($(window).width() - 100),
-      open: function( event, ui ) {
-        var container = $(me.container_customer.parent('div.ui-dialog.ui-widget'));
-        container
-          .css('top', '50px')
-          .css('position', 'fixed');
-      },
-      buttons: [
-        {
-            text: "Encerrar Negociação",
-            'class': 'closeButtonClass',
-            click: function() {
-              me.open_dialog_confirm('Encerrar Negociação?', 'Deseja Encerrar a Negociação?', function(dialog){
-                dialog.html('Aguarde...');
-                $.ajax({
-                  type: "POST",
-                  url: me.close_negociation,
-                  data: {
-                    customer_id: me.current_customer,
-                    customer_group: me.customer_group
-                  }
-                }).done(function( data ) {
-                  if(data.success==true){
-                    $('tbody tr[customer-id="'+me.current_customer+'"]').remove();
-                  }
-                  dialog.dialog( "close" );
-                });
-              });
-            }
-        },
-        {
-            text: "Próximo Cliente",
-            'class': 'saveButtonClass',
-            click: function() {
-                me.ignored_customers.push(me.current_customer);
-                $.ajax({
-                  type: "GET",
-                  url: "/ignore_customer_session",
-                  data: {
-                    customer_id: me.current_customer
-                  }
-                }).done(function( data ) {
-                  
-                });
-                me.next_customer();
-            }
-        }
-      ]
-    })
-    .load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
-      if(status=='error'){
-        var error = $('#alert-error');
-        if(error.length == 0){
-          me.container_customer.html('<div id="alert-error" class="alert alert-error"></div>');
-          var error = $('#alert-error');
-        }
-        error.html('<strong>Erro ao Carregar Cliente</strong>, Por favor tente Novamente!');
-        $('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').hide();
-        return true;
-      }
-      else{
-        $('.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix').show();
-      }
-
-      me.reorganize_view_customer();
-      $('select.multiselect').removeClass('multiselect');
-      me.initialize_js_customer();
-      me.call_container_contacts();
-
-      if(contact_scheduled){
-        me.open_dialog_call(tr.attr('contact-id'));
-      }
-
-    });
-  },*/
 
   call_container_contacts: function(){
     var me = this;
@@ -387,11 +317,17 @@ var ScheduledContacts = {
       $('.tab-content #index').append('<div id="dialog-call"></div>');
     }
 
+    $('.tab-content #index div#dialog-call').show();
+
     $('.tab-content #index div#dialog-call').html('Carregando...').load(me.new_scheduled_contacts+'?contact_id='+contact_id, function(){
       $('#dialog-modal-customer').animate({
         scrollTop: $('#active_crm_scheduled_contact_activity').offset().top - 350
       });
     });
+  },
+
+  dialog_call_close: function() {
+    $('.tab-content #index div#dialog-call').hide();
   },
 
   is_customer_ignored: function(customer_id){

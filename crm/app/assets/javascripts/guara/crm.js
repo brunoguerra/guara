@@ -23,7 +23,7 @@ jQuery(function() {
     var inp, 
         select, 
         url_json,
-        placeholder,
+        placeholder="SELECT",
         minimumInputLength = 3;
 
     if ($(this).attr("data-placeholder") != null) {
@@ -43,17 +43,28 @@ jQuery(function() {
         maximumInputLength: 20,
         allowClear: true,
         minimumInputLength: minimumInputLength,
+
         placeholder: placeholder,
+
         ajax: {
+          dataType: 'json',
+          url: url_json,
+          quietMillis: 500,
+
           data: function(term, page) {
             return {
               search: term,
               page_limit: 10
             };
           },
-          dataType: 'json',
-          url: url_json
+          
+          results: function(data, term) {
+            return {
+              results: data
+            };
+          },
         },
+
         initSelection: function(element, callback) {
           var data, id;
           id = $(element).val();
@@ -71,6 +82,8 @@ jQuery(function() {
         formatSelection: function(data) {
           var opt,
               event;
+
+          console.log(data);
 
           opt = $(select.children()[0]);
 

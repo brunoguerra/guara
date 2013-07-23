@@ -1920,7 +1920,6 @@
 
         // single
         updateSelection: function (data) {
-
             var container=this.selection.find("span"), formatted;
 
             this.selection.data("select2-data", data);
