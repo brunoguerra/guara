@@ -17,6 +17,7 @@ Guara::Customer.class_eval do
 	        		where con.deal_id = d.id and 
 	        		con.result = #{Guara::ActiveCrm::Scheduled::Contact.results()[:scheduling]} 
 	        		AND enabled = TRUE) > 0 ) > 0) ", group) 
+	 		
 	 }
 
 	def load_scheduled_contacts(groups_id)

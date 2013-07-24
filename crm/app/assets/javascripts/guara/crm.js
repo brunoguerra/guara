@@ -1,3 +1,6 @@
+//= require guara/core
+//= require guara/datepicker.pt-BR
+
 jQuery(function() {
   $('form').on('click', '.remove_fields', function(event) {
     $(this).prev('input[type=hidden]').val('1');

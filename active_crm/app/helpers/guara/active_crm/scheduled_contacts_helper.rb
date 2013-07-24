@@ -21,6 +21,15 @@ module Guara
 
   			return class_color
   		end
+
+      def translate_scheduled_contact_result(result)
+        
+        { 
+          1 => I18n.t("active_crm.results_translated.registered"),
+          2 => I18n.t("active_crm.results_translated.participation_denied"),
+          3 => I18n.t("active_crm.results_translated.scheduling")
+        }[result]
+      end
       
   	end
   end

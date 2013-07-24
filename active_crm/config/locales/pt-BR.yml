@@ -36,6 +36,7 @@ pt-BR:
       responsible: "Responsável"
       next_contact: "Próximo Contato"
       activity: "Resultado"
+      result: "Classificação"
       situation: "Situação"
       scheduled: "Agendados"
       group: "Grupos"
@@ -58,6 +59,10 @@ pt-BR:
           empty: "Favor, verificar o campo resultado."
         result:
           empty: "Favor, classifique o contato"
+
+      contacts:
+        ending_deal: "Fechar a Negociação"
+        ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
 
 
     scheduled_customer_groups: 

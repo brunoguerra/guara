@@ -30,10 +30,17 @@ var scheduled_contacts_form_js_init = (function() {
 
       }
 
-      ScheduledContacts.open_dialog_info("<%= I18n.t('helpers.forms.new_sucess') %>",  "<%= I18n.t('helpers.forms.new_sucess') %>", function() {
+      var funciton_on_close_msg = (function() {
         ScheduledContacts.scroll_top();
         ScheduledContacts.dialog_call_close();
       });
+
+      ScheduledContacts.open_dialog_info("<%= I18n.t('helpers.forms.new_success') %>",  "<%= I18n.t('helpers.forms.new_success') %>", funciton_on_close_msg);
+
+      setTimeout(function() { 
+        $( "#dialog-confirm" ).dialog( "close" );
+        funciton_on_close_msg();
+      }, 1000);
       
     }
   });
