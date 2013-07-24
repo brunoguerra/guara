@@ -68,6 +68,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'i18n-js'
 
+  
+  s.add_dependency "hogan_assets"
+
 
 end
 
