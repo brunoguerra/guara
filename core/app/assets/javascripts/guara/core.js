@@ -14,6 +14,7 @@
 //= #require i18n
 //= #require i18n/translations
 //= require guara/core/pt-BR
+//= require hogan.js
 
 $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     $(this).datepicker({"format": "dd/mm/yyyy hh:mm", "weekStart": 1, "autoclose": true});
