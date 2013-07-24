@@ -12,7 +12,7 @@ require 'activeadmin'
 require 'guara/rake'
 
 #require 'i18n-js'
-require 'houge_assets'
+require 'hogan_assets'
 
 module Guara
   module Core
