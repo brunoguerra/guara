@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   
   s.require_path = 'lib'
     
-  s.add_dependency "rails", "3.2.13"
+  s.add_dependency "rails", "~> 3.2.9"
   
   s.add_dependency 'sass-rails', "~>3.0"
   

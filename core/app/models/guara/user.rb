@@ -21,10 +21,16 @@ module Guara
                     :type_id, :primary_company_branch_id, :primary_company_branch, :company_branch_ids
   
     # Include default devise modules. Others available are:
-    # :token_authenticatable, :confirmable,
+    # :confirmable,
     # :lockable, and :omniauthable, :registerable
     devise :database_authenticatable,
-           :recoverable, :rememberable, :trackable, :validatable, :timeoutable
+           :recoverable,
+           :rememberable,
+           :trackable,
+           :validatable,
+           :timeoutable,
+           :token_authenticatable,
+           :database_authenticatable
     
     default_scope order: "name"
 
