@@ -1,4 +1,4 @@
 
 HoganAssets::Config.configure do |config|
-  config.path_prefix = 'app/templates'
+  config.path_prefix = 'templates'
 end
