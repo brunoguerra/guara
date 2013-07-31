@@ -3,6 +3,7 @@
 //= require jquery.popover
 //= require jquery_ujs
 //= require bootstrap
+//= require guara/utils
 //= require guara/jquery-ui-timepicker-addon
 //= require guara/jquery-ui-timepicker-addon
 //= require guara/jquery.mask

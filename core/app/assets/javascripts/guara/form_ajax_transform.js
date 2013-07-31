@@ -13,4 +13,4 @@ $(function() {
 			ajax_form_funcion_callback(data, status);
 		})
 	})
-})
+});
