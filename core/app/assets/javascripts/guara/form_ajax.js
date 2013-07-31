@@ -57,3 +57,100 @@ $(document).ready(function(){
     });
 
 });
+
+
+var formSearchAjax = (function($){
+    return function(form, assgin_val_to, param_options) {
+      var me = null,
+          $form = $(form),
+          default_params = (param_options["default_params"] || {})
+          interval= null,
+          service_url = param_options["url"],
+          options = ( param_options || {} ),
+          last_result = [];
+
+      me = {
+        params: {},
+        url: null,
+
+        change_param: function(property, value) {
+          me.params[property] = value;
+          me.wait_idle_query();
+        },
+
+        wait_idle_query: function() {
+          clearTimeout(me.interval);
+          me.interval = setTimeout(function() {
+            me.peform_query();
+          }, 1000);
+        },
+
+        peform_query: function() {
+          $.ajax({
+            url: me.url,
+            statusCode: {
+              404: function() {
+                displayMessage("page not found", "form-ajax-search-orders", "error");
+              },
+              500: function() {
+                displayMessage("System fault on parse remote data", "form-ajax-search-orders", "error");
+              }
+            },
+            data: me.params,
+            type: (me.params["http_method"] || "GET"),
+          }).complete(function(xhr, status) {
+            me.search_result(xhr.responseJSON, status);
+          })
+        },
+
+        search_result: function (data, status) {
+          var content;
+          me.last_result = data;
+          if (isFunction(options["onSelectedItem"])) {
+            content = options["formatResults"](data, status);
+          } else {
+            content = me.defaultFormatResults(data);
+          }
+          $('#results', $form).html(content);
+
+          return content;
+        },
+
+        defaultFormatResults: function(data) {
+          //@TODO
+        },
+
+        show: function () {
+          $form.removeClass('hide');
+          $('.first', $form).focus();
+        },
+
+        close: function () {
+          $form.addClass('hide');
+        },
+
+        init: function() {
+          $('.close', $form).on('click', function() { 
+            me.close();
+          });
+        },
+
+        selected_index: function(index) {
+          if (isFunction(options["onSelectedItem"])) {
+            options["onSelectedItem"](me.last_result[index], index, $form);
+          } else {
+            $(assgin_val_to).val(item);
+          }
+
+          me.close();
+        },
+
+      };
+
+      for (var d in default_params) { me.params[d] = default_params[d]; };
+      me.url = service_url;
+      me.init();
+
+      return me;
+    }
+  })(jQuery);

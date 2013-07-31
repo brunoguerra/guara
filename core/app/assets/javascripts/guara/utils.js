@@ -21,6 +21,10 @@ if (!String.prototype.format) {
   };
 }
 
+function currencyFormat(value) { 
+  return "R$ "+parseFloat((value).toString()).toFixed(2);
+}
+
 function timeRelativeString(current, previous) {
 
     var msPerMinute = 60 * 1000;
