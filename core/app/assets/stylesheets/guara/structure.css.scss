@@ -25,6 +25,11 @@
 	z-index: 1000; 
 }
 
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
 ul.content {
   margin: 10px 5px;
 	li {

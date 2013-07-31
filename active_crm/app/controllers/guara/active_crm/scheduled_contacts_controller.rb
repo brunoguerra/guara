@@ -1,23 +1,23 @@
 module Guara
   module ActiveCrm
-	class ScheduledContactsController < Guara::BaseController
-  	skip_authorization_check
+  	class ScheduledContactsController < Guara::BaseController
+    	skip_authorization_check
 
-  	include ScheduledsHelper
-      include ScheduledContactsHelper
-      helper ScheduledContactsHelper
+    	include ScheduledsHelper
+        include ScheduledContactsHelper
+        helper ScheduledContactsHelper
 
-  	def index
-  		params[:search] = {} if params[:search].nil?
-  		scheduled_customer_group = Scheduled::CustomerGroup.find(params[:scheduled_customer_group_id])
-  		search_params = prepare_filter_search(params[:search], scheduled_customer_group)
-  		
-  		@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search_params)
-      @customers_to_register = paginate(@search, params[:page], 40)
+    	def index
+    		params[:search] = {} if params[:search].nil?
+    		scheduled_customer_group = Scheduled::CustomerGroup.find(params[:scheduled_customer_group_id])
+    		search_params = prepare_filter_search(params[:search], scheduled_customer_group)
+    		
+    		@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search_params)
+        @customers_to_register = paginate(@search, params[:page], 40)
 
-      @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search_params)
-      @customers_scheduled = paginate(@search_scheduled)
-  	end
+        @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search_params)
+        @customers_scheduled = paginate(@search_scheduled)
+    	end
 
       def new
           @contact = Guara::Contact.find(params[:contact_id])
@@ -32,9 +32,9 @@ module Guara
           @scheduled_contact = Scheduled::Contact.new(params[:active_crm_scheduled_contact])
           @scheduled_contact.deal = create_deal(@scheduled_contact.contact.person_id, params[:scheduled_customer_group_id])
           Scheduled::Contact.update_all("enabled = false ", "deal_id = #{@scheduled_contact.deal_id} AND contact_id = #{@scheduled_contact.contact_id} and enabled=true and result=#{Scheduled::Contact::SCHEDULED}")
-          @scheduled_contact.save
+          success = @scheduled_contact.save
           data = prepare_data_json()
-          render :json => {success: true, data: data}
+          render :json => {success: success, data: data, errors: @scheduled_contact.errors }
       end
 
       def ignore_customer_session
@@ -52,30 +52,31 @@ module Guara
 
       private
       
-      def prepare_data_json
-          data = @scheduled_contact.attributes
-          data["customer_name"] = @scheduled_contact.contact.customer.name
-          data["customer_id"] = @scheduled_contact.contact.customer.id
-          data["contact_name"] = @scheduled_contact.contact.name
-          data["scheduled"] = @scheduled_contact.scheduled.nil? ? '' : @scheduled_contact.scheduled.strftime("%d/%m/%Y %H:%M")
-          data["status"] = prepare_span_status(@scheduled_contact)
-          return data
-      end
-
-      def create_deal(customer_id, groups_id)
-        deal = Guara::ActiveCrm::Scheduled::Deals
-        .where(:customer_pj_id=> customer_id, :groups_id=> groups_id).first
-        
-        if deal.nil?
-          deal = Guara::ActiveCrm::Scheduled::Deals.create(
-            :customer_pj_id=> customer_id, 
-            :date_start=> Time.now, 
-            :groups_id=> groups_id
-          )
+        def prepare_data_json
+            data = @scheduled_contact.attributes
+            data["customer_name"] = @scheduled_contact.contact.customer.name
+            data["customer_id"] = @scheduled_contact.contact.customer.id
+            data["contact_name"] = @scheduled_contact.contact.name
+            data["scheduled"] = @scheduled_contact.scheduled.nil? ? '' : @scheduled_contact.scheduled.strftime("%d/%m/%Y %H:%M")
+            data["status"] = prepare_span_status(@scheduled_contact)
+            return data
         end
 
-        deal
-      end
+        def create_deal(customer_id, groups_id)
+          deal = Guara::ActiveCrm::Scheduled::Deals
+          .where(:customer_pj_id=> customer_id, :groups_id=> groups_id).first
+          
+          if deal.nil?
+            deal = Guara::ActiveCrm::Scheduled::Deals.create(
+              :customer_pj_id=> customer_id, 
+              :date_start=> Time.now, 
+              :groups_id=> groups_id
+            )
+          end
+
+          deal
+        end
+    
 	  end
   end
 end

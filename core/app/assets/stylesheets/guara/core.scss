@@ -2,17 +2,10 @@
  *
  *= require_self
 
- *= require jquery-ui
- *= require fcbk
+ *= require jquery.ui.bootstrap/jquery-ui
 
  *= require guara/custom
  *= require guara/customer
  *= require guara/structure
  *= require guara/users
  */
-
-section.container {
-	td, li, p, span, a, input, button {
-		text-transform: uppercase;
-	}
-}

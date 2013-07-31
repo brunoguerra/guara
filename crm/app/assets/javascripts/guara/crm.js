@@ -86,8 +86,6 @@ jQuery(function() {
           var opt,
               event;
 
-          console.log(data);
-
           opt = $(select.children()[0]);
 
           if ((!opt) || (opt.attr('id') !== data.id)) {

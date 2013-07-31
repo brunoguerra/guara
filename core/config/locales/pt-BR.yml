@@ -467,6 +467,7 @@ pt-BR:
     errors:
       messages:
         record_invalid: 'Registro Inválido'
+        less_than_of: 'Não pode ser menor que %{of}'
     
     attributes:
       "guara/user":

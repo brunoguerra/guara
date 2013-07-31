@@ -539,3 +539,15 @@ body {
 section.nested {
   padding-top: 30px;
 }
+
+section.container {
+  td, li, p, span, a, input, button {
+    text-transform: uppercase;
+  }
+}
+
+section.container.downcase {
+  td, li, p, span, a, input, button {
+    text-transform: downcase;
+  }
+}

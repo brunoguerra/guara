@@ -13,6 +13,12 @@ module Guara
                           :classified_id,
                           :deal_id, :user_id
 
+          validates_presence_of :result, :activity
+
+          validates_each :scheduled do |record, attr, value|
+            record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) if Date.parse(value.to_s) < Date.today  
+          end
+
           def status
             return self.classified.nil? ? Contact.results_translated()[self.result] : self.classified.name
           end

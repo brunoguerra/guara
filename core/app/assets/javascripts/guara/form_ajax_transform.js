@@ -9,7 +9,6 @@ $(function() {
 			data: $("#form_ajax_name :input"),
 			type: "POST",
 		}).complete(function(data, status) {
-			console.log(data);
 			ajax_form_funcion_callback(data, status);
 		})
 	})

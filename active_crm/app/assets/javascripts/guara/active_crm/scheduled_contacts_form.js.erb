@@ -7,8 +7,9 @@ var scheduled_contacts_form_js_init = (function() {
     .bind("ajax:success", function(evt, data, status, xhr){
       
     var $form = $(this);
-    $form.find('textarea,input[type="text"],input[type="file"]').val("");
+
     if(data.success == true){
+      $form.find('textarea,input[type="text"],input[type="file"]').val("");
       showMessage("<%= I18n.t('active_crm.scheduled.call_completed') %>");
 
       var customer_id = ScheduledContacts.current_customer;
@@ -22,7 +23,7 @@ var scheduled_contacts_form_js_init = (function() {
           '<td>'+data.data.contact_name+'</td>'+
           '<td>'+data.data.scheduled+'</td>'+
           '<td>'+data.data.activity+'</td>'+
-          '</tr>');         
+          '</tr>');
 
         $('#customer-scheduled tbody tr').click(function(){
             ScheduledContacts.slide_customer_content($(this), true);
@@ -43,7 +44,34 @@ var scheduled_contacts_form_js_init = (function() {
       }, 1000);
       
     }
-  });
+  })
+  .bind("ajax:error", function(evt, xhr, status, error){
+      var $form = $(this),
+          errors,
+          errorText;
+
+      try {
+        // Populate errorText with the comment errors
+        errors = $.parseJSON(xhr.responseText);
+      } catch(err) {
+        // If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
+        errors = {message: "Por favor, ocorreu um erro ao tratar a resposta do servidor, tente mais tarde."};
+      }
+
+      // Build an unordered list from the list of errors
+      errorText = "<div class=\"alert alert-block alert-error\"><h4>Erros ao registrar dados:</h4> \n<ul>";
+
+      for ( error in errors ) {
+        errorText += "<li>" + error + ': ' + errors[error] + "</li> ";
+      }
+
+      errorText += "</ul></div>";
+
+    $(document).scrollTop();
+
+      // Insert error list into form
+      $form.find('div.validation-error').html(errorText);
+    });;
 });
 
 function completed(type, value){
@@ -117,8 +145,6 @@ function verify_form(form){
   } else {
     $('#active_crm_scheduled_contact_scheduled').val(''); 
   }
-
-  console.log(form);
 
   form.submit();
 
