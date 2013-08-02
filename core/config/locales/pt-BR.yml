@@ -10,6 +10,8 @@ pt-BR:
     days: "Dias"
     month: "Mês"
     months: "Meses"
+    new: "Novo"
+    recorded: "Cadastrado"
     
   app:
     title:

@@ -5,8 +5,28 @@
 	padding: 0px;
 }
 
+.content,
+.content-mini,
+.content-small,
+.content-large,
+ {
+  display: block;
+}
+
 .content {
 	margin: 10px 5px;
+}
+
+.content-small {
+	margin: 5px 2px;
+}
+
+.content-mini {
+	margin: 2px 1px;
+}
+
+.content-large {
+	margin: 15px 8px;
 }
 
 .relative {
@@ -35,6 +55,27 @@ ul.content {
 	li {
 		padding: 5px;
 	}
+}
+
+.padding-mini {
+	padding: 1px;
+}
+
+.padding-small {
+	padding: 2px;
+}
+
+.padding {
+	padding: 5px;
+}
+
+.padding-large {
+	padding: 15px;
+}
+
+.block {
+	width: 100%;
+	display:block;
 }
 
 @import "bootstrap/variables";

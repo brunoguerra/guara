@@ -172,11 +172,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-form .label {
-  background: $white;
-  color: $grayDark;
-}
-
 input, textarea, select {
   font-size: 13px;
   text-transform:uppercase;
@@ -267,9 +262,7 @@ ul {
     border-top: 1px solid #e8e8e8;
   }
 }
-.content {
-  display: block;
-}
+
 .timestamp {
   color: $grayLight;
 }
@@ -551,3 +544,12 @@ section.container.downcase {
     text-transform: downcase;
   }
 }
+
+button.close.pull-right { 
+  position: absolute;
+  right: 0px;
+  z-index: 1000;
+  margin-right: 10px;
+  margin-top: 2px;
+}
+
