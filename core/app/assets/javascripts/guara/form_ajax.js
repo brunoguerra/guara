@@ -1,4 +1,39 @@
 
+var ajax_form_commons_functions = {
+  /**
+   * parse error and show bootstrap error alert
+   * needs a div.validation-error to display error
+   */
+  error: function(evt, xhr, status, error){
+    var $form = $(this),
+        errors,
+        errorText;
+
+    try {
+      // Populate errorText with the comment errors
+      errors = $.parseJSON(xhr.responseText);
+    } catch(err) {
+      // If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
+      errors = {message: "Por favor, ocorreu um erro ao tratar a resposta do servidor, tente mais tarde."};
+    }
+
+    // Build an unordered list from the list of errors
+    errorText = "<div class=\"alert alert-block alert-error\"><h4>Erros ao registrar dados:</h4> \n<ul>";
+
+    for ( error in errors ) {
+      errorText += "<li>" + error + ': ' + errors[error] + "</li> ";
+    }
+
+    errorText += "</ul></div>";
+
+    $(document).scrollTop();
+
+    // Insert error list into form
+    $form.find('div.validation-error').html(errorText);
+  },
+};
+
+
 $(document).ready(function(){
 
   $('.remote_form')
@@ -28,33 +63,7 @@ $(document).ready(function(){
       // Restore the original submit button text
       $submitButton.text( $(this).data('origText') );
     })
-    .bind("ajax:error", function(evt, xhr, status, error){
-      var $form = $(this),
-          errors,
-          errorText;
-
-      try {
-        // Populate errorText with the comment errors
-        errors = $.parseJSON(xhr.responseText);
-      } catch(err) {
-        // If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
-        errors = {message: "Por favor, ocorreu um erro ao tratar a resposta do servidor, tente mais tarde."};
-      }
-
-      // Build an unordered list from the list of errors
-      errorText = "<div class=\"alert alert-block alert-error\"><h4>Erros ao registrar dados:</h4> \n<ul>";
-
-      for ( error in errors ) {
-        errorText += "<li>" + error + ': ' + errors[error] + "</li> ";
-      }
-
-      errorText += "</ul></div>";
-
-    $(document).scrollTop();
-
-      // Insert error list into form
-      $form.find('div.validation-error').html(errorText);
-    });
+    .bind("ajax:error", ajax_form_commons_functions.error);
 
 });
 
@@ -72,6 +81,7 @@ var formSearchAjax = (function($){
       me = {
         params: {},
         url: null,
+        callbacks: [],
 
         change_param: function(property, value) {
           me.params[property] = value;
@@ -106,7 +116,7 @@ var formSearchAjax = (function($){
         search_result: function (data, status) {
           var content;
           me.last_result = data;
-          if (isFunction(options["onSelectedItem"])) {
+          if (isFunction(options["formatResults"])) {
             content = options["formatResults"](data, status);
           } else {
             content = me.defaultFormatResults(data);
@@ -133,11 +143,31 @@ var formSearchAjax = (function($){
           $('.close', $form).on('click', function() { 
             me.close();
           });
+          $form.formSearchAjax = me;
+        }, 
+
+        /**
+         * callbacks
+         */
+        on: function(callback, function_refer) {
+          this.callbacks[callback] = function_refer;
+        },
+
+        isCallback: function(name_function) {
+          return typeof this.callbacks[name_function] == "function";
+        },
+
+        callback: function() {
+          var shift = [].shift,
+              name_function = shift.apply(arguments); //in case you need it
+
+
+          return ((!this.isCallback(name_function)) || (this.callbacks[name_function].apply(this, arguments)));
         },
 
         selected_index: function(index) {
           if (isFunction(options["onSelectedItem"])) {
-            options["onSelectedItem"](me.last_result[index], index, $form);
+            options["onSelectedItem"](me.last_result[index], index, $form, me);
           } else {
             $(assgin_val_to).val(item);
           }
@@ -146,6 +176,7 @@ var formSearchAjax = (function($){
         },
 
       };
+
 
       for (var d in default_params) { me.params[d] = default_params[d]; };
       me.url = service_url;
