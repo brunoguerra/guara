@@ -6,6 +6,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.integer :city_id
       t.integer :district_id
       t.string :address, :limit => 120
+      t.string :number, :limit => 15
       t.string :complement, :limit => 30
       t.string :postal_code, :limit => 20
       

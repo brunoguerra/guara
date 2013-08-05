@@ -13,7 +13,7 @@ require 'guara/rake'
 
 #require 'i18n-js'
 require 'hogan_assets'
-require 'rails-haml'
+require 'haml-rails'
 
 module Guara
   module Core
