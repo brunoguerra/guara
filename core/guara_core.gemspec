@@ -71,6 +71,8 @@ Gem::Specification.new do |s|
   
   s.add_dependency "hogan_assets"
 
+  s.add_dependency "haml-rails"
+
 
 end
 
