@@ -15,6 +15,7 @@
 //= #require i18n/translations
 //= require guara/core/pt-BR
 //= require hogan.js
+//= require jquery.dataTables.min.js
 
 $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     $(this).datepicker({"format": "dd/mm/yyyy hh:mm", "weekStart": 1, "autoclose": true});

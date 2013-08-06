@@ -108,8 +108,9 @@ var formSearchAjax = (function($){
             },
             data: me.params,
             type: (me.params["http_method"] || "GET"),
-          }).complete(function(xhr, status) {
-            me.search_result(xhr.responseJSON, status);
+          }).done(function(data) {
+            console.log(data);
+            me.search_result(data);
           })
         },
 
