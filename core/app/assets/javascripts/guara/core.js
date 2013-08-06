@@ -16,6 +16,8 @@
 //= require guara/core/pt-BR
 //= require hogan.js
 //= require jquery.dataTables.min.js
+//= require jquery.dataTables.dataTools/TableTools.min.js
+//= require jquery.dataTables.dataTools/TableTools_Bootstrap.js
 
 $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     $(this).datepicker({"format": "dd/mm/yyyy hh:mm", "weekStart": 1, "autoclose": true});

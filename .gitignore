@@ -22,3 +22,4 @@ _yardoc
 doc/
 db/schema.rb
 db/external_migrate/
+*.ignore

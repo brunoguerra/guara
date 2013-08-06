@@ -26,63 +26,9 @@
               </li>
               <li class="span12">                
                 <h6><%= t("active_crm.scheduled.customers_scheduled") %></h6>
-                <table id="customer-scheduled" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th class="span4"><%= t("helpers.label.customers.search.names") %></th>
-                      <th><%= t("active_crm.scheduled.responsible") %></th>
-                      <th><%= t("active_crm.scheduled.datetime") %></th>
-                      <th><%= t("active_crm.scheduled.activity") %></th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    
-                    <% (@customers_scheduled || []).each do |customer| %>
-                        <% customer.load_scheduled_contacts(params[:scheduled_customer_group_id]).each do |scheduled_contact|%>
-                        <tr customer-id="<%=customer.id%>" contact-id="<%=scheduled_contact.contact_id%>">
-                          <td><%= customer.name %></td>
-                          <td><%= scheduled_contact.contact.name %></td>
-                          <td><%= scheduled_contact.scheduled %></td>
-                          <td><%= scheduled_contact.activity %></td>
-                        </tr>
-                        <% end %>
-                    <% end %>
-
-                  </tbody>
-                </table>
+                <%= render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list" %>
               </li>
-
-
-
-              <li class="span12">                
-                <h6><%= t("active_crm.scheduled.customers_scheduled") %></h6>
-                <table id="customer-scheduled" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th class="span4"><%= t("helpers.label.customers.search.names") %></th>
-                      <th><%= t("active_crm.scheduled.responsible") %></th>
-                      <th><%= t("active_crm.scheduled.datetime") %></th>
-                      <th><%= t("active_crm.scheduled.activity") %></th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    
-                    <% (@customers_scheduled || []).each do |customer| %>
-                        <% customer.load_scheduled_contacts(params[:scheduled_customer_group_id]).each do |scheduled_contact|%>
-                        <tr customer-id="<%=customer.id%>" contact-id="<%=scheduled_contact.contact_id%>">
-                          <td><%= customer.name %></td>
-                          <td><%= scheduled_contact.contact.name %></td>
-                          <td><%= scheduled_contact.scheduled %></td>
-                          <td><%= scheduled_contact.activity %></td>
-                        </tr>
-                        <% end %>
-                    <% end %>
-
-                  </tbody>
-                </table>
-              </li>
+              
           </ul>
         </div>
     </div>
