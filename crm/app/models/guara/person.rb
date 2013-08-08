@@ -79,7 +79,6 @@ module Guara
       def businesses
         resolution = SystemTaskResolution.RESOLVED_WITH_BUSINESS
         businesses = self.tasks.unscoped.joins(:type).select("company_business_id, max(finish_time) AS business_at").where({resolution_id: 4, interested_id: self}).group(:company_business_id)
-        #puts businesses.inspect
         businesses.collect { |b| OpenStruct.new(business: CompanyBusiness.find_by_id(b.company_business_id), business_at: b.business_at) }
       end
   

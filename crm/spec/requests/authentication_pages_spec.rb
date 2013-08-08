@@ -21,7 +21,6 @@ module Guara
             fill_in I18n.t("session.email"),    with: "invalid@email.com"
             fill_in I18n.t("session.password"), with: "invalid_password"
             click_button I18n.t("sign.in.link")
-            #puts page.body.to_yaml
           end
 
           it { should have_selector('title', text: I18n.t("sign.in.title")) }

@@ -26,7 +26,6 @@ module Guara
     def customer_nav_modules_build_tabs(customer, active)
       
       res = ""
-      puts Guara::Customer.modules.inspect
       
       Guara::Customer.modules.each do |md| 
         md[:tabs].each do |tab|
