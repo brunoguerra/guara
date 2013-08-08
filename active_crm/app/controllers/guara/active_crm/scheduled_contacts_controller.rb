@@ -16,7 +16,7 @@ module Guara
         @customers_to_register = paginate(@search, params[:page], 40)
 
         @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search_params)
-        @customers_scheduled = paginate(@search_scheduled)
+        @customers_scheduled = @search_scheduled
     	end
 
       def new

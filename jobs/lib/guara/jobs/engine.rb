@@ -32,7 +32,7 @@ module Guara
 
           ]
 
-          require File.expand_path("../../../../config/crm_config", __FILE__)
+        require File.expand_path("../../../../config/crm_config", __FILE__)
         
       end
     

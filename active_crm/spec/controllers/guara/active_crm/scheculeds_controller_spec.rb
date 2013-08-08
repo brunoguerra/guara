@@ -19,10 +19,10 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 module Guara
-  describe ActiveCrm::ScheculedsController do
+  describe ActiveCrm::ScheduledsController do
   
     # This should return the minimal set of attributes required to create a valid
-    # ActiveCrm::Scheculed. As you add validations to ActiveCrm::Scheculed, be sure to
+    # ActiveCrm::Scheduled. As you add validations to ActiveCrm::Scheduled, be sure to
     # update the return value of this method accordingly.
     def valid_attributes
       { "subject" => "MyString" }
@@ -30,74 +30,74 @@ module Guara
   
     # This should return the minimal set of values that should be in the session
     # in order to pass any filters (e.g. authentication) defined in
-    # ActiveCrm::ScheculedsController. Be sure to keep this updated too.
+    # ActiveCrm::ScheduledsController. Be sure to keep this updated too.
     def valid_session
       {}
     end
   
     describe "GET index" do
-      it "assigns all active_crm_scheculeds as @active_crm_scheculeds" do
-        scheculed = ActiveCrm::Scheculed.create! valid_attributes
+      it "assigns all active_crm_Scheduleds as @active_crm_Scheduleds" do
+        Scheduled = ActiveCrm::Scheduled.create! valid_attributes
         get :index, {}, valid_session
-        assigns(:active_crm_scheculeds).should eq([scheculed])
+        assigns(:active_crm_Scheduleds).should eq([Scheduled])
       end
     end
   
     describe "GET show" do
-      it "assigns the requested active_crm_scheculed as @active_crm_scheculed" do
-        scheculed = ActiveCrm::Scheculed.create! valid_attributes
-        get :show, {:id => scheculed.to_param}, valid_session
-        assigns(:active_crm_scheculed).should eq(scheculed)
+      it "assigns the requested active_crm_Scheduled as @active_crm_Scheduled" do
+        Scheduled = ActiveCrm::Scheduled.create! valid_attributes
+        get :show, {:id => Scheduled.to_param}, valid_session
+        assigns(:active_crm_Scheduled).should eq(Scheduled)
       end
     end
   
     describe "GET new" do
-      it "assigns a new active_crm_scheculed as @active_crm_scheculed" do
+      it "assigns a new active_crm_Scheduled as @active_crm_Scheduled" do
         get :new, {}, valid_session
-        assigns(:active_crm_scheculed).should be_a_new(ActiveCrm::Scheculed)
+        assigns(:active_crm_Scheduled).should be_a_new(ActiveCrm::Scheduled)
       end
     end
   
     describe "GET edit" do
-      it "assigns the requested active_crm_scheculed as @active_crm_scheculed" do
-        scheculed = ActiveCrm::Scheculed.create! valid_attributes
-        get :edit, {:id => scheculed.to_param}, valid_session
-        assigns(:active_crm_scheculed).should eq(scheculed)
+      it "assigns the requested active_crm_Scheduled as @active_crm_Scheduled" do
+        Scheduled = ActiveCrm::Scheduled.create! valid_attributes
+        get :edit, {:id => Scheduled.to_param}, valid_session
+        assigns(:active_crm_Scheduled).should eq(Scheduled)
       end
     end
   
     describe "POST create" do
       describe "with valid params" do
-        it "creates a new ActiveCrm::Scheculed" do
+        it "creates a new ActiveCrm::Scheduled" do
           expect {
-            post :create, {:active_crm_scheculed => valid_attributes}, valid_session
-          }.to change(ActiveCrm::Scheculed, :count).by(1)
+            post :create, {:active_crm_Scheduled => valid_attributes}, valid_session
+          }.to change(ActiveCrm::Scheduled, :count).by(1)
         end
   
-        it "assigns a newly created active_crm_scheculed as @active_crm_scheculed" do
-          post :create, {:active_crm_scheculed => valid_attributes}, valid_session
-          assigns(:active_crm_scheculed).should be_a(ActiveCrm::Scheculed)
-          assigns(:active_crm_scheculed).should be_persisted
+        it "assigns a newly created active_crm_Scheduled as @active_crm_Scheduled" do
+          post :create, {:active_crm_Scheduled => valid_attributes}, valid_session
+          assigns(:active_crm_Scheduled).should be_a(ActiveCrm::Scheduled)
+          assigns(:active_crm_Scheduled).should be_persisted
         end
   
-        it "redirects to the created active_crm_scheculed" do
-          post :create, {:active_crm_scheculed => valid_attributes}, valid_session
-          response.should redirect_to(ActiveCrm::Scheculed.last)
+        it "redirects to the created active_crm_Scheduled" do
+          post :create, {:active_crm_Scheduled => valid_attributes}, valid_session
+          response.should redirect_to(ActiveCrm::Scheduled.last)
         end
       end
   
       describe "with invalid params" do
-        it "assigns a newly created but unsaved active_crm_scheculed as @active_crm_scheculed" do
+        it "assigns a newly created but unsaved active_crm_Scheduled as @active_crm_Scheduled" do
           # Trigger the behavior that occurs when invalid params are submitted
-          ActiveCrm::Scheculed.any_instance.stub(:save).and_return(false)
-          post :create, {:active_crm_scheculed => { "subject" => "invalid value" }}, valid_session
-          assigns(:active_crm_scheculed).should be_a_new(ActiveCrm::Scheculed)
+          ActiveCrm::Scheduled.any_instance.stub(:save).and_return(false)
+          post :create, {:active_crm_Scheduled => { "subject" => "invalid value" }}, valid_session
+          assigns(:active_crm_Scheduled).should be_a_new(ActiveCrm::Scheduled)
         end
   
         it "re-renders the 'new' template" do
           # Trigger the behavior that occurs when invalid params are submitted
-          ActiveCrm::Scheculed.any_instance.stub(:save).and_return(false)
-          post :create, {:active_crm_scheculed => { "subject" => "invalid value" }}, valid_session
+          ActiveCrm::Scheduled.any_instance.stub(:save).and_return(false)
+          post :create, {:active_crm_Scheduled => { "subject" => "invalid value" }}, valid_session
           response.should render_template("new")
         end
       end
@@ -105,60 +105,60 @@ module Guara
   
     describe "PUT update" do
       describe "with valid params" do
-        it "updates the requested active_crm_scheculed" do
-          scheculed = ActiveCrm::Scheculed.create! valid_attributes
-          # Assuming there are no other active_crm_scheculeds in the database, this
-          # specifies that the ActiveCrm::Scheculed created on the previous line
+        it "updates the requested active_crm_Scheduled" do
+          Scheduled = ActiveCrm::Scheduled.create! valid_attributes
+          # Assuming there are no other active_crm_Scheduleds in the database, this
+          # specifies that the ActiveCrm::Scheduled created on the previous line
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
-          ActiveCrm::Scheculed.any_instance.should_receive(:update_attributes).with({ "subject" => "MyString" })
-          put :update, {:id => scheculed.to_param, :active_crm_scheculed => { "subject" => "MyString" }}, valid_session
+          ActiveCrm::Scheduled.any_instance.should_receive(:update_attributes).with({ "subject" => "MyString" })
+          put :update, {:id => Scheduled.to_param, :active_crm_Scheduled => { "subject" => "MyString" }}, valid_session
         end
   
-        it "assigns the requested active_crm_scheculed as @active_crm_scheculed" do
-          scheculed = ActiveCrm::Scheculed.create! valid_attributes
-          put :update, {:id => scheculed.to_param, :active_crm_scheculed => valid_attributes}, valid_session
-          assigns(:active_crm_scheculed).should eq(scheculed)
+        it "assigns the requested active_crm_Scheduled as @active_crm_Scheduled" do
+          Scheduled = ActiveCrm::Scheduled.create! valid_attributes
+          put :update, {:id => Scheduled.to_param, :active_crm_Scheduled => valid_attributes}, valid_session
+          assigns(:active_crm_Scheduled).should eq(Scheduled)
         end
   
-        it "redirects to the active_crm_scheculed" do
-          scheculed = ActiveCrm::Scheculed.create! valid_attributes
-          put :update, {:id => scheculed.to_param, :active_crm_scheculed => valid_attributes}, valid_session
-          response.should redirect_to(scheculed)
+        it "redirects to the active_crm_Scheduled" do
+          Scheduled = ActiveCrm::Scheduled.create! valid_attributes
+          put :update, {:id => Scheduled.to_param, :active_crm_Scheduled => valid_attributes}, valid_session
+          response.should redirect_to(Scheduled)
         end
       end
   
       describe "with invalid params" do
-        it "assigns the active_crm_scheculed as @active_crm_scheculed" do
-          scheculed = ActiveCrm::Scheculed.create! valid_attributes
+        it "assigns the active_crm_Scheduled as @active_crm_Scheduled" do
+          Scheduled = ActiveCrm::Scheduled.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          ActiveCrm::Scheculed.any_instance.stub(:save).and_return(false)
-          put :update, {:id => scheculed.to_param, :active_crm_scheculed => { "subject" => "invalid value" }}, valid_session
-          assigns(:active_crm_scheculed).should eq(scheculed)
+          ActiveCrm::Scheduled.any_instance.stub(:save).and_return(false)
+          put :update, {:id => Scheduled.to_param, :active_crm_Scheduled => { "subject" => "invalid value" }}, valid_session
+          assigns(:active_crm_Scheduled).should eq(Scheduled)
         end
   
         it "re-renders the 'edit' template" do
-          scheculed = ActiveCrm::Scheculed.create! valid_attributes
+          Scheduled = ActiveCrm::Scheduled.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          ActiveCrm::Scheculed.any_instance.stub(:save).and_return(false)
-          put :update, {:id => scheculed.to_param, :active_crm_scheculed => { "subject" => "invalid value" }}, valid_session
+          ActiveCrm::Scheduled.any_instance.stub(:save).and_return(false)
+          put :update, {:id => Scheduled.to_param, :active_crm_Scheduled => { "subject" => "invalid value" }}, valid_session
           response.should render_template("edit")
         end
       end
     end
   
     describe "DELETE destroy" do
-      it "destroys the requested active_crm_scheculed" do
-        scheculed = ActiveCrm::Scheculed.create! valid_attributes
+      it "destroys the requested active_crm_Scheduled" do
+        Scheduled = ActiveCrm::Scheduled.create! valid_attributes
         expect {
-          delete :destroy, {:id => scheculed.to_param}, valid_session
-        }.to change(ActiveCrm::Scheculed, :count).by(-1)
+          delete :destroy, {:id => Scheduled.to_param}, valid_session
+        }.to change(ActiveCrm::Scheduled, :count).by(-1)
       end
   
-      it "redirects to the active_crm_scheculeds list" do
-        scheculed = ActiveCrm::Scheculed.create! valid_attributes
-        delete :destroy, {:id => scheculed.to_param}, valid_session
-        response.should redirect_to(active_crm_scheculeds_url)
+      it "redirects to the active_crm_Scheduleds list" do
+        Scheduled = ActiveCrm::Scheduled.create! valid_attributes
+        delete :destroy, {:id => Scheduled.to_param}, valid_session
+        response.should redirect_to(active_crm_Scheduleds_url)
       end
     end
   

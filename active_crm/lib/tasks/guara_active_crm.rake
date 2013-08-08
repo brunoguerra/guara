@@ -27,20 +27,24 @@ namespace :guara do
       end
     end
     
-    namespace :remote do
+    namespace :active_crm do
       namespace :db do
         task seeds: :environment do
           execute_task "guara:seeds"
+          execute_task "guara:crm:db:load_seed"
           execute_task "guara:active_crm:db:load_seed"
         end
         
         task load_seed: :environment do
           Guara::ActiveCrm::Engine.load_seed
         end
-        
+      
         task migrate: :environment do
-          execute_task "guara:db:migrations"
-          execute_task "guara_active_crm:install:migrations"
+          execute_task "db:create"
+          execute_task "guara:install:migrations"
+          execute_task "guara_crm:install:migrations"
+          execute_task "guara_actvie_crm:install:migrations"
+          execute_task "db:migrate"
         end
       end
     end

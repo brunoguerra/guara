@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Guara
-  describe PlanContact do
+  describe Guara::SystemPreference do
     pending "add some examples to (or delete) #{__FILE__}"
   end
 end
