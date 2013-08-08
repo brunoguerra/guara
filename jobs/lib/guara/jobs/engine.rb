@@ -31,6 +31,8 @@ module Guara
             { name: :jobs_salary_requirements, resource: Guara::Jobs::SalaryRequirement },
 
           ]
+
+          require File.expand_path("../../../../config/crm_config", __FILE__)
         
       end
     
