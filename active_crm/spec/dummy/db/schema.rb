@@ -28,6 +28,88 @@ ActiveRecord::Schema.define(:version => 20130808130057) do
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
+  create_table "guara_active_crm_scheduled_classifieds", :force => true do |t|
+    t.string   "name"
+    t.boolean  "enabled"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "guara_active_crm_scheduled_contacts", :force => true do |t|
+    t.integer  "contact_id"
+    t.text     "activity"
+    t.integer  "result"
+    t.integer  "classified_id"
+    t.datetime "scheduled"
+    t.integer  "scheduled_id"
+    t.boolean  "enabled",       :default => true
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "deal_id"
+    t.integer  "user_id"
+  end
+
+  add_index "guara_active_crm_scheduled_contacts", ["classified_id"], :name => "index_guara_active_crm_scheduled_contacts_on_classified_id"
+  add_index "guara_active_crm_scheduled_contacts", ["contact_id"], :name => "index_guara_active_crm_scheduled_contacts_on_contact_id"
+  add_index "guara_active_crm_scheduled_contacts", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_contacts_on_scheduled_id"
+
+  create_table "guara_active_crm_scheduled_customer_groups", :force => true do |t|
+    t.string   "business_activities"
+    t.string   "business_segments"
+    t.integer  "employes_min"
+    t.integer  "employes_max"
+    t.string   "name_contains"
+    t.string   "district_contains"
+    t.string   "doc_equals"
+    t.string   "pair_or_odd",         :limit => 1
+    t.integer  "finished_id"
+    t.integer  "scheduled_id"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  create_table "guara_active_crm_scheduled_deals", :force => true do |t|
+    t.integer  "scheduled_id"
+    t.integer  "customer_pj_id"
+    t.datetime "date_start"
+    t.datetime "date_finish"
+    t.integer  "groups_id"
+    t.boolean  "closed",         :default => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "guara_active_crm_scheduled_deals", ["customer_pj_id"], :name => "index_guara_active_crm_scheduled_deals_on_customer_pj_id"
+  add_index "guara_active_crm_scheduled_deals", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_deals_on_scheduled_id"
+
+  create_table "guara_active_crm_scheduled_scheduleds", :force => true do |t|
+    t.string   "subject"
+    t.date     "date_start"
+    t.date     "date_finish"
+    t.integer  "task_type_id"
+    t.integer  "user_id"
+    t.integer  "status",       :default => 0
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "guara_active_crm_scheduled_scheduleds", ["task_type_id"], :name => "index_guara_active_crm_scheduled_scheduleds_on_task_type_id"
+  add_index "guara_active_crm_scheduled_scheduleds", ["user_id"], :name => "index_guara_active_crm_scheduled_scheduleds_on_user_id"
+
+  create_table "guara_active_crm_scheduleds", :force => true do |t|
+    t.string   "subject"
+    t.date     "date_start"
+    t.date     "date_finish"
+    t.integer  "task_type_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "guara_active_crm_scheduleds", ["task_type_id"], :name => "index_guara_active_crm_scheduleds_on_task_type_id"
+  add_index "guara_active_crm_scheduleds", ["user_id"], :name => "index_guara_active_crm_scheduleds_on_user_id"
+
   create_table "guara_addresses", :force => true do |t|
     t.integer  "country_id"
     t.integer  "state_id"
