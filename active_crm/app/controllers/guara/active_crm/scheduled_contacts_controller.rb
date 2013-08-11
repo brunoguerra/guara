@@ -23,7 +23,7 @@ module Guara
           @contact = Guara::Contact.find(params[:contact_id])
           @scheduled_contact = Scheduled::Contact.new(contact_id: params[:contact_id], user_id: current_user.id)
 
-          @deal = Guara::ActiveCrm::Scheduled::Deals.where(:customer_pj_id=> @contact.person_id, :groups_id=> params[:scheduled_customer_group_id]).first
+          @deal = Guara::ActiveCrm::Scheduled::Deal.where(:customer_id=> @contact.person_id, :group_id=> params[:scheduled_customer_group_id]).first
 
           render 'new.html.erb', layout: false
       end
@@ -44,7 +44,7 @@ module Guara
       end
 
       def close_negociation
-          deal = Scheduled::Deals.where(:customer_pj_id=> params[:customer_id], :groups_id=> params[:customer_group]).first
+          deal = Scheduled::Deal.where(:customer_id=> params[:customer_id], :group_id=> params[:customer_group]).first
           deal = create_deal(params[:customer_id], params[:customer_group]) if deal.nil?
           deal.update_attributes(:closed=> true, :date_finish=> Time.now)
           render :json => { success: true}
@@ -62,15 +62,15 @@ module Guara
             return data
         end
 
-        def create_deal(customer_id, groups_id)
-          deal = Guara::ActiveCrm::Scheduled::Deals
-          .where(:customer_pj_id=> customer_id, :groups_id=> groups_id).first
+        def create_deal(customer_id, group_id)
+          deal = Guara::ActiveCrm::Scheduled::Deal
+          .where(:customer_id=> customer_id, :group_id=> group_id).first
           
           if deal.nil?
-            deal = Guara::ActiveCrm::Scheduled::Deals.create(
-              :customer_pj_id=> customer_id, 
+            deal = Guara::ActiveCrm::Scheduled::Deal.create(
+              :customer_id=> customer_id, 
               :date_start=> Time.now, 
-              :groups_id=> groups_id
+              :group_id=> group_id
             )
           end
 

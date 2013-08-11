@@ -1,3 +1,4 @@
+# This migration comes from guara_active_crm (originally 20130611135555)
 class CreateGuaraActiveCrmScheduledDeals < ActiveRecord::Migration
   def change
     create_table :guara_active_crm_scheduled_deals do |t|

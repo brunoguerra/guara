@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808130057) do
+ActiveRecord::Schema.define(:version => 20130809192671) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -70,19 +70,19 @@ ActiveRecord::Schema.define(:version => 20130808130057) do
 
   create_table "guara_active_crm_scheduled_deals", :force => true do |t|
     t.integer  "scheduled_id"
-    t.integer  "customer_pj_id"
+    t.integer  "customer_id"
     t.datetime "date_start"
     t.datetime "date_finish"
-    t.integer  "groups_id"
-    t.boolean  "closed",         :default => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "group_id"
+    t.boolean  "closed",       :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
-  add_index "guara_active_crm_scheduled_deals", ["customer_pj_id"], :name => "index_guara_active_crm_scheduled_deals_on_customer_pj_id"
+  add_index "guara_active_crm_scheduled_deals", ["customer_id"], :name => "index_guara_active_crm_scheduled_deals_on_customer_id"
   add_index "guara_active_crm_scheduled_deals", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_deals_on_scheduled_id"
 
-  create_table "guara_active_crm_scheduled_scheduleds", :force => true do |t|
+  create_table "guara_active_crm_scheduleds", :force => true do |t|
     t.string   "subject"
     t.date     "date_start"
     t.date     "date_finish"
@@ -91,20 +91,6 @@ ActiveRecord::Schema.define(:version => 20130808130057) do
     t.integer  "status",       :default => 0
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
-  end
-
-  add_index "guara_active_crm_scheduled_scheduleds", ["task_type_id"], :name => "index_guara_active_crm_scheduled_scheduleds_on_task_type_id"
-  add_index "guara_active_crm_scheduled_scheduleds", ["user_id"], :name => "index_guara_active_crm_scheduled_scheduleds_on_user_id"
-
-  create_table "guara_active_crm_scheduleds", :force => true do |t|
-    t.string   "subject"
-    t.date     "date_start"
-    t.date     "date_finish"
-    t.integer  "task_type_id"
-    t.integer  "user_id"
-    t.integer  "status"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
   end
 
   add_index "guara_active_crm_scheduleds", ["task_type_id"], :name => "index_guara_active_crm_scheduleds_on_task_type_id"
@@ -116,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20130808130057) do
     t.integer  "city_id"
     t.integer  "district_id"
     t.string   "address",          :limit => 120
+    t.string   "number",           :limit => 15
     t.string   "complement",       :limit => 30
     t.string   "postal_code",      :limit => 20
     t.integer  "addressable_id"
@@ -336,8 +323,9 @@ ActiveRecord::Schema.define(:version => 20130808130057) do
   create_table "guara_phones", :force => true do |t|
     t.string   "phone"
     t.integer  "callable_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "callable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "guara_phones", ["callable_id"], :name => "index_guara_phones_on_callable_id"
@@ -477,8 +465,8 @@ ActiveRecord::Schema.define(:version => 20130808130057) do
     t.string   "last_sign_in_ip"
     t.integer  "primary_group_id"
     t.integer  "type_id",                                    :default => 0,     :null => false
-    t.integer  "primary_company_business_id"
     t.integer  "primary_company_branch_id"
+    t.integer  "primary_company_business_id"
   end
 
   add_index "guara_users", ["email"], :name => "index_guara_users_on_email", :unique => true

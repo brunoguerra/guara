@@ -94,14 +94,14 @@
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :groups_id_in, t("active_crm.scheduled.group"), :class => "control-label" %>
+				<%= f.label :group_id_in, t("active_crm.scheduled.group"), :class => "control-label" %>
 				<div class="controls">
-					<%= f.select(:groups_id_in,
+					<%= f.select(:group_id_in,
 						options_for_select([nil]) + 
 						options_from_collection_for_select(@customer_groups,
 							:id, 
 							:name,
-							params[:search][:groups_id_in]),
+							params[:search][:group_id_in]),
 						{}, 
 						{
 							:style => "width: 282px;", 
@@ -112,14 +112,14 @@
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :customer_pj_id_in, t("helpers.label.customers.search.names"), :class => "control-label" %>
+				<%= f.label :customer_id_in, t("helpers.label.customers.search.names"), :class => "control-label" %>
 				<div class="controls">
-					<%= f.select(:customer_pj_id_in,
+					<%= f.select(:customer_id_in,
 						options_for_select([nil]) + 
 						options_from_collection_for_select(@customers,
 							:id, 
 							:name,
-							params[:search][:customer_pj_id_in]),
+							params[:search][:customer_id_in]),
 						{}, 
 						{
 							:style => "width: 282px;", 
@@ -140,7 +140,7 @@
 		load_scheduled();
 	});
 
-	$('#search_groups_id_in').change(function(){
+	$('#search_group_id_in').change(function(){
 		load_customer();
 	});
 
@@ -152,13 +152,13 @@
 		    	scheduled_id: $('#search_group_scheduled_id_in').val()
 		    }
 		}).done(function( data ) {
-		    $('#search_groups_id_in').html('').append('<option value=""></option>');
+		    $('#search_group_id_in').html('').append('<option value=""></option>');
 		    for (var i=0;i<data.data.length;i++){
-		    	$('#search_groups_id_in').append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');
+		    	$('#search_group_id_in').append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');
 		    }
 
-		    $('#search_groups_id_in').select2("destroy");
-		    $('#search_groups_id_in').select2();
+		    $('#search_group_id_in').select2("destroy");
+		    $('#search_group_id_in').select2();
 		});
 	});
 
@@ -192,7 +192,7 @@
 
 	function load_customer(){
 		var data = {};
-		var select = $('#search_customer_pj_id_in');
+		var select = $('#search_customer_id_in');
 		var scheduled = $('#search_group_scheduled_id_in');
 		data[scheduled.attr('name')] = scheduled.val();
 

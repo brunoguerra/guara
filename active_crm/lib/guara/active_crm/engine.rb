@@ -27,7 +27,7 @@ module Guara
           name: :active_crm,
           items: [
               { name: "active_crm.scheduled", resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduleds_path()" },
-              { name: "active_crm.scheduled_deals", resource: Guara::ActiveCrm::Scheduled::Deals, path: "guara.scheduled_deals_path()" },
+              { name: "active_crm.scheduled_deals", resource: Guara::ActiveCrm::Scheduled::Deal, path: "guara.scheduled_deals_path()" },
               { name: "active_crm.scheduled_contacts_reports", resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduled_contacts_reports_path()" }
             ]
         }

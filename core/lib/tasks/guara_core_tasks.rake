@@ -88,3 +88,22 @@ namespace :guara do
     end
   end
 end
+
+namespace :db do
+  desc 'task to rebuild db test'
+  task :rebuild do
+    Rails.env='test'
+    Rake::Task["environment"].invoke
+
+    begin
+      execute_task 'db:drop'
+      execute_task 'db:create'
+      execute_task 'db:migrate'
+      execute_task 'db:seed'
+    rescue Exception => e
+      puts e.message
+      puts e.class.name
+    end
+
+  end
+end

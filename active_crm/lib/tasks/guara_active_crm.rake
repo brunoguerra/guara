@@ -43,7 +43,7 @@ namespace :guara do
           execute_task "db:create"
           execute_task "guara:install:migrations"
           execute_task "guara_crm:install:migrations"
-          execute_task "guara_actvie_crm:install:migrations"
+          execute_task "guara_active_crm:install:migrations"
           execute_task "db:migrate"
         end
       end

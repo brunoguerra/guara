@@ -1,3 +1,4 @@
+# This migration comes from guara_active_crm (originally 20130606124055)
 class CreateGuaraActiveCrmScheduleds < ActiveRecord::Migration
   def change
     create_table :guara_active_crm_scheduleds do |t|
@@ -6,7 +7,7 @@ class CreateGuaraActiveCrmScheduleds < ActiveRecord::Migration
       t.date :date_finish
       t.references :task_type
       t.references :user
-      t.integer :status
+      t.integer :status, default: 0
 
       t.timestamps
     end

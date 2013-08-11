@@ -1,10 +1,10 @@
 module Guara
 	module ActiveCrm
-      module Scheduled
+      class Scheduled
     		class Contact < ActiveRecord::Base
           belongs_to :classified
       		belongs_to :contact, class_name: "Guara::Contact"
-          belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deals"
+          belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deal"
         
           attr_accessible :activity,
                           :result,

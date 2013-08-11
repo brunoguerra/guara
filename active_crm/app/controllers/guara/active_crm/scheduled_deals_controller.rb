@@ -1,7 +1,7 @@
 module Guara
   	module ActiveCrm
     	class ScheduledDealsController < Guara::BaseController
-    		load_and_authorize_resource :scheduled_deal, :class => "Guara::ActiveCrm::Scheduled::Deals", except: [:multiselect_scheduleds, :multiselect_group]
+    		load_and_authorize_resource :scheduled_deal, :class => "Guara::ActiveCrm::Scheduled::Deal", except: [:multiselect_scheduleds, :multiselect_group]
 
     		include ScheduledsHelper
             include ScheduledContactsHelper
@@ -11,7 +11,7 @@ module Guara
 
     		def index
     			params[:search] = {} if params[:search].nil?
-                @search = Scheduled::Deals.search(params[:search])
+                @search = Scheduled::Deal.search(params[:search])
                 @scheduled_deals = paginate(@search)
                 @scheduleds = load_scheduleds_select(params[:search])
                 @customer_groups = load_group_select(params[:search])
@@ -19,7 +19,7 @@ module Guara
     		end
 
             def show
-                @scheduled_deal = Scheduled::Deals.find(params[:id])
+                @scheduled_deal = Scheduled::Deal.find(params[:id])
                 @active_crm_scheduled = @scheduled_deal.group.scheduled
                 @customer_groups = [@scheduled_deal.group]
             end

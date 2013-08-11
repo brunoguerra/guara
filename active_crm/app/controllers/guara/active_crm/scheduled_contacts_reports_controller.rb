@@ -1,7 +1,7 @@
 module Guara
   	module ActiveCrm
     	class ScheduledContactsReportsController < Guara::BaseController
-    		load_and_authorize_resource :scheduled_contacts_repost, :class => "Guara::ActiveCrm::Scheduled::Deals", except: [:multiselect_scheduleds, :multiselect_group, :index]
+    		load_and_authorize_resource :scheduled_contacts_repost, :class => "Guara::ActiveCrm::Scheduled::Deal", except: [:multiselect_scheduleds, :multiselect_group, :index]
 
     		include Select2Helper
     		include ScheduledsHelper
@@ -13,12 +13,12 @@ module Guara
     		def index
     			params[:search] = {} if params[:search].nil?
 
-    			@deals = Guara::ActiveCrm::Scheduled::Deals.select("#{Scheduled::Contact.table_name}.*").joins(:contacts)
+    			@deals = Guara::ActiveCrm::Scheduled::Deal.select("#{Scheduled::Contact.table_name}.*").joins(:contacts)
 
 				@scheduled_deals = @search = @deals.search(params[:search])                
 
     			load_selects
-    			authorize! :read, Guara::ActiveCrm::Scheduled::Deals
+    			authorize! :read, Guara::ActiveCrm::Scheduled::Deal
 
     			respond_to do |format|
 			      format.html
