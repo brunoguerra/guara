@@ -2,6 +2,7 @@ class CreateGuaraActiveCrmScheduledContacts < ActiveRecord::Migration
   def change
     create_table :guara_active_crm_scheduled_contacts do |t|
       t.references :contact
+      t.references :customer
       t.text :activity
       t.integer :result
       t.references :classified

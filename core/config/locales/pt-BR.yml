@@ -16,7 +16,8 @@ pt-BR:
   app:
     title:
       full: "Gestão do Relacionamento de Clientes"
-      small: "CMGB - CRM"
+      small: "Guara - CRM"
+    subtitle: ""
   
   #MODULES <=================================
   user_groups:

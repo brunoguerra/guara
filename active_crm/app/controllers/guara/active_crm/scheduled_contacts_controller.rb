@@ -9,13 +9,13 @@ module Guara
 
     	def index
     		params[:search] = {} if params[:search].nil?
-    		scheduled_customer_group = Scheduled::CustomerGroup.find(params[:scheduled_customer_group_id])
-    		search_params = prepare_filter_search(params[:search], scheduled_customer_group)
+    		scheduled_group = Scheduled::CustomerGroup.find(params[:scheduled_group_id])
+    		search_params = prepare_filter_search(params[:search], scheduled_group)
     		
-    		@search = Guara::Customer.customer_contact(params[:scheduled_customer_group_id]).search(search_params)
+    		@search = Guara::Customer.customer_contact(params[:scheduled_group_id]).search(search_params)
         @customers_to_register = paginate(@search, params[:page], 40)
 
-        @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_customer_group_id]).search(search_params)
+        @search_scheduled = Guara::Customer.customer_scheduled(params[:scheduled_group_id]).search(search_params)
         @customers_scheduled = @search_scheduled
     	end
 
@@ -23,14 +23,14 @@ module Guara
           @contact = Guara::Contact.find(params[:contact_id])
           @scheduled_contact = Scheduled::Contact.new(contact_id: params[:contact_id], user_id: current_user.id)
 
-          @deal = Guara::ActiveCrm::Scheduled::Deal.where(:customer_id=> @contact.person_id, :group_id=> params[:scheduled_customer_group_id]).first
+          @deal = Guara::ActiveCrm::Scheduled::Deal.where(:customer_id=> @contact.person_id, :group_id=> params[:scheduled_group_id]).first
 
           render 'new.html.erb', layout: false
       end
 
       def create
           @scheduled_contact = Scheduled::Contact.new(params[:active_crm_scheduled_contact])
-          @scheduled_contact.deal = create_deal(@scheduled_contact.contact.person_id, params[:scheduled_customer_group_id])
+          @scheduled_contact.deal = create_deal(@scheduled_contact.contact.person_id, params[:scheduled_group_id])
           Scheduled::Contact.update_all("enabled = false ", "deal_id = #{@scheduled_contact.deal_id} AND contact_id = #{@scheduled_contact.contact_id} and enabled=true and result=#{Scheduled::Contact::SCHEDULED}")
           success = @scheduled_contact.save
           data = prepare_data_json()
@@ -44,8 +44,8 @@ module Guara
       end
 
       def close_negociation
-          deal = Scheduled::Deal.where(:customer_id=> params[:customer_id], :group_id=> params[:customer_group]).first
-          deal = create_deal(params[:customer_id], params[:customer_group]) if deal.nil?
+          deal = Scheduled::Deal.where(:customer_id=> params[:customer_id], :group_id=> params[:group]).first
+          deal = create_deal(params[:customer_id], params[:group]) if deal.nil?
           deal.update_attributes(:closed=> true, :date_finish=> Time.now)
           render :json => { success: true}
       end

@@ -1,7 +1,7 @@
 Guara::Core::Engine.routes.prepend do
 	scope module: 'active_crm' do	
 		resources :scheduleds do 
-			resources :scheduled_customer_groups do 
+			resources :scheduled_groups do 
 				resources :scheduled_contacts
 			end
 		end

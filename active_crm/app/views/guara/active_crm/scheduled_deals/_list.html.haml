@@ -7,7 +7,7 @@
       %th= t("active_crm.scheduled.activity")
   %tbody
     - (@customers_scheduled || []).each do |customer|
-      - customer.load_scheduled_contacts(params[:scheduled_customer_group_id]).each do |scheduled_contact|
+      - customer.load_scheduled_contacts(params[:scheduled_group_id]).each do |scheduled_contact|
         %tr{"contact-id" => scheduled_contact.contact_id, "customer-id" => customer.id}
           %td= customer.name
           %td= scheduled_contact.contact.name

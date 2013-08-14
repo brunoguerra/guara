@@ -2,7 +2,7 @@
 //= require guara/active_crm/pt-BR
 
 var ScheduledContacts = {
-  customer_group: null,
+  group: null,
   current_customer: null,
   ignored_customers: null,
   new_scheduled_contacts: null,
@@ -14,13 +14,13 @@ var ScheduledContacts = {
   scroll_top_margin: 100,
   customer_panel_seletor: '.container-customer .thumbnail',
 
-  init: function(ignored_customers, new_scheduled_contacts, close_negociation, customer_group){
+  init: function(ignored_customers, new_scheduled_contacts, close_negociation, group){
     var me = this;
     if(ignored_customers){
       me.ignored_customers = ignored_customers;
     }
-    if(customer_group){
-      me.customer_group = customer_group;
+    if(group){
+      me.group = group;
     }
     if(close_negociation){
       me.close_negociation = close_negociation;
@@ -191,7 +191,7 @@ var ScheduledContacts = {
           url: me.close_negociation,
           data: {
             customer_id: me.current_customer,
-            customer_group: me.customer_group
+            group: me.group
           }
         }).done(function( data ) {
           if(data.success==true) {

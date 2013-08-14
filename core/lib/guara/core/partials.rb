@@ -3,7 +3,7 @@ module Guara
     class Partials
       
       def home
-        Guara::Partials::HOME
+        {}
       end
      
       

@@ -2,7 +2,7 @@
 module Guara
   	module ActiveCrm
     	class ScheduledCustomerGroupsController < Guara::BaseController
-    		load_and_authorize_resource :scheduled_customer_group, :class => "Guara::ActiveCrm::Scheduled::CustomerGroup", :except => [:index, :create]
+    		load_and_authorize_resource :scheduled_group, :class => "Guara::ActiveCrm::Scheduled::CustomerGroup", :except => [:index, :create]
     		
             include Select2Helper
             include ScheduledsHelper
@@ -37,31 +37,31 @@ module Guara
             end
 
             def create
-                @scheduled_customer_group = Guara::ActiveCrm::Scheduled::CustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
-                authorize! :new, @scheduled_customer_group
+                @scheduled_group = Guara::ActiveCrm::Scheduled::CustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
+                authorize! :new, @scheduled_group
 
                 respond_to do |format|
-                  if @scheduled_customer_group.save
+                  if @scheduled_group.save
                     format.html { redirect_to scheduled_path(params[:scheduled_id]) }
-                    format.json { render json: @scheduled_customer_group, status: :created, location: @scheduled_customer_group }
+                    format.json { render json: @scheduled_group, status: :created, location: @scheduled_group }
                   else
                     format.html { render action: "new" }
-                    format.json { render json: @scheduled_customer_group.errors, status: :unprocessable_entity }
+                    format.json { render json: @scheduled_group.errors, status: :unprocessable_entity }
                   end
                 end
             end
 
             def update
-                @scheduled_customer_group = Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:id])
-                @scheduled_customer_group.update_attributes(prepare_filter_save(params[:search], params[:scheduled_id]))
+                @scheduled_group = Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:id])
+                @scheduled_group.update_attributes(prepare_filter_save(params[:search], params[:scheduled_id]))
 
                 respond_to do |format|
-                  if @scheduled_customer_group.save
+                  if @scheduled_group.save
                     format.html { redirect_to scheduled_path(params[:scheduled_id]) }
-                    format.json { render json: @scheduled_customer_group, status: :updated, location: @scheduled_customer_group }
+                    format.json { render json: @scheduled_group, status: :updated, location: @scheduled_group }
                   else
                     format.html { render action: "edit" }
-                    format.json { render json: @scheduled_customer_group.errors, status: :unprocessable_entity }
+                    format.json { render json: @scheduled_group.errors, status: :unprocessable_entity }
                   end
                 end
             end

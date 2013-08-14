@@ -5,6 +5,9 @@ module Guara
   
     #person
     has_one	:person, :as => :customer
+
+    #customer same person
+    has_one :customer, :as => :customer
   
     #segments
     has_many :customer_segments

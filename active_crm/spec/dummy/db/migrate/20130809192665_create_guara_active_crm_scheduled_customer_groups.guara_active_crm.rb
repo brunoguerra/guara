@@ -1,7 +1,7 @@
 # This migration comes from guara_active_crm (originally 20130606124513)
 class CreateGuaraActiveCrmScheduledCustomerGroups < ActiveRecord::Migration
   def change
-    create_table :guara_active_crm_scheduled_customer_groups do |t|
+    create_table :guara_active_crm_scheduled_groups do |t|
       t.string :business_activities
       t.string :business_segments
       t.integer :employes_min

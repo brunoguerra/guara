@@ -38,6 +38,8 @@ module Guara
     attr_protected
   
     has_one	:person	, :as => :customer
+    #customer same person
+    has_one :customer, :as => :customer
     has_many	:history_pfs
   
     def prefix

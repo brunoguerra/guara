@@ -7,12 +7,18 @@ module Guara
 			    								:date_finish, 
 			    								:date_start, 
 			    								:group_id,
-			    								:group, 
+			    								:group,
+			    								:scheduled_id,
+			    								:scheduled, 
 			    								:closed
 
 			    belongs_to :customer, class_name: "Guara::Person"
 			    belongs_to :group, class_name: "Guara::ActiveCrm::Scheduled::CustomerGroup", foreign_key: :group_id
+			    belongs_to :scheduled, class_name: "Guara::ActiveCrm::Scheduled"
 			    has_many :contacts, foreign_key: :deal_id 
+
+
+			    validates_presence_of :scheduled, :customer
 			    
 			   	scope :count_registered, lambda {|value|
 			   	  	where("(

@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20130809192671) do
   add_index "guara_active_crm_scheduled_contacts", ["contact_id"], :name => "index_guara_active_crm_scheduled_contacts_on_contact_id"
   add_index "guara_active_crm_scheduled_contacts", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_contacts_on_scheduled_id"
 
-  create_table "guara_active_crm_scheduled_customer_groups", :force => true do |t|
+  create_table "guara_active_crm_scheduled_groups", :force => true do |t|
     t.string   "business_activities"
     t.string   "business_segments"
     t.integer  "employes_min"

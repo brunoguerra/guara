@@ -31,7 +31,7 @@ module Guara
     		private
     		def load_selects
     			@scheduleds 		= load_scheduleds_select(params[:search])
-                @customer_groups	= load_group_select(params[:search])
+                @groups	= load_group_select(params[:search])
                 @customers 			= load_customer_select(params[:search])
     		end
     	end

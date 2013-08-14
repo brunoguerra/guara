@@ -47,10 +47,6 @@ Guara::Core::Engine.routes.draw do
   
   #resources :sessions #,   only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
-end
 
-unless Rails.application.nil?
-  Rails.application.routes.prepend do
-    root to: 'Guara::StaticPages#home'
-  end
+  root to: 'Guara::StaticPages#home'
 end

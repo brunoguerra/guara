@@ -98,7 +98,7 @@
 				<div class="controls">
 					<%= f.select(:group_id_in,
 						options_for_select([nil]) + 
-						options_from_collection_for_select(@customer_groups,
+						options_from_collection_for_select(@groups,
 							:id, 
 							:name,
 							params[:search][:group_id_in]),

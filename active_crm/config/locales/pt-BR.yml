@@ -65,7 +65,7 @@ pt-BR:
         ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
 
 
-    scheduled_customer_groups: 
+    scheduled_groups: 
       title: "Grupo de Cliente"
       new: "Novo Grupo"
 

@@ -37,6 +37,17 @@ module Guara
             1 => I18n.t("active_crm.scheduled.status.completed")
         }
       end
+
+      def initialize_deal(customer, group=nil)
+        ActiveCrm::Scheduled::Deal::new(
+          customer: customer,
+          group: group,
+          scheduled: self,
+          date_start: Time.now,
+          closed: false,
+        ) 
+      end
+
     end
   end
 end

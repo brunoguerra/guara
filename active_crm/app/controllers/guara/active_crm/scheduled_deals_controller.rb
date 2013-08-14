@@ -14,14 +14,14 @@ module Guara
                 @search = Scheduled::Deal.search(params[:search])
                 @scheduled_deals = paginate(@search)
                 @scheduleds = load_scheduleds_select(params[:search])
-                @customer_groups = load_group_select(params[:search])
+                @groups = load_group_select(params[:search])
                 @customers = load_customer_select(params[:search])
     		end
 
             def show
                 @scheduled_deal = Scheduled::Deal.find(params[:id])
                 @active_crm_scheduled = @scheduled_deal.group.scheduled
-                @customer_groups = [@scheduled_deal.group]
+                @groups = [@scheduled_deal.group]
             end
 
     		def multiselect_scheduleds
