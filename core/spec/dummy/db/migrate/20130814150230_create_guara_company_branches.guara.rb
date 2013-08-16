@@ -5,6 +5,7 @@ class CreateGuaraCompanyBranches < ActiveRecord::Migration
       t.string :name
       t.boolean :enabled
       t.references :address
+      
       t.timestamps
     end
     add_index :guara_company_branches, :address_id

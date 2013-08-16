@@ -18,6 +18,11 @@ module Guara
     def current_ability
       @current_ability = Guara::Ability.new(current_user)
     end
+
+    #bug: assets - after login devise devise-2.2.4 redirects to /assets?action=home&controoler=guara&...
+    #def after_sign_in_path_for(resource)
+    #  guara.home_path()
+    #end
   
     rescue_from CanCan::AccessDenied do |exception|
       Rails.logger.fatal "Access denied on #{exception.action} #{exception.subject.inspect}"

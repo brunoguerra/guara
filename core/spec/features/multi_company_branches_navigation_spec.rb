@@ -11,7 +11,7 @@ feature "Multi Company Branches Navigation" do
 		user.company_branches = Array.new(2) { Factory(:company_branch) }
 		user.save
 
-		able user, :read, 'company_branch'
+		able user, :read, 'CompanyBranch'
 
 		sign_in user
 	end

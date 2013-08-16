@@ -5,6 +5,7 @@
 #
 
 require 'guara/rake'
+require 'faker'
 
 Rake.application.remove_task 'guara:install'
 
@@ -19,29 +20,29 @@ namespace :guara do
   desc "Install Guara Core"      
   task install: :environment do
     execute_task 'guara:migrate'
-    execute_task 'guara:db:seeds'
+    Guara::Core::Engine.load_seed
   end
   
   namespace :db do
-
+    
     desc "Feed db whith guara core seed"    
     task seeds: :environment do
       Guara::Core::Engine.load_seed
     end
-    
+
     desc "Fill database with sample data"
     task sample: :environment do
       begin    
-        Faker::Config.locale = [:en]
         logger =  Logger.new(STDOUT)
+        Faker::Config.locale = [:en]
     
-        User.where(admin:false).each do |u|
+        Guara::User.where(admin:false).each do |u|
           u.destroy_fully()
         end
     
-        Micropost.destroy_all()
+        Guara::Micropost.destroy_all()
     
-        User.create!(name: "Teste User",
+        Guara::User.create!(name: "Teste User",
                          email: "teste@teste.com",
                          password: "testes",
                          password_confirmation: "testes")
@@ -52,7 +53,7 @@ namespace :guara do
           logger.info name
           email = "example-#{n+1}@guaracrm.org"
           password  = "password"
-          User.create!(name: name,
+          Guara::User.create!(name: name,
                        email: email,
                        password: password,
                        password_confirmation: password)
@@ -77,8 +78,9 @@ namespace :guara do
         end
        
       rescue Exception => exception
-        logger.error("Message for the log file #{exception.message}\n\n")
-        logger.info exception.backtrace.to_yaml
+        puts exception.message
+        Rails.logger.error("Message for the log file #{exception.message}\n\n")
+        Rails.logger.info exception.backtrace.to_yaml
       end
     end
   

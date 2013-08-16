@@ -26,7 +26,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'ffaker'
+  gem 'faker'
   gem 'shoulda-matchers', '~> 1.0.0'
   #gem 'capybara', '1.1.3'
   #gem 'selenium-webdriver', '2.27.1'

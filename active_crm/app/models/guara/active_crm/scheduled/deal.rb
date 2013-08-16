@@ -13,7 +13,7 @@ module Guara
 			    								:closed
 
 			    belongs_to :customer, class_name: "Guara::Person"
-			    belongs_to :group, class_name: "Guara::ActiveCrm::Scheduled::CustomerGroup", foreign_key: :group_id
+			    belongs_to :group, class_name: "Guara::ActiveCrm::Scheduled::Group", foreign_key: :group_id
 			    belongs_to :scheduled, class_name: "Guara::ActiveCrm::Scheduled"
 			    has_many :contacts, foreign_key: :deal_id 
 

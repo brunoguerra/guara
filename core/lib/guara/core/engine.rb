@@ -20,7 +20,7 @@ module Guara
     class Engine < ::Rails::Engine
       isolate_namespace Guara
       engine_name 'guara'
-            
+
       initializer "guara.activeadmin" do |app|
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../admin']
       end

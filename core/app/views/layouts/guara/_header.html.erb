@@ -22,7 +22,7 @@
 								<li><%= link_to t("users.profile.link"), guara.user_path(current_user) %></li>
 								<li><%= link_to t("users.settings.link"), guara.edit_user_path(current_user) %></li>
 								<li class="divider"></li>
-								<li><%= link_to t("sign.out.link"), guara.destroy_user_session_path, method: "delete" %></li>
+								<li><%= link_to t("sign.out.link"), guara.destroy_user_session_path %></li>
 							</ul>
 						</div>
 

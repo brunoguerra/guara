@@ -7,11 +7,13 @@ module Guara
     let(:customer_contact) { Factory(:contact, customer: customer) }
     let(:deal) { Factory(:scheduled_group_deals, customer: customer) }
 
-    before { @contact = ActiveCrm::Scheduled::Contact.new(customer: customer,
+    before { @contact = ActiveCrm::Scheduled::Contact.new(
+                                    customer: customer,
                                     contact: customer_contact,
                                     deal: deal,
                                     activity: "OK, contacted! just now... \n"+Faker::Lorem.paragraphs(3).join(", "),
-                                    result: ActiveCrm::Scheduled::Contact::ACCEPTED) }
+                                    result: ActiveCrm::Scheduled::Contact::ACCEPTED) 
+    }
 
     subject { @contact }
 

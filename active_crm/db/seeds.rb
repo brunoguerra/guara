@@ -5,6 +5,10 @@ module Guara
     
     ::Guara::SystemModule.create([
                    { name: 'Guara::ActiveCrm::Scheduler' },
+                   { name: 'Guara::ActiveCrm::Scheduled' },
+                   { name: 'Guara::ActiveCrm::Scheduled::Contact' },
+                   { name: 'Guara::ActiveCrm::Scheduled::CustomerGroup' },
+                   { name: 'Guara::ActiveCrm::Scheduled::Deal' },
                   ])
       
   	rescue Exception => exception

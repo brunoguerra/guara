@@ -1,6 +1,4 @@
 puts "Loading guara_core/spec/spec_helper..."
-#require 'rubygems' cleanup
-#require "rails" cleanup
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'

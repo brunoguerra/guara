@@ -3,12 +3,13 @@ require 'factory_girl'
 
 require 'guara/test_support/custom_matchers'
 require 'guara/test_support/utilities'
+require 'capybara-webkit'
 
 module Guara
   module TestSupport
    
 
-   EXCEPTED_TABLES =  %w[SystemAbility SystemModule SystemTaskStatus SystemTaskResolution State City BusinessSegment BusinessActivity].collect { |e| pluralize_without_count(2, e.underscore) }
+   EXCEPTED_TABLES =  %w[SystemAbility SystemModule SystemTaskStatus SystemTaskResolution State City BusinessSegment BusinessActivity].collect { |e| "guara_"+pluralize_without_count(2, e.underscore) }
     
     def self.config_transactional(config)
 
@@ -27,6 +28,9 @@ module Guara
     end
   
     def self.configure!
+
+      #capybara
+      Capybara.javascript_driver = :webkit
 
       RSpec.configure do |config|
 
@@ -60,7 +64,8 @@ module Guara
           FactoryGirl.factories.clear
           FactoryGirl.reload
         end
-      end    
+      end 
+
     end
   end
 end

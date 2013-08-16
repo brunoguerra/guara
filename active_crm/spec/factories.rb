@@ -11,7 +11,7 @@ FactoryGirl.define do
     date_finish { Date.today + 1.day }
   end
 
-  factory :scheduled_group, :class => Guara::ActiveCrm::Scheduled::CustomerGroup do
+  factory :scheduled_group, :class => Guara::ActiveCrm::Scheduled::Group do
     scheduled
     employes_min 10
   end

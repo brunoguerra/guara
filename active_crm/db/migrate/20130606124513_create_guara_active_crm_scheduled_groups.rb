@@ -1,4 +1,4 @@
-class CreateGuaraActiveCrmScheduledCustomerGroups < ActiveRecord::Migration
+class CreateGuaraActiveCrmScheduledGroups < ActiveRecord::Migration
   def change
     create_table :guara_active_crm_scheduled_groups do |t|
       t.string :business_activities

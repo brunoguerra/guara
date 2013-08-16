@@ -1,5 +1,6 @@
 include ApplicationHelper
 include Guara::AbilityHelper
+require "timeout"
 #def full_title(page_title)
 #  base_title = "Ruby on Rails Tutorial Sample App"
 #  if page_title.empty?
@@ -60,6 +61,13 @@ module Guara
       #TODO: work any context
       def wait_for_animations()
         wait_until { page.evaluate_script('$(":animated").length') == 0 }
+      end
+
+      def wait_until
+        Timeout.timeout(Capybara.default_wait_time) do
+          sleep(0.1) until value = yield
+          value
+        end
       end
 
 

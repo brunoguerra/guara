@@ -9,7 +9,7 @@ module Guara
 
     	def index
     		params[:search] = {} if params[:search].nil?
-    		scheduled_group = Scheduled::CustomerGroup.find(params[:scheduled_group_id])
+    		scheduled_group = Scheduled::Group.find(params[:scheduled_group_id])
     		search_params = prepare_filter_search(params[:search], scheduled_group)
     		
     		@search = Guara::Customer.customer_contact(params[:scheduled_group_id]).search(search_params)

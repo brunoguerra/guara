@@ -53,6 +53,20 @@ ActiveRecord::Schema.define(:version => 20130809192671) do
   add_index "guara_active_crm_scheduled_contacts", ["contact_id"], :name => "index_guara_active_crm_scheduled_contacts_on_contact_id"
   add_index "guara_active_crm_scheduled_contacts", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_contacts_on_scheduled_id"
 
+  create_table "guara_active_crm_scheduled_deals", :force => true do |t|
+    t.integer  "scheduled_id"
+    t.integer  "customer_id"
+    t.datetime "date_start"
+    t.datetime "date_finish"
+    t.integer  "group_id"
+    t.boolean  "closed",       :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "guara_active_crm_scheduled_deals", ["customer_id"], :name => "index_guara_active_crm_scheduled_deals_on_customer_id"
+  add_index "guara_active_crm_scheduled_deals", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_deals_on_scheduled_id"
+
   create_table "guara_active_crm_scheduled_groups", :force => true do |t|
     t.string   "business_activities"
     t.string   "business_segments"
@@ -67,20 +81,6 @@ ActiveRecord::Schema.define(:version => 20130809192671) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
   end
-
-  create_table "guara_active_crm_scheduled_deals", :force => true do |t|
-    t.integer  "scheduled_id"
-    t.integer  "customer_id"
-    t.datetime "date_start"
-    t.datetime "date_finish"
-    t.integer  "group_id"
-    t.boolean  "closed",       :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-  end
-
-  add_index "guara_active_crm_scheduled_deals", ["customer_id"], :name => "index_guara_active_crm_scheduled_deals_on_customer_id"
-  add_index "guara_active_crm_scheduled_deals", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_deals_on_scheduled_id"
 
   create_table "guara_active_crm_scheduleds", :force => true do |t|
     t.string   "subject"

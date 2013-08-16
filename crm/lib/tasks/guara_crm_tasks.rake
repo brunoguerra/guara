@@ -3,6 +3,7 @@ namespace :guara do
   namespace :crm do
     
     task seeds: :environment do
+      Guara::Core::Engine.load_seed
       Guara::Crm::Engine.load_seed
     end
     

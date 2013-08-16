@@ -1,8 +1,8 @@
 
 module Guara
   	module ActiveCrm
-    	class ScheduledCustomerGroupsController < Guara::BaseController
-    		load_and_authorize_resource :scheduled_group, :class => "Guara::ActiveCrm::Scheduled::CustomerGroup", :except => [:index, :create]
+    	class ScheduledGroupsController < Guara::BaseController
+    		load_and_authorize_resource :scheduled_group, :class => "Guara::ActiveCrm::Scheduled::Group", :except => [:index, :create]
     		
             include Select2Helper
             include ScheduledsHelper
@@ -19,7 +19,7 @@ module Guara
                     format.js{ render 'index.js.erb' }
                 end
 
-                authorize! :read, Guara::ActiveCrm::Scheduled::CustomerGroup
+                authorize! :read, Guara::ActiveCrm::Scheduled::Group
     		end
 
             def edit
@@ -37,7 +37,7 @@ module Guara
             end
 
             def create
-                @scheduled_group = Guara::ActiveCrm::Scheduled::CustomerGroup.new(prepare_filter_save(params[:search], params[:scheduled_id]))
+                @scheduled_group = Guara::ActiveCrm::Scheduled::Group.new(prepare_filter_save(params[:search], params[:scheduled_id]))
                 authorize! :new, @scheduled_group
 
                 respond_to do |format|

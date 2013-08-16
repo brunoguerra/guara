@@ -15,7 +15,7 @@ module Guara
       belongs_to :task_type, class_name: "Guara::TaskType"
       belongs_to :user, class_name: "Guara::User"
 
-      has_many :groups, :class_name => "Guara::ActiveCrm::Scheduled::CustomerGroup"
+      has_many :groups, :class_name => "Guara::ActiveCrm::Scheduled::Group"
       has_many :deals, :through => :groups
 
       default_scope order('created_at DESC')

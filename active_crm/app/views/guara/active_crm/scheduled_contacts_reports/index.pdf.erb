@@ -63,7 +63,7 @@
 
             <%= raw("<div class=\"well\">#{t("active_crm.scheduled.scheduled")} >= : #{Guara::ActiveCrm::Scheduled.find(params[:search][:group_id_in]).name}</div>") if !params[:search][:group_id_in].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.group")}: #{Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:search][:group_scheduled_id_in]).name}</div>") if !params[:search][:group_scheduled_id_in].empty? %>
+            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.group")}: #{Guara::ActiveCrm::Scheduled::Group.find(params[:search][:group_scheduled_id_in]).name}</div>") if !params[:search][:group_scheduled_id_in].empty? %>
 
             <%= raw("<div class=\"well\">#{t("helpers.label.customers.search.names")}: #{Guara::Customer.find(params[:search][:customer_id_in]).name}</div>") if !params[:search][:customer_id_in].empty? %>
           </div>

@@ -1,13 +1,7 @@
 Guara::Core::Engine.routes.draw do
-  root to: 'static_pages#home'
 
-  devise_for :users, :class_name => 'Guara::User', :module => :devise #, :controllers => { :sessions => "sessions" } do
-#    #get "/signup" => "devise/registrations#new", :as => 'user_signup'
-#    #get '/logout' => 'devise/sessions#destroy', :as => 'user_logout'
-#    #get '/login' => "devise/sessions#new", :as => 'user_login'
-#    get 'get_token' => 'sessions#get_token'
-#    match 'sessions', :to => 'static_pages#home'
-#  end
+  devise_for :users, :class_name => 'Guara::User', :module => :devise
+  root to: Guara::Core::Environment.new.routes_home_path(true)
 
   ActiveAdmin.routes(self)
 
@@ -23,6 +17,7 @@ Guara::Core::Engine.routes.draw do
   resources :business_activities
   resources :business_segments
 
+  match '/home',    to: 'static_pages#help', as: :home
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
@@ -48,5 +43,10 @@ Guara::Core::Engine.routes.draw do
   #resources :sessions #,   only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
 
-  root to: 'Guara::StaticPages#home'
+end
+
+if !Rails.application.nil? && !Rails.application.routes.url_helpers.respond_to?(:root_path)
+  Rails.application.routes.prepend do
+    root to: Rails.application.config.guara.routes_home_path()
+  end
 end

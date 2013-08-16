@@ -5,7 +5,7 @@ Dir[File.expand_path("../factories/*.rb", __FILE__)].each {|f| require f}
 FactoryGirl.define do
 
   factory :user, :class => Guara::User do
-    sequence(:name)  { Faker::Name.name }
+    sequence(:name)  { Faker::Name.name[0..24] }
     sequence(:email) { |n| "person_#{n}@example.com" }   
     password "foobar"
     password_confirmation "foobar"

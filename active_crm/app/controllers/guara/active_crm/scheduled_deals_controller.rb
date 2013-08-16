@@ -32,10 +32,10 @@ module Guara
     		end
 
             def multiselect_group
-                @groups = Scheduled::CustomerGroup.where(:scheduled_id=> params[:scheduled_id])
+                @groups = Scheduled::Group.where(:scheduled_id=> params[:scheduled_id])
                 render json: {success: true, data: @groups.collect { |c| { :id => c.id.to_s, :name => c.name } } }
 
-                authorize! :read, Scheduled::CustomerGroup 
+                authorize! :read, Scheduled::Group 
             end
 
     	end

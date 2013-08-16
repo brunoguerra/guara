@@ -21,15 +21,15 @@ module Guara
   		end
 
   		def prepare_filter_search(search, record)
-  			search[:customer_guara_customer_pj_type_activities_id_in] = record.business_activities.split(',') if !record.business_activities.empty?
-  			search[:customer_guara_customer_pj_type_activities_business_segment_id_in] = record.business_segments.split(',') if !record.business_segments.empty?
+  			search[:customer_guara_customer_pj_type_activities_id_in] = record.business_activities.split(',') if !record.business_activities.nil? && !record.business_activities.empty?
+  			search[:customer_guara_customer_pj_type_activities_business_segment_id_in] = record.business_segments.split(',') if !record.business_activities.nil? && !record.business_segments.empty?
   			search["customer_guara_customer_pj_type_total_employes_btw(1)"] = record.employes_min if !record.employes_min.nil?
   			search["customer_guara_customer_pj_type_total_employes_btw(2)"] = record.employes_max if !record.employes_max.nil?
-  			search[:name_contains] = record.name_contains if !record.name_contains.empty?
+  			search[:name_contains] = record.name_contains if !record.name_contains.nil? && !record.name_contains.empty?
   			search[:finished_id] = record.finished_id if !record.finished_id.nil?
-  			search[:pair_or_odd_id] = record.pair_or_odd if !record.pair_or_odd.empty?
-  			search[:doc_equals] = record.doc_equals if !record.doc_equals.empty?
-  			search[:district_name_contains] = record.district_contains if !record.district_contains.empty?
+  			search[:pair_or_odd_id] = record.pair_or_odd if !record.pair_or_odd.nil? && !record.pair_or_odd.empty?
+  			search[:doc_equals] = record.doc_equals if !record.doc_equals.nil? && !record.doc_equals.empty?
+  			search[:district_name_contains] = record.district_contains if !record.district_contains.nil? && !record.district_contains.empty?
         
   			return search
   		end
@@ -50,17 +50,17 @@ module Guara
       def load_scheduleds_select(params)
           search = search_scheduled(params)
           if search.empty?
-            return Scheduled::Scheduled.limit(25).search(search).order(:id)
+            return Scheduled.limit(25).search(search).order(:id)
           else
-            return Scheduled::Scheduled.search(search).order(:id)
+            return Scheduled.search(search).order(:id)
           end
       end
 
       def load_group_select(params)
           if params[:group_scheduled_id_in].nil? or params[:group_scheduled_id_in].empty?
-              return Scheduled::CustomerGroup.order(:id).limit(25)
+              return Scheduled::Group.order(:id).limit(25)
           else
-              return Scheduled::CustomerGroup.where(:scheduled_id=> params[:group_scheduled_id_in]).order(:id).limit(25)
+              return Scheduled::Group.where(:scheduled_id=> params[:group_scheduled_id_in]).order(:id).limit(25)
           end
       end
 
@@ -68,7 +68,7 @@ module Guara
         if params[:group_scheduled_id_in].nil? or params[:group_scheduled_id_in].empty?
           return Guara::Customer.where(customer_type: 'Guara::CustomerPj').limit(25)
         else
-          params_search = prepare_filter_search({}, Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:id])) if params[:search].nil?
+          params_search = prepare_filter_search({}, Guara::ActiveCrm::Scheduled::Group.find(params[:id])) if params[:search].nil?
           filter_multiselect params_search, :customer_guara_customer_pj_type_activities_business_segment_id_in
           filter_multiselect params_search, :customer_guara_customer_pj_type_activities_id_in
           

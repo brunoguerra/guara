@@ -10,8 +10,7 @@ namespace :guara do
     task install: :environment do
       execute_task "db:create"
       execute_task "guara:active_crm:db:migrate"
-      execute_task "db:migrate"
-      execute_task "guara:active_crm:db:seeds"
+      execute_task "guara:active_crm:seeds"
     end
     
     desc "Fill database with sample data"
@@ -20,25 +19,22 @@ namespace :guara do
     end
     
     namespace :test do
-      task prepare: :environment do
-        ActiveRecord::Base.establish_connection('test')
-        execute_task "guara:analysis:db:seeds"
-        ActiveRecord::Base.establish_connection(ENV['RAILS_ENV'])  #Make sure you don't have side-effects!
+      task :prepare do
+        Rails.env = ENV['RAILS_ENV'] = 'test'
+        execute_task "environment"
+        ActiveRecord::Base.establish_connection
+        execute_task "guara:install"
       end
     end
-    
+
     namespace :active_crm do
+
+      task seeds: :environment do
+        execute_task "guara:crm:seeds"
+        Guara::ActiveCrm::Engine.load_seed
+      end
+
       namespace :db do
-        task seeds: :environment do
-          execute_task "guara:seeds"
-          execute_task "guara:crm:db:load_seed"
-          execute_task "guara:active_crm:db:load_seed"
-        end
-        
-        task load_seed: :environment do
-          Guara::ActiveCrm::Engine.load_seed
-        end
-      
         task migrate: :environment do
           execute_task "db:create"
           execute_task "guara:install:migrations"
