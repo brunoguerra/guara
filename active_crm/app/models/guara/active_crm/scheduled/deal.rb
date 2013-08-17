@@ -46,6 +46,10 @@ module Guara
 			    
 			    search_methods :count_registered
 			    search_methods :count_contacted
+
+			    def customer_name
+			    	@customer && @customer.name
+			    end
 			end
 		end
 	end

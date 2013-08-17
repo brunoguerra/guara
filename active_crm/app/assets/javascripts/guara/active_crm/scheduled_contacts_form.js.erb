@@ -1,10 +1,13 @@
 <%# encoding: utf-8 %>
 
 var scheduled_contacts_form_js_init = (function() {
+
   $( "#datepicker" ).datepicker($.datepicker.regional[ "pt-BR" ]);
+
   $("#hour").mask("99:99");
-  $('.scheduled_contact_submit')
-    .bind("ajax:success", function(evt, data, status, xhr){
+
+  /* *** submited contact */
+  $('.scheduled_contact_submit').bind("ajax:success", function(evt, data, status, xhr){
       
     var $form = $(this);
 
@@ -21,7 +24,7 @@ var scheduled_contacts_form_js_init = (function() {
         .append('<tr customer-id="'+data.data.customer_id+'" contact-id="'+data.data.contact_id+'">'+
           '<td>'+data.data.customer_name+'</td>'+
           '<td>'+data.data.contact_name+'</td>'+
-          '<td>'+data.data.scheduled+'</td>'+
+          '<td>'+data.data.scheduled_at+'</td>'+
           '<td>'+data.data.activity+'</td>'+
           '</tr>');
 
@@ -83,7 +86,7 @@ function completed(type, value){
     $('.custom-span3-big').addClass('disabled');
   }
 
-  $('#active_crm_scheduled_contact_scheduled').val('');
+  $('#active_crm_scheduled_contact_scheduled_at').val('');
   $('#active_crm_scheduled_contact_result').val('');
   $('#active_crm_scheduled_contact_classified_id').val('');
 
@@ -141,9 +144,9 @@ function verify_form(form){
 
   if($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>'){
     var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
-    $('#active_crm_scheduled_contact_scheduled').val(date+' '+$('#hour').val());
+    $('#active_crm_scheduled_contact_scheduled_at').val(date+' '+$('#hour').val());
   } else {
-    $('#active_crm_scheduled_contact_scheduled').val(''); 
+    $('#active_crm_scheduled_contact_scheduled_at').val(''); 
   }
 
   form.submit();

@@ -11,7 +11,8 @@
 		display: inline;
 	}
 </style>
-<%= semantic_form_for @scheduled_contact, :html => { class: "well scheduled_contact_submit", id: "scheduled_contact_form" },
+<%- element_class = @scheduled_contact.new_record? ? 'create' : 'update' %>
+<%= semantic_form_for @scheduled_contact, :html => { class: "well scheduled_contact_submit #{element_class}", id: "scheduled_contact_form" },
 	:url => { :action => @scheduled_contact.new_record? ? 'create' : 'update', format: :json },
 	:remote => true do |f| %>
 
@@ -20,7 +21,7 @@
 		<div class="span3">
 			<%= f.input :activity, label: t('active_crm.scheduled.activity'), input_html: { rows: 3, cols: 5} %>
 
-			<%= f.input :scheduled, :as=> :hidden %>
+			<%= f.input :scheduled_at, :as=> :hidden %>
 			<%= f.input :result, :as=> :hidden %>
 			<%= f.input :contact_id, :as=> :hidden %>
 			<%= f.input :classified_id, :as=> :hidden %>

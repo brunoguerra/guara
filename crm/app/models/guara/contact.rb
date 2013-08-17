@@ -63,5 +63,10 @@ module Guara
         self.emails = emails_arr.map {|email| Email.new(:email => email.strip)}
       end
     end
+
+    def group=(group)
+      @scheduled = group.scheduled
+      @group = group
+    end
   end
 end

@@ -71,6 +71,7 @@ pt-BR:
 
     scheduled_deals:
       title: "Negociações"
+      date_start: "Data" 
 
     scheduled_classifieds:
       title: "Classificações (Não Interessados)"

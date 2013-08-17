@@ -17,7 +17,7 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
   end
 
   #page objects
-  given(:to_contact_page)   { ActiveCrm::ContactCustomersPageUtil.new(group, @user) } #the directors show
+  given(:to_contact_page)   { Guara::ActiveCrm::ContactCustomersPageUtil.new(group, @user) } #the directors show
   given(:customer_on_page)  { to_contact_page.customer_on_page(customer) } #the supporting show
 
   #customers
@@ -41,20 +41,22 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
     expect(customer_on_page).to be_visible
   end
 
-  given(:contact_on_page) { csutomer_on_page.contact_on_page }
-  given(:contact_by_phone) { contact_on_page.contact_by_phone }
-  given(:deal) { Factory(:scheduled_group_deals, customer: customer) }
+  given(:contact_on_page)   { customer_on_page.contact_on_page }
+  given(:contact_by_phone)  { contact_on_page.contact_by_phone }
+  given(:deal_on_page)      { contact_by_phone.deal_on_page }
 
-  scenario "contacting a customer with success" do
+  scenario "contacting a customer with success", :js => true do
     list_customers #pre-data
     #steps
     to_contact_page.show_group
     customer_on_page.have(2).contacts #test ajax loading should recent created contacts
     customer_on_page.click
+    #wait ajax response
+    expect(customer_on_page).to be_visible
     contact_on_page.click
     contact_by_phone.create
     #expectable
-    expect(deal_on_page).to be_visible?
+    expect(deal_on_page).to be_visible
   end
 
 

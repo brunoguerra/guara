@@ -27,7 +27,7 @@
                   <% @scheduled_deal.contacts.where(:enabled=> true).each do |scheduled_contact| %>
                     <tr>
                       <td><%= scheduled_contact.contact.name %></td>
-                      <td><%= scheduled_contact.scheduled %></td>
+                      <td><%= scheduled_contactscheduled_at %></td>
                       <td><%= scheduled_contact.activity %></td>
                       <td><%= prepare_span_status(scheduled_contact).html_safe %></td>
                     </tr>

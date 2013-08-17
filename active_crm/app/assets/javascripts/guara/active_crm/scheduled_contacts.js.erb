@@ -92,7 +92,7 @@ var ScheduledContacts = {
     var me = this;
 
     this.container_customer.show();
-    this.container_customer.html('Carregando...').load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
+    this.container_customer.html('<span id="loading">Carregando...</span>').load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
       if(status=='error'){
         var error = $('#alert-error');
         if(error.length == 0){

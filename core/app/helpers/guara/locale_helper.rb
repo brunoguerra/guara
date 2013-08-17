@@ -26,12 +26,22 @@ module Guara
 
     def format_time(time, format = "%H:%m")
       return nil if time.nil?
+      if time.instance_of? String
+        time = Time.parse time
+      end
+    
+      time.strftime(format) unless time==nil
+    end
+
+    def time_elapsed(datetime, from=Time.now)
+      return nil if datetime.nil?
       if datetime.instance_of? String
         datetime = Time.parse datetime
       end
-    
-      datetime.strftime(format) unless datetime==nil
+    distance_of_time_in_words(from, datetime)
     end
+
+
   
   end
 end

@@ -13,7 +13,7 @@ module Guara
       )
     end
 
-    it { should respond_to(:customer_pj) }
+    it { should respond_to(:customer) }
     it { should respond_to(:customer_id) }
     it { should respond_to(:group) }
     it { should respond_to(:group_id) }
