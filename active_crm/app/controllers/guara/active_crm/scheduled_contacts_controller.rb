@@ -13,11 +13,11 @@ module Guara
     		params[:search] = {} if params[:search].nil?
     		search_params = prepare_filter_search(params[:search], @group)
     		
-    		@search = Guara::Customer.customer_contact(@group.id).search(search_params)
+    		@search = @group.to_contact
         @customers_to_register = paginate(@search, params[:page], 40)
 
-        @search_scheduled = Guara::Customer.customer_scheduled(@group.id).search(search_params)
-        @customers_scheduled = @search_scheduled
+        @customers_scheduled = @group.scheduled_contacts
+        @deals = @group.deals
     	end
 
       def new

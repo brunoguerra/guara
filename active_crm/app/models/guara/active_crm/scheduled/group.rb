@@ -5,10 +5,20 @@ module Guara
 	    		attr_accessible :business_activities, :business_segments, :employes_max, :employes_min,
 	    		:scheduled_id, :name_contains, :finished_id, :pair_or_odd, :doc_equals, :district_contains
 
+	    		SQL_NEW_TO_CONTACT = %Q{
+	    				customer_type = 'Guara::CustomerPj' AND 
+	 						(Select count(*) from #{Guara::ActiveCrm::Scheduled::Deal.table_name} as d 
+        				where d.customer_id = #{Guara::Customer.table_name}.id and d.group_id = ?) = 0
+					}
+
 	    		attr_accessor :name
 
+	    		has_many :contacts
 	    		has_many :deals, foreign_key: :group_id
 	    		belongs_to :scheduled
+	    		has_many :scheduled_contacts, class_name: "Guara::ActiveCrm::Scheduled::Contact", -> { where "scheduled_at not null and result = #{Contact::SCHEDULED}  " }
+
+	    		scope :registered, :lambda { joins(:contacts, :deals).where("#{Deals.table_name}.group_id": self.id, "#{Contact.table_name}.result": Contact::ACCEPTED) }
 
 	    		include Guara::ActiveCrm::ScheduledsHelper
 
@@ -20,13 +30,13 @@ module Guara
 	    			@name = value
 	    		end
 
+	    		def to_contact
+	    			Guara::Customer.where(SQL_NEW_TO_CONTACT % group_id).
+	    				search(prepare_filter_search({}, self))
+	    		end
+
 	    		def count_registered
-	    			table_contact = Guara::ActiveCrm::Scheduled::Contact
-		            table_deals   = Guara::ActiveCrm::Scheduled::Deal
-		            return table_contact.joins(:deal)
-		              .where("#{table_deals.table_name}.group_id = #{self.id} AND 
-		              #{table_contact.table_name}.result = #{table_contact.results()[:registered]}")
-		              .count()
+		        return registered.count
 	    		end
 
 	    		def count_customers

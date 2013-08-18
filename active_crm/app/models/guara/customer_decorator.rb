@@ -1,9 +1,4 @@
 Guara::Customer.class_eval do 
-	 scope :customer_contact, lambda { |group_id| 
-	 		where("customer_type = 'Guara::CustomerPj' AND 
-		 		(select count(*) from #{Guara::ActiveCrm::Scheduled::Deal.table_name} as d 
-	        	where d.customer_id = #{Guara::Customer.table_name}.id and d.group_id = ?) = 0", group_id) 
-	 }
 
 	 scope :customer_scheduled, lambda { |group| 
 		 	deals    = Guara::ActiveCrm::Scheduled::Deal.table_name

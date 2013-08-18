@@ -19,6 +19,7 @@ FactoryGirl.define do
   
   factory :customer_pj, :class => Guara::CustomerPj do
     fax 9999
+    total_employes 10
     after_build do |pj|
       FactoryGirl.create(:customer, :person => pj)
     end

@@ -16,13 +16,7 @@ FactoryGirl.define do
     employes_min 10
   end
 
-  factory :scheduled_contact, :class => Guara::ActiveCrm::Scheduled do
-    sequence(:subject) { |n|   "#{Faker::Name.name} -2- #{n}" }
-    date_start 1.years.ago
-    date_finish { Date.today + 1.day }
-  end
-
-  factory :scheduled_group_deals, :class => Guara::ActiveCrm::Scheduled::Deal do
+  factory :scheduled_deals, :class => Guara::ActiveCrm::Scheduled::Deal do
     group factory: :scheduled_group
     scheduled { group.scheduled }
     customer { Factory(:customer_pj).customer }
@@ -31,5 +25,10 @@ FactoryGirl.define do
     closed false
   end
 
+
+  factory :scheduled_contact, :class => Guara::ActiveCrm::Scheduled::Contact do
+    group factory: :scheduled_deals
+    result: Guara::ActiveCrm::Scheduled::Contact::ACCEPTED
+  end
   
 end

@@ -2,15 +2,8 @@ module Guara
 	module ActiveCrm
       class Scheduled
     		class Contact < ActiveRecord::Base
-          belongs_to :classified
-          belongs_to :person
-      		belongs_to :contact, class_name: "Guara::Contact"
-          belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deal"
-
           attr_accessor :scheduled, :group
 
-          before_save :join_to_opened_deal_or_create
-        
           attr_accessible :activity,
                           :result,
                           :scheduled_at,
@@ -23,6 +16,21 @@ module Guara
                           :person_id,
                           :deal
 
+          #constants
+          ACCEPTED = 1
+          DENIED = 2
+          SCHEDULED = 3
+          SCHEDULED_REALIZED = 4
+
+          #Associations
+          belongs_to :classified
+          belongs_to :person
+      		belongs_to :contact, class_name: "Guara::Contact"
+          belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deal"
+
+          #filter
+          before_save :join_to_opened_deal_or_create
+
           validates_presence_of :result, :activity, :person, :contact
 
           validates_each :scheduled do |record, attr, value|
@@ -32,10 +40,6 @@ module Guara
           def status
             return self.classified.nil? ? Contact.results_translated()[self.result] : self.classified.name
           end
-
-          ACCEPTED = 1
-          DENIED = 2
-          SCHEDULED = 3
 
           def self.results
             {

@@ -5,7 +5,7 @@ module Guara
 
     let(:customer) { Factory(:customer_pj).customer }
     let(:customer_contact) { Factory(:contact, customer: customer) }
-    let(:deal) { Factory(:scheduled_group_deals, customer: customer) }
+    let(:deal) { Factory(:scheduled_deals, customer: customer) }
 
     before { @contact = ActiveCrm::Scheduled::Contact.new(
                                     person: customer,

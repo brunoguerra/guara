@@ -23,7 +23,7 @@ module Guara::ActiveCrm
 
       context "with deals" do
         let(:customer_pj) { Factory(:customer_pj) }
-        let(:deals) { Array.new(2) { Factory(:scheduled_group_deals, customer: customer_pj.person, group: group) } }
+        let(:deals) { Array.new(2) { Factory(:scheduled_deals, customer: customer_pj.person, group: group) } }
 
         it "has deals" do
           @scheduled.deals.should have(deals.size).items
