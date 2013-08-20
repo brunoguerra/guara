@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-module Guara
-  describe ActiveCrm::Scheduled::Contact do
+module Guara::ActiveCrm
+  describe Scheduled::Contact do
 
     let(:customer) { Factory(:customer_pj).customer }
     let(:customer_contact) { Factory(:contact, customer: customer) }
     let(:deal) { Factory(:scheduled_deals, customer: customer) }
 
-    before { @contact = ActiveCrm::Scheduled::Contact.new(
+    before { @contact = Scheduled::Contact.new(
                                     person: customer,
                                     contact: customer_contact,
                                     deal: deal,
                                     activity: "OK, contacted! just now... \n"+Faker::Lorem.paragraphs(3).join(", "),
-                                    result: ActiveCrm::Scheduled::Contact::ACCEPTED) 
+                                    result: Scheduled::Contact::ACCEPTED) 
     }
 
     subject { @contact }
@@ -42,9 +42,24 @@ module Guara
       end
     end
 
+    context ".validates" do
+      before { @contact.result = Scheduled::Contact::SCHEDULED }
+      
+      it "invalidates scheduled with no scheduled_at" do
+        @contact.scheduled_at = nil
+        expect { @contact.save! }.to raise_error
+      end
+
+      it "invalidates scheduled with scheduled_at before today" do
+        @contact.scheduled_at = 1.day.ago
+        expect { @contact.save! }.to raise_error
+      end
+    end
+
     it "#join_to_opened_deal - checks existing a deal from scheduled and join to one" do
       @contact.deal = nil
-      expect(@contact.join_to_opened_deal(deal.scheduled)).to be_valid
+      @contact.scheduled = deal.scheduled
+      expect(@contact.join_to_opened_deal).to be_valid
     end
 
     context "#join_to_opened_deal_or_create" do 
@@ -70,13 +85,21 @@ module Guara
         deal.destroy
         @contact.deal = nil
         @contact.scheduled = @scheduled
-        expect{ @contact.save }.to change{ ActiveCrm::Scheduled::Deal.count }.by(1)
+        expect{ @contact.save }.to change{ Scheduled::Deal.count }.by(1)
       end
 
       it "joins a existing deal" do
         @contact.scheduled = @contact.deal.scheduled
         @contact.deal = nil
-        expect{ @contact.save }.to change{ ActiveCrm::Scheduled::Deal.count }.by(0)
+        expect{ @contact.save }.to change{ Scheduled::Deal.count }.by(0)
+      end
+
+      it "ensures only one scheduled call/contact per contact of customer" do
+        @contact.scheduled_at = 2.days.from_now
+        @contact.change_to_scheduled
+        @contact.save!
+        new_contact = @contact.dup
+        expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::SCHEDULED_REALIZED).count }.by(1)
       end
     end
 

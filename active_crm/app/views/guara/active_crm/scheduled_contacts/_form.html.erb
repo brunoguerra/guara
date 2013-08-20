@@ -33,14 +33,14 @@
 						<li role="presentation">
 						  <a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 						  	onClick="completed('result', <%=Guara::ActiveCrm::Scheduled::Contact::ACCEPTED %>);">
-						  		<span class="badge badge-success"><i class="icon-thumbs-up" /></span> <%= I18n.t("active_crm.results_translated.registered") %>
+						  		<span class="badge badge-success"><i class="icon-thumbs-up" /></span> <%= I18n.t("active_crm.contact.result.accepted") %>
 						  	</a>
 						</li>
 
 						<li role="presentation" class="dropdown-submenu">
 					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%=Guara::ActiveCrm::Scheduled::Contact::DENIED%>);">
-					  		<span class="badge badge-important "><i class="icon-thumbs-down" /></span> <%= I18n.t("active_crm.results_translated.participation_denied") %>
+					  		<span class="badge badge-important "><i class="icon-thumbs-down" /></span> <%= I18n.t("active_crm.contact.result.denied") %>
 					  	</a>
 					  	<ul class="dropdown-menu">
 					  		<% Guara::ActiveCrm::Scheduled::Classified.all.each do |classified| %>
@@ -55,7 +55,7 @@
 						<li role="presentation">
 					  	<a  role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>);">
-					  		<span class="badge badge-warning "><i class="icon-hand-right" /></span> <%= I18n.t("active_crm.results_translated.scheduling") %>
+					  		<span class="badge badge-warning "><i class="icon-hand-right" /></span> <%= I18n.t("active_crm.contact.result.scheduled") %>
 					  	</a>
 						</li>
 				</ul>

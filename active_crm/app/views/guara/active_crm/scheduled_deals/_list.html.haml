@@ -6,9 +6,9 @@
       %th 
       %th 
   %tbody
-    - (@deals || []).each do |deals|
+    - (@deals || []).each do |deal|
       %tr{"deal-id" => deal.id}
         %td= deal.customer.name
-        %td= elapsed_time deal.date_start
-        %td
+        %td= time_elapsed deal.date_start
+        %td= deal.accepted_total
         %td

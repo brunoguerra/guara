@@ -19,8 +19,17 @@ module Guara
 
 
 			    validates_presence_of :scheduled, :customer
-			    
-			   	scope :count_registered, lambda {|value|
+
+			    def accepted_total
+			    	group.registered.where("#{Guara::ActiveCrm::Scheduled::Group.table_name}.id = ?", self.id).count()
+			    end
+
+			    def customer_name
+			    	@customer && @customer.name
+			    end
+
+=begin
+				   	scope :count_registered, lambda {|value|
 			   	  	where("(
 			   	  		SELECT count(*) FROM #{Contact.table_name} as c WHERE c.deal_id = #{Deal.table_name}.id AND
 			   	  		c.enabled = true AND c.result = #{Contact.results()[:registered]}
@@ -46,10 +55,7 @@ module Guara
 			    
 			    search_methods :count_registered
 			    search_methods :count_contacted
-
-			    def customer_name
-			    	@customer && @customer.name
-			    end
+=end
 			end
 		end
 	end

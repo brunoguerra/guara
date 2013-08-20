@@ -25,9 +25,9 @@ module Guara
       def translate_scheduled_contact_result(result)
         
         { 
-          1 => I18n.t("active_crm.results_translated.registered"),
-          2 => I18n.t("active_crm.results_translated.participation_denied"),
-          3 => I18n.t("active_crm.results_translated.scheduling")
+          1 => I18n.t("active_crm.contact.result.accepted"),
+          2 => I18n.t("active_crm.contact.result.denied"),
+          3 => I18n.t("active_crm.contact.result.scheduled")
         }[result]
       end
       

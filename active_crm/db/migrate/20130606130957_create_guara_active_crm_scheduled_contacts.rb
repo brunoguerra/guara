@@ -7,6 +7,7 @@ class CreateGuaraActiveCrmScheduledContacts < ActiveRecord::Migration
       t.integer :result
       t.references :classified
       t.datetime :scheduled_at
+      t.integer :group_id
       t.integer :scheduled_id
       t.boolean :enabled, default: true
 
@@ -16,6 +17,7 @@ class CreateGuaraActiveCrmScheduledContacts < ActiveRecord::Migration
     add_index :guara_active_crm_scheduled_contacts, :contact_id
     add_index :guara_active_crm_scheduled_contacts, :person_id
     add_index :guara_active_crm_scheduled_contacts, :classified_id
+    add_index :guara_active_crm_scheduled_contacts, :group_id
     add_index :guara_active_crm_scheduled_contacts, :scheduled_id
     add_index :guara_active_crm_scheduled_contacts, :scheduled_at
   end

@@ -150,11 +150,11 @@ module Guara
       def click_on_type(result)
         case result
         when Scheduled::Contact::ACCEPTED
-          click_link I18n.t("active_crm.results_translated.registered")
+          click_link I18n.t("active_crm.contact.result.accepted")
         when Scheduled::Contact::ACCEPTED
-          click_link I18n.t("active_crm.results_translated.participation_denied")
+          click_link I18n.t("active_crm.contact.result.denied")
         when Scheduled::Contact::ACCEPTED
-          click_link I18n.t("active_crm.results_translated.scheduling")
+          click_link I18n.t("active_crm.contact.result.scheduled")
         end
       end
 
