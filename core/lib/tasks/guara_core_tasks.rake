@@ -5,7 +5,6 @@
 #
 
 require 'guara/rake'
-require 'faker'
 
 Rake.application.remove_task 'guara:install'
 
@@ -32,6 +31,7 @@ namespace :guara do
 
     desc "Fill database with sample data"
     task sample: :environment do
+      require 'faker'
       begin    
         logger =  Logger.new(STDOUT)
         Faker::Config.locale = [:en]
