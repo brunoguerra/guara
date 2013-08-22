@@ -112,7 +112,7 @@ function scheduled_contact_submit(form){
   }
 
   if(($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>') ||
-     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>')) {
+     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>')) {
     var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
     $('#active_crm_scheduled_contact_scheduled_at').val(date+' '+$('#hour').val());
   } else {
@@ -137,28 +137,37 @@ function contactScheduledsAppend(data) {
 
 function dealAppend(deal) {
   var $tr,
-      table = $('.deal.list.dataTable').dataTable();
+      table = $('.deal.list.dataTable').dataTable(),
+      exists_deal_selector = ('.deal.list.dataTable [deal-id="'+deal.id+'"]'),
+      addId;
 
   //deal["date_start"] = timeRelativeString(Date.now(), deal.date_start);
   //$tr = $($.parseHTML(HoganTemplates["active_crm/deal_tr"].render(deal, {}).trim()));
   
   // remove existent
-  table.fnDeleteRow(table.fnGetPosition($('[deal-id="'+deal.id+'"]')[0]));
+
+  if ($(exists_deal_selector).size()>0) {
+    table.fnDeleteRow(table.fnGetPosition($(exists_deal_selector)[0]));
+  }
 
   //add new deal
-  var addId = table.fnAddData([
+  addId = table.fnAddData([
     deal.customer_name,
     timeRelativeString(new Date(), new Date(deal.date_start)),
-    deal.acceped_total,
-    deal.scheduled_contact_total,
-    deal.contacts_total,
+    deal.acceped_total || 0,
+    deal.scheduled_contact_total || 0,
+    deal.contacts_total || 0
   ]);
 
-  $tr = $($('.deal.list.dataTable').dataTable().fnSettings().aoData[addId[0]].nTr);
+  console.log(table.fnSettings().aoData);
+
+  $tr = $(table.fnSettings().aoData[addId[0]].nTr);
+  console.log(addId);
+
   $tr.attr('deal-id', deal.id);
 
   $tr.on('click', function(){
-    
+    console.log(this);
   });
   //$('#customer-deals tbody').append($tr);
 }
