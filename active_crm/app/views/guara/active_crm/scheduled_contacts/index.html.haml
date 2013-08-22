@@ -1,0 +1,42 @@
+= stylesheet_link_tag "guara/active_crm/scheduleds"
+= javascript_include_tag "/assets/guara/active_crm/scheduled_contacts_form.js"
+%section#active_crm.scheduled_contacts
+  = render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :false}
+  %div
+    %div
+      %ul.thumbnails
+        %li.active_crm.customers.span12
+          .panel
+            #contactables-list.list.span12
+              %h6= t("scheduleds.customers_to_register")
+              #container_table
+                = render :partial => 'customers_to_register'
+                = will_paginate(@customers_to_register)
+              %hr/
+              .scheduled_contacts.well.well-small
+                %h2.black.text-left
+                  = t("scheduleds.customers_scheduled")
+                = render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list"
+              #deals-panel.well.well-small
+                .details
+                %h2.black.text-left
+                  = t("scheduleds.deals.title")
+                = render :partial => "guara/active_crm/scheduled_deals/list"
+            #customer_show.list.span12
+#dialog-modal-customer.no-close{:title => "Cliente a Contactar"}
+#dialog-confirm{:title => "Deseja Encerrar Negociação?"}
+= javascript_include_tag 'guara/active_crm/scheduled_contacts'
+:javascript
+  var ignored_customers = [];
+
+  jQuery(function() { 
+    ScheduledContacts.init(
+      ignored_customers, 
+      '#{new_scheduled_scheduled_group_scheduled_contact_path(params[:scheduled_id], params[:scheduled_group_id], :format=> 'json')}',
+      '#{close_negociation_path()}',
+      '#{params[:scheduled_group_id]}');
+    paginate_call();
+  });
+
+  ignored_customers.push("#{escape_javascript scheduled_cotact_ignoreds_ids()}");
+  

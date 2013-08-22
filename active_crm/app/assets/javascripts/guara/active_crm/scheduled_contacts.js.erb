@@ -251,7 +251,7 @@ var ScheduledContacts = {
     return data_fields;
   },
 
-  form_customer_submit: function(){
+  form_contact_setup: function(){
     var me = this;
     $(me.customer_panel_seletor).toggleClass('collapsed');
     $('form.guara_customer').on('submit', function(e){
@@ -264,7 +264,7 @@ var ScheduledContacts = {
         url : $('form.guara_customer').attr('action')+'.js',
         data: data_fields,
         success : function(script){
-          me.form_customer_submit();
+          me.form_contact_setup();
           me.call_container_contacts();
         }
       });
@@ -303,7 +303,7 @@ var ScheduledContacts = {
 
   initialize_js_customer: function(){
     var me = this;
-    me.form_customer_submit();
+    me.form_contact_setup();
     me.form_customer_contacts();
 
     me.customer_panel_collapser();

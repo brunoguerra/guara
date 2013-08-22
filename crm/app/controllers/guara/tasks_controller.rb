@@ -65,20 +65,24 @@ module Guara
     
       @task.status = SystemTaskStatus.OPENED
       @task.user = current_user
-    
-      #filled feedback?
-      if (!feedback.resolution.nil?)
-        if @task.feedbacks[0].valid?
-          #TODO: Business Rule. Put in model
-          @task.resolution = feedback.resolution
-          
-          if !@task.resolution.task_status_change.nil?
-            @task.status = @task.resolution.task_status_change
-          end
-          @task.finish_time = Time.now
-        else
-          if (@task.feedbacks[0].resolution.nil? && @task.feedbacks[0].notes.empty?)
-            @task.feedbacks.delete(@task.feedbacks[0])
+      
+      if feedback.notes.to_s.empty? && feedback.resolution.nil?
+        @task.feedbacks = @task.feedbacks - [feedback]
+      else
+        #filled feedback?
+        if (!feedback.resolution.nil?)
+          if @task.feedbacks[0].valid?
+            #TODO: Business Rule. Put in model
+            @task.resolution = feedback.resolution
+            
+            if !@task.resolution.task_status_change.nil?
+              @task.status = @task.resolution.task_status_change
+            end
+            @task.finish_time = Time.now
+          else
+            if (@task.feedbacks[0].resolution.nil? && @task.feedbacks[0].notes.empty?)
+              @task.feedbacks.delete(@task.feedbacks[0])
+            end
           end
         end
       end

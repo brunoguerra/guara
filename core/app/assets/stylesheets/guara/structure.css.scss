@@ -140,7 +140,7 @@ body .modal {
 	}
 	
 	.actions {
-    bottom: 15px;
+    /* bottom: 15px; task button bad position */
     left: 10px;
     position: absolute;
 	}
@@ -294,7 +294,7 @@ body .modal {
 }
 
 .text-right {
-	text-align: left;
+	text-align: right;
 }
 
 .black {

@@ -1,0 +1,75 @@
+= javascript_include_tag "/assets/guara/active_crm/scheduled_contacts_form.js"
+:css
+  .dropdown-submenu.pull-left > .dropdown-menu {
+  	left: -93% !important;
+  }
+  .disabled{
+  	display: none;
+  }
+  .dropup{
+  	width: 120px;
+  	display: inline;
+  }
+- element_class = @scheduled_contact.new_record? ? 'create' : 'update'
+= semantic_form_for @scheduled_contact, :html => { class: "well scheduled_contact_submit #{element_class}", id: "scheduled_contact_form" }, |
+  :url => { :action => @scheduled_contact.new_record? ? 'create' : 'update', format: :json },                                               |
+  :remote => true do |f|                                                                                                                    |
+  .row
+    .validation-error
+    .span3
+      = f.input :activity, label: t('scheduleds.activity'), input_html: { rows: 3, cols: 5}
+      = f.input :scheduled_at, :as=> :hidden
+      = f.input :result, :as=> :hidden
+      = f.input :contact_id, :as=> :hidden
+      = f.input :classified_id, :as=> :hidden
+      = f.input :user_id, :as=> :hidden
+
+
+      .btn-group
+        %a.btn.btn-success.plus +
+        %a.btn.btn-danger.minus -
+
+      .dropdown#positive
+        %ul#plus.dropdown-menu{"aria-labelledby" => "drop4", :role => "menu"}
+          %li{:role => "presentation"}
+            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::ACCEPTED});", :role => "menuitem", :tabindex => "-1"}
+              %span.badge.badge-success
+                %i.icon-thumbs-up
+              = I18n.t("scheduleds.contacts.result.accepted")
+          %li.dropdown-submenu{:role => "presentation"}
+            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::DENIED});", :role => "menuitem", :tabindex => "-1"}
+              %span.badge.badge-important
+                %i.icon-thumbs-down
+              = I18n.t("scheduleds.contacts.result.denied")
+            %ul.dropdown-menu
+              - Guara::ActiveCrm::Scheduled::Classified.all.each do |classified|
+                %li
+                  %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('classified', #{classified.id});", :tabindex => "-1"}= classified.name
+          %li{:role => "presentation"}
+            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::SCHEDULED});", :role => "menuitem", :tabindex => "-1"}
+              %span.badge.badge-warning
+                %i.icon-hand-right
+              = I18n.t("scheduleds.contacts.result.scheduled")
+      .dropdown#minus
+        %ul#minus.dropdown-menu{"aria-labelledby" => "drop4", :role => "menu"}
+          %li{:role => "presentation"}
+            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED});", :role => "menuitem", :tabindex => "-1"}
+              %span.badge.badge-warning
+                %i.icon-hand-right
+              = I18n.t("scheduleds.contacts.result.not_contacted")
+
+    #active_crm_scheduled_contact_status_label_panel.span3.hide
+      %span.badge.badge-success.hide
+        %i.icon-thumbs-up
+      %span.badge.badge-warning.hide
+        %i.icon-hand-right
+      %span.badge.badge-important.hide
+        %i.icon-thumbs-down
+      %a#active_crm_scheduled_contact_status_label
+    .custom-span3-big.disabled
+      #datepicker.controls
+      .controls{:style => "margin-top:10px;"}
+        = text_field_tag "hour", Time.now.strftime('%H:%M')
+    %div= f.button t('helpers.forms.save'), class: "btn btn-primary btn-submit pull-right", :type => :button, :onclick => "return scheduled_contact_submit($('#scheduled_contact_form'));"
+:javascript
+  scheduled_contacts_form_js_init();

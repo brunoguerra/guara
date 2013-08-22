@@ -91,10 +91,21 @@
 .custom-span7-medium{
   width: 572px; 
 }
+
 #dialog-call .thumbnails{
   margin-left: 0px;
 }
 
 #deals-panel {
-  
+  .details {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    z-index: 1;
+    margin-left: -10px;
+    margin-top: -10px;
+    display: none;
+  }
+
+
 }

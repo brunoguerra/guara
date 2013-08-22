@@ -17,7 +17,7 @@ module Guara
 			    belongs_to :scheduled, class_name: "Guara::ActiveCrm::Scheduled"
 			    has_many :contacts, foreign_key: :deal_id, class_name: "Guara::ActiveCrm::Scheduled::Contact"
 	    		has_many :scheduled_contacts,
-						:conditions => "scheduled_at is not null and result = #{Contact::SCHEDULED}",
+						:conditions => "scheduled_at is not null and result in (#{Contact::NOT_CONTACTED}, #{Contact::SCHEDULED})",
 						:class_name => "Contact"
 
 

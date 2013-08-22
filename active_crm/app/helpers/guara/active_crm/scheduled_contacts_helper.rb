@@ -31,6 +31,10 @@ module Guara
         }[result]
       end
       
+
+      def scheduled_cotact_ignoreds_ids
+        (session[:ignored_customers].nil? ? [] : session[:ignored_customers]).join(',')
+      end
   	end
   end
 end

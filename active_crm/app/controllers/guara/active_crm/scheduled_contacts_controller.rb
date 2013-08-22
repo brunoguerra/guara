@@ -65,6 +65,7 @@ module Guara
                 customer_name:            @scheduled_contact.deal.customer.name,
                 accepted_total:           @scheduled_contact.deal.accepted_total,
                 scheduled_contacts_total: @scheduled_contact.deal.scheduled_contacts_total,
+                contacts_total:           @scheduled_contact.deal.contacts.count
               })
             end
 

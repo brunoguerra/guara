@@ -6,12 +6,14 @@ module Guara::ActiveCrm
     let(:customer) { Factory(:customer_pj).customer }
     let(:customer_contact) { Factory(:contact, customer: customer) }
     let(:deal) { Factory(:scheduled_deals, customer: customer) }
+    let(:user) { Factory(:user) }
 
     before { @contact = Scheduled::Contact.new(
                                     contact: customer_contact,
                                     deal: deal,
                                     activity: "OK, contacted! just now... \n"+Faker::Lorem.paragraphs(3).join(", "),
-                                    result: Scheduled::Contact::ACCEPTED) 
+                                    result: Scheduled::Contact::ACCEPTED,
+                                    user: user) 
     }
 
     subject { @contact }
@@ -22,6 +24,11 @@ module Guara::ActiveCrm
     it { should respond_to(:updated_at) }
 
     it { should respond_to(:scheduled_at) }
+
+    it { should respond_to(:accepeted_on_deal?) }
+    it { should respond_to(:denied_on_deal?) }
+
+    it { Scheduled::Contact.results.should have(5).items }
 
     it { should be_valid }
 
@@ -62,6 +69,23 @@ module Guara::ActiveCrm
         new_contact = @contact.dup
         puts new_contact.to_yaml
         expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::SCHEDULED_REALIZED).count }.by(1)
+      end
+
+      it "ensures only one scheduled or not_contcted call/contact per contact of customer" do
+        #scheduled
+        new_contact = @contact.dup
+        new_contact.change_to_scheduled
+        new_contact.save!
+
+        #not_contacted
+        @contact.scheduled_at = 2.days.from_now
+        @contact.change_to_not_contacted
+        @contact.save!
+
+        #new_scheduled
+        new_contact = @contact.dup
+        puts new_contact.to_yaml
+        expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::NOT_CONTACTED_REALIZED).count }.by(1)
       end
     end
   end

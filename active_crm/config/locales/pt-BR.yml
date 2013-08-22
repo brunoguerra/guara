@@ -87,6 +87,7 @@ pt-BR:
         accepted: "Inscrito"
         scheduled: "Agendamento"
         denied: "Participação Negada"
+        not_contacted: "Não Contactado"
 
   system:
     modules: &system_modules
