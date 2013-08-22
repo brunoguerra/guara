@@ -2,13 +2,13 @@
   %thead
     %tr
       %th.span4= t("helpers.label.customers.search.names")
-      %th= t("active_crm.scheduled.responsible")
-      %th= t("active_crm.scheduled.datetime")
-      %th= t("active_crm.scheduled.activity")
+      %th= t("scheduleds.responsible")
+      %th= t("scheduleds.datetime")
+      %th= t("scheduleds.activity")
   %tbody
     - (@customers_scheduled || []).each do |scheduled|
-      %tr{"contact-id" => scheduled.contact_id, "customer-id" => scheduled.person.id}
-        %td= scheduled.person.name
+      %tr{"contact-id" => scheduled.contact_id, "customer-id" => scheduled.deal.customer.id}
+        %td= scheduled.deal.customer.name
         %td= scheduled.contact.name
         %td
           %a{"data-toggle" => "tooltip", "title" => scheduled.scheduled_at}= time_elapsed scheduled.scheduled_at

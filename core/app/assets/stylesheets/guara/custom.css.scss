@@ -601,3 +601,15 @@ table.table thead .sorting_desc_disabled {
 table.dataTable th:active {
     outline: none;
 }
+
+#loader {
+  display: none;
+  background-image: url(loading32.gif);
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  position: fixed;
+  left: 2px;
+  top: 50px;
+  z-index: -99999;
+}

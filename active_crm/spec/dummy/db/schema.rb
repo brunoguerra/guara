@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809192671) do
+ActiveRecord::Schema.define(:version => 20130821144279) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -36,22 +36,22 @@ ActiveRecord::Schema.define(:version => 20130809192671) do
   end
 
   create_table "guara_active_crm_scheduled_contacts", :force => true do |t|
+    t.integer  "deal_id",                         :null => false
+    t.integer  "user_id",                         :null => false
     t.integer  "contact_id"
-    t.text     "activity"
-    t.integer  "result"
     t.integer  "classified_id"
-    t.datetime "scheduled"
-    t.integer  "scheduled_id"
+    t.text     "activity",                        :null => false
+    t.integer  "result",                          :null => false
+    t.datetime "scheduled_at"
     t.boolean  "enabled",       :default => true
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.integer  "deal_id"
-    t.integer  "user_id"
   end
 
   add_index "guara_active_crm_scheduled_contacts", ["classified_id"], :name => "index_guara_active_crm_scheduled_contacts_on_classified_id"
   add_index "guara_active_crm_scheduled_contacts", ["contact_id"], :name => "index_guara_active_crm_scheduled_contacts_on_contact_id"
-  add_index "guara_active_crm_scheduled_contacts", ["scheduled_id"], :name => "index_guara_active_crm_scheduled_contacts_on_scheduled_id"
+  add_index "guara_active_crm_scheduled_contacts", ["deal_id"], :name => "index_guara_active_crm_scheduled_contacts_on_deal_id"
+  add_index "guara_active_crm_scheduled_contacts", ["scheduled_at"], :name => "index_guara_active_crm_scheduled_contacts_on_scheduled_at"
 
   create_table "guara_active_crm_scheduled_deals", :force => true do |t|
     t.integer  "scheduled_id"

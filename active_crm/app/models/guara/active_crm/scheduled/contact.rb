@@ -10,15 +10,10 @@ module Guara
                           :contact_id, 
                           :classified_id,
                           :deal_id, 
+                          :deal,
                           :user_id,
                           :contact,
-                          :person,
-                          :person_id,
-                          :deal,
-                          :scheduled,
-                          :scheduled_id,
-                          :group,
-                          :group_id
+                          :contact_id
 
           #constants
           ACCEPTED = 1
@@ -28,21 +23,16 @@ module Guara
 
           #Associations
           belongs_to :classified
-          belongs_to :person
       		belongs_to :contact, class_name: "Guara::Contact"
           belongs_to :deal, class_name: "Guara::ActiveCrm::Scheduled::Deal"
-          belongs_to :scheduled
-          belongs_to :group
 
-          #filter
-          before_save :join_to_opened_deal_or_create
-          before_save :ensure_scheduled
-
-          validates_presence_of :result, :activity, :person, :contact
+          validates_presence_of :result, :activity, :deal, :contact
 
           validates_each :scheduled_at do |record, attr, value|
             record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) if ((record.result==Contact::SCHEDULED) && ((Date.parse(value.to_s) < Date.today) || (value.to_s.empty?)))
           end
+
+          before_save :ensure_scheduled
 
           def status
             return self.classified.nil? ? translate_scheduled_contact_result(self.result) : self.classified.name
@@ -69,6 +59,20 @@ module Guara
             write_attribute(:person_id, self.contact.customer.id)
           end
 
+          def ensure_scheduled
+            pre_scheduleds = Contact.joins(:deal).where({
+              contact_id: contact.id,
+              Scheduled::Deal.table_name => { scheduled_id: self.deal.scheduled.id },
+              result: SCHEDULED
+            })
+            pre_scheduleds = pre_scheduleds.where("#{Scheduled::Contact.table_name}.id <> ?", self.id) unless self.id.nil?
+
+            pre_scheduleds.each do |p_contact|
+              d_contact = Scheduled::Contact.find p_contact.id
+              d_contact.update_attribute(:result, SCHEDULED_REALIZED)
+            end
+          end
+=begin
           def group=(group)
             unless group.nil?
               write_attribute(:group_id, group.id)
@@ -90,7 +94,7 @@ module Guara
             end
 
             #checks
-            return RuntimeError.new("Contact without customer and scheduled cannot be valid...") unless (self.person && self.scheduled)
+            raise RuntimeError.new("Contact without customer and scheduled cannot be valid...") unless (self.person && self.scheduled)
 
             self.deal = Guara::ActiveCrm::Scheduled::Deal.where(
               customer_id: self.person.id,
@@ -109,19 +113,7 @@ module Guara
 
             self
           end
-
-          def ensure_scheduled
-            pre_scheduleds = Contact.where({
-              contact_id: contact.id,
-              scheduled_id: scheduled.id,
-              result: SCHEDULED
-            })
-            pre_scheduleds = pre_scheduleds.where("id <> ?", self.id) unless self.id.nil?
-
-            pre_scheduleds.each do |d_contact|
-              d_contact.update_attribute(:result, SCHEDULED_REALIZED)
-            end
-          end
+=end
 
     		end
       end

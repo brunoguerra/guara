@@ -1,12 +1,12 @@
 <section class="nested">
-			<h6><%= t("active_crm.scheduled.historic_scheduled_contact_selected") %></h6>
+			<h6><%= t("scheduleds.historic_scheduled_contact_selected") %></h6>
 
 			<table class="table table-bordered table-striped">
 	          <thead>
 	            <tr>
-	              <th><%= t("active_crm.scheduled.datetime") %></th>
-	              <th><%= t("active_crm.scheduled.result") %></th>
-	              <th><%= t("active_crm.scheduled.activity") %></th>
+	              <th><%= t("scheduleds.datetime") %></th>
+	              <th><%= t("scheduleds.result") %></th>
+	              <th><%= t("scheduleds.activity") %></th>
 	            </tr>
 	          </thead>
 
@@ -14,7 +14,7 @@
 	            <% if !@deal.nil?
 	            (Guara::ActiveCrm::Scheduled::Contact.where(deal_id: @deal.id, contact_id: @contact.id) || []).each do |scheduled_contact|%>
 	                <tr>
-	                  <td><%= scheduled_contactscheduled_at %></td>
+	                  <td><%= scheduled_contact.scheduled_at %></td>
 	                  <td><%= translate_scheduled_contact_result(scheduled_contact.result) %></td>
 	                  <td><%= scheduled_contact.activity %></td>
 	                </tr>

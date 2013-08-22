@@ -15,16 +15,33 @@ module Guara
       it { should respond_to(:scheduled) }
       it { should respond_to(:deals) }
 
+      it { should respond_to(:find_or_create_deal) }
+
       its(:to_contact) { should have(list_customer_pjs.size).items }
 
-      let (:contacted_customer)     { Factory :scheduled_contact, person: list_customer_pjs.first.person, scheduled: group.scheduled, group: group }
-      let (:ids_not_contacted)      { list_customer_pj_ids - [contacted_customer.person_id] }
+      context "#find_or_create_deal" do
+
+        it "creates deal when no one to customer and group" do
+          expect{ group.find_or_create_deal(customer_pj.person) }.to change{ Scheduled::Deal.count }.by(1)
+        end
+
+        it "finds a deal to customer and group" do
+          group.find_or_create_deal(customer_pj.person) # first call just create one
+          expect{ group.find_or_create_deal(customer_pj.person) }.to change{ Scheduled::Deal.count }.by(0)
+        end
+      end
+
+      # ##
+      # ###
+      let (:deal)                   { group.find_or_create_deal(list_customer_pjs.first.person)}
+      let (:contacted_customer)     { Factory :scheduled_contact, deal: deal }
+      let (:ids_not_contacted)      { list_customer_pj_ids - [contacted_customer.deal.customer_id] }
       let(:ids_to_contact_on_group) { group.to_contact.all.collect {|p| p.id } }
 
       context "#to_contact" do
         it 'removes contacteds customers from #to_contact list' do
           ids_not_contacted.each { |id| ids_to_contact_on_group.should include(id) }
-          expect(ids_to_contact_on_group).to_not include contacted_customer.person_id
+          expect(ids_to_contact_on_group).to_not include contacted_customer.deal.customer.id
         end
 
         it { expect(list_customer_pjs.size).to eq(group.count_schedule) }
@@ -37,17 +54,16 @@ module Guara
         let (:people_scheduled) do 
           (1..2).collect {
               Factory :scheduled_contact,
-                      person: Factory(:customer_pj).person,
-                      group: group,
+                      deal: deal,
                       result: Scheduled::Contact::SCHEDULED,
                       scheduled_at: Date.today + 2.days
           }
         end
-        let (:ids_scheduleds) { people_scheduled.collect {|c| c.person.id }}
-        let (:ids_of_people_scheduled_on_group) { group.scheduled_contacts.all.collect {|p| p.person_id } }
+        let (:ids_scheduleds) { people_scheduled.collect {|c| c.deal.customer.id }}
+        let (:ids_of_people_scheduled_on_group) { group.contacts.all.collect {|p| p.deal.customer.id } }
 
         #expect
-        its(:scheduled_contacts) { should have(people_scheduled.size).items }
+        its(:contacts) { should have(people_scheduled.size).items }
 
         it 'lists scheduled contacts' do  
           ids_scheduleds.each { |id| ids_of_people_scheduled_on_group.should include id }

@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="validation-error"></div>
 		<div class="span3">
-			<%= f.input :activity, label: t('active_crm.scheduled.activity'), input_html: { rows: 3, cols: 5} %>
+			<%= f.input :activity, label: t('scheduleds.activity'), input_html: { rows: 3, cols: 5} %>
 
 			<%= f.input :scheduled_at, :as=> :hidden %>
 			<%= f.input :result, :as=> :hidden %>
@@ -33,14 +33,14 @@
 						<li role="presentation">
 						  <a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 						  	onClick="completed('result', <%=Guara::ActiveCrm::Scheduled::Contact::ACCEPTED %>);">
-						  		<span class="badge badge-success"><i class="icon-thumbs-up" /></span> <%= I18n.t("active_crm.contact.result.accepted") %>
+						  		<span class="badge badge-success"><i class="icon-thumbs-up" /></span> <%= I18n.t("scheduleds.contacts.result.accepted") %>
 						  	</a>
 						</li>
 
 						<li role="presentation" class="dropdown-submenu">
 					  	<a role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%=Guara::ActiveCrm::Scheduled::Contact::DENIED%>);">
-					  		<span class="badge badge-important "><i class="icon-thumbs-down" /></span> <%= I18n.t("active_crm.contact.result.denied") %>
+					  		<span class="badge badge-important "><i class="icon-thumbs-down" /></span> <%= I18n.t("scheduleds.contacts.result.denied") %>
 					  	</a>
 					  	<ul class="dropdown-menu">
 					  		<% Guara::ActiveCrm::Scheduled::Classified.all.each do |classified| %>
@@ -55,7 +55,7 @@
 						<li role="presentation">
 					  	<a  role="menuitem" tabindex="-1" href="javascript:void(0);" 
 					  	onClick="completed('result', <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>);">
-					  		<span class="badge badge-warning "><i class="icon-hand-right" /></span> <%= I18n.t("active_crm.contact.result.scheduled") %>
+					  		<span class="badge badge-warning "><i class="icon-hand-right" /></span> <%= I18n.t("scheduleds.contacts.result.scheduled") %>
 					  	</a>
 						</li>
 				</ul>
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 
-			<div><%= f.button t('helpers.forms.save'), class: "btn btn-primary btn-submit pull-right", :type => :button, :onclick => "return verify_form($('#scheduled_contact_form'));" %></div>
+			<div><%= f.button t('helpers.forms.save'), class: "btn btn-primary btn-submit pull-right", :type => :button, :onclick => "return scheduled_contact_submit($('#scheduled_contact_form'));" %></div>
 
 	</div>
 

@@ -3,12 +3,14 @@
     %tr
       %th.span4= t("helpers.label.customers.search.names")
       %th= t("active_crm.scheduled_deals.date_start")
-      %th 
-      %th 
+      %th= t("active_crm.scheduled_deals.accepted_total") 
+      %th= t("active_crm.scheduled_deals.scheduled_contacts_total")
+      %th= t("active_crm.scheduled_deals.contacts_total")
   %tbody
     - (@deals || []).each do |deal|
       %tr{"deal-id" => deal.id}
         %td= deal.customer.name
         %td= time_elapsed deal.date_start
         %td= deal.accepted_total
-        %td
+        %td= deal.scheduled_contacts_total
+        %td= deal.contacts.count

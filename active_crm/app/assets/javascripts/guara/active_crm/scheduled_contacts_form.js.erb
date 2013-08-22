@@ -1,5 +1,7 @@
 <%# encoding: utf-8 %>
 
+var $loader = $('#loader');
+
 var scheduled_contacts_form_js_init = (function() {
 
   $( "#datepicker" ).datepicker($.datepicker.regional[ "pt-BR" ]);
@@ -7,24 +9,28 @@ var scheduled_contacts_form_js_init = (function() {
   $("#hour").mask("99:99");
 
   /* *** submited contact */
-  $('.scheduled_contact_submit').bind("ajax:success", function(evt, data, status, xhr){
-    if(data.success == true){
-      resetFormAfterSuccess(this);
-      customerScheduledRemove(data);
+  $('#scheduled_contact_form').bind({
 
-      if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>){
-        contactScheduledsAppend(data);
+    "ajax:success": function(evt, data, status, xhr){
+      if(data.success == true){
+        resetFormAfterSuccess(this);
+        customerScheduledRemove(data);
+
+        if(data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>){
+          contactScheduledsAppend(data);
+        }
+        console.log(data.data.deal);
+        dealAppend(data.data.deal);
+
+        showTempOkMessage();
+        
       }
+    },
 
-      dealAppend(data.data.deal);
-
-      showTempOkMessage();
-      
+    "ajax:error": function(evt, xhr, status, error){
+      catchFormAjaxError(this, evt, xht, status, error);
     }
-  })
-  .bind("ajax:error", function(evt, xhr, status, error){
-    catchFormAjaxError(this, evt, xht, status, error);
-  });;
+  });
 });
 
 function completed(type, value){
@@ -62,9 +68,9 @@ function completed(type, value){
  *
  */
 function contact_status_label(value) {
-  var labels = ["<%= I18n.t("active_crm.contact.result.accepted") %>", 
-                 "<%= I18n.t("active_crm.contact.result.denied") %>",
-                 "<%= I18n.t("active_crm.contact.result.scheduled") %>"],
+  var labels = ["<%= I18n.t("scheduleds.contacts.result.accepted") %>", 
+                 "<%= I18n.t("scheduleds.contacts.result.denied") %>",
+                 "<%= I18n.t("scheduleds.contacts.result.scheduled") %>"],
       badges = [".badge-success",
                 ".badge-important",
                 ".badge-warning"],
@@ -80,15 +86,15 @@ function contact_status_label(value) {
 }
 
 
-function verify_form(form){
+function scheduled_contact_submit(form){
 
   if ($('#active_crm_scheduled_contact_result').val().toString().trim()=='') {
-    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('active_crm.scheduled.validation.result.empty'); %>");
+    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('scheduleds.validation.result.empty'); %>");
     return false;
   }
 
   if ($('#active_crm_scheduled_contact_activity').val().toString().trim()=='') {
-    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('active_crm.scheduled.validation.activity.empty'); %>");
+    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('scheduleds.validation.activity.empty'); %>");
     return false;
   }
 
@@ -147,7 +153,7 @@ function showTempOkMessage() {
 function resetFormAfterSuccess(form) {
   var $form = $(form);
   $form.find('textarea,input[type="text"],input[type="file"]').val("");
-  showMessage("<%= I18n.t('active_crm.scheduled.call_completed') %>");
+  showMessage("<%= I18n.t('scheduleds.call_completed') %>");
 }
 
 function catchFormAjaxError(form, evt, xht, status, error) {

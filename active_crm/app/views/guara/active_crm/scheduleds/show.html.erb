@@ -1,8 +1,8 @@
 <div class="span12">
   <section id="active_crm">
     <%= render :partial => 'navbar', locals: {active: :scheduleds} rescue '' %>
-    <h3><small><%= t("active_crm.scheduled.id") +" "+ "#{@active_crm_scheduled.id}"  %></small>
-      <%= t("active_crm.scheduled.planning_contact") %></h1>
+    <h3><small><%= t("scheduleds.id") +" "+ "#{@active_crm_scheduled.id}"  %></small>
+      <%= t("scheduleds.planning_contact") %></h1>
     
     <div class="row-fluid">
       <div class="thumbnail span12">
@@ -10,28 +10,28 @@
           <fieldset>
             <div class="row well span12">
               <div class="span6 box-gray-data">
-                <strong><%= t("active_crm.scheduled.user") %>:</strong>
+                <strong><%= t("scheduleds.user") %>:</strong>
                 <%= @active_crm_scheduled.user.name %>
               </div>
 
               <div class="span6 box-gray-data">
-                <strong><%= t("active_crm.scheduled.date_start") %>:</strong>
+                <strong><%= t("scheduleds.date_start") %>:</strong>
                 <%= @active_crm_scheduled.date_start %>
               </div>
 
               <div class="span6 box-gray-data">
-                <strong><%= t("active_crm.scheduled.subject") %>:</strong>
+                <strong><%= t("scheduleds.subject") %>:</strong>
                 <%= @active_crm_scheduled.subject %>
               </div>
 
 
               <div class="span6 box-gray-data">
-                <strong><%= t("active_crm.scheduled.date_finish") %>:</strong>
+                <strong><%= t("scheduleds.date_finish") %>:</strong>
                 <%= @active_crm_scheduled.date_finish %>
               </div>
 
               <div class="span6 box-gray-data">
-                <strong><%= t("active_crm.scheduled.task_type") %>:</strong>
+                <strong><%= t("scheduleds.task_type") %>:</strong>
                 <%= @active_crm_scheduled.task_type.name %>
               </div>
           </div>

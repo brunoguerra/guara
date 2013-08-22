@@ -8,7 +8,7 @@
 		
 		<div>
 			<div class="control-group span4">
-				<%= f.label :group_scheduled_task_type_id_in, t("active_crm.scheduled.task_type"), :class => "control-label" %>
+				<%= f.label :group_scheduled_task_type_id_in, t("scheduleds.task_type"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.select(:group_scheduled_task_type_id_in,
 						options_for_select([nil]) + 
@@ -26,14 +26,14 @@
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :group_scheduled_date_start_gteq, t("active_crm.scheduled.date_start"), :class => "control-label" %>
+				<%= f.label :group_scheduled_date_start_gteq, t("scheduleds.date_start"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.text_field "group_scheduled_date_start_gteq", :class=>"date_format", "data-behaviour"=> 'datepicker' %>
 				</div>
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :count_registered, raw("#{t("active_crm.scheduled.registered")} >="), :class => "control-label" %>
+				<%= f.label :count_registered, raw("#{t("scheduleds.registered")} >="), :class => "control-label" %>
 				<div class="controls">
 					<%= f.text_field :count_registered %>
 				</div>
@@ -42,7 +42,7 @@
 
 		<div>
 			<div class="control-group span4">
-				<%= f.label :group_scheduled_user_id_in, t("active_crm.scheduled.user"), :class => "control-label" %>
+				<%= f.label :group_scheduled_user_id_in, t("scheduleds.user"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.select(:group_scheduled_user_id_in,
 						options_for_select([nil]) + 
@@ -60,14 +60,14 @@
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label "date_start_lteq", t("active_crm.scheduled.date_finish"), :class => "control-label" %>
+				<%= f.label "date_start_lteq", t("scheduleds.date_finish"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.text_field "group_scheduled_date_start_lteq", :class=>"date_format", "data-behaviour"=> 'datepicker' %>
 				</div>
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :count_contacted, raw("#{t("active_crm.scheduled.contacted")} >="), :class => "control-label" %>
+				<%= f.label :count_contacted, raw("#{t("scheduleds.contacted")} >="), :class => "control-label" %>
 				<div class="controls">
 					<%= f.text_field :count_contacted %>
 				</div>
@@ -76,7 +76,7 @@
 
 		<div>
 			<div class="control-group span4">
-				<%= f.label :group_scheduled_id_in, t("active_crm.scheduled.scheduled"), :class => "control-label" %>
+				<%= f.label :group_scheduled_id_in, t("scheduleds.scheduled"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.select(:group_scheduled_id_in,
 						options_for_select([nil]) + 
@@ -94,7 +94,7 @@
 			</div>
 
 			<div class="control-group span4">
-				<%= f.label :group_id_in, t("active_crm.scheduled.group"), :class => "control-label" %>
+				<%= f.label :group_id_in, t("scheduleds.group"), :class => "control-label" %>
 				<div class="controls">
 					<%= f.select(:group_id_in,
 						options_for_select([nil]) + 

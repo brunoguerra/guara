@@ -5,6 +5,7 @@ module Guara
   
     #=========================== associations <--------------------------------------------
     belongs_to :customer, :foreign_key => "person_id"
+    belongs_to :person
     belongs_to :department, class_name: "BusinessDepartment"
     has_many :emails, :as => :emailable, dependent: :destroy, :extend => Guara
 

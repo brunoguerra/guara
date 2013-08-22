@@ -5,66 +5,6 @@ pt-BR:
   active_crm:
     title: "Call Center"
 
-    scheduled:
-      id: "Cod."
-      title: "Agendamento"
-      user: "Responsável"
-      search_subject: "Buscar no assunto"
-      task_type: "Tipo de Tarefa"
-      index:
-        title: "Buscar por Agendados"
-      edit: "Editar Agendamento"
-
-      date_start: "Data Inicial"
-      date_finish: "Data Final"
-      subject: "Assunto"
-      id: "Cod."
-      successfully_save: "Agendamento realizado com sucesso."
-      successfully_update: "Agendamento atualizado com sucesso."
-      historic_scheduled_contact_selected: "Histórico de Agendamento do Contato Selecionado"
-
-      status:
-        title: "Estado"
-        open: "Aberto"
-        completed: "Concluido"
-
-      new:
-        title: "Novo Agendamento"
-
-      planning_contact: "Planejamento de Contato"
-
-      responsible: "Responsável"
-      next_contact: "Próximo Contato"
-      activity: "Resultado"
-      result: "Classificação"
-      situation: "Situação"
-      scheduled: "Agendados"
-      group: "Grupos"
-      registered: "Registrados"
-      contacted: "Contactados"
-      total_registered: "Inscritos"
-      total_contacted: "Contactados"
-      consultant: "Consultor"
-      call_historic: "Histórico de Ligações"
-      edit_group_customer: "Editar Grupo"
-      contact_customers: "Contactar Clientes"
-      customers_to_register: "Clientes à Contactar"
-      customers_scheduled: "Clientes Agendados"
-      datetime: "Data/Hora"
-      call_completed: "Fim da Ligação"
-
-
-      validation:
-        activity:
-          empty: "Favor, verificar o campo resultado."
-        result:
-          empty: "Favor, classifique o contato"
-
-      contacts:
-        ending_deal: "Fechar a Negociação"
-        ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
-
-
     scheduled_groups: 
       title: "Grupo de Cliente"
       new: "Novo Grupo"
@@ -72,6 +12,10 @@ pt-BR:
     scheduled_deals:
       title: "Negociações"
       date_start: "Data" 
+      scheduled_contacts_total: "Total de agendados"
+      scheduled_accepted_total: "Interações"
+      contacts_total: "Interações"
+
 
     scheduled_classifieds:
       title: "Classificações (Não Interessados)"
@@ -79,10 +23,74 @@ pt-BR:
     scheduled_contacts_reports:
       title: "Histórico de Ligações"
 
+  scheduleds:
+    id: "Cod."
+    title: "Agendamento"
+    user: "Responsável"
+    search_subject: "Buscar no assunto"
+    task_type: "Tipo de Tarefa"
+    index:
+      title: "Buscar por Agendados"
+    edit: "Editar Agendamento"
+
+    date_start: "Data Inicial"
+    date_finish: "Data Final"
+    subject: "Assunto"
+    id: "Cod."
+    successfully_save: "Agendamento realizado com sucesso."
+    successfully_update: "Agendamento atualizado com sucesso."
+    historic_scheduled_contact_selected: "Histórico de Agendamento do Contato Selecionado"
+
+    status:
+      title: "Estado"
+      open: "Aberto"
+      completed: "Concluido"
+
+    new:
+      title: "Novo Agendamento"
+
+    planning_contact: "Planejamento de Contato"
+
+    responsible: "Responsável"
+    next_contact: "Próximo Contato"
+    activity: "Resultado"
+    result: "Classificação"
+    situation: "Situação"
+    scheduled: "Agendados"
+    group: "Grupos"
+    registered: "Registrados"
+    contacted: "Contactados"
+    total_registered: "Inscritos"
+    total_contacted: "Contactados"
+    consultant: "Consultor"
+    call_historic: "Histórico de Ligações"
+    edit_group_customer: "Editar Grupo"
+    contact_customers: "Contactar Clientes"
+    customers_to_register: "Clientes à Contactar"
+    customers_scheduled: "Clientes Agendados"
+    datetime: "Data/Hora"
+    call_completed: "Fim da Ligação"
+
+    deals:
+      title: "Negociações"
+
+    validation:
+      activity:
+        empty: "Favor, verificar o campo resultado."
+      result:
+        empty: "Favor, classifique o contato"
+
+    contacts:
+      ending_deal: "Fechar a Negociação"
+      ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
+      result:
+        accepted: "Inscrito"
+        scheduled: "Agendamento"
+        denied: "Participação Negada"
+
   system:
     modules: &system_modules
       'guara/active_crm/scheduled/classified': "Call Center - Tipos de Desistências"
-
 
   activerecord:
     models:

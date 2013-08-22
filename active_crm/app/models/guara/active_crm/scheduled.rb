@@ -33,8 +33,8 @@ module Guara
 
       def self.translate_status
         {
-          0 => I18n.t("active_crm.scheduled.status.open"),
-            1 => I18n.t("active_crm.scheduled.status.completed")
+          0 => I18n.t("scheduleds.status.open"),
+            1 => I18n.t("scheduleds.status.completed")
         }
       end
 

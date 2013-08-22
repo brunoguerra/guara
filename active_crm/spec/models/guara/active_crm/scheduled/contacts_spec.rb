@@ -8,7 +8,6 @@ module Guara::ActiveCrm
     let(:deal) { Factory(:scheduled_deals, customer: customer) }
 
     before { @contact = Scheduled::Contact.new(
-                                    person: customer,
                                     contact: customer_contact,
                                     deal: deal,
                                     activity: "OK, contacted! just now... \n"+Faker::Lorem.paragraphs(3).join(", "),
@@ -19,20 +18,18 @@ module Guara::ActiveCrm
 
     it { should respond_to(:deal) }
     it { should respond_to(:contact) }
-    it { should respond_to(:person) } #contact not live forever
     it { should respond_to(:created_at) } #important - very useful
     it { should respond_to(:updated_at) }
 
     it { should respond_to(:scheduled_at) }
 
-    it { should respond_to(:join_to_opened_deal) }
-    it { should respond_to(:join_to_opened_deal_or_create) }
-
     it { should be_valid }
+
+    it { expect{ @contact.save }.to change{ Scheduled::Contact.count }.by(1) }
 
     context "with invalid relationships" do
       it "validate presence of person" do
-        @contact.person = nil
+        @contact.deal = nil
         @contact.should_not be_valid
       end
 
@@ -56,54 +53,16 @@ module Guara::ActiveCrm
       end
     end
 
-    it "#join_to_opened_deal - checks existing a deal from scheduled and join to one" do
-      @contact.deal = nil
-      @contact.scheduled = deal.scheduled
-      expect(@contact.join_to_opened_deal).to be_valid
-    end
-
-    context "#join_to_opened_deal_or_create" do 
-      before do
-        @scheduled = deal.scheduled
-        deal.destroy
-        @contact.deal = nil
-        @contact.scheduled = @scheduled
-      end
-      
-      it "checks not existent Deal from scheduled and create one" do
-        expect(@contact.join_to_opened_deal_or_create).to be_valid
-      end
-
-      it "checks not existent Deal from scheduled" do
-        expect(@contact.join_to_opened_deal.deal).to be_nil
-      end
-    end
 
     context "#cerate" do
-      it "creates a deal" do
-        @scheduled = deal.scheduled
-        deal.destroy
-        @contact.deal = nil
-        @contact.scheduled = @scheduled
-        expect{ @contact.save }.to change{ Scheduled::Deal.count }.by(1)
-      end
-
-      it "joins a existing deal" do
-        @contact.scheduled = @contact.deal.scheduled
-        @contact.deal = nil
-        expect{ @contact.save }.to change{ Scheduled::Deal.count }.by(0)
-      end
-
       it "ensures only one scheduled call/contact per contact of customer" do
         @contact.scheduled_at = 2.days.from_now
         @contact.change_to_scheduled
         @contact.save!
         new_contact = @contact.dup
+        puts new_contact.to_yaml
         expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::SCHEDULED_REALIZED).count }.by(1)
       end
     end
-
-
-
   end
 end

@@ -13,27 +13,31 @@
                   <div class="panel">
 
                     <div id="contactables-list" class="list span12">
-                      <h6><%= t("active_crm.scheduled.customers_to_register") %></h6>
-                      <div id="container_table">
+                      <h6><%= t("scheduleds.customers_to_register") %></h6>
+                      <div id="container_table" class="">
                         <%= render :partial => 'customers_to_register' %>
                         <%= will_paginate(@customers_to_register) %>
+                      </div>
+
+                      <hr />
+                      
+                      <div class="well well-small">                
+                        <h2 class="black text-left"><%= t("scheduleds.customers_scheduled") %></h1>
+                        <%= render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list" %>
+                      </div>
+                      
+
+                      <div class="well well-small" id="deals-panel">
+                        <div class="deatails"></div>
+                        <h2 class="black text-left"><%= t("scheduleds.deals.title") %></h1>
+                        <%= render :partial => "guara/active_crm/scheduled_deals/list" %>
                       </div>
                     </div>
 
                     <div id="customer_show" class="list span12" ></div>
                   </div>
+              </li>
 
-              </li>
-              <li class="span12">                
-                <h6><%= t("active_crm.scheduled.customers_scheduled") %></h6>
-                <%= render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list" %>
-              </li>
-              
-
-              <li class="span12">                
-                <h6><%= t("active_crm.scheduled.deals") %></h6>
-                <%= render :partial => "guara/active_crm/scheduled_deals/list" %>
-              </li>
           </ul>
         </div>
     </div>

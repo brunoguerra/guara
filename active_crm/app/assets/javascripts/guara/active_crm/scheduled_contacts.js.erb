@@ -28,7 +28,7 @@ var ScheduledContacts = {
     if(new_scheduled_contacts){
       me.new_scheduled_contacts = new_scheduled_contacts; 
     }
-    $('#container_table #customer-to-register tbody tr').click(function(){
+    $('#customer-to-register tbody tr').click(function(){
       //me.open_dialog_customer($(this));
       me.slide_customer_content($(this));
     });
@@ -92,7 +92,8 @@ var ScheduledContacts = {
     var me = this;
 
     this.container_customer.show();
-    this.container_customer.html('<span id="loading">Carregando...</span>').load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
+    
+    this.container_customer.html('<div id="loader" style="position: relative;"></div>').load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
       if(status=='error'){
         var error = $('#alert-error');
         if(error.length == 0){
@@ -182,9 +183,9 @@ var ScheduledContacts = {
 
   btn_finish_deal: function() {
     var me = this;
-    var btn = $('<a>'+I18n.t('active_crm.scheduled.contacts.ending_deal')+'</a>').addClass('btn btn-danger');
+    var btn = $('<a>'+I18n.t('scheduleds.contacts.ending_deal')+'</a>').addClass('btn btn-danger');
     btn.on('click', function() {
-      me.open_dialog_confirm(I18n.t('active_crm.scheduled.contacts.ending_deal')+ '?', I18n.t('active_crm.scheduled.contacts.ending_deal_text'), function(dialog){
+      me.open_dialog_confirm(I18n.t('scheduleds.contacts.ending_deal')+ '?', I18n.t('active_crm.scheduled.contacts.ending_deal_text'), function(dialog){
         dialog.html(I18n.t('waiting'));
         $.ajax({
           type: "POST",
@@ -212,7 +213,7 @@ var ScheduledContacts = {
 
   btn_ignore_customer: function() {
     var me = this;
-    var btn = $('<a>'+I18n.t('active_crm.scheduled.contacts.ignore_customer')+'</a>').addClass('btn btn-warning');
+    var btn = $('<a>'+I18n.t('scheduleds.contacts.ignore_customer')+'</a>').addClass('btn btn-warning');
     btn.on('click', function() {
         me.ignored_customers.push(me.current_customer);
         $.ajax({
@@ -346,7 +347,7 @@ var ScheduledContacts = {
   next_customer: function(){
     var me = this,
     next_customer = false;
-    $('#container_table #customer-to-register tbody tr').each(function(){
+    $('#customer-to-register tbody tr').each(function(){
       if(next_customer === false){
         if(me.is_customer_ignored($(this).attr('customer-id')) === false){
           me.current_customer = $(this).attr('customer-id');

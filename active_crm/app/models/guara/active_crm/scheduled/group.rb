@@ -2,6 +2,8 @@ module Guara
   	module ActiveCrm
   		class Scheduled
 	  		class Group < ActiveRecord::Base
+	    		include Guara::ActiveCrm::ScheduledsHelper
+
 	    		attr_accessible :business_activities,
 	    										:business_segments, 
 	    										:employes_max, 
@@ -20,12 +22,12 @@ module Guara
         				where d.customer_id = #{Guara::Customer.table_name}.id and d.scheduled_id = ?) = 0
 					}
 
-	    		has_many :contacts
 	    		has_many :deals, foreign_key: :group_id
+	    		has_many :contacts, through: :deals
 	    		belongs_to :scheduled
 	    		has_many :scheduled_contacts,
-	    						 :conditions => "scheduled_at is not null and result = #{Contact::SCHEDULED}",
-	    						 class_name: "Contact"
+	    						 :through => :deals,
+	    						 :class_name => "Contact"
 
 	    		def registered
 	    			Group.joins(:contacts, :deals)
@@ -36,8 +38,6 @@ module Guara
 							 Contact::ACCEPTED
 	    			)
 	    		end
-
-	    		include Guara::ActiveCrm::ScheduledsHelper
 
 	    		def name
 	    			@name = "Grupo de Cliente #{self.id}"
@@ -61,11 +61,20 @@ module Guara
 	    		end
 
 	    		def count_scheduled
-	    			return scheduled_contacts.count
+	    			return contacts.count
 	    		end
 
 	    		def count_schedule
     				return to_contact.count
+	    		end
+
+	    		def find_or_create_deal(customer)
+	    			deal = Scheduled::Deal.where(group_id: self.id, customer_id: customer.id).first
+	    			if deal.nil?
+		    			deal = self.scheduled.initialize_deal(customer, self)
+		    			deal.save!
+		    		end
+	    			deal
 	    		end
 	  		end
 	  	end

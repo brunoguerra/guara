@@ -18,7 +18,7 @@ module Guara
         @search = ActiveCrm::Scheduled.search(param_search)
         @active_crm_scheduleds = paginate(@search,  params[:page], 4)
 
-        @scheduled = ActiveCrm::Scheduled.new(:user_id=> current_user.id, status: 0)
+        @scheduled = ActiveCrm::Scheduled.new(:user_id=> current_user.id, status: 0) unless current_user.nil?
     
         respond_to do |format|
           format.html do
@@ -69,7 +69,7 @@ module Guara
 
         respond_to do |format|
           if @active_crm_scheduled.save
-            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("active_crm.scheduled.successfully_save") }
+            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("scheduleds.successfully_save") }
             format.json { render json: scheduled_path(@active_crm_scheduled), status: :created, location: @active_crm_scheduled }
           else
             format.html { render action: "new" }
@@ -83,7 +83,7 @@ module Guara
     
         respond_to do |format|
           if @active_crm_scheduled.update_attributes(params[:active_crm_scheduled])
-            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("active_crm.scheduled.successfully_update") }
+            format.html { redirect_to scheduled_path(@active_crm_scheduled), notice: t("scheduleds.successfully_update") }
             format.json { head :no_content }
           else
             format.html { render action: "edit" }

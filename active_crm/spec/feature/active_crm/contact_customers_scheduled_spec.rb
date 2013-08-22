@@ -3,7 +3,7 @@ require File.expand_path('../contact_customers_page_util', __FILE__)
 
 feature "Active CRM - Management Sell by Phone and e-mail", %{
   As a Telemarketing Caller
-  I want to schedule calls before sales begins
+  I want to call to customers planed before
   In order to effective result cantancting customers by phone and e-mail
   } do
 
@@ -17,7 +17,7 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
   end
 
   #page objects
-  given(:to_contact_page)   { Guara::ActiveCrm::ContactCustomersPageUtil.new(group, @user) } #the directors show
+  given(:to_contact_page)   { Guara::ActiveCrm::ContactCustomersPageUtil.new(page, group, @user) } #the directors show
   given(:customer_on_page)  { to_contact_page.customer_on_page(customer) } #the supporting show
 
   #customers
@@ -32,7 +32,7 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
       expect(customer_on_page).to be_contactable
   end
 
-  scenario "show csutomer to call", :js => true, :no_driver => :selenium do
+  scenario "show csutomer to call", :js => true do
     list_customers #pre-data
     #steps
     to_contact_page.show_group

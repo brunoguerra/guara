@@ -18,6 +18,14 @@ jQuery(function() {
     if ([9,13].indexOf(k) == -1) return false;
   });
 
+  $(document).bind("ajaxSend", function(){
+    $("#loader").show();
+    $("body").removeClass('ajaxCompleted')
+  }).bind("ajaxComplete", function(){
+    $("#loader").hide();
+    $("body").addClass('ajaxCompleted')
+  });
+
   
   $("select.multiselect").each(function(i) {
     var inp, 
@@ -129,7 +137,6 @@ jQuery(function() {
           "sExtends":    "collection",
           "sButtonText": 'Save <span class="caret" />',
           "aButtons":    [ "xls" ],
-
         }
       ]
     },

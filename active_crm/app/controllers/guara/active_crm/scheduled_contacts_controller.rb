@@ -1,7 +1,7 @@
 module Guara
   module ActiveCrm
   	class ScheduledContactsController < Guara::BaseController
-    	skip_authorization_check
+    	load_and_authorize_resource :class => "Guara::ActiveCrm::Scheduled::Contact"
 
     	include ScheduledsHelper
       include ScheduledContactsHelper
@@ -22,16 +22,17 @@ module Guara
 
       def new
           @contact = Guara::Contact.find(params[:contact_id])
-          @scheduled_contact = Scheduled::Contact.new(contact_id: @contact.id, user_id: current_user.id)
-
-          @deal = Guara::ActiveCrm::Scheduled::Deal.where(:customer_id=> @contact.person_id, scheduled_id: @group.scheduled_id).first
+          @deal = @group.find_or_create_deal(@contact.person)
+          @scheduled_contact = Scheduled::Contact.new(contact_id: @contact.id, deal_id: @deal.id, user_id: current_user.id)
 
           render 'new.html.erb', layout: false
       end
 
       def create
+          @contact = Guara::Contact.find(params[:active_crm_scheduled_contact][:contact_id])
+          @deal = @group.find_or_create_deal(@contact.person)
           @scheduled_contact = Scheduled::Contact.new(params[:active_crm_scheduled_contact])
-          @scheduled_contact.group = @group
+          @scheduled_contact.deal = @deal
 
           success = @scheduled_contact.save
           render :json => {success: success, data: prepare_data_json(), errors: @scheduled_contact.errors }
@@ -55,19 +56,16 @@ module Guara
         def prepare_data_json
             data = @scheduled_contact.attributes
             data["customer_name"] = @scheduled_contact.contact.customer.name
-            data["customer_id"] = @scheduled_contact.contact.customer.id
-            data["contact_name"] = @scheduled_contact.contact.name
-            data["scheduled"] = @scheduled_contact.scheduled_at.to_s.empty? ? '' : @scheduled_contact.scheduled_at.strftime("%d/%m/%Y %H:%M")
-            data["status"] = prepare_span_status(@scheduled_contact)
+            data["customer_id"] =   @scheduled_contact.contact.customer.id
+            data["contact_name"] =  @scheduled_contact.contact.name
+            data["scheduled"] =     @scheduled_contact.scheduled_at.to_s.empty? ? '' : @scheduled_contact.scheduled_at.strftime("%d/%m/%Y %H:%M")
+            data["status"] =        prepare_span_status(@scheduled_contact)
             unless @scheduled_contact.deal.nil?
-              data["deal"] = @scheduled_contact.deal.as_json(
-                                only: [
-                                  :customer_name,
-                                  :datetime, 
-                                ],
-
-                                root: false,
-                              )
+              data["deal"] = @scheduled_contact.deal.as_json(only: [:id, :date_start]).merge({
+                customer_name:            @scheduled_contact.deal.customer.name,
+                accepted_total:           @scheduled_contact.deal.accepted_total,
+                scheduled_contacts_total: @scheduled_contact.deal.scheduled_contacts_total,
+              })
             end
 
             return data

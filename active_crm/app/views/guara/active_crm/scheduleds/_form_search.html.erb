@@ -1,31 +1,31 @@
-<div class="page-header"><%= t("active_crm.scheduled.index.title") %></div>
+<div class="page-header"><%= t("scheduleds.index.title") %></div>
 
 <%= form_for @search, :url => scheduleds_path, :html => {:method => :get} do |f| %>
 	
 	<div class="control-group">
-		<%= label_tag :user, t("active_crm.scheduled.user"), :class => "control-label" %>
+		<%= label_tag :user, t("scheduleds.user"), :class => "control-label" %>
 		<%= f.select(:user_id_in,options_from_collection_for_select( Guara::User.all, :id, :name ), 
 				{:include_blank => true}, 
 				{ :multiple => true, 
 					:style => "width: 200px;", 
-					:placeholder => t("active_crm.scheduled.user"), 
+					:placeholder => t("scheduleds.user"), 
 					:class => "multiselect" })
 		%>
 	</div>
 
 	<div class="control-group">
-		<%= label_tag :task_type, t("active_crm.scheduled.task_type"), :class => "control-label" %>
+		<%= label_tag :task_type, t("scheduleds.task_type"), :class => "control-label" %>
 		<%= f.select(:task_type_id_in,options_from_collection_for_select( Guara::TaskType.all, :id, :name ), 
 				{:include_blank => true}, 
 				{ :multiple => true, 
 					:style => "width: 200px;", 
-					:placeholder => t("active_crm.scheduled.task_type"), 
+					:placeholder => t("scheduleds.task_type"), 
 					:class => "multiselect" })
 		%>
 	</div>
 
 	<div class="control-group">
-		<%= label_tag :task_type, t("active_crm.scheduled.search_subject"), :class => "control-label" %>
+		<%= label_tag :task_type, t("scheduleds.search_subject"), :class => "control-label" %>
 		<%= f.text_field :subject_contains %>
 	</div>
 

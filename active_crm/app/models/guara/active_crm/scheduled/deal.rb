@@ -15,17 +15,20 @@ module Guara
 			    belongs_to :customer, class_name: "Guara::Person"
 			    belongs_to :group, class_name: "Guara::ActiveCrm::Scheduled::Group", foreign_key: :group_id
 			    belongs_to :scheduled, class_name: "Guara::ActiveCrm::Scheduled"
-			    has_many :contacts, foreign_key: :deal_id 
+			    has_many :contacts, foreign_key: :deal_id, class_name: "Guara::ActiveCrm::Scheduled::Contact"
+	    		has_many :scheduled_contacts,
+						:conditions => "scheduled_at is not null and result = #{Contact::SCHEDULED}",
+						:class_name => "Contact"
 
 
 			    validates_presence_of :scheduled, :customer
 
 			    def accepted_total
-			    	group.registered.where("#{Guara::ActiveCrm::Scheduled::Group.table_name}.id = ?", self.id).count()
+			    	group.registered.where("#{Guara::ActiveCrm::Scheduled::Deal.table_name}.id = ?", self.id).count()
 			    end
 
-			    def customer_name
-			    	@customer && @customer.name
+			    def scheduled_contacts_total
+			    	group.scheduled_contacts.where("#{Guara::ActiveCrm::Scheduled::Deal.table_name}.id = ?", self.id).count()
 			    end
 
 =begin

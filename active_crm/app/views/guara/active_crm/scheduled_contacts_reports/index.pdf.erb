@@ -49,21 +49,21 @@
         if filter_valid == true %>
           <div class="page-header">Filtros de Pesquisa</div>
           <div class="well" style="background-color: #fff;">
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.task_type")}: #{Guara::TaskType.find(params[:search][:group_scheduled_task_type_id_in].to_i).name}</div>") if !params[:search][:group_scheduled_task_type_id_in].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.task_type")}: #{Guara::TaskType.find(params[:search][:group_scheduled_task_type_id_in].to_i).name}</div>") if !params[:search][:group_scheduled_task_type_id_in].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.date_start")}: #{group_scheduled_date_start_gteq}</div>") if !params[:search][:group_scheduled_date_start_gteq].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.date_start")}: #{group_scheduled_date_start_gteq}</div>") if !params[:search][:group_scheduled_date_start_gteq].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.date_finish")}: #{group_scheduled_date_start_lteq}</div>") if !params[:search][:group_scheduled_date_start_lteq].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.date_finish")}: #{group_scheduled_date_start_lteq}</div>") if !params[:search][:group_scheduled_date_start_lteq].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.user")}: #{Guara::User.find(params[:search][:group_scheduled_user_id_in].to_i).name}</div>") if !params[:search][:group_scheduled_user_id_in].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.user")}: #{Guara::User.find(params[:search][:group_scheduled_user_id_in].to_i).name}</div>") if !params[:search][:group_scheduled_user_id_in].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.registered")} >= : #{params[:search][:count_registered]}</div>") if !params[:search][:count_registered].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.registered")} >= : #{params[:search][:count_registered]}</div>") if !params[:search][:count_registered].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.contacted")} >= : #{params[:search][:count_contacted]}</div>") if !params[:search][:count_contacted].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.contacted")} >= : #{params[:search][:count_contacted]}</div>") if !params[:search][:count_contacted].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.scheduled")} >= : #{Guara::ActiveCrm::Scheduled.find(params[:search][:group_id_in]).name}</div>") if !params[:search][:group_id_in].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.scheduled")} >= : #{Guara::ActiveCrm::Scheduled.find(params[:search][:group_id_in]).name}</div>") if !params[:search][:group_id_in].empty? %>
 
-            <%= raw("<div class=\"well\">#{t("active_crm.scheduled.group")}: #{Guara::ActiveCrm::Scheduled::Group.find(params[:search][:group_scheduled_id_in]).name}</div>") if !params[:search][:group_scheduled_id_in].empty? %>
+            <%= raw("<div class=\"well\">#{t("scheduleds.group")}: #{Guara::ActiveCrm::Scheduled::Group.find(params[:search][:group_scheduled_id_in]).name}</div>") if !params[:search][:group_scheduled_id_in].empty? %>
 
             <%= raw("<div class=\"well\">#{t("helpers.label.customers.search.names")}: #{Guara::Customer.find(params[:search][:customer_id_in]).name}</div>") if !params[:search][:customer_id_in].empty? %>
           </div>
