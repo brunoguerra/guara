@@ -48,8 +48,7 @@ module Guara
 	    		end
 
 	    		def to_contact
-	    			Guara::Customer.where(SQL_NEW_TO_CONTACT, self.scheduled.id).
-	    				search(prepare_filter_search({}, self))
+	    			Guara::Customer.where(SQL_NEW_TO_CONTACT, self.scheduled.id).search(prepare_filter_search({}, self))
 	    		end
 
 	    		def count_registered
