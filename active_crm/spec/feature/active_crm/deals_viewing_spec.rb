@@ -11,7 +11,7 @@ feature "Deals Viewing on Plan", %{
   #group target
   given(:group)                { Factory(:scheduled_group) }
   given(:deal)                 { Factory(:scheduled_deals, group: group) }
-  given(:contacted_customer)  { Factory :scheduled_contact, deal: deal }
+  given(:contacted_customer)  { Factory :scheduled_contact, deal: deal, user: @user }
 
   background do
     @user = FactoryGirl.create(:user)
@@ -21,16 +21,16 @@ feature "Deals Viewing on Plan", %{
 
   #page objects
   given(:deals_viewing_page)   { Guara::ActiveCrm::DealsViewingPageUtil.new(page, group, @user) } #the directors show
-  given(:deal_on_page)  { deals_viewing_page.deal_on_page(customer) } #the supporting show
+  given(:deal_on_page)  { deals_viewing_page.deal_on_page(deal) } #the supporting show
 
-  scenario "" do
+  scenario "show details from deal", :js => true do
     contacted_customer # pre-data
     deals_viewing_page.show
     deal_on_page.click
     expect(deal_on_page).to be_visible
   end
 
-  
+
 
   # ==================================================================
   #user accssebilty

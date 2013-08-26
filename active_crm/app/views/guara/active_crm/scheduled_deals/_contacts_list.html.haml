@@ -1,0 +1,19 @@
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th{:colspan => "4"}
+        = t("helpers.label.customers.search.names")
+        \:
+        \#{deal.customer.name}
+    %tr
+      %th= t("contacts.title")
+      %th= t("scheduleds.next_contact")
+      %th= t("scheduleds.activity")
+      %th= t("scheduleds.situation")
+  %tbody
+    - (deal.decided_contacts.order(:result).all + deal.scheduled_contacts.order(:scheduled_at).all + deal.other_contacts.order(:created_at).all).each do |interaction|
+      %tr
+        %td#contact_name= interaction.contact.name
+        %td#scheduled_at= interaction.scheduled_at
+        %td#activity= interaction.activity
+        %td#status= prepare_span_status(interaction).html_safe

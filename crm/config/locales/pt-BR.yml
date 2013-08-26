@@ -17,6 +17,7 @@ pt-BR:
       title: "Pesquisa de Clientes"
     show:
       title: "Exibindo Cliente"
+      link: "Ver Cliente"
     edit:
       title: "Edição de Cliente"
       link: "Edição"
@@ -63,6 +64,7 @@ pt-BR:
 
   
   contacts: &attr_contacts
+    title: "Contato do Cliente"
     name: "Nome"
     #business_segment: "Segmento"
     #business_activity: "Atividade"

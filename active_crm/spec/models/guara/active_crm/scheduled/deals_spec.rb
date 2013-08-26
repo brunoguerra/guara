@@ -9,10 +9,13 @@ module Guara
     before do
 
       @deal = Guara::ActiveCrm::Scheduled::Deal.new(
-        customer_id: customers_on_group.first.id,
-        group: scheduled_group 
+        customer: customers_on_group.first.customer,
+        group: scheduled_group,
+        scheduled:  scheduled_group.scheduled
       )
     end
+
+    subject { @deal }
 
     it { should respond_to(:customer) }
     it { should respond_to(:customer_id) }
@@ -21,12 +24,15 @@ module Guara
 
     it { should respond_to(:contacts) }
 
+    it { should be_valid }
+
     #with customer
     let (:contacted_customer)     { Factory :scheduled_contact, deal: @deal }
 
     it "lists all contacts of customer contacted" do
+      @deal.save!
       contacted_customer #pre-data
-      expect(@deal.contacted.count).to be(1) 
+      expect(@deal.contacts.count).to be(1) 
     end
     
   end

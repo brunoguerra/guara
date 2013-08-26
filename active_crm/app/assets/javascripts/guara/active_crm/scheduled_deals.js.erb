@@ -1,20 +1,50 @@
 
 var deals_list = (function($) {
-  var selector_tr = '.deal.list tr',
+  var selector_tr = '.deals.list tr',
       selector_panel = '#deals-panel',
-      loader_tamplate = '<div id="loader" style="position: relative;"></div>',
+      selector_panel_details = selector_panel+' .details',
+      loader_template = '<div id="loader" style="position: relative;"></div>',
+      btn_close_template = '<a class="btn btn-small btn-closer pull-right"><i class="icon-remove">x</i></a>',
+      btn_customer_show_template = '<a class="btn btn-small btn-closer btn-warning"><i class="icon-search"></i> <%= I18n.t('customers.show.link') %></a>',
       me = {
-        init: function() {
+        init: function() { 
           $(selector_tr).on('click', function() {
-            var deal_id = $(this).attr('id');
-            me.showDetails(deal_id);
+            var deal_id = $(this).attr('deal-id'),
+                customer_id = $(this).attr('customer-id');
+            me.showDetails(deal_id, customer_id);
+          })
+        }, 
+
+        showDetails: function(deal_id, customer_id) {
+          this.customer_id = customer_id;
+
+          $(selector_panel_details).hide();
+          $(selector_panel_details).html(loader_template).load("<%= Guara::Core::Engine.routes.url_helpers.scheduled_deal_path('x1', layout: "false") %>".replace('x1', deal_id), function() {
+            me.detailInit();
           })
         },
 
-        showDetails: function(deal_id) {
-          $(selector_panel).show();
-          $(selector_panel).html(loader_tamplate).load(<%= %>)
+        detailInit: function() {
+          $(selector_panel_details).show();
+          $(selector_panel_details).prepend(me.btn_customer_show());
+          $(selector_panel_details).prepend(me.btn_close());
         },
+
+        btn_close: function() {
+          $btn = $(btn_close_template);
+          $btn.on('click', function() {
+            $(this).parent().hide();
+          });
+          return $btn;
+        },
+
+        btn_customer_show: function() {
+          $btn = $(btn_customer_show_template);
+          $btn.on('click', function() {
+            ScheduledContacts.slide_customer(me.customer_id, null);
+          });
+          return $btn;
+        }
 
 
       };

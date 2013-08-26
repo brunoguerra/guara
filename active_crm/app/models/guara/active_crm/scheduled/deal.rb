@@ -3,13 +3,13 @@ module Guara
 		class Scheduled
 			class Deal < ActiveRecord::Base
 			    attr_accessible :customer_id,
-			    								:customer, 
-			    								:date_finish, 
-			    								:date_start, 
+			    								:customer,
+			    								:date_finish,
+			    								:date_start,
 			    								:group_id,
 			    								:group,
 			    								:scheduled_id,
-			    								:scheduled, 
+			    								:scheduled,
 			    								:closed
 
 			    belongs_to :customer, class_name: "Guara::Person"
@@ -20,6 +20,24 @@ module Guara
 						:conditions => "scheduled_at is not null and result in (#{Contact::NOT_CONTACTED}, #{Contact::SCHEDULED})",
 						:class_name => "Contact"
 
+	    		has_many :decided_contacts,
+						:conditions =>  { result: [
+																Contact::ACCEPTED,
+																Contact::DENIED,
+																Contact::INTERESTED
+															]
+														},
+						:class_name => "Contact"
+
+	    		has_many :other_contacts,
+						:conditions =>  { result: [
+																Contact::ACCEPTED_CHANGE,
+																Contact::DENIED_CHANGE, 
+																Contact::INTERESTED_CHANGE,
+																Contact::SCHEDULED_REALIZED,
+															]
+														},
+						:class_name => "Contact"
 
 			    validates_presence_of :scheduled, :customer
 
@@ -41,7 +59,7 @@ module Guara
 			    }
 
 			    scope :no_interested, lambda {
-			    	where("#{Contact.table_name}.result = #{Contact.results[:participation_denied]}")
+			    	where("#{Contact.table_name}.result = #{Contact.results[:denied]}")
 			    }
 
 			    scope :registered, lambda {

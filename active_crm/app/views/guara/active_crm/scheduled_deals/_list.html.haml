@@ -1,3 +1,4 @@
+= javascript_include_tag "/assets/guara/active_crm/scheduled_deals.js"
 %table#customer-deals.table.table-bordered.table-striped.deals.list.dataTable
   %thead
     %tr
@@ -8,7 +9,7 @@
       %th= t("active_crm.scheduled_deals.contacts_total")
   %tbody
     - (@deals || []).each do |deal|
-      %tr{"deal-id" => deal.id}
+      %tr{"deal-id" => deal.id, "customer-id" => deal.customer.id}
         %td= deal.customer.name
         %td= time_elapsed deal.date_start
         %td= deal.accepted_total

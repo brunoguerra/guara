@@ -25,9 +25,6 @@ module Guara::ActiveCrm
 
     it { should respond_to(:scheduled_at) }
 
-    it { should respond_to(:accepeted_on_deal?) }
-    it { should respond_to(:denied_on_deal?) }
-
     it { Scheduled::Contact.results.should have(5).items }
 
     it { should be_valid }
@@ -66,14 +63,15 @@ module Guara::ActiveCrm
         @contact.scheduled_at = 2.days.from_now
         @contact.change_to_scheduled
         @contact.save!
+
         new_contact = @contact.dup
-        puts new_contact.to_yaml
         expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::SCHEDULED_REALIZED).count }.by(1)
       end
 
       it "ensures only one scheduled or not_contcted call/contact per contact of customer" do
         #scheduled
         new_contact = @contact.dup
+        new_contact.scheduled_at = 1.days.from_now
         new_contact.change_to_scheduled
         new_contact.save!
 
@@ -84,8 +82,31 @@ module Guara::ActiveCrm
 
         #new_scheduled
         new_contact = @contact.dup
-        puts new_contact.to_yaml
         expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::NOT_CONTACTED_REALIZED).count }.by(1)
+      end
+
+      it "ensures only one verdict accepted per contact" do
+        #not_contacted
+        @contact.scheduled_at = 2.days.from_now
+        @contact.change_to_accepted
+        @contact.save!
+
+        #new_scheduled
+        new_contact = @contact.dup
+        new_contact.change_to_accepted        
+        expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::ACCEPTED_CHANGE).count }.by(1)
+      end
+
+      it "ensures only one verdict per contact" do
+        #not_contacted
+        @contact.scheduled_at = 2.days.from_now
+        @contact.change_to_denied
+        @contact.save!
+
+        #new_scheduled
+        new_contact = @contact.dup
+        new_contact.change_to_accepted        
+        expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::DENIED_CHANGE).count }.by(1)
       end
     end
   end

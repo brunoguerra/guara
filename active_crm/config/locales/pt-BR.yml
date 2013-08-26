@@ -53,7 +53,7 @@ pt-BR:
 
     responsible: "Responsável"
     next_contact: "Próximo Contato"
-    activity: "Resultado"
+    activity: "Histórico da Negociação"
     result: "Classificação"
     situation: "Situação"
     scheduled: "Agendados"
@@ -84,10 +84,19 @@ pt-BR:
       ending_deal: "Fechar a Negociação"
       ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
       result:
-        accepted: "Inscrito"
-        scheduled: "Agendamento"
+        accepted: "Negócio Fechado"
         denied: "Participação Negada"
+        interested: "Aguardando Inscrição"
+
+        accepted_change: "Negócio Fechado - (Mudou)"
+        denied_change: "Participação Negada - (Mudou)"
+        interested_change: "Aguardando Inscrição - (Mudou)"
+
+        scheduled: "Agendamento"
         not_contacted: "Não Contactado"
+
+        scheduled_realized: "Contactou Agendado"
+        not_contacted_realized: "Não Contactado - (Mudou)"
 
   system:
     modules: &system_modules

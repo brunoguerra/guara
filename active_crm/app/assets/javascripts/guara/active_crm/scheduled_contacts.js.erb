@@ -87,13 +87,25 @@ var ScheduledContacts = {
   */
   slide_customer_content: function(tr, contact_scheduled) {
 
-    this.current_customer = tr.attr('customer-id');
+    var customer_id = tr.attr('customer-id');
 
+    if(contact_scheduled){
+      contact_id = tr.attr('contact-id');
+    } else {
+      contact_id = null
+    }
+
+    this.slide_customer(customer_id, contact_id);
+  },
+
+  slide_customer: function(customer_id, contact_id) {
     var me = this;
+
+    this.current_customer = customer_id;
 
     this.container_customer.show();
     
-    this.container_customer.html('<div id="loader" style="position: relative;"></div>').load('/customers/'+ tr.attr('customer-id')+'.json', function(response, status, xhr){
+    this.container_customer.html('<div id="loader" style="position: relative;"></div>').load('/customers/'+ this.current_customer +'.json', function(response, status, xhr){
       if(status=='error'){
         var error = $('#alert-error');
         if(error.length == 0){
@@ -113,8 +125,8 @@ var ScheduledContacts = {
       me.initialize_js_customer();
       me.call_container_contacts();
 
-      if(contact_scheduled){
-        me.open_dialog_call(tr.attr('contact-id'));
+      if(contact_id!=null){
+        me.open_dialog_call(contact_id);
       }
 
       $(".active_crm .panel").animate({"left": -(me.container_customer.position().left)}, 600);

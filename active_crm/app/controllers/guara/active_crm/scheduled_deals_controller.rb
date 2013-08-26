@@ -22,6 +22,12 @@ module Guara
                 @scheduled_deal = Scheduled::Deal.find(params[:id])
                 @active_crm_scheduled = @scheduled_deal.group.scheduled
                 @groups = [@scheduled_deal.group]
+                
+                if params[:layout]=="false"
+                    render :layout => false
+                else
+                    render
+                end
             end
 
     		def multiselect_scheduleds

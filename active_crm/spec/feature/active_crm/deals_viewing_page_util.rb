@@ -17,8 +17,8 @@ module Guara
         find LIST_SELECTOR
       end
 
-      def deal_on_page
-        DealOnPage.new self, Scheduled::Deal.first
+      def deal_on_page(deal=nil)
+        DealOnPage.new self, deal || Scheduled::Deal.first
       end
 
       def routes
@@ -38,16 +38,30 @@ module Guara
     end
 
     class DealOnPage  < Struct.new(:page_util, :deal)
+      include Capybara::DSL
+
       DEAL_TR_SELECTOR = '[deal-id="%d"]'
-      DEAL_SHOW_DETAILS_SELECTOR = "#deals-panel.details"
-      
+      DEAL_SHOW_DETAILS_SELECTOR = "#deals-panel .details"
+
       def click
         page_util.list.find(DEAL_TR_SELECTOR % deal.id).click
         page_util.wait_for_element(DEAL_SHOW_DETAILS_SELECTOR)
       end
 
       def visible?
-        has_css? DEAL_SHOW_DETAILS_SELECTOR
+        has_css?(DEAL_SHOW_DETAILS_SELECTOR)
+        result = 0
+        within DEAL_SHOW_DETAILS_SELECTOR do
+          result+= 1 if has_css?('a.btn-closer', text: 'X')
+          result+= 2 if has_css?('h2.modules', text: /#{I18n.t('scheduleds.call_historic')}/i)
+          result+= 4 if has_css?('#contact_name', text: /#{deal.contacts.first.contact.name}/i)
+          result+= 8 if has_css?('#contact_name', text: /#{deal.contacts.first.contact.name}/i)
+          result+=16 if has_css?('#contact_name', text: /#{deal.contacts.first.contact.name}/i)
+          result+=32 if has_css?('#contact_name', text: /#{deal.contacts.first.contact.name}/i)
+          result+=64 if has_css?('#contact_name', text: /#{deal.contacts.first.contact.name}/i)
+        end
+
+        result==7
       end
     end
   end

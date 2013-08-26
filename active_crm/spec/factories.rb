@@ -28,6 +28,7 @@ FactoryGirl.define do
 
   factory :scheduled_contact, :class => Guara::ActiveCrm::Scheduled::Contact do
     deal factory: :scheduled_deals
+    user
     result Guara::ActiveCrm::Scheduled::Contact::ACCEPTED
     activity { Faker::Lorem.paragraphs(3).join('\n') }
     contact { deal.customer.contacts.first || FactoryGirl.create(:contact) }

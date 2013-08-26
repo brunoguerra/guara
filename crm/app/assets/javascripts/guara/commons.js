@@ -1,3 +1,36 @@
+
+
+/*
+ * DataTables
+ */
+function applyDataTable(selector) {
+  $(selector).dataTable({
+    "sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+
+
+    "oTableTools": {
+      "sSwfPath": "/assets/jquery.dataTables.dataTools/copy_csv_xls_pdf.swf",
+      "aButtons": [
+        "copy",
+        "print",
+        {
+          "sExtends":    "collection",
+          "sButtonText": 'Save <span class="caret" />',
+          "aButtons":    [ "xls" ],
+        }
+      ]
+    },
+
+    "oLanguage": {
+      "sUrl": "/assets/jquery.dataTables.pt-BR.json"
+    },
+
+    "sPaginationType": "bootstrap"
+
+  });
+}
+
+
 jQuery(function() {
   $('form').on('click', '.remove_fields', function(event) {
     $(this).prev('input[type=hidden]').val('1');
@@ -120,34 +153,7 @@ jQuery(function() {
     }
   });
 
-  /*
-   * DataTables
-   */
-
-  $('.dataTable').dataTable({
-    "sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-
-
-    "oTableTools": {
-      "sSwfPath": "/assets/jquery.dataTables.dataTools/copy_csv_xls_pdf.swf",
-      "aButtons": [
-        "copy",
-        "print",
-        {
-          "sExtends":    "collection",
-          "sButtonText": 'Save <span class="caret" />',
-          "aButtons":    [ "xls" ],
-        }
-      ]
-    },
-
-    "oLanguage": {
-      "sUrl": "/assets/jquery.dataTables.pt-BR.json"
-    },
-
-    "sPaginationType": "bootstrap"
-
-  });
+  applyDataTable('.dataTable');
 
   $('[data-toggle]').tooltip({})
 

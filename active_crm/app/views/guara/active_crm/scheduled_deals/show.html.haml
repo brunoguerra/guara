@@ -1,0 +1,15 @@
+- if local_assigns[:with_scheduled]
+  = render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :scheduled_deals}
+  = render :template=> 'guara/active_crm/scheduleds/show'
+%section#active_crm_2
+  .title
+    %h2.modules= t("scheduleds.call_historic")
+  .row-fluid
+    .thumbnail.span12.contact_list
+      .caption
+        = render :partial => 'guara/active_crm/scheduled_deals/contacts_list', :locals => { deal: @scheduled_deal }
+
+:javascript
+  jQuery(function(){
+    applyDataTable('.contact_list table');
+  })

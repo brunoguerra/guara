@@ -32,28 +32,33 @@
       .dropdown#positive
         %ul#plus.dropdown-menu{"aria-labelledby" => "drop4", :role => "menu"}
           %li{:role => "presentation"}
-            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::ACCEPTED});", :role => "menuitem", :tabindex => "-1"}
+            %a{:href => "javascript:void(0);", :onclick => "contactFormSetResult('result', #{Guara::ActiveCrm::Scheduled::Contact::ACCEPTED});", :role => "menuitem", :tabindex => "-1"}
               %span.badge.badge-success
                 %i.icon-thumbs-up
               = I18n.t("scheduleds.contacts.result.accepted")
           %li.dropdown-submenu{:role => "presentation"}
-            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::DENIED});", :role => "menuitem", :tabindex => "-1"}
+            %a{:href => "javascript:void(0);", :onclick => "contactFormSetResult('result', #{Guara::ActiveCrm::Scheduled::Contact::DENIED});", :role => "menuitem", :tabindex => "-1"}
               %span.badge.badge-important
                 %i.icon-thumbs-down
               = I18n.t("scheduleds.contacts.result.denied")
             %ul.dropdown-menu
               - Guara::ActiveCrm::Scheduled::Classified.all.each do |classified|
                 %li
-                  %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('classified', #{classified.id});", :tabindex => "-1"}= classified.name
+                  %a{:href => "javascript:void(0);", :onclick => "contactFormSetResult('classified', #{classified.id});", :tabindex => "-1"}= classified.name
           %li{:role => "presentation"}
-            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::SCHEDULED});", :role => "menuitem", :tabindex => "-1"}
+            %a{:href => "javascript:void(0);", :onclick => "contactFormSetResult('result', #{Guara::ActiveCrm::Scheduled::Contact::SCHEDULED});", :role => "menuitem", :tabindex => "-1"}
               %span.badge.badge-warning
                 %i.icon-hand-right
               = I18n.t("scheduleds.contacts.result.scheduled")
+          %li{:role => "presentation"}
+            %a{:href => "javascript:void(0);", :onclick => "contactFormSetResult('result', #{Guara::ActiveCrm::Scheduled::Contact::INTERESTED});", :role => "menuitem", :tabindex => "-1"}
+              %span.badge.badge-info
+                %i.icon-hand-up
+              = I18n.t("scheduleds.contacts.result.interested")
       .dropdown#minus
         %ul#minus.dropdown-menu{"aria-labelledby" => "drop4", :role => "menu"}
           %li{:role => "presentation"}
-            %a{:href => "javascript:void(0);", :onclick => "contact_form_set_result('result', #{Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED});", :role => "menuitem", :tabindex => "-1"}
+            %a{:href => "javascript:void(0);", :onclick => "contactFormSetResult('result', #{Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED});", :role => "menuitem", :tabindex => "-1"}
               %span.badge.badge-warning
                 %i.icon-hand-right
               = I18n.t("scheduleds.contacts.result.not_contacted")
@@ -61,6 +66,8 @@
     #active_crm_scheduled_contact_status_label_panel.span3.hide
       %span.badge.badge-success.hide
         %i.icon-thumbs-up
+      %span.badge.badge-info.hide
+        %i.icon-hand-right
       %span.badge.badge-warning.hide
         %i.icon-hand-right
       %span.badge.badge-important.hide

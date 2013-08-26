@@ -11,10 +11,12 @@ module Guara
   			results = Guara::ActiveCrm::Scheduled::Contact.results
   			if results[:registered] == record.result
   				class_color = 'label label-success'
-  			elsif results[:scheduling] == record.result
+  			elsif results[:scheduled] == record.result
   				class_color = 'label label-warning'
-  			elsif results[:participation_denied] == record.result
+  			elsif results[:denied] == record.result
   				class_color = 'label label-important'
+        elsif results[:interested] == record.result
+          class_color = 'label label-info'
   			else
   				class_color = 'label'
   			end
@@ -25,9 +27,19 @@ module Guara
       def translate_scheduled_contact_result(result)
         
         { 
+          -25 => I18n.t("scheduleds.contacts.result.not_contacted"),
+          -26 => I18n.t("scheduleds.contacts.result.not_contacted_realized"),
+
           1 => I18n.t("scheduleds.contacts.result.accepted"),
           2 => I18n.t("scheduleds.contacts.result.denied"),
-          3 => I18n.t("scheduleds.contacts.result.scheduled")
+          3 => I18n.t("scheduleds.contacts.result.interested"),
+
+          11 => I18n.t("scheduleds.contacts.result.accepted_change"),
+          12 => I18n.t("scheduleds.contacts.result.denied_change"),
+          13 => I18n.t("scheduleds.contacts.result.interested_change"),
+
+          25 => I18n.t("scheduleds.contacts.result.scheduled"),
+          26 => I18n.t("scheduleds.contacts.result.scheduled_realized"),
         }[result]
       end
       

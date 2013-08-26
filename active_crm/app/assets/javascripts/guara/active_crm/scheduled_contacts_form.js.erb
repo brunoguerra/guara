@@ -32,7 +32,7 @@ var scheduled_contacts_form_js_init = (function() {
           contactScheduledsAppend(data);
         }
         console.log(data.data.deal);
-        dealAppend(data.data.deal);
+        dealAppend(data.data.deal, data.data.customer_id);
 
         showTempOkMessage();
         
@@ -45,9 +45,35 @@ var scheduled_contacts_form_js_init = (function() {
   });
 });
 
-function contact_form_set_result(type, value){
+function scheduled_contact_submit(form){
+
+  if ($('#active_crm_scheduled_contact_result').val().toString().trim()=='') {
+    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('scheduleds.validation.result.empty'); %>");
+    return false;
+  }
+
+  if ($('#active_crm_scheduled_contact_activity').val().toString().trim()=='') {
+    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('scheduleds.validation.activity.empty'); %>");
+    return false;
+  }
+
+  if(($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>') ||
+     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>')) {
+    var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
+    $('#active_crm_scheduled_contact_scheduled_at').val(date+' '+$('#hour').val());
+  } else {
+    $('#active_crm_scheduled_contact_scheduled_at').val(''); 
+  }
+
+  form.submit();
+
+  return true;
+}
+
+function contactFormSetResult(type, value){
   var deal_result = value;
 
+  console.log(value);
   if(((value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>) ||
       (value == <%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>)) && (type == 'result')) {
     $('.custom-span3-big').removeClass('disabled');
@@ -83,45 +109,41 @@ function contact_form_set_result(type, value){
 function contact_status_label(value) {
   var labels = ["<%= I18n.t("scheduleds.contacts.result.accepted") %>", 
                  "<%= I18n.t("scheduleds.contacts.result.denied") %>",
-                 "<%= I18n.t("scheduleds.contacts.result.scheduled") %>"],
+                 "<%= I18n.t("scheduleds.contacts.result.interested") %>",
+                 "<%= I18n.t("scheduleds.contacts.result.scheduled") %>",
+                 "<%= I18n.t("scheduleds.contacts.result.not_contacted") %>"],
       badges = [".badge-success",
                 ".badge-important",
+                ".badge-info",
+                ".badge-warning",
                 ".badge-warning"],
       $label_container = $('#active_crm_scheduled_contact_status_label_panel'),
       $label = $('#active_crm_scheduled_contact_status_label');
+
+  switch(value) {
+    case <%= Guara::ActiveCrm::Scheduled::Contact::ACCEPTED %>:
+        index = 1;
+      break;
+    case <%= Guara::ActiveCrm::Scheduled::Contact::DENIED %>:
+        index = 2;
+      break;
+    case <%= Guara::ActiveCrm::Scheduled::Contact::INTERESTED %>:
+        index = 3;
+      break;
+    case <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>:
+        index = 4;
+      break;
+    case <%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>:
+        index = 5;
+      break;
+  }
       
   /* badges */
   for (var b in badges) { $(badges[b], $label_container).addClass('hide'); }
-  $(badges[value-1], $label_container).removeClass('hide');
+  $(badges[index-1], $label_container).removeClass('hide');
  
-  $label.html(labels[value-1]);
+  $label.html(labels[index-1]);
   $label_container.removeClass('hide');
-}
-
-
-function scheduled_contact_submit(form){
-
-  if ($('#active_crm_scheduled_contact_result').val().toString().trim()=='') {
-    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('scheduleds.validation.result.empty'); %>");
-    return false;
-  }
-
-  if ($('#active_crm_scheduled_contact_activity').val().toString().trim()=='') {
-    ScheduledContacts.open_dialog_info("<%= I18n.t('activerecord.errors.messages.record_invalid') %>", "<%= I18n.t('scheduleds.validation.activity.empty'); %>");
-    return false;
-  }
-
-  if(($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>') ||
-     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>')) {
-    var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
-    $('#active_crm_scheduled_contact_scheduled_at').val(date+' '+$('#hour').val());
-  } else {
-    $('#active_crm_scheduled_contact_scheduled_at').val(''); 
-  }
-
-  form.submit();
-
-  return true;
 }
 
 function contactScheduledsAppend(data) {
@@ -135,16 +157,11 @@ function contactScheduledsAppend(data) {
   $('#customer-scheduled tbody').append($tr);
 }
 
-function dealAppend(deal) {
+function dealAppend(deal, customer_id) {
   var $tr,
-      table = $('.deal.list.dataTable').dataTable(),
-      exists_deal_selector = ('.deal.list.dataTable [deal-id="'+deal.id+'"]'),
+      table = $('.deals.list.dataTable').dataTable(),
+      exists_deal_selector = ('.deals.list.dataTable [deal-id="'+deal.id+'"]'),
       addId;
-
-  //deal["date_start"] = timeRelativeString(Date.now(), deal.date_start);
-  //$tr = $($.parseHTML(HoganTemplates["active_crm/deal_tr"].render(deal, {}).trim()));
-  
-  // remove existent
 
   if ($(exists_deal_selector).size()>0) {
     table.fnDeleteRow(table.fnGetPosition($(exists_deal_selector)[0]));
@@ -164,11 +181,11 @@ function dealAppend(deal) {
   $tr = $(table.fnSettings().aoData[addId[0]].nTr);
   console.log(addId);
 
+  console.log(deal);
   $tr.attr('deal-id', deal.id);
+  $tr.attr('customer-id', customer_id);
 
-  $tr.on('click', function(){
-    console.log(this);
-  });
+  deals_list.init();
   //$('#customer-deals tbody').append($tr);
 }
 
