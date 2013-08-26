@@ -15,7 +15,7 @@ Devise.setup do |config|
   config.skip_session_storage = [:http_auth]
   config.stretches = Rails.env.test? ? 1 : 10
   config.reconfirmable = true
-  config.timeout_in = 30.minutes
+  config.timeout_in = 4.hours
   config.reset_password_within = 6.hours
   config.sign_out_via = Rails.env.test? ? :get : :delete
 
