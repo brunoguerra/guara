@@ -25,7 +25,7 @@ module Guara
           @deal = @group.find_or_create_deal(@contact.person)
           @scheduled_contact = Scheduled::Contact.new(contact_id: @contact.id, deal_id: @deal.id, user_id: current_user.id)
 
-          render 'new.html.erb', layout: false
+          render 'new', layout: false
       end
 
       def create

@@ -68,7 +68,7 @@ module Guara
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
         
       if params[:format] == 'json'
-        render "show_detailed.html.erb", layout: false
+        render "show_detailed", layout: false, :formats => [:html]
       else
         render "show_detailed"
       end

@@ -32,7 +32,7 @@ module Guara
       end
       
 
-      def scheduled_cotact_ignoreds_ids
+      def scheduled_contacts_ignored_ids
         (session[:ignored_customers].nil? ? [] : session[:ignored_customers]).join(',')
       end
   	end

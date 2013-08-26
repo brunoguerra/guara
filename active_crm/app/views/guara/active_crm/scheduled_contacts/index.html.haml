@@ -28,6 +28,8 @@
 = javascript_include_tag 'guara/active_crm/scheduled_contacts'
 :javascript
   var ignored_customers = [];
+  
+  ignored_customers.push("#{escape_javascript scheduled_contacts_ignored_ids()}");
 
   jQuery(function() { 
     ScheduledContacts.init(
@@ -37,6 +39,4 @@
       '#{params[:scheduled_group_id]}');
     paginate_call();
   });
-
-  ignored_customers.push("#{escape_javascript scheduled_cotact_ignoreds_ids()}");
   

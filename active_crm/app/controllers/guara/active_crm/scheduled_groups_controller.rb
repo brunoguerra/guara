@@ -16,7 +16,7 @@ module Guara
 
                 respond_to do |format|
                     format.html
-                    format.js{ render 'index.js.erb' }
+                    format.js{ render 'index.js' }
                 end
 
                 authorize! :read, Guara::ActiveCrm::Scheduled::Group
@@ -31,8 +31,8 @@ module Guara
                 @customers_to_register = paginate(@search)
 
                 respond_to do |format|
-                    format.html{ render 'index.html.erb' }
-                    format.js{ render 'index.js.erb' }
+                    format.html{ render 'index' }
+                    format.js{ render 'index.js' }
                 end
             end
 

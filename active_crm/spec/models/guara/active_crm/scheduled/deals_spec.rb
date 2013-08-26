@@ -6,8 +6,6 @@ module Guara
     let(:scheduled_group) {  Factory(:scheduled_group, scheduled_id: scheduled.id) }
     let(:customers_on_group) { Array.new(3) { Factory(:customer_pj, :total_employes => 100) } }
 
-    let (:contacted_customer)     { Factory :scheduled_contact, deal: @deal }
-
     before do
 
       @deal = Guara::ActiveCrm::Scheduled::Deal.new(
@@ -22,6 +20,9 @@ module Guara
     it { should respond_to(:group_id) }
 
     it { should respond_to(:contacts) }
+
+    #with customer
+    let (:contacted_customer)     { Factory :scheduled_contact, deal: @deal }
 
     it "lists all contacts of customer contacted" do
       contacted_customer #pre-data

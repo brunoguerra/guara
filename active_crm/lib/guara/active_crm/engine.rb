@@ -25,6 +25,8 @@ module Guara
         Guara::Menus::MODULES[:modules][:items] << { 
 
           name: :active_crm,
+          resource: Guara::ActiveCrm::Scheduled,
+          path: "guara.scheduleds_path()",
           items: [
               { name: "scheduleds", resource: Guara::ActiveCrm::Scheduled, path: "guara.scheduleds_path()" },
               { name: "active_crm.scheduled_deals", resource: Guara::ActiveCrm::Scheduled::Deal, path: "guara.scheduled_deals_path()" },

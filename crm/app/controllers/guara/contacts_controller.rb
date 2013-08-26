@@ -39,7 +39,7 @@ module Guara
           end 
           format.js do 
             @contacts = @customer.contacts
-            render :partial => "guara/contacts/list_contacts.js.erb" 
+            render :partial => "guara/contacts/list_contacts.js" 
           end
         else
           format.html { render "_list_editable" }
@@ -61,7 +61,7 @@ module Guara
 
       respond_to do |format|
         format.html # show.html.erb
-        format.json { render "show.html.erb", :layout => false }
+        format.json { render "show", :layout => false, :formats => [:html] }
       end
     end
 

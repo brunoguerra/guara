@@ -15,7 +15,7 @@
                 <div><span>Clientes:</span>  <span class="pull-right"><%= group.count_customers() %></span></div>
                 <div><span>Inscritos:</span> <span class="pull-right"><%= group.count_registered() %></span></div>
                 <div><span>Agendados:</span> <span class="pull-right"><%= group.count_scheduled() %></span></div>
-                <div><span>Clientes à Agendar:</span> <span class="pull-right"><%= group.count_schedule() %></span></div>
+                <div><span><%= t('scheduleds.customers_to_register') %></span> <span class="pull-right"><%= group.count_schedule() %></span></div>
               </div>
               <div>
                 <p>

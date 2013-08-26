@@ -35,7 +35,12 @@ module Guara
           validates_presence_of :result, :activity, :deal, :contact
 
           validates_each :scheduled_at do |record, attr, value|
-            record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) if ((record.result==Contact::SCHEDULED) && ((Date.parse(value.to_s) < Date.today) || (value.to_s.empty?)))
+            if (
+                ((record.result == Contact::SCHEDULED) || (record.result == Contact::NOT_CONTACTED)) && 
+                ((Date.parse(value.to_s) < Date.today) || (value.to_s.empty?))
+            )
+              record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) 
+            end
           end
 
           before_save :ensure_scheduled
@@ -72,7 +77,6 @@ module Guara
 
           def contact_id=(contact_id)
             write_attribute(:contact_id, contact_id)
-            write_attribute(:person_id, self.contact.customer.id)
           end
 
           def ensure_scheduled

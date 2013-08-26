@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Guara
   module ActiveCrm
 
@@ -5,7 +7,6 @@ module Guara
       include Capybara::DSL
 
       TO_CONTACT_LIST = '#active_crm.scheduled_contacts #customer-to-register'
-      SHOW_CUSTOMER_SECTION = 'section#customer_show'
       DEALS_LIST_ELEMENT = '.deal.list'
 
       def loader
@@ -16,6 +17,12 @@ module Guara
         t1 = Time.now
         has_selector?('body.ajaxCompleted')
         puts "waiting for ajax #{(Time.now - t1)*1000}\n\n\n"
+      end
+
+      def wait_for_element(element)
+        t1 = Time.now
+        has_selector?(element)
+        puts "waiting for async element #{element} #{(Time.now - t1)*1000}\n\n\n"
       end
 
       def customer_on_page(customer)
@@ -38,11 +45,6 @@ module Guara
           find TO_CONTACT_LIST
         end
 
-        def show_customer_section
-          has_css? SHOW_CUSTOMER_SECTION
-          find SHOW_CUSTOMER_SECTION
-        end
-
         def routes
           Guara::Core::Engine.routes.url_helpers
         end 
@@ -60,6 +62,10 @@ module Guara
     class CustomerOnContactCustomersPage
       attr_accessor :page_util, :customer
 
+      LIST_CONTACTS = 'li.container.container-contacts'
+      CUSTOMER_ON_TR = "tr[customer-id='%d']"
+      SHOW_CUSTOMER_SECTION = 'section#customer_show'
+
       include Capybara::DSL
       include Guara::TestSupport::Utilities
 
@@ -67,25 +73,44 @@ module Guara
         self.page_util, self.customer = page_util, customer
       end
 
+      def show_customer_section
+        has_css? SHOW_CUSTOMER_SECTION
+        find SHOW_CUSTOMER_SECTION
+      end
+
+      def element_of_customer
+        CUSTOMER_ON_TR % customer.id
+      end
+
       def contactable?
-        page_util.to_contact_list.has_css? "tr[customer-id='#{customer.id}']"
+        page_util.to_contact_list.has_css? element_of_customer
       end
 
       def visible?
+        has_css? SHOW_CUSTOMER_SECTION
         page_util.show_customer_section.has_css? "h2.modules", text: /#{customer.name}/i
       end
 
       def click
-        page_util.to_contact_list.find("tr[customer-id='#{customer.id}']").click
+        page_util.to_contact_list.find(element_of_customer).click
+        page_util.wait_for_element(SHOW_CUSTOMER_SECTION)
       end
 
       def have(number)
         @records_to_create = number
+        page_util.wait_for_element(CustomerOnContactCustomersPage::SHOW_CUSTOMER_SECTION)
         self
       end
 
       def contacts_list
-        find 'li.container.container-contacts'
+        unless has_css? LIST_CONTACTS
+          #save_and_open_page
+          puts "\n" * 3
+          puts "Contact List not found"
+          puts "\n" * 3
+        end
+
+        find LIST_CONTACTS
       end
 
       def contacts
@@ -117,6 +142,7 @@ module Guara
 
       def click
         customer_on_page.contacts_list.find("tr[contact-id='#{contact.id}']").click
+        page_util.wait_for_element(ContactByPhoneOnContactCustomersPage::FORM_ELEMENT)
       end
 
       def contact_by_phone
@@ -133,8 +159,10 @@ module Guara
 
       include Capybara::DSL
 
-      FORM_ELEMENT = ContactCustomersPageUtil::SHOW_CUSTOMER_SECTION + ' #index.tab-pane #scheduled_contact_form'
+      FORM_ELEMENT = CustomerOnContactCustomersPage::SHOW_CUSTOMER_SECTION + ' #scheduled_contact_form'
       BUTTON_SUBMIT_ELEMENT = 'button.btn-submit'
+      BTN_POSITIVE = '.btn.btn-success.plus'
+      BTN_NEGATIVE = '.btn.btn-success.plus'
 
       def initialize(contact_on_page, result = Scheduled::Contact::ACCEPTED)
         self.contact_on_page = contact_on_page
@@ -159,12 +187,19 @@ module Guara
       end
 
       def click_on_type(result)
+        
+        if (result==Scheduled::Contact::NOT_CONTACTED)
+          find(BTN_NEGATIVE).click
+        else
+          find(BTN_POSITIVE).click
+        end
+
         case result
         when Scheduled::Contact::ACCEPTED
           click_link I18n.t("scheduleds.contacts.result.accepted")
-        when Scheduled::Contact::ACCEPTED
+        when Scheduled::Contact::SCHEDULED
           click_link I18n.t("scheduleds.contacts.result.denied")
-        when Scheduled::Contact::ACCEPTED
+        when Scheduled::Contact::DENIED
           click_link I18n.t("scheduleds.contacts.result.scheduled")
         end
       end

@@ -1,0 +1,28 @@
+
+var deals_list = (function($) {
+  var selector_tr = '.deal.list tr',
+      selector_panel = '#deals-panel',
+      loader_tamplate = '<div id="loader" style="position: relative;"></div>',
+      me = {
+        init: function() {
+          $(selector_tr).on('click', function() {
+            var deal_id = $(this).attr('id');
+            me.showDetails(deal_id);
+          })
+        },
+
+        showDetails: function(deal_id) {
+          $(selector_panel).show();
+          $(selector_panel).html(loader_tamplate).load(<%= %>)
+        },
+
+
+      };
+
+  return me;
+})(jQuery);
+
+
+jQuery(function() {
+  deals_list.init();
+});

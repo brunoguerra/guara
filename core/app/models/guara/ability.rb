@@ -19,7 +19,7 @@ module Guara
             resource = :all
           else
             begin
-              Rails.logger.debug "Trying %s"% [ab.module.name]
+              #Rails.logger.debug "Trying %s"% [ab.module.name]
               resource = module_by_name(ab.module.name)
             rescue
               Rails.logger.debug "FALHA EM: %s:%d %s"% [__FILE__,__LINE__, ab.module.name]
@@ -28,7 +28,7 @@ module Guara
       
           t_ability = ab.ability.name.downcase.to_sym
           can t_ability, resource
-          Rails.logger.debug ("ability: :%s, resource: %s" % [ab.ability.name.downcase.to_sym.to_s, resource.to_s])
+          #Rails.logger.debug ("ability: :%s, resource: %s" % [ab.ability.name.downcase.to_sym.to_s, resource.to_s])
         
           if (t_ability.to_sym == :read)
             can [:index, :show], resource

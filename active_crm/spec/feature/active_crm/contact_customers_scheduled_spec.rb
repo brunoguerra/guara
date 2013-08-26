@@ -52,7 +52,6 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
     customer_on_page.have(2).contacts #test ajax loading should recent created contacts
     customer_on_page.click
     #wait ajax response
-    expect(customer_on_page).to be_visible
     contact_on_page.click
     contact_by_phone.create
     #expectable
@@ -61,7 +60,7 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
 
 
   # ==================================================================
-  #user accebilty
+  #user accssebilty
   def make_user_abilities
     able @user, :read, 'customer'
     able @user, :read, 'contact'

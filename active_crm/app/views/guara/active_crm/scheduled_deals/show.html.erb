@@ -1,6 +1,7 @@
-<%= render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :scheduled_deals} %>
-<%= render :template=> 'guara/active_crm/scheduleds/show' %>
-
+<% if local_assigns[:with_scheduled] %>
+  <%= render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :scheduled_deals} %>
+  <%= render :template=> 'guara/active_crm/scheduleds/show' %>
+<% end %>
 <section id="active_crm_2">
   
   <h3><%= t("scheduleds.call_historic")  %></h3>
@@ -13,7 +14,7 @@
                   <tr>
                     <th colspan="4">
                       <%= t("helpers.label.customers.search.names") %>: 
-                      <%= @scheduled_deal.customer_pj.name %>
+                      <%= @scheduled_deal.customer.name %>
                     </th>
                   </tr>
                   <tr>
