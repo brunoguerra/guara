@@ -17,14 +17,14 @@ module Guara
 			    belongs_to :scheduled, class_name: "Guara::ActiveCrm::Scheduled"
 			    has_many :contacts, foreign_key: :deal_id, class_name: "Guara::ActiveCrm::Scheduled::Contact"
 	    		has_many :scheduled_contacts,
-						:conditions => "scheduled_at is not null and result in (#{Contact::NOT_CONTACTED}, #{Contact::SCHEDULED})",
+						:conditions => %Q{scheduled_at is not null and result in
+													(#{Contact::NOT_CONTACTED}, #{Contact::SCHEDULED}, #{Contact::INTERESTED})},
 						:class_name => "Contact"
 
 	    		has_many :decided_contacts,
 						:conditions =>  { result: [
 																Contact::ACCEPTED,
-																Contact::DENIED,
-																Contact::INTERESTED
+																Contact::DENIED
 															]
 														},
 						:class_name => "Contact"

@@ -58,7 +58,8 @@ function scheduled_contact_submit(form){
   }
 
   if(($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>') ||
-     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>')) {
+     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>') ||
+     ($('#active_crm_scheduled_contact_result').val()=='<%= Guara::ActiveCrm::Scheduled::Contact::INTERESTED %>')) {
     var date = $.datepicker.formatDate('dd/mm/yy', $( "#datepicker" ).datepicker('getDate'));
     $('#active_crm_scheduled_contact_scheduled_at').val(date+' '+$('#hour').val());
   } else {
@@ -75,7 +76,8 @@ function contactFormSetResult(type, value){
 
   console.log(value);
   if(((value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>) ||
-      (value == <%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>)) && (type == 'result')) {
+      (value == <%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>) ||
+      (value == <%= Guara::ActiveCrm::Scheduled::Contact::INTERESTED %>)) && (type == 'result')) {
     $('.custom-span3-big').removeClass('disabled');
   } else {
     $('.custom-span3-big').addClass('disabled');

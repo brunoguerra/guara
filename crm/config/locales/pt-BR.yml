@@ -23,7 +23,7 @@ pt-BR:
       link: "Edição"
     
     a_customer: "É Cliente"
-  
+    name_of: "Cliente"
     name: "Nome/Razão Social"
     name_sec: "Apelido/Fantasia"
     code: "Cod."

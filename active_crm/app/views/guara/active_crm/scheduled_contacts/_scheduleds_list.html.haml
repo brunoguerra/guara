@@ -1,15 +1,16 @@
 %table#customer-scheduled.table.table-bordered.table-striped.dataTable
   %thead
     %tr
-      %th.span4= t("helpers.label.customers.search.names")
-      %th= t("scheduleds.responsible")
-      %th= t("scheduleds.datetime")
+      %th= t("customers.name_of")
+      %th= t("contacts.title")
+      %th= t("scheduleds.next_contact")
       %th= t("scheduleds.activity")
+      %th= t("scheduleds.situation")
   %tbody
-    - (@customers_scheduled || []).each do |scheduled|
-      %tr{"contact-id" => scheduled.contact_id, "customer-id" => scheduled.deal.customer.id}
-        %td= scheduled.deal.customer.name
-        %td= scheduled.contact.name
-        %td
-          %a{"data-toggle" => "tooltip", "title" => scheduled.scheduled_at}= time_elapsed scheduled.scheduled_at
-        %td= scheduled.activity
+    - (@customers_scheduled || []).each do |interaction|
+      %tr{"contact-id" => interaction.contact_id, "customer-id" => interaction.deal.customer.id}
+        %td#customer_name= interaction.contact.customer.name
+        %td#contact_name= interaction.contact.name
+        %td#scheduled_at= interaction.scheduled_at
+        %td#activity= interaction.activity
+        %td#status= prepare_span_status(interaction).html_safe

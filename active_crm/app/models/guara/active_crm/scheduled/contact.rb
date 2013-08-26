@@ -46,7 +46,7 @@ module Guara
 
           validates_each :scheduled_at do |record, attr, value|
             if (
-                ((record.result == Contact::SCHEDULED) || (record.result == Contact::NOT_CONTACTED)) && 
+                ((record.result == Contact::SCHEDULED) || (record.result == Contact::NOT_CONTACTED) || (record.result == Contact::INTERESTED)) && 
                 ((Date.parse(value.to_s) < Date.today) || (value.to_s.empty?))
             )
               record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) 
