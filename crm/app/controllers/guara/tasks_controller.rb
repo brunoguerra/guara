@@ -67,7 +67,7 @@ module Guara
       @task.user = current_user
       
       if feedback.notes.to_s.empty? && feedback.resolution.nil?
-        @task.feedbacks = @task.feedbacks - [feedback]
+        @task.feedbacks.delete feedback
       else
         #filled feedback?
         if (!feedback.resolution.nil?)
