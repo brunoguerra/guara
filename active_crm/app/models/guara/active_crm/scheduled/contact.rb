@@ -35,6 +35,28 @@ module Guara
           SCHEDULED          = 25
           SCHEDULED_REALIZED = 26
 
+          SCHEDULED_RESULTS = [
+                                INTERESTED,
+                                SCHEDULED,
+                                NOT_CONTACTED
+                              ]
+
+          RESULTS = [           
+                      NOT_CONTACTED,
+                      NOT_CONTACTED_REALIZED,
+                      ##positive
+                      ACCEPTED,
+                      DENIED,
+                      INTERESTED,
+                      #positive change mind
+                      ACCEPTED_CHANGE,
+                      DENIED_CHANGE,
+                      INTERESTED_CHANGE,
+                      #scheduled
+                      SCHEDULED,
+                      SCHEDULED_REALIZED
+                    ]
+
 
           #Associations
           belongs_to :classified

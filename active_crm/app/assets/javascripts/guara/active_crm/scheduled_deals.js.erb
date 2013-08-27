@@ -12,6 +12,7 @@ var deals_list = (function($) {
             var deal_id = $(this).attr('deal-id'),
                 customer_id = $(this).attr('customer-id');
             me.showDetails(deal_id, customer_id);
+            event.stopPropagation();
           })
         }, 
 

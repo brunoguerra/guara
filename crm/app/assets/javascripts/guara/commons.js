@@ -1,5 +1,3 @@
-
-
 /*
  * DataTables
  */
@@ -31,36 +29,8 @@ function applyDataTable(selector) {
 }
 
 
-jQuery(function() {
-  $('form').on('click', '.remove_fields', function(event) {
-    $(this).prev('input[type=hidden]').val('1');
-    $(this).closest('fieldset').hide();
-    return event.preventDefault();
-  });
-
-  $('form, div.list_nested_form').on('click', '.add_fields', function(event) {
-    var time = new Date().getTime(),
-        regexp = new RegExp($(this).data('id'), 'g');    
-    
-    $(this).before($(this).data('fields').replace(regexp, time));
-    return event.preventDefault();
-  });
-
-  $('input.readonly').on('keydown', function(e){
-    var k = (e.which) ? e.which : e.keyCode;
-    if ([9,13].indexOf(k) == -1) return false;
-  });
-
-  $(document).bind("ajaxSend", function(){
-    $("#loader").show();
-    $("body").removeClass('ajaxCompleted')
-  }).bind("ajaxComplete", function(){
-    $("#loader").hide();
-    $("body").addClass('ajaxCompleted')
-  });
-
-  
-  $("select.multiselect").each(function(i) {
+function applyMultiSelect(selector) {
+    $(selector).each(function(i) {
     var inp, 
         select, 
         url_json,
@@ -152,9 +122,63 @@ jQuery(function() {
       });
     }
   });
+}
+
+
+
+jQuery(function() {
+  $('form').on('click', '.remove_fields', function(event) {
+    $(this).prev('input[type=hidden]').val('1');
+    $(this).closest('fieldset').hide();
+    return event.preventDefault();
+  });
+
+  $('form, div.list_nested_form').on('click', '.add_fields', function(event) {
+    var time = new Date().getTime(),
+        regexp = new RegExp($(this).data('id'), 'g');    
+    
+    $(this).before($(this).data('fields').replace(regexp, time));
+    return event.preventDefault();
+  });
+
+  $('input.readonly').on('keydown', function(e){
+    var k = (e.which) ? e.which : e.keyCode;
+    if ([9,13].indexOf(k) == -1) return false;
+  });
+
+  $(document).bind("ajaxSend", function(){
+    $("#loader").show();
+    $("body").removeClass('ajaxCompleted')
+  }).bind("ajaxComplete", function(){
+    $("#loader").hide();
+    $("body").addClass('ajaxCompleted')
+  });
+
+  
+  applyMultiSelect('select.multiselect');
 
   applyDataTable('.dataTable');
 
   $('[data-toggle]').tooltip({})
 
 });
+
+
+function dataTablesAppend(table_selector, row) {
+  var $tr,
+      table = $(table_selector).dataTable(),
+      addId;
+
+  //add new deal
+  addId = table.fnAddData(row);
+  $tr = $(table.fnSettings().aoData[addId[0]].nTr);
+
+  return $tr;
+}
+
+function dataTablesRemove(table_selector, selector) {
+  var table = $(table_selector).dataTable();
+  $(selector).each(function(){ 
+    table.fnDeleteRow(table.fnGetPosition(this));
+  });
+}

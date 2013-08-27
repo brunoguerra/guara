@@ -1,5 +1,5 @@
 <%# encoding: utf-8 %>
-
+<% environment.context_class.instance_eval { include Guara::ActiveCrm::ScheduledContactsHelper } %>
 var $loader = $('#loader');
 
 var scheduled_contacts_form_js_init = (function() {
@@ -24,14 +24,11 @@ var scheduled_contacts_form_js_init = (function() {
     "ajax:success": function(evt, data, status, xhr){
       if(data.success == true){
         resetFormAfterSuccess(this);
-        customerScheduledRemove(data);
+        customerScheduledRemove(data.data);
 
-        if ((data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>) ||
-            (data.data.result == <%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>))
-        {
-          contactScheduledsAppend(data);
+        if ([<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED_RESULTS.join(', ') %>].indexOf(data.data.result)>-1) {
+          scheduledContactAppend(data.data);
         }
-        console.log(data.data.deal);
         dealAppend(data.data.deal, data.data.customer_id);
 
         showTempOkMessage();
@@ -74,7 +71,6 @@ function scheduled_contact_submit(form){
 function contactFormSetResult(type, value){
   var deal_result = value;
 
-  console.log(value);
   if(((value == <%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED %>) ||
       (value == <%= Guara::ActiveCrm::Scheduled::Contact::NOT_CONTACTED %>) ||
       (value == <%= Guara::ActiveCrm::Scheduled::Contact::INTERESTED %>)) && (type == 'result')) {
@@ -150,40 +146,55 @@ function contact_status_label(value) {
 
 function contactScheduledsAppend(data) {
   var $tr;
-
+  console.log(data);
   $tr = $($.parseHTML(HoganTemplates["active_crm/scheduled_contact_tr"].render(data.data, {})));
+}
 
-  $tr.on('click',function(){
+
+function scheduledContactAppend(contact) {
+  var $tr,
+      table = '#customer-scheduled',
+      exists_deal_selector = (table+' [contact-id="'+contact.contact_id+'"]'),
+      addId;
+
+  //add new deal
+  $tr = dataTablesAppend(table, scheduledContactRow(contact));
+
+  $tr.attr('contact-id', contact.contact_id);
+  $tr.attr('customer-id', contact.customer_id);
+
+  $tr.on('click',function() {
       ScheduledContacts.slide_customer_content($(this), true);
   });
-  $('#customer-scheduled tbody').append($tr);
+  //$('#customer-deals tbody').append($tr);
 }
+
+function formatScheduledContactResult(result) {
+  <%= javasctipt_format_scheduled_contact_result %>
+}
+
+function scheduledContactRow(contact) {
+  return [
+    contact.customer_name,
+    contact.contact_name,
+    contact.scheduled_at,
+    contact.activity,
+    formatScheduledContactResult(contact.result)
+  ];
+}
+
 
 function dealAppend(deal, customer_id) {
   var $tr,
-      table = $('.deals.list.dataTable').dataTable(),
-      exists_deal_selector = ('.deals.list.dataTable [deal-id="'+deal.id+'"]'),
+      table = '.deals.list.dataTable',
+      exists_deal_selector = (table+' [deal-id="'+deal.id+'"]'),
       addId;
 
-  if ($(exists_deal_selector).size()>0) {
-    table.fnDeleteRow(table.fnGetPosition($(exists_deal_selector)[0]));
-  }
+  dataTablesRemove(table, exists_deal_selector);
 
   //add new deal
-  addId = table.fnAddData([
-    deal.customer_name,
-    timeRelativeString(new Date(), new Date(deal.date_start)),
-    deal.acceped_total || 0,
-    deal.scheduled_contact_total || 0,
-    deal.contacts_total || 0
-  ]);
+  $tr = dataTablesAppend(table, dealGetRow(deal));
 
-  console.log(table.fnSettings().aoData);
-
-  $tr = $(table.fnSettings().aoData[addId[0]].nTr);
-  console.log(addId);
-
-  console.log(deal);
   $tr.attr('deal-id', deal.id);
   $tr.attr('customer-id', customer_id);
 
@@ -191,8 +202,19 @@ function dealAppend(deal, customer_id) {
   //$('#customer-deals tbody').append($tr);
 }
 
-function customerScheduledRemove(data) {
-  $('#customer-scheduled tbody tr[customer-id="'+data.data.customer_id+'"][contact-id="'+data.data.contact_id+'"]').remove();
+function dealGetRow(deal) {
+  return [
+    deal.customer_name,
+    timeRelativeString(new Date(), new Date(deal.date_start)),
+    deal.acceped_total || 0,
+    deal.scheduled_contact_total || 0,
+    deal.contacts_total || 0
+  ];
+}
+
+
+function customerScheduledRemove(contact) {
+  dataTablesRemove('#customer-scheduled', '#customer-scheduled tr[customer-id="'+contact.customer_id+'"][contact-id="'+contact.contact_id+'"]');
 }
 
 function showTempOkMessage() {

@@ -7,7 +7,7 @@
   .row-fluid
     .thumbnail.span12.contact_list
       .caption
-        = render :partial => 'guara/active_crm/scheduled_deals/contacts_list', :locals => { deal: @scheduled_deal }
+        = render :partial => 'guara/active_crm/scheduled_deals/interactions_list', :locals => { deal: @scheduled_deal, interactions: @scheduled_deal.decided_contacts.order(:result).all + @scheduled_deal.scheduled_contacts.order(:scheduled_at).all + @scheduled_deal.other_contacts.order(:created_at).all }
 
 :javascript
   jQuery(function(){

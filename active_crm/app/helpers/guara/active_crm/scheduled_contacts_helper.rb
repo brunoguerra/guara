@@ -1,6 +1,7 @@
 module Guara
   module ActiveCrm
   	module ScheduledContactsHelper
+    include ActionView::Helpers::JavaScriptHelper
 
   		def prepare_span_status(record)
   			return "<span class='#{get_class_color(record)}'>#{record.status}</span>"
@@ -41,6 +42,15 @@ module Guara
           25 => I18n.t("scheduleds.contacts.result.scheduled"),
           26 => I18n.t("scheduleds.contacts.result.scheduled_realized"),
         }[result]
+      end
+
+      def javasctipt_format_scheduled_contact_result
+        function_js = "switch(result) { \n" 
+        Scheduled::Contact::RESULTS.each do |r|
+          dummy = Scheduled::Contact.new(result: r);
+          function_js += "case #{r}: return \"#{prepare_span_status(dummy)}\"; "
+        end
+        function_js += "}"
       end
       
 
