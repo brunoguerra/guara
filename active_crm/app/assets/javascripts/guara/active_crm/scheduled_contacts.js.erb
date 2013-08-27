@@ -225,8 +225,9 @@ var ScheduledContacts = {
   },
 
   btn_ignore_customer: function() {
-    var me = this;
-    var btn = $('<a>'+I18n.t('scheduleds.contacts.ignore_customer')+'</a>').addClass('btn btn-warning');
+    var me = this,
+        last_customer = me.current_customer,
+        btn = $('<a>'+I18n.t('scheduleds.contacts.ignore_customer')+'</a>').addClass('btn btn-warning');
     btn.on('click', function() {
         me.ignored_customers.push(me.current_customer);
         $.ajax({
@@ -236,7 +237,7 @@ var ScheduledContacts = {
             customer_id: me.current_customer
           }
         }).done(function( data ) {
-          
+          customerToContactRemove(last_customer);
         });
         me.next_customer();
       }
@@ -399,4 +400,8 @@ function paginate_call(){
       });
     });
   });
+}
+
+function customerToContactRemove(customer_id) {
+  $('#customer-to-register tr[customer-id="'+customer_id+'"]').remove();
 }
