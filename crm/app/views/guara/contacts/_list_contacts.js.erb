@@ -1,2 +1,2 @@
-$('.container-contacts .thumbnail.contacts .caption').html('<%= escape_javascript(render partial: 'list_contacts.html.erb') %>');
-$('.container-contacts .thumbnail.contacts .caption').prepend('<legend>Contatos</legend>');
+$('.container-contacts').html('<%= escape_javascript(render partial: 'list_contacts.html.erb') %>');
+$('.container-contacts').prepend('<legend>Contatos</legend>');

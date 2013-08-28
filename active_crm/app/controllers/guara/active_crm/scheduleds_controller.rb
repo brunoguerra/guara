@@ -59,7 +59,7 @@ module Guara
       end
     
       def edit
-        @scheduled = Scheduled::Scheduled.find(params[:id])
+        @scheduled = Scheduled.find(params[:id])
         authorize! :update, @active_crm_scheduled
       end
     

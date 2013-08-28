@@ -65,7 +65,7 @@ feature "Active CRM - Management Sell by Phone and e-mail", %{
     able @user, :read, 'customer'
     able @user, :read, 'contact'
     able @user, [:read, :create, :update, :delete], 'Guara::ActiveCrm::Scheduled'
-    able @user, [:read, :create, :update, :delete], 'Guara::ActiveCrm::Scheduled::CustomerGroup'
+    able @user, [:read, :create, :update, :delete], 'Guara::ActiveCrm::Scheduled::Group'
     able @user, [:read, :create, :update, :delete], 'Guara::ActiveCrm::Scheduled::Contact'
     able @user, :read, 'Guara::ActiveCrm::Scheduled::Deal'
   end

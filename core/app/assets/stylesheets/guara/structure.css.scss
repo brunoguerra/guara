@@ -182,7 +182,12 @@ body .modal {
 	height: (8*$rowHeight);
 }
 
-/***** CUSTOMER *****/
+.link {
+	text-decoration: underline;
+	color: #08c;
+}
+
+/********************************************** CUSTOMER ******************************************/
 
 .guara_customer {
 	
@@ -206,7 +211,7 @@ body .modal {
 	}
 }
 
-/****** customer contacts *****/
+/************************************************ customer contacts ********************************/
 
 .thumbnail.contacts {
 

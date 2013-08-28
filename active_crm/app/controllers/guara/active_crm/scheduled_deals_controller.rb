@@ -34,7 +34,7 @@ module Guara
     			@scheduleds = load_scheduleds_select(params[:search])
     			render json: {success: true, data: @scheduleds.collect { |c| { :id => c.id.to_s, :name => c.name } } }
 
-                authorize! :read, Scheduled::Scheduled
+                authorize! :read, Scheduled
     		end
 
             def multiselect_group

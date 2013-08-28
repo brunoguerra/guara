@@ -23,11 +23,11 @@ module Guara
     		end
 
             def edit
-                params[:search] = prepare_filter_search({}, Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:id])) if params[:search].nil?
+                params[:search] = prepare_filter_search({}, Guara::ActiveCrm::Scheduled::Group.find(params[:id])) if params[:search].nil?
                 filter_multiselect params[:search], :customer_guara_customer_pj_type_activities_business_segment_id_in
                 filter_multiselect params[:search], :customer_guara_customer_pj_type_activities_id_in
                 
-                @search = Guara::Customer.customer_contact(params[:scheduled_id]).search(params[:search])
+                @search = Guara::Customer.search(params[:search])
                 @customers_to_register = paginate(@search)
 
                 respond_to do |format|
@@ -52,7 +52,7 @@ module Guara
             end
 
             def update
-                @scheduled_group = Guara::ActiveCrm::Scheduled::CustomerGroup.find(params[:id])
+                @scheduled_group = Guara::ActiveCrm::Scheduled::Group.find(params[:id])
                 @scheduled_group.update_attributes(prepare_filter_save(params[:search], params[:scheduled_id]))
 
                 respond_to do |format|

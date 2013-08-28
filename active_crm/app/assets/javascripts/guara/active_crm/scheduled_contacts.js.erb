@@ -123,7 +123,7 @@ var ScheduledContacts = {
       me.reorganize_view_customer();
       $('select.multiselect').removeClass('multiselect');
       me.initialize_js_customer();
-      me.call_container_contacts();
+      me.customer_contacts_list_setup();
 
       if(contact_id!=null){
         me.open_dialog_call(contact_id);
@@ -179,7 +179,7 @@ var ScheduledContacts = {
     var $g = $('<div />').addClass('span12 buttons_nav');
     $g.append(this.btn_back());
     $g.append(this.btn_finish_deal());
-    $g.append(this.btn_ignore_customer());
+    $g.append(this.btn_next_customer());
     return $g;
   },
 
@@ -224,10 +224,10 @@ var ScheduledContacts = {
     return btn;
   },
 
-  btn_ignore_customer: function() {
+  btn_next_customer: function() {
     var me = this,
         last_customer = me.current_customer,
-        btn = $('<a>'+I18n.t('scheduleds.contacts.ignore_customer')+'</a>').addClass('btn btn-warning');
+        btn = $('<a>'+I18n.t('scheduleds.contacts.next_customer')+'</a>').addClass('btn btn-warning');
     btn.on('click', function() {
         me.ignored_customers.push(me.current_customer);
         $.ajax({
@@ -245,10 +245,10 @@ var ScheduledContacts = {
     return btn;
   },
 
-  call_container_contacts: function(){
+  customer_contacts_list_setup: function(){
     var me = this;
-    $('.container-contacts table tr[contact-id]').click(function(){
-      me.open_dialog_call($(this).attr('contact-id'));
+    $('.container-contacts table tr[contact-id] td.link').click(function(){
+      me.open_dialog_call($(this).parent().attr('contact-id'));
       me.scroll_deal();
     });
     $('.container-contacts table tr[contact-id] td a.btn').remove();
@@ -278,8 +278,11 @@ var ScheduledContacts = {
         url : $('form.guara_customer').attr('action')+'.js',
         data: data_fields,
         success : function(script){
-          me.form_contact_setup();
-          me.call_container_contacts();
+          $('.container-contacts').delay(1000).queue(function() {
+            me.form_contact_setup();
+            me.customer_contacts_list_setup();
+            me.form_customer_contacts();
+          })
         }
       });
 

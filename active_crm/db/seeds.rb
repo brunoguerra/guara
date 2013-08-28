@@ -7,7 +7,7 @@ module Guara
                    { name: 'Guara::ActiveCrm::Scheduler' },
                    { name: 'Guara::ActiveCrm::Scheduled' },
                    { name: 'Guara::ActiveCrm::Scheduled::Contact' },
-                   { name: 'Guara::ActiveCrm::Scheduled::CustomerGroup' },
+                   { name: 'Guara::ActiveCrm::Scheduled::Group' },
                    { name: 'Guara::ActiveCrm::Scheduled::Deal' },
                   ])
       

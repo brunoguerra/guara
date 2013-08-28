@@ -20,7 +20,7 @@
 		    <tbody>
 		    <% @contacts.each do |contact| %>
 		      <tr contact-id="<%= contact.id %>">
-			      <td><%= contact.name %></td>
+			      <td class="link"><%= contact.name %></td>
 			      <td><%= name_or_empty contact.department %></td>
 			      <td><%= contact.business_function %></td>
 			      <td><%= contact.phone %></br><%= contact.cell %></td>
