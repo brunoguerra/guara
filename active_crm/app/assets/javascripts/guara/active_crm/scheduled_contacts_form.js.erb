@@ -25,6 +25,7 @@ var scheduled_contacts_form_js_init = (function() {
       if(data.success == true){
         resetFormAfterSuccess(this);
         customerScheduledRemove(data.data);
+        customerToContactRemove(data.data.customer_id);
 
         if ([<%= Guara::ActiveCrm::Scheduled::Contact::SCHEDULED_RESULTS.join(', ') %>].indexOf(data.data.result)>-1) {
           scheduledContactAppend(data.data);
@@ -40,6 +41,7 @@ var scheduled_contacts_form_js_init = (function() {
       catchFormAjaxError(this, evt, xht, status, error);
     }
   });
+
 });
 
 function scheduled_contact_submit(form){
@@ -144,7 +146,7 @@ function contact_status_label(value) {
   $label_container.removeClass('hide');
 }
 
-function contactScheduledsAppend(data) {
+function deprecated_contactScheduledsAppend(data) {
   var $tr;
   console.log(data);
   $tr = $($.parseHTML(HoganTemplates["active_crm/scheduled_contact_tr"].render(data.data, {})));
@@ -164,8 +166,10 @@ function scheduledContactAppend(contact) {
   $tr.attr('customer-id', contact.customer_id);
 
   $tr.on('click',function() {
-      ScheduledContacts.slide_customer_content($(this), true);
+      ScheduledContacts.slide_customer_by_tr($(this), true);
   });
+
+  $(table).dataTable().fnSort([[2, 'asc']]);
   //$('#customer-deals tbody').append($tr);
 }
 
@@ -187,7 +191,7 @@ function scheduledContactRow(contact) {
 
 function dealAppend(deal, customer_id) {
   var $tr,
-      table = '.deals.list.dataTable',
+      table = '.deals.list',
       exists_deal_selector = (table+' [deal-id="'+deal.id+'"]'),
       addId;
 
@@ -206,7 +210,7 @@ function dealAppend(deal, customer_id) {
 function dealGetRow(deal) {
   return [
     deal.customer_name,
-    timeRelativeString(new Date(), new Date(deal.date_start)),
+    deal.date_start,
     deal.acceped_total || 0,
     deal.scheduled_contact_total || 0,
     deal.contacts_total || 0

@@ -1,17 +1,17 @@
 = javascript_include_tag "/assets/guara/active_crm/scheduled_deals.js"
-%table#customer-deals.table.table-bordered.table-striped.deals.list.dataTable
+%table#customer-deals.table.table-bordered.table-striped.deals.list
   %thead
     %tr
       %th.span4= t("helpers.label.customers.search.names")
       %th= t("active_crm.scheduled_deals.date_start")
-      %th= t("active_crm.scheduled_deals.accepted_total") 
-      %th= t("active_crm.scheduled_deals.scheduled_contacts_total")
+      %th= t("scheduleds.contacts.result.accepted") 
+      %th= t("scheduleds.contacts.result.scheduled") 
       %th= t("active_crm.scheduled_deals.contacts_total")
   %tbody
     - (@deals || []).each do |deal|
       %tr{"deal-id" => deal.id, "customer-id" => deal.customer.id}
         %td= deal.customer.name
-        %td= time_elapsed deal.date_start
+        %td= deal.date_start.in_time_zone
         %td= deal.accepted_total
         %td= deal.scheduled_contacts_total
         %td= deal.contacts.count

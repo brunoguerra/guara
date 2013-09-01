@@ -1,8 +1,10 @@
 Guara::Core::Engine.routes.prepend do
-	scope module: 'active_crm' do	
-		resources :scheduleds do 
-			resources :scheduled_groups do 
-				resources :scheduled_contacts
+	scope module: 'active_crm' do
+		resources :scheduleds do
+			resources :scheduled_groups do
+				resources :scheduled_contacts do
+					post :next_customer, on: :collection
+				end
 			end
 		end
 
@@ -15,7 +17,6 @@ Guara::Core::Engine.routes.prepend do
 		resources :scheduled_contacts_reports
 		
 		match "/active_crm",    to: "active_crm#index"
-		match "/ignore_customer_session",  to: "scheduled_contacts#ignore_customer_session"
 		match "/close_negociation",  to: "scheduled_contacts#close_negociation"
   	end
 end

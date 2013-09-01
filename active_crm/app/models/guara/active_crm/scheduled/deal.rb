@@ -18,7 +18,7 @@ module Guara
 			    has_many :contacts, foreign_key: :deal_id, class_name: "Guara::ActiveCrm::Scheduled::Contact"
 	    		has_many :scheduled_contacts,
 						:conditions => %Q{scheduled_at is not null and result in
-													(#{Contact::NOT_CONTACTED}, #{Contact::SCHEDULED}, #{Contact::INTERESTED})},
+													(#{Scheduled::Contact::NOT_CONTACTED}, #{Scheduled::Contact::SCHEDULED}, #{Scheduled::Contact::INTERESTED})},
 						:class_name => "Contact"
 
 	    		has_many :decided_contacts,

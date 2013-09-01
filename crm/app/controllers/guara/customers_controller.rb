@@ -97,7 +97,6 @@ module Guara
         activities = params[:activities] ? params[:activities].collect { |baid| BusinessActivity.find_by_id baid }.uniq : []
         activities.delete nil
         @person.activities = activities
-      
         @person.associateds = params[:associateds_select] ? params[:associateds_select].collect { |assoc| CustomerPj.find assoc }.uniq : []    
       end
     end
@@ -235,7 +234,7 @@ module Guara
   
     def multiselect_customers_pj
       authorize! :read, Guara::CustomerPj
-      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:tag]+"%", params[:tag]+"%"] ).collect { |c| { :key => c.id.to_s, :value => c.person.name } }
+      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
     end
 
 

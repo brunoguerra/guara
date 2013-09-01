@@ -12,7 +12,7 @@ pt-BR:
     scheduled_deals:
       title: "Negociações"
       date_start: "Data" 
-      scheduled_contacts_total: "Total de agendados"
+      accepted_total: "Total de Inscritos"
       scheduled_accepted_total: "Interações"
       contacts_total: "Interações"
 
@@ -25,21 +25,21 @@ pt-BR:
 
   scheduleds:
     id: "Cod."
-    title: "Agendamento"
+    title: "Planos de Ligações"
     user: "Responsável"
     search_subject: "Buscar no assunto"
     task_type: "Tipo de Tarefa"
     index:
       title: "Buscar por Agendados"
-    edit: "Editar Agendamento"
+    edit: "Editar Plano de Ligações"
 
     date_start: "Data Inicial"
     date_finish: "Data Final"
     subject: "Assunto"
     id: "Cod."
-    successfully_save: "Agendamento realizado com sucesso."
-    successfully_update: "Agendamento atualizado com sucesso."
-    historic_scheduled_contact_selected: "Histórico de Agendamento do Contato Selecionado"
+    successfully_save: "Plano de Ligações realizado com sucesso."
+    successfully_update: "Plano de Ligações atualizado com sucesso."
+    historic_scheduled_contact_selected: "Histórico de Plano de Ligações do Contato Selecionado"
 
     status:
       title: "Estado"
@@ -47,12 +47,13 @@ pt-BR:
       completed: "Concluido"
 
     new:
-      title: "Novo Agendamento"
+      title: "Novo Plano de Ligações"
 
-    planning_contact: "Planejamento de Contato"
+    planning_contact: "Plano de Ligações"
 
     responsible: "Responsável"
-    next_contact: "Próximo Contato"
+    scheduled_at: "Próximo Contato"
+    created_at: "Agendado em"
     activity: "Histórico da Negociação"
     result: "Classificação"
     situation: "Situação"
@@ -83,6 +84,9 @@ pt-BR:
     contacts:
       ending_deal: "Fechar a Negociação"
       ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
+      alert_scheduled_title: "Atenção: Agendamento vencido"
+      alert_scheduled_description: "O prazo agendado já passou, favor verificar os detalhes. É possível re-agendar."
+
       result:
         accepted: "Negócio Fechado"
         denied: "Participação Negada"
@@ -92,10 +96,10 @@ pt-BR:
         denied_change: "Participação Negada - (Mudou)"
         interested_change: "Aguardando Inscrição - (Mudou)"
 
-        scheduled: "Agendamento"
+        scheduled: "Agendado"
         not_contacted: "Não Contactado"
 
-        scheduled_realized: "Contactou Agendado"
+        scheduled_realized: "Contato Agendado"
         not_contacted_realized: "Não Contactado - (Mudou)"
 
   system:

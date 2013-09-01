@@ -1,12 +1,14 @@
-
 //= require guara/active_crm/pt-BR
- 
+
 var ScheduledContacts = {
   group: null,
+  scheduled_id: null,
   current_customer: null,
+  current_customer_from_to_conbtact_list: true,
+  current_customer_from_to_conbtact_list_index: 0,
   ignored_customers: null,
   new_scheduled_contacts: null,
-  close_negociation: null, 
+  close_negociation: null,
   javascript_crm: null,
   container_customer: $('#customer_show'),
   container_call: $('#dialog-modal-call'),
@@ -14,14 +16,15 @@ var ScheduledContacts = {
   scroll_top_margin: 100,
   customer_panel_seletor: '.container-customer .thumbnail',
 
-  init: function(ignored_customers, new_scheduled_contacts, close_negociation, group){
+  init: function(ignored_customers, new_scheduled_contacts, close_negociation, scheduled_id, group){
     var me = this;
     if(ignored_customers){
       me.ignored_customers = ignored_customers;
     }
-    if(group){
-      me.group = group;
-    }
+
+    me.group = group;
+    me.scheduled_id = scheduled_id;
+
     if(close_negociation){
       me.close_negociation = close_negociation;
     }
@@ -30,12 +33,35 @@ var ScheduledContacts = {
     }
     $('#customer-to-register tbody tr').on('click', function(){
       //me.open_dialog_customer($(this));
-      me.slide_customer_content($(this));
+      me.slide_customer_by_tr($(this));
     });
 
     $('#customer-scheduled tbody tr').on('click', function(){
-      me.slide_customer_content($(this), true);
+      me.slide_customer_by_tr($(this), true);
     });
+
+    applyDataTable('#customer-scheduled', {
+      "aaSorting": [[2,'asc'] ],
+      "aoColumns": [
+            null,
+            null,
+            { "sType": 'date-euro' },
+            { "sType": 'date-euro' },
+            null,
+            null
+        ]
+    });
+    applyDataTable('.deals.list', {
+      "aaSorting": [[1,'asc'] ],
+      "aoColumns": [
+        null,
+        { "sType": 'date-euro' },
+        null,
+        null,
+        null
+      ]
+    });
+
   },
 
   reorganize_view_customer: function(){
@@ -85,15 +111,20 @@ var ScheduledContacts = {
   * Slide
   * <----------------------------------------------------------------
   */
-  slide_customer_content: function(tr, contact_scheduled) {
+  slide_customer_by_tr: function(tr, contact_scheduled) {
+    var customer_id,
+        contact_id = null;
 
-    var customer_id = tr.attr('customer-id');
+    customer_id = $(tr).attr('customer-id');
 
-    if(contact_scheduled){
-      contact_id = tr.attr('contact-id');
+    if (contact_scheduled==null) {
+      this.current_customer_from_to_conbtact_list_index = $('#customer-to-register tr').index(tr);
     } else {
-      contact_id = null
+      this.current_customer_from_to_conbtact_list_index = -1;
+      contact_id = tr.attr('contact-id');
     }
+
+    this.current_customer_from_to_conbtact_list = (contact_scheduled==null);
 
     this.slide_customer(customer_id, contact_id);
   },
@@ -178,8 +209,10 @@ var ScheduledContacts = {
   buttons_nav: function() {
     var $g = $('<div />').addClass('span12 buttons_nav');
     $g.append(this.btn_back());
-    $g.append(this.btn_finish_deal());
     $g.append(this.btn_next_customer());
+    $g.append(this.btn_finish_deal());
+    $g.append(this.btn_ignore_customer());
+
     return $g;
   },
 
@@ -195,7 +228,7 @@ var ScheduledContacts = {
 
   btn_finish_deal: function() {
     var me = this;
-    var btn = $('<a>'+I18n.t('scheduleds.contacts.ending_deal')+'</a>').addClass('btn btn-danger');
+    var btn = $('<a>'+I18n.t('scheduleds.contacts.ending_deal')+'</a>').addClass('btn btn-warning');
 
     btn.on('click', function() {
       me.open_dialog_confirm(I18n.t('scheduleds.contacts.ending_deal')+ '?', I18n.t('scheduleds.contacts.ending_deal_text'), function(dialog){
@@ -224,22 +257,39 @@ var ScheduledContacts = {
     return btn;
   },
 
+  btn_ignore_customer: function() {
+    var me = this;
+
+    btn = $('<a>'+I18n.t('scheduleds.contacts.ignore_customer')+'</a>').addClass('btn btn-danger');
+
+    return btn;
+  },
+
   btn_next_customer: function() {
     var me = this,
         last_customer = me.current_customer,
-        btn = $('<a>'+I18n.t('scheduleds.contacts.next_customer')+'</a>').addClass('btn btn-warning');
+        btn = $('<a>'+I18n.t('scheduleds.contacts.next_customer')+'</a>').addClass('btn btn-success');
+    
     btn.on('click', function() {
-        me.ignored_customers.push(me.current_customer);
+      var url = "<%= Guara::Core::Engine.routes.url_helpers.next_customer_scheduled_scheduled_group_scheduled_contacts_path('x1', 'x2') %>";
         $.ajax({
-          type: "GET",
-          url: "/ignore_customer_session",
+          type: "POST",
+          url: url.replace('x1', me.scheduled_id).replace('x2', me.group),
           data: {
-            customer_id: me.current_customer
+            customer_id: me.current_customer,
+            index: me.current_customer_from_to_conbtact_list_index
           }
         }).done(function( data ) {
-          customerToContactRemove(last_customer);
+          if (data.scheduled!=null) {
+            alert_next_is_scheduled(this);
+            me.next_customer(data.scheduled.customer_id, data.scheduled.contact_id);
+
+          } else {
+            me.current_customer_from_to_conbtact_list_index = data.index;
+            me.next_customer(data.next.customer_id)
+          }
         });
-        me.next_customer();
+        //me.next_customer();
       }
     );
     return btn;
@@ -361,7 +411,11 @@ var ScheduledContacts = {
     return is_ignored;
   },
 
-  next_customer: function(){
+  next_customer: function(customer_id, contact_id){
+    this.slide_customer(customer_id, contact_id);
+  },
+
+  auto_next_customer: function(){
     var me = this,
     next_customer = false;
     $('#customer-to-register tbody tr').each(function(){
@@ -369,13 +423,13 @@ var ScheduledContacts = {
         if(me.is_customer_ignored($(this).attr('customer-id')) === false){
           me.current_customer = $(this).attr('customer-id');
           next_customer = true;
-          me.slide_customer_content($(this));
+          me.slide_customer_by_tr($(this));
         }
       }
     });
 
     if(me.is_customer_ignored(me.current_customer) === true){
-      alert('Todos os Clientes foram Ignorados nesta sessão!');
+      alert("<%= I18n.t('schduleds.group.empty_to_contact') %>");
     }
   }
 };
@@ -407,4 +461,15 @@ function paginate_call(){
 
 function customerToContactRemove(customer_id) {
   $('#customer-to-register tr[customer-id="'+customer_id+'"]').remove();
+  ScheduledContacts.current_customer_from_to_conbtact_list_index--;
+}
+
+function alert_next_is_scheduled(obj) {
+  $(obj).delay(1500).queue(function(next) {
+    $('#scheduled_contact_form_list').prepend(
+      alert_warning_template("<%= I18n.t('scheduleds.contacts.alert_scheduled_title') %>", "<%= I18n.t('scheduleds.contacts.alert_scheduled_description') %>")
+    );
+
+    if(next) next();
+  });
 }

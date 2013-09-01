@@ -18,6 +18,7 @@
 //= require jquery.dataTables.min.js
 //= require jquery.dataTables.dataTools/TableTools.min.js
 //= require jquery.dataTables.dataTools/TableTools_Bootstrap.js
+//= require_tree ../templates/
 
 $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     $(this).datepicker({"format": "dd/mm/yyyy hh:mm", "weekStart": 1, "autoclose": true});

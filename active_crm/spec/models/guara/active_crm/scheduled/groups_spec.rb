@@ -15,6 +15,8 @@ module Guara
       it { should respond_to(:scheduled) }
       it { should respond_to(:deals) }
 
+      it { should respond_to(:expired_contacts) }
+
       it { should respond_to(:find_or_create_deal) }
 
       its(:to_contact) { should have(list_customer_pjs.size).items }
@@ -70,6 +72,13 @@ module Guara
         end
 
         it { expect(people_scheduled.size).to be(group.count_scheduled) }
+      end
+
+      context "#expired_contacts" do
+        let (:expired_contact)     { Factory :scheduled_contact, deal: deal, scheduled_at: 1.day.ago, result: Scheduled::Contact::SCHEDULED_REALIZED }
+        before { Scheduled::Contact.update_all("result = #{Scheduled::Contact::SCHEDULED}", {id: expired_contact.id}) }
+
+        it { group.expired_contacts.should include(expired_contact) }
       end
     end
   end

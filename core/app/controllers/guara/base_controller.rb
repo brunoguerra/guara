@@ -9,10 +9,10 @@ module Guara
 
     def paginate(search, page=1, per_page=10)
       if class_exists?("Ransack")
-            return search.result().paginate(page: page, :per_page => per_page)
-        else
-            return search.paginate(page: page, :per_page => per_page)
-        end
+        return search.result().paginate(page: page, :per_page => per_page)
+      else
+        return search.paginate(page: page, :per_page => per_page)
+      end
     end
     
     def current_ability

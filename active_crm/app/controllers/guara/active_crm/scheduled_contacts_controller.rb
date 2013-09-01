@@ -7,16 +7,16 @@ module Guara
       include ScheduledContactsHelper
       helper ScheduledContactsHelper
 
-      before_filter :load_group, :only => [:index, :new, :create, :close_negociation]
+      before_filter :load_group, :only => [:index, :new, :create, :close_negociation, :next_customer]
 
     	def index
     		params[:search] = {} if params[:search].nil?
     		search_params = prepare_filter_search(params[:search], @group)
     		
     		@search = @group.to_contact
-        @customers_to_register = paginate(@search, params[:page], 40)
+        @customers_to_register = paginate(@search, params[:page], 40).reorder("guara_people.id asc")
 
-        @customers_scheduled = @group.scheduled_contacts
+        @customers_scheduled = @group.scheduled_contacts.order('scheduled_at asc')
         @deals = @group.deals
     	end
 
@@ -51,22 +51,47 @@ module Guara
           render :json => { success: true}
       end
 
+      def next_customer
+        scheduled = @group.expired_contacts.first
+        @data = { index: params[:index].to_i+1 }
+        #
+        if (scheduled.nil?)
+            c_next = next_to_contact
+            @data[:next] = { customer_id: c_next.id }
+        else
+            @data[:scheduled] = {
+                customer_id: scheduled.deal.customer_id,
+                contact_id: scheduled.contact_id,
+            }
+        end
+
+        authorize! :read, Guara::ActiveCrm::Scheduled::Group
+        render :json => @data
+      end
+
       private
       
         def prepare_data_json
             data = @scheduled_contact.attributes
+            data[:scheduled_at] = @scheduled_contact.scheduled_at.in_time_zone.to_s unless @scheduled_contact.scheduled_at.nil?
+            data[:created_at] = @scheduled_contact.created_at.to_s
+            data[:updated_at] = @scheduled_contact.updated_at.to_s
             data["customer_name"] = @scheduled_contact.contact.customer.name
             data["customer_id"] =   @scheduled_contact.contact.customer.id
             data["contact_name"] =  @scheduled_contact.contact.name
             data["scheduled"] =     @scheduled_contact.scheduled_at.to_s.empty? ? '' : @scheduled_contact.scheduled_at.strftime("%d/%m/%Y %H:%M")
             data["status"] =        prepare_span_status(@scheduled_contact)
             unless @scheduled_contact.deal.nil?
-              data["deal"] = @scheduled_contact.deal.as_json(only: [:id, :date_start]).merge({
-                customer_name:            @scheduled_contact.deal.customer.name,
-                accepted_total:           @scheduled_contact.deal.accepted_total,
-                scheduled_contacts_total: @scheduled_contact.deal.scheduled_contacts_total,
-                contacts_total:           @scheduled_contact.deal.contacts.count
-              })
+              @deal = @scheduled_contact.deal
+              data["deal"] = {
+                id:                       @deal.id,
+                created_at:               @deal.created_at.in_time_zone.to_s,
+                date_start:               @deal.date_start.in_time_zone.to_s,
+                customer_name:            @deal.customer.name,
+                accepted_total:           @deal.accepted_total,
+                scheduled_contacts_total: @deal.scheduled_contacts_total,
+                contacts_total:           @deal.contacts.count
+              }
             end
 
             return data
@@ -90,7 +115,15 @@ module Guara
         def load_group
           @group = Scheduled::Group.find params[:scheduled_group_id]
         end
-    
+
+        def next_to_contact
+            if (params[:index].to_i>-1)
+              index = params[:index].to_i + 1
+              @group.to_contact.paginate(page: index, per_page: 1).reorder("guara_people.id asc").first
+            else
+              @group.to_contact.first
+            end
+        end
 	  end
   end
 end

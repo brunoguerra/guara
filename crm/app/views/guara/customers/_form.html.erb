@@ -77,19 +77,7 @@
 			<% if @customer_type == "pj" %>
 			<div class="control-group">
 				<%= person_f.label :activities, :class => "control-label" %>
-				<div class="controls">
-					<!-- %= render  :partial => 'customer_segment', :collection => @person.customer_segments % -->
-					<% render :partial => 'shared/guara/multi_selection', 
-					:locals => { 
-						:form => person_f, 
-						:values => @person.activities, 
-						:autocomplete => multiselect_business_activities_customers_path,
-						:form_field => :activities, 
-						:field_show => :name, 
-						:field_store => :id, 
-						:width => 220 
-					} %>
-					
+				<div class="controls">					
 					<%= select_tag :activities,
 					options_for_select( 
 						Guara::BusinessActivity.joins(:business_segment).all.map do |a|
@@ -99,7 +87,7 @@
 						), 
 					{ :multiple => true, 
 						:style => "width: 200px;", 
-						:placeholder => t("customer_pjs.segments"), 
+						:placeholder => t("customer_pjs.activities") + ' : ' + t("customer_pjs.segments"), 
 						:class => "multiselect" 
 					}
 					%>
@@ -109,20 +97,15 @@
 			<div class="control-group">
 				<%= person_f.label t("customers.associateds"), :class => "control-label" %>
 				<div class="controls">
-					<%= render :partial => 'shared/guara/multi_selection', 
-					:locals => {
-						:form => person_f,
-						:values => @person.associateds, 
-						:autocomplete => multiselect_customers_pj_customers_path,
-						:form_field => :associateds, 
-						:field_show => :name, 
-						:field_store => :id,
-						:width => 220
-					} %>
-
-					
-
-					
+					<%= select_tag :associateds_select, options_from_collection_for_select(@person.associateds, 'id', 'name', @person.associateds.collect {|a| a.id}), {
+						:multiple => true,
+						:style => "width: 200px;", 
+						:placeholder => t("customers.associateds"), 
+						:class => "multiselect" ,
+						:"data-json-url" => multiselect_customers_pj_customers_path,
+						:"data-multiple" => "true"
+					}
+					%>					
 				</div>
 			</div>
 			

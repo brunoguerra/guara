@@ -7,9 +7,9 @@ module Guara
           attr_accessible :activity,
                           :result,
                           :scheduled_at,
-                          :contact_id, 
+                          :contact_id,
                           :classified_id,
-                          :deal_id, 
+                          :deal_id,
                           :deal,
                           :user,
                           :user_id,
@@ -68,7 +68,7 @@ module Guara
 
           validates_each :scheduled_at do |record, attr, value|
             if (
-                ((record.result == Contact::SCHEDULED) || (record.result == Contact::NOT_CONTACTED) || (record.result == Contact::INTERESTED)) && 
+                ((SCHEDULED_RESULTS.include? record.result )) && 
                 ((Date.parse(value.to_s) < Date.today) || (value.to_s.empty?))
             )
               record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) 

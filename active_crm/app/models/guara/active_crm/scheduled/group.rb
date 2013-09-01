@@ -29,6 +29,13 @@ module Guara
 	    						 :through => :deals,
 	    						 :class_name => "Contact"
 
+	    		has_many :expired_contacts,
+	    						 :through => :deals,
+	    						 :source => :scheduled_contacts,
+	    						 :class_name => "Contact",
+	    						 :conditions => ["scheduled_at < ?", Time.now]
+
+
 	    		def registered
 	    			Group.joins(:contacts, :deals)
 	    			.where(
@@ -47,8 +54,8 @@ module Guara
 	    			@name = value
 	    		end
 
-	    		def to_contact
-	    			Guara::Customer.where(SQL_NEW_TO_CONTACT, self.scheduled.id).search(prepare_filter_search({}, self))
+	    		def to_contact(offset=0)
+	    			Guara::Customer.select('LOWER(guara_people.name), guara_people.id, guara_people.*').where(SQL_NEW_TO_CONTACT, self.scheduled.id).offset(offset).uniq.search(prepare_filter_search({}, self))
 	    		end
 
 	    		def count_registered
