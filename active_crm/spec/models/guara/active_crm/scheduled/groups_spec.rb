@@ -14,6 +14,7 @@ module Guara
       it { should respond_to(:to_contact) }
       it { should respond_to(:scheduled) }
       it { should respond_to(:deals) }
+      it { should respond_to(:ignored) }
 
       it { should respond_to(:expired_contacts) }
 
@@ -79,6 +80,22 @@ module Guara
         before { Scheduled::Contact.update_all("result = #{Scheduled::Contact::SCHEDULED}", {id: expired_contact.id}) }
 
         it { group.expired_contacts.should include(expired_contact) }
+      end
+
+      context "#ignoreds" do
+        let(:ignored) do
+          FactoryGirl.build(
+            :scheduled_ignored, 
+            customer_id: list_customer_pjs.first.person.id,
+            group_id: group.id
+          )
+        end
+
+        before { group.save }
+
+        it { expect{ ignored.save! }.to change { group.ignored.count }.from(0).to(1) }
+        it { expect{ ignored.save! }.to change { group.to_contact.count }.from(list_customer_pjs.size).to(1) }
+
       end
     end
   end

@@ -33,5 +33,10 @@ FactoryGirl.define do
     activity { Faker::Lorem.paragraphs(3).join('\n') }
     contact { deal.customer.contacts.first || FactoryGirl.create(:contact) }
   end
+
+  factory :scheduled_ignored, :class => Guara::ActiveCrm::Scheduled::Ignored do
+    customer
+    group factory: :scheduled_group
+  end
   
 end

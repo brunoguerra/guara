@@ -31,7 +31,7 @@ var ScheduledContacts = {
     if(new_scheduled_contacts){
       me.new_scheduled_contacts = new_scheduled_contacts; 
     }
-    $('#customer-to-register tbody tr').on('click', function(){
+    $('#customer-to-register tbody tr, #ignored-customers tbody tr').on('click', function(){
       //me.open_dialog_customer($(this));
       me.slide_customer_by_tr($(this));
     });
@@ -261,7 +261,12 @@ var ScheduledContacts = {
     var me = this;
 
     btn = $('<a>'+I18n.t('scheduleds.contacts.ignore_customer')+'</a>').addClass('btn btn-danger');
-
+    btn.on('click', function() {
+      me.open_dialog_confirm("<%= I18n.t('scheduleds.ignored.ignoring_customer') %> "+ '?', "<%= I18n.t('scheduleds.ignored.ignoring_customer_text') %>", function(dialog){
+        dialog.dialog( "close" );
+        me.async_ignore_customer();
+      });
+    });
     return btn;
   },
 
@@ -271,27 +276,8 @@ var ScheduledContacts = {
         btn = $('<a>'+I18n.t('scheduleds.contacts.next_customer')+'</a>').addClass('btn btn-success');
     
     btn.on('click', function() {
-      var url = "<%= Guara::Core::Engine.routes.url_helpers.next_customer_scheduled_scheduled_group_scheduled_contacts_path('x1', 'x2') %>";
-        $.ajax({
-          type: "POST",
-          url: url.replace('x1', me.scheduled_id).replace('x2', me.group),
-          data: {
-            customer_id: me.current_customer,
-            index: me.current_customer_from_to_conbtact_list_index
-          }
-        }).done(function( data ) {
-          if (data.scheduled!=null) {
-            alert_next_is_scheduled(this);
-            me.next_customer(data.scheduled.customer_id, data.scheduled.contact_id);
-
-          } else {
-            me.current_customer_from_to_conbtact_list_index = data.index;
-            me.next_customer(data.next.customer_id)
-          }
-        });
-        //me.next_customer();
-      }
-    );
+      me.async_next_customer();
+    });
     return btn;
   },
 
@@ -411,6 +397,30 @@ var ScheduledContacts = {
     return is_ignored;
   },
 
+  async_ignore_customer: function() {
+    var me=this;    
+    this.async_action_current_customer("<%= Guara::Core::Engine.routes.url_helpers.ignore_customer_scheduled_scheduled_group_scheduled_contacts_path('scheduled_id', 'group_id') %>", function(data) {
+      ignoredCustomerAppend(me.current_customer);
+      next_customer_callback(data);
+    });
+  },
+
+  async_next_customer: function() {
+    this.async_action_current_customer("<%= Guara::Core::Engine.routes.url_helpers.next_customer_scheduled_scheduled_group_scheduled_contacts_path('scheduled_id', 'group_id') %>", next_customer_callback);
+  },
+
+  async_action_current_customer: function(url, done) {
+    //ajax  
+    $.ajax({
+      type: "POST",
+      url: url.replace('scheduled_id', this.scheduled_id).replace('group_id', this.group),
+      data: {
+        customer_id: this.current_customer,
+        index: this.current_customer_from_to_conbtact_list_index
+      }
+    }).done(done);
+  },
+
   next_customer: function(customer_id, contact_id){
     this.slide_customer(customer_id, contact_id);
   },
@@ -433,6 +443,20 @@ var ScheduledContacts = {
     }
   }
 };
+
+function next_customer_callback(data) {
+  if (data.scheduled!=null) {
+    alert_next_is_scheduled(this);
+    ScheduledContacts.next_customer(data.scheduled.customer_id, data.scheduled.contact_id);
+  } else {
+    ScheduledContacts.current_customer_from_to_conbtact_list_index = data.index;
+    if (data.next!=null) {
+      ScheduledContacts.next_customer(data.next.customer_id)
+    } else {
+      ScheduledContacts.slide_to_list();
+    }
+  }
+}
 
 function paginate_call(){
   $('.pagination a').each(function(){
@@ -457,6 +481,19 @@ function paginate_call(){
       });
     });
   });
+}
+
+function ignoredCustomerAppend(customer_id) {
+  var $tr, $tr_ign;
+  $tr = $('#customer-to-register tr[customer-id="'+customer_id+'"]');
+  tr_ign = $tr.first().clone();
+  $tr.remove();
+  $tr_ign = $(tr_ign);
+  $('#ignored-customers tbody').append($tr_ign);
+  $tr_ign.on('click', function() {
+    ScheduledContacts.next_customer($(this).attr('customer-id'), null);
+  });
+  ScheduledContacts.current_customer_from_to_conbtact_list_index--;
 }
 
 function customerToContactRemove(customer_id) {

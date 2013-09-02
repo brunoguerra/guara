@@ -102,6 +102,12 @@ pt-BR:
         scheduled_realized: "Contato Agendado"
         not_contacted_realized: "Não Contactado - (Mudou)"
 
+    ignored:
+      index:
+        title: "Clientes Ignorados"
+      ignoring_customer: "Ignorar Cliente"
+      ignoring_customer_text: "Deseja realmente mover este cliente para a lista de ignorados?"
+
   system:
     modules: &system_modules
       'guara/active_crm/scheduled/classified': "Call Center - Tipos de Desistências"

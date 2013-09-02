@@ -7,7 +7,7 @@ module Guara
       include ScheduledContactsHelper
       helper ScheduledContactsHelper
 
-      before_filter :load_group, :only => [:index, :new, :create, :close_negociation, :next_customer]
+      before_filter :load_group, :only => [:index, :new, :create, :close_negociation, :next_customer, :ignore_customer]
 
     	def index
     		params[:search] = {} if params[:search].nil?
@@ -17,7 +17,9 @@ module Guara
         @customers_to_register = paginate(@search, params[:page], 40).reorder("guara_people.id asc")
 
         @customers_scheduled = @group.scheduled_contacts.order('scheduled_at asc')
+        @ignored_customers = paginate(@group.ignored.order('created_at desc'), params[:ignored_page], 40)
         @deals = @group.deals
+
     	end
 
       def new
@@ -57,7 +59,7 @@ module Guara
         #
         if (scheduled.nil?)
             c_next = next_to_contact
-            @data[:next] = { customer_id: c_next.id }
+            @data[:next] = { customer_id: c_next.id } unless c_next.nil?
         else
             @data[:scheduled] = {
                 customer_id: scheduled.deal.customer_id,
@@ -67,6 +69,13 @@ module Guara
 
         authorize! :read, Guara::ActiveCrm::Scheduled::Group
         render :json => @data
+      end
+
+      def ignore_customer
+        authorize! :update, Guara::ActiveCrm::Scheduled::Group
+        customer = Guara::Customer.find params[:customer_id]
+        Scheduled::Ignored.create!(customer_id: customer.id, group_id: @group.id)
+        next_customer
       end
 
       private

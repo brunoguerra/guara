@@ -18,11 +18,14 @@ module Guara
 
 	    		SQL_NEW_TO_CONTACT = %Q{
 	    				customer_type = 'Guara::CustomerPj' AND 
-	 						(Select count(*) from #{Guara::ActiveCrm::Scheduled::Deal.table_name} as d 
-        				where d.customer_id = #{Guara::Customer.table_name}.id and d.scheduled_id = ?) = 0
+	 						#{Guara::Customer.table_name}.id NOT IN (Select customer_id from #{Guara::ActiveCrm::Scheduled::Deal.table_name} as d 
+        				where d.customer_id = #{Guara::Customer.table_name}.id and d.scheduled_id = ?) AND
+							#{Guara::Customer.table_name}.id NOT IN (Select customer_id from #{Guara::ActiveCrm::Scheduled::Ignored.table_name} as i 
+        				where i.customer_id = #{Guara::Customer.table_name}.id and i.group_id = ?)
 					}
 
 	    		has_many :deals, foreign_key: :group_id
+	    		has_many :ignored, class_name: "Scheduled::Ignored"
 	    		has_many :contacts, through: :deals
 	    		belongs_to :scheduled
 	    		has_many :scheduled_contacts,
@@ -55,21 +58,25 @@ module Guara
 	    		end
 
 	    		def to_contact(offset=0)
-	    			Guara::Customer.select('LOWER(guara_people.name), guara_people.id, guara_people.*').where(SQL_NEW_TO_CONTACT, self.scheduled.id).offset(offset).uniq.search(prepare_filter_search({}, self))
+	    			Guara::Customer.select('LOWER(guara_people.name), guara_people.id, guara_people.*').where(SQL_NEW_TO_CONTACT, self.scheduled.id, self.id).offset(offset).uniq.search(prepare_filter_search({}, self))
 	    		end
 
+	    		#TODO: rf accepteds_total
 	    		def count_registered
 		        return registered.count
 	    		end
 
+	    		#TODO: rf customers_total
 	    		def count_customers
     				return Guara::Customer.where(:customer_type=> 'Guara::CustomerPj').search(prepare_filter_search({}, self)).count()
 	    		end
 
+	    		#TODO: rf scheduleds_total
 	    		def count_scheduled
 	    			return contacts.count
 	    		end
 
+	    		#TODO: rf to_contact_total
 	    		def count_schedule
     				return to_contact.count
 	    		end

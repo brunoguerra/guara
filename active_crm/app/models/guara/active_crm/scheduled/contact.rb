@@ -76,6 +76,7 @@ module Guara
           end
 
           before_save :ensure_scheduled
+          before_save :ensure_not_ignored
           after_save :ensure_verdict
 
           def status
@@ -136,6 +137,11 @@ module Guara
               result = d_contact.result == SCHEDULED ? SCHEDULED_REALIZED : NOT_CONTACTED_REALIZED
               d_contact.update_attribute(:result, result)
             end
+          end
+
+          def ensure_not_ignored
+            @ignored = Scheduled::Ignored.where(group_id: self.deal.group.id, customer_id: self.deal.customer.id).first
+            @ignored.destroy unless @ignored.nil?
           end
 
           def ensure_verdict

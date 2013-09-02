@@ -1,0 +1,11 @@
+%table#customer-to-register.table.table-bordered.table-striped.table-hover
+  %thead
+    %tr
+      %th.span2= t("customers.code")
+      %th= t("helpers.label.customers.search.names")
+  %tbody
+    - (@customers_to_register).each do |customer|
+      %tr{"customer-id" => customer.id}
+        %td= customer.id
+        %td= customer.name
+= will_paginate(@customers_to_register)

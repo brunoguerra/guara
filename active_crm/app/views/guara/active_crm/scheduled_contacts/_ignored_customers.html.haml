@@ -1,0 +1,11 @@
+%table#ignored-customers.table.table-bordered.table-striped.table-hover
+  %thead
+    %tr
+      %th.span2= t("customers.code")
+      %th= t("helpers.label.customers.search.names")
+  %tbody
+    - (@ignored_customers).each do |ignored|
+      %tr{"customer-id" => ignored.customer.id}
+        %td= ignored.customer.id
+        %td= ignored.customer.name
+= will_paginate(@ignored_customers, param_name: "ignored_page")

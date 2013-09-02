@@ -8,10 +8,25 @@
         %li.active_crm.customers.span12
           .panel
             #contactables-list.list.span12
-              %h6= t("scheduleds.customers_to_register")
-              #container_table
-                = render :partial => 'customers_to_register'
-                = will_paginate(@customers_to_register)
+
+              %ul#group-customers.nav.nav-tabs
+                %li.active
+                  %a{:href => "#container_table"}= t("scheduleds.customers_to_register")
+                %li
+                  %a{:href => "#ignored_customers"}= t("scheduleds.ignored.index.title")
+
+              :javascript
+                jQuery(function() {
+                  $('.nav.nav-tabs a').click(function (e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                  });
+                });
+              .tab-content
+                #container_table.tab-pane.active
+                  = render :partial => 'customers_to_register'
+                #ignored_customers.tab-pane
+                  = render :partial => 'ignored_customers'
               %hr/
               .scheduled_contacts.thumbnail.content
                 %h2.black.text-left

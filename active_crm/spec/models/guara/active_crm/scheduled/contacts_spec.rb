@@ -25,7 +25,7 @@ module Guara::ActiveCrm
 
     it { should respond_to(:scheduled_at) }
 
-    it { Scheduled::Contact.results.should have(5).items }
+    it { Scheduled::Contact.results.should have(7).items }
 
     it { should be_valid }
 
@@ -107,6 +107,12 @@ module Guara::ActiveCrm
         new_contact = @contact.dup
         new_contact.change_to_accepted        
         expect{ new_contact.save }.to change{ Scheduled::Contact.where(result: Scheduled::Contact::DENIED_CHANGE).count }.by(1)
+      end
+
+      let(:ignored_customer) { Factory(:scheduled_ignored, customer: @contact.deal.customer, group: @contact.deal.group)}
+      it "ensures after contact customers not more ignored" do
+        ignored_customer
+        expect { @contact.save! }.to change{ Scheduled::Ignored.count }.by(-1)
       end
     end
   end
