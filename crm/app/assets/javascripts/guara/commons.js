@@ -80,7 +80,7 @@ function applyMultiSelect(selector) {
 
     if ($(this).attr("data-json-url") != null) {
       url_json = $(this).attr("data-json-url");
-      input_name = $(this).attr("name");
+      input_name = $(this).attr("name") || $(this).attr("id");
       inp = $("<input>").attr("id", input_name+'-input-ajax').attr('data-ajax', 1).attr("class", $(this).attr("class")).val($(this).val());
       select = $(this);
       /* append auxiliar */

@@ -21,6 +21,8 @@ pt-BR:
     edit:
       title: "Edição de Cliente"
       link: "Edição"
+    search:
+      title: "Pesquisar Cliente"
     
     a_customer: "É Cliente"
     name_of: "Cliente"

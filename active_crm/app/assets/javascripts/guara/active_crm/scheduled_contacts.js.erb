@@ -62,6 +62,8 @@ var ScheduledContacts = {
       ]
     });
 
+    $('#search-customer').on('change', searchCustomerSelected);
+
   },
 
   reorganize_view_customer: function(){
@@ -441,8 +443,17 @@ var ScheduledContacts = {
     if(me.is_customer_ignored(me.current_customer) === true){
       alert("<%= I18n.t('schduleds.group.empty_to_contact') %>");
     }
-  }
+  },
 };
+
+/* ending obj **************************************************************************/
+
+function searchCustomerSelected(e) {
+  ScheduledContacts.next_customer(e.val, null);
+  $('#s2id_search-customer-input-ajax').delay(2000).queue(function() {
+    $('#s2id_search-customer-input-ajax').select2('data', null);
+  })
+}
 
 function next_customer_callback(data) {
   if (data.scheduled!=null) {

@@ -1,43 +1,41 @@
 = stylesheet_link_tag "guara/active_crm/scheduleds"
 = javascript_include_tag "/assets/guara/active_crm/scheduled_contacts_form.js"
 %section#active_crm.scheduled_contacts
-  = render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :false}
-  %div
-    %div
-      %ul.thumbnails
-        %li.active_crm.customers.span12
-          .panel
-            #contactables-list.list.span12
+  = render :partial => 'guara/active_crm/scheduleds/navbar', locals: {active: :false, customer_search: true}
+  %ul.thumbnails
+    %li.active_crm.customers.span12
+      .panel
+        #contactables-list.list.span12
 
-              %ul#group-customers.nav.nav-tabs
-                %li.active
-                  %a{:href => "#container_table"}= t("scheduleds.customers_to_register")
-                %li
-                  %a{:href => "#ignored_customers"}= t("scheduleds.ignored.index.title")
+          %ul#group-customers.nav.nav-tabs
+            %li.active
+              %a{:href => "#container_table"}= t("scheduleds.customers_to_register")
+            %li
+              %a{:href => "#ignored_customers"}= t("scheduleds.ignored.index.title")
 
-              :javascript
-                jQuery(function() {
-                  $('.nav.nav-tabs a').click(function (e) {
-                    e.preventDefault();
-                    $(this).tab('show');
-                  });
-                });
-              .tab-content
-                #container_table.tab-pane.active
-                  = render :partial => 'customers_to_register'
-                #ignored_customers.tab-pane
-                  = render :partial => 'ignored_customers'
-              %hr/
-              .scheduled_contacts.thumbnail.content
-                %h2.black.text-left
-                  = t("scheduleds.customers_scheduled")
-                = render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list"
-              #deals-panel.thumbnail.content
-                %h2.black.text-left
-                  = t("scheduleds.deals.title")
-                = render :partial => "guara/active_crm/scheduled_deals/list"
-                .details
-            #customer_show.list.span12
+          :javascript
+            jQuery(function() {
+              $('.nav.nav-tabs a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+              });
+            });
+          .tab-content
+            #container_table.tab-pane.active
+              = render :partial => 'customers_to_register'
+            #ignored_customers.tab-pane
+              = render :partial => 'ignored_customers'
+          %hr/
+          .scheduled_contacts.thumbnail.content
+            %h2.black.text-left
+              = t("scheduleds.customers_scheduled")
+            = render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list"
+          #deals-panel.thumbnail.content
+            %h2.black.text-left
+              = t("scheduleds.deals.title")
+            = render :partial => "guara/active_crm/scheduled_deals/list"
+            .details
+        #customer_show.list.span12
 #dialog-modal-customer.no-close{:title => "Cliente a Contactar"}
 #dialog-confirm{:title => "Deseja Encerrar Negociação?"}
 = javascript_include_tag 'guara/active_crm/scheduled_contacts'

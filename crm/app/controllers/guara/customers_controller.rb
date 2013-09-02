@@ -1,6 +1,6 @@
 module Guara
   class CustomersController < BaseController
-    load_and_authorize_resource :class => Guara::Customer, :except => [:create, :multiselect_business_segments, :multiselect_business_activities, :multiselect_customers, :multiselect_customers_pj]
+    load_and_authorize_resource :class => Guara::Customer, :except => [:create, :multiselect_business_segments, :multiselect_business_activities, :multiselect_customers, :multiselect_customers_pj, :multiselect_customers_pj_customer_id]
     before_filter :custom_load_creator, :only => [:create,:update]
     before_filter :filter_before_changes, :only => [:create,:update]
   
@@ -237,6 +237,10 @@ module Guara
       render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
     end
 
+    def multiselect_customers_pj_customer_id
+      authorize! :read, Guara::CustomerPj
+      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).collect { |c| { :id => c.person.id, :name => c.person.name } }
+    end
 
     def load_cities
       authorize! :read, Guara::City

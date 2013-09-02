@@ -19,6 +19,11 @@
             <%= link_to t('active_crm.scheduled_deals.title'), scheduled_deals_path() %>
           </li>
       	</ul>
+        <%- if local_assigns[:customer_search]==true %>
+        <form class="navbar-search pull-right">
+          <select id="search-customer" class="search-query multiselect span3" data-json-url="<%= multiselect_customers_pj_customer_id_customers_path() %>" data-placeholder="<%= t('customers.search.title') %>"></select>
+        </form>
+        <%- end %>
       </div><!-- /.nav-collapse -->
     </div>
   </div>
