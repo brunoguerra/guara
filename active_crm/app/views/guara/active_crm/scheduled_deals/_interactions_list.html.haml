@@ -13,7 +13,7 @@
   %tbody
     - (interactions).each do |interaction|
       %tr
-        %td#contact_name= interaction.contact.name
-        %td#scheduled_at= interaction.scheduled_at
-        %td#activity= interaction.activity
-        %td#status= prepare_span_status(interaction).html_safe
+        %td.contact_name= interaction.contact.name
+        %td.scheduled_at= interaction.scheduled_at
+        %td.activity{ "scheduled_contact-id" => interaction.id }= interaction.activity
+        %td.status= prepare_span_status(interaction).html_safe

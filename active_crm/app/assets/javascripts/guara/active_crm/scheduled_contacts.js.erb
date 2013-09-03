@@ -316,11 +316,11 @@ var ScheduledContacts = {
         url : $('form.guara_customer').attr('action')+'.js',
         data: data_fields,
         success : function(script){
-          $('.container-contacts').delay(1000).queue(function() {
+          setTimeout(function() {
             me.form_contact_setup();
             me.customer_contacts_list_setup();
             me.form_customer_contacts();
-          })
+          }, 1000);
         }
       });
 
@@ -356,6 +356,52 @@ var ScheduledContacts = {
       });
   },
 
+  form_activity_live_edit_setup: function() {
+    var me = this;
+    $('.activity', $('#scheduled_contact_form_list')).on('dblclick', function(e) { me.form_activity_live_edit_submit(e, me, this); });
+  },
+
+  form_activity_live_edit_submit: function(e, me, td_activity) {
+      var scheduled_contact_id = $(td_activity).attr('scheduled_contact-id');
+
+      /*txt*/
+      $txt = $('<textarea />');
+      $txt.html($(td_activity).html());
+      $(td_activity).html('');
+      $txt.attr('scheduled_contact-id', scheduled_contact_id);
+      $txt.attr('id', 'textarea_activity_'+scheduled_contact_id);
+      $(td_activity).append($txt);
+      
+      /*btn save*/
+      $btn = $('button', $('#scheduled_contact_form')).clone();
+      $btn.attr('scheduled_contact-id', scheduled_contact_id);
+      $btn.attr('onclick', null);
+
+      $btn.on('click', function(e) {
+        var text = $('#textarea_activity_'+scheduled_contact_id).val();
+        e.stopPropagation();
+        
+        $.ajax({
+          type: "POST",
+          url: "<%= Guara::Core::Engine.routes.url_helpers.scheduled_scheduled_group_scheduled_contact_update_activity_path('scheduled_id', 'group_id', 'contact_id') %>".replace('scheduled_id', me.scheduled_id).replace('group_id', me.group).replace('contact_id', scheduled_contact_id),
+          data: {
+            activity: text
+          }
+        }).done(function( data ) {
+          if(data.success==true) {
+            $btn.parent().on('dblclick', function(e) { me.form_activity_live_edit_submit(e, me, this); });
+            $btn.parent().html(data.activity);
+          } else {
+            $btn.parent().prepend($('<div class="alert alert-danger">'+data.error+'</div>'));
+          }
+        });
+      });
+
+      $(td_activity).append($btn);
+      
+      $(td_activity).off('dblclick');
+    },
+
   initialize_js_customer: function(){
     var me = this;
     me.form_contact_setup();
@@ -379,6 +425,7 @@ var ScheduledContacts = {
       $('#dialog-modal-customer').animate({
         scrollTop: $('#active_crm_scheduled_contact_activity').offset().top - 350
       });
+      me.form_activity_live_edit_setup();
     });
   },
 

@@ -11,7 +11,7 @@
     - (@deals || []).each do |deal|
       %tr{"deal-id" => deal.id, "customer-id" => deal.customer.id}
         %td= deal.customer.name
-        %td= deal.date_start.in_time_zone
+        %td= t deal.date_start 
         %td= deal.accepted_total
         %td= deal.scheduled_contacts_total
         %td= deal.contacts.count

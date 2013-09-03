@@ -7,7 +7,7 @@ module Guara
       include ScheduledContactsHelper
       helper ScheduledContactsHelper
 
-      before_filter :load_group, :only => [:index, :new, :create, :close_negociation, :next_customer, :ignore_customer]
+      before_filter :load_group, :only => [:index, :new, :create, :close_negociation, :next_customer, :ignore_customer, :update_activity]
 
     	def index
     		params[:search] = {} if params[:search].nil?
@@ -78,6 +78,12 @@ module Guara
         Scheduled::Ignored.create!(customer_id: customer.id, group_id: @group.id)
         next_customer
         authorize! :read, Guara::ActiveCrm::Scheduled::Group
+      end
+
+      def update_activity
+        @scheduled_contact = Scheduled::Contact.find params[:scheduled_contact_id]
+        @scheduled_contact.update_attribute(:activity, params[:activity])
+        render :json => @scheduled_contact.as_json(:only => [:id, :activity]).merge({:success => true})
       end
 
       private

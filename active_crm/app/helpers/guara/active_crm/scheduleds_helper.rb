@@ -25,7 +25,7 @@ module Guara
   			search[:customer_guara_customer_pj_type_activities_business_segment_id_in] = record.business_segments.split(',') if !record.business_activities.nil? && !record.business_segments.empty?
   			search["customer_guara_customer_pj_type_total_employes_btw(1)"] = record.employes_min || 0
   			search["customer_guara_customer_pj_type_total_employes_btw(2)"] = record.employes_max if !record.employes_max.nil?
-        search["customer_guara_customer_pj_type_total_employes_btw(2)"] = 1000000000 if record.employes_max.nil? && !record.employes_min.nil?
+        search["customer_guara_customer_pj_type_total_employes_btw(2)"] = 9999999 if record.employes_max.nil? && !record.employes_min.nil?
   			search[:name_contains] = record.name_contains if !record.name_contains.nil? && !record.name_contains.empty?
   			search[:finished_id] = record.finished_id if !record.finished_id.nil?
   			search[:pair_or_odd_id] = record.pair_or_odd if !record.pair_or_odd.nil? && !record.pair_or_odd.empty?
@@ -49,20 +49,20 @@ module Guara
       end
 
       def load_scheduleds_select(params)
-          search = search_scheduled(params)
-          if search.empty?
-            return Scheduled.limit(25).search(search).order(:id)
-          else
-            return Scheduled.search(search).order(:id)
-          end
+        search = search_scheduled(params)
+        if search.empty?
+          return Scheduled.limit(25).search(search).order(:id)
+        else
+          return Scheduled.search(search).order(:id)
+        end
       end
 
       def load_group_select(params)
-          if params[:group_scheduled_id_in].nil? or params[:group_scheduled_id_in].empty?
-              return Scheduled::Group.order(:id).limit(25)
-          else
-              return Scheduled::Group.where(:scheduled_id=> params[:group_scheduled_id_in]).order(:id).limit(25)
-          end
+        if params[:group_scheduled_id_in].nil? or params[:group_scheduled_id_in].empty?
+            return Scheduled::Group.order(:id).limit(25)
+        else
+            return Scheduled::Group.where(:scheduled_id=> params[:group_scheduled_id_in]).order(:id).limit(25)
+        end
       end
 
       def load_customer_select(params)

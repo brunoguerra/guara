@@ -34,7 +34,7 @@ module Guara
     belongs_to :city
     belongs_to :district
 
-    scope :finished_id, lambda {|id| where("guara_people.id::varchar ILIKE '%#{id.to_s}'")}
+    scope :finished_id, lambda {|id| where( "(" + id.to_s.split(',').collect {|id| "guara_people.id::varchar ILIKE '%#{id}' "}.join(' or ') + ")" ) }
     search_methods :finished_id
 
     scope :pair_or_odd_id, lambda {|id| 

@@ -5,6 +5,7 @@ Guara::Core::Engine.routes.prepend do
 				resources :scheduled_contacts do
 					post :next_customer, on: :collection
 					post :ignore_customer, on: :collection
+					post :update_activity
 				end
 			end
 		end
