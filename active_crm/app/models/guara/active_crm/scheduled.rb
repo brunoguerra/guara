@@ -17,8 +17,21 @@ module Guara
 
       has_many :groups, :class_name => "Guara::ActiveCrm::Scheduled::Group"
       has_many :deals, :through => :groups
+      has_many :contacts, :through => :deals
+
+      has_many :positives, through: :deals, source: :contacts,  conditions: " result >=0 "
+      has_many :negatives, through: :deals, source: :contacts,  conditions: " result < 0 "
+      has_many :contacts, through: :deals, source: :contacts
+
+      has_many :accepteds, through: :deals, source: :contacts, conditions: { result: Scheduled::Contact::ACCEPTED }
+      has_many :denieds, through: :deals, source: :contacts, conditions: { result: Scheduled::Contact::DENIED }
+      has_many :interested, through: :deals, source: :contacts, conditions: { result: [Scheduled::Contact::INTERESTED, Scheduled::Contact::INTERESTED_CHANGE] }
+      has_many :interesteds_change, through: :deals, source: :contacts, conditions: { result: [Scheduled::Contact::INTERESTED_CHANGE] }
+      has_many :denieds, through: :deals, source: :contacts, conditions: { result: Scheduled::Contact::DENIED }
 
       default_scope order('created_at DESC')
+
+      validates_presence_of :date_start, :user_id
 
       def name
         "#{self.date_start.strftime("%d/%m/%Y")} - #{self.user.name} - #{self.task_type.name}"
@@ -46,6 +59,10 @@ module Guara
           date_start: Time.now,
           closed: false,
         ) 
+      end
+
+      def denieds_totals 
+       Scheduled::Contact.joins({ :deal => :scheduled}, :classified).select("count(#{Scheduled::Contact.table_name}.id) total, #{Scheduled::Classified.table_name}.name").where("#{Scheduled::Deal.table_name}" => {scheduled_id: self.id}, result: Scheduled::Contact::DENIED).group("#{Scheduled::Classified.table_name}.name")
       end
 
     end

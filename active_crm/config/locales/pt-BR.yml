@@ -8,6 +8,11 @@ pt-BR:
     scheduled_groups: 
       title: "Grupo de Cliente"
       new: "Novo Grupo"
+      pair_or_odd: "Paridade"
+      business_segments: "Grupo: Segmento"
+      business_activities: "Grupo: Atividade"
+      total_employes_min: "Qtd. Funcionários. (Min)"
+      total_employes_max: "Qtd. Funcionários. (Max)"
 
     scheduled_deals:
       title: "Negociações"
@@ -23,6 +28,8 @@ pt-BR:
     scheduled_contacts_reports:
       title: "Histórico de Ligações"
 
+
+
   scheduleds:
     id: "Cod."
     title: "Planos de Ligações"
@@ -31,6 +38,10 @@ pt-BR:
     task_type: "Tipo de Tarefa"
     index:
       title: "Buscar por Agendados"
+    sumary_contacts: "Dados das Ligações"
+    sumary: 
+      interested: "Se Interessaram"
+      interested_change: "Interessados que desistiram"
     edit: "Editar Plano de Ligações"
 
     date_start: "Data Inicial"
@@ -50,8 +61,8 @@ pt-BR:
       title: "Novo Plano de Ligações"
 
     planning_contact: "Plano de Ligações"
-
-    responsible: "Responsável"
+    period: "Período"
+    responsible: "Agente"
     scheduled_at: "Próximo Contato"
     created_at: "Agendado em"
     activity: "Histórico da Negociação"
@@ -71,6 +82,10 @@ pt-BR:
     customers_scheduled: "Clientes Agendados"
     datetime: "Data/Hora"
     call_completed: "Fim da Ligação"
+
+    contacted_positive: "Ligações Positivas"
+    contacted_negative: "Ligações Negativas"
+    contacted_total:    "Total"
 
     deals:
       title: "Negociações"
@@ -107,6 +122,13 @@ pt-BR:
         title: "Clientes Ignorados"
       ignoring_customer: "Ignorar Cliente"
       ignoring_customer_text: "Deseja realmente mover este cliente para a lista de ignorados?"
+
+    report:
+      title: "Relatório Call Center"
+      agent:
+        title: "Dados do Agente"
+
+
 
   system:
     modules: &system_modules

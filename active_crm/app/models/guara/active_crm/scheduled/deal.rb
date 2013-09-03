@@ -39,10 +39,19 @@ module Guara
 														},
 						:class_name => "Contact"
 
+	    		has_many :accepteds,
+						:conditions =>  { result: Contact::ACCEPTED
+														},
+						:class_name => "Contact"
+
 			    validates_presence_of :scheduled, :customer
 
+			    def accepteds
+						group.registered.where("#{Guara::ActiveCrm::Scheduled::Deal.table_name}.id = ?", self.id)
+			    end
+
 			    def accepted_total
-			    	group.registered.where("#{Guara::ActiveCrm::Scheduled::Deal.table_name}.id = ?", self.id).count()
+			    	accepteds.count()
 			    end
 
 			    def scheduled_contacts_total

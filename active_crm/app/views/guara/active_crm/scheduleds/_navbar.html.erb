@@ -13,7 +13,7 @@
             <%= link_to t('scheduleds.title'), scheduleds_path() %>
           </li>
           <li class="<%= 'active' if active == :scheduled_contacts_reports %>">
-            <%= link_to t('active_crm.scheduled_contacts_reports.title'), scheduled_contacts_reports_path() %>
+            <%= link_to t('active_crm.scheduled_contacts_reports.title'), scheduled_report_index_path() %>
           </li>
           <li class="<%= 'active' if active == :scheduled_deals %>">
             <%= link_to t('active_crm.scheduled_deals.title'), scheduled_deals_path() %>

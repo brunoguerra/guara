@@ -1,0 +1,49 @@
+#scheduled_sumary{ "scheduled-id" => scheduled.id}
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"href" => "#sumary"}
+        %h4= t('scheduleds.sumary_contacts')
+  .thumbnail
+    .row-fluid
+      .span4.well
+        %strong= t('scheduleds.contacted_positive')
+        .pull-right= scheduled.positives.count
+      .span4.well
+        %strong= t('scheduleds.contacted_negative')
+        .pull-right= scheduled.negatives.count
+      .span4.well
+        %strong= t('scheduleds.contacted_total')
+        .pull-right= scheduled.contacts.count
+    .row-fluid
+      .span6.well
+        %table#customer-deals.table.table-bordered.table-striped.scheduled_sumary.positive
+          %tr#interested
+            %td{ "colspan" => 2 }
+              %strong= t('scheduleds.sumary.interested')
+              \:
+              = scheduled.accepteds.count+scheduled.interested.count
+          %tr#accepted
+            %td
+              = t('scheduleds.contacts.result.accepted')
+            %td
+              = scheduled.accepteds.count
+
+          %tr#interested_change
+            %td
+              = t('scheduleds.sumary.interested_change')
+            %td
+              = scheduled.interesteds_change.count
+
+      .span6.well
+        %table#customer-deals.table.table-bordered.table-striped.scheduled_sumary.negative
+          %tr#denied
+            %td{ "colspan" => 2 }
+              %strong= t('scheduleds.contacts.result.denied')
+              \:
+              = scheduled.denieds.count
+          - scheduled.denieds_totals.each do |denied_total|
+            %tr
+              %td
+                %strong= denied_total.name
+              %td
+                = denied_total.total

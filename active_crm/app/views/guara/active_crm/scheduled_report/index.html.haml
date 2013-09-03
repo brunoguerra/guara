@@ -1,0 +1,29 @@
+%div
+  .row= render :partial => "form_search", locals: { url: scheduled_report_index_path }
+
+  %h1.modules= t('scheduleds.report.title')
+  %hr
+  - @scheduleds.each do |scheduled|
+    %ul.thumbnails
+      %li.thumbnail.span12
+        .row-fluid.content-large
+          .span6
+            %strong= t('scheduleds.responsible')
+            = scheduled.user.name
+          .span6
+            %strong= t('scheduleds.period')
+            = l(scheduled.date_start) unless scheduled.date_start.nil?
+            \-
+            = l(scheduled.date_finish) unless scheduled.date_finish.nil?
+        .row-fluid.content-large
+          .span12
+            %strong= t('scheduleds.task_type')
+            = scheduled.task_type.name unless scheduled.task_type.nil?
+        - scheduled.groups.each do |group|
+          %ul.nav.nav-tabs
+            %li.active
+              %a{"href" => "#groups"}
+                %h4= t('active_crm.scheduled_groups.title')
+          = render group
+
+        = render :partial => "scheduled_sumary", locals: { scheduled: scheduled }
