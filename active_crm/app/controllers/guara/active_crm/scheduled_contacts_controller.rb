@@ -1,7 +1,7 @@
 module Guara
   module ActiveCrm
   	class ScheduledContactsController < Guara::BaseController
-    	load_and_authorize_resource :class => "Guara::ActiveCrm::Scheduled::Contact"
+    	load_and_authorize_resource :class => "Guara::ActiveCrm::Scheduled::Contact", :except => [:close_negociation, :next_customer, :ignore_customer]
 
     	include ScheduledsHelper
       include ScheduledContactsHelper

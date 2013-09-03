@@ -23,18 +23,18 @@
           .tab-content
             #container_table.tab-pane.active
               = render :partial => 'customers_to_register'
+              %hr/
+              .scheduled_contacts.thumbnail.content
+                %h2.black.text-left
+                  = t("scheduleds.customers_scheduled")
+                = render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list"
+              #deals-panel.thumbnail.content
+                %h2.black.text-left
+                  = t("scheduleds.deals.title")
+                = render :partial => "guara/active_crm/scheduled_deals/list"
+                .details
             #ignored_customers.tab-pane
               = render :partial => 'ignored_customers'
-          %hr/
-          .scheduled_contacts.thumbnail.content
-            %h2.black.text-left
-              = t("scheduleds.customers_scheduled")
-            = render :partial => "guara/active_crm/scheduled_contacts/scheduleds_list"
-          #deals-panel.thumbnail.content
-            %h2.black.text-left
-              = t("scheduleds.deals.title")
-            = render :partial => "guara/active_crm/scheduled_deals/list"
-            .details
         #customer_show.list.span12
 #dialog-modal-customer.no-close{:title => "Cliente a Contactar"}
 #dialog-confirm{:title => "Deseja Encerrar Negociação?"}

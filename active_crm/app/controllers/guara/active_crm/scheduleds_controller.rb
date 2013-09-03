@@ -10,7 +10,7 @@ module Guara
       def index
         param_search = params[:search]
 
-        if !param_search.nil? && param_search.size>0 
+        if !param_search.nil? && param_search.size>0
           filter_multiselect param_search, :user_id_in
           filter_multiselect param_search, :task_type_id_in
         end
