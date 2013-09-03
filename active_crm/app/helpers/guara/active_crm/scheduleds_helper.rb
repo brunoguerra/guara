@@ -23,8 +23,9 @@ module Guara
   		def prepare_filter_search(search, record)
   			search[:customer_guara_customer_pj_type_activities_id_in] = record.business_activities.split(',') if !record.business_activities.nil? && !record.business_activities.empty?
   			search[:customer_guara_customer_pj_type_activities_business_segment_id_in] = record.business_segments.split(',') if !record.business_activities.nil? && !record.business_segments.empty?
-  			search["customer_guara_customer_pj_type_total_employes_btw(1)"] = record.employes_min if !record.employes_min.nil?
+  			search["customer_guara_customer_pj_type_total_employes_btw(1)"] = record.employes_min || 0
   			search["customer_guara_customer_pj_type_total_employes_btw(2)"] = record.employes_max if !record.employes_max.nil?
+        search["customer_guara_customer_pj_type_total_employes_btw(2)"] = 1000000000 if record.employes_max.nil? && !record.employes_min.nil?
   			search[:name_contains] = record.name_contains if !record.name_contains.nil? && !record.name_contains.empty?
   			search[:finished_id] = record.finished_id if !record.finished_id.nil?
   			search[:pair_or_odd_id] = record.pair_or_odd if !record.pair_or_odd.nil? && !record.pair_or_odd.empty?

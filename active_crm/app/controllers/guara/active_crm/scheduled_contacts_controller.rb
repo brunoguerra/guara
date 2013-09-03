@@ -51,10 +51,11 @@ module Guara
           deal = create_deal(params[:customer_id], params[:group]) if deal.nil?
           deal.update_attributes(:closed=> true, :date_finish=> Time.now)
           render :json => { success: true}
+          authorize! :update, Guara::ActiveCrm::Scheduled::Deal
       end
 
       def next_customer
-        scheduled = @group.expired_contacts.first
+        scheduled = @group.expired_contacts.order(:scheduled_at).first
         @data = { index: params[:index].to_i+1 }
         #
         if (scheduled.nil?)
@@ -76,6 +77,7 @@ module Guara
         customer = Guara::Customer.find params[:customer_id]
         Scheduled::Ignored.create!(customer_id: customer.id, group_id: @group.id)
         next_customer
+        authorize! :read, Guara::ActiveCrm::Scheduled::Group
       end
 
       private
