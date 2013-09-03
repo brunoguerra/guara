@@ -8,7 +8,7 @@ describe "User pages" do
   
   describe "index" do
 
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { Factory(:user) }
 
     before(:all) { 30.times { FactoryGirl.create(:user) } }
     after(:all)  { User.delete_all }

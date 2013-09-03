@@ -4,7 +4,7 @@ module Guara
     
     def able?(module_, ability)
       if self.respond_to?(:all_abilities)
-        abilities = self.all_abilities.reject! { |a| !(a.module == module_ && a.ability == ability) }
+        abilities = self.all_abilities.reject { |a| !(a.module.id == module_.id && a.ability.id == ability.id) }
         !abilities.nil? && abilities.size() > 0
       else
         self.abilities.where(module_id: module_.id, ability_id: ability.id).count > 0 

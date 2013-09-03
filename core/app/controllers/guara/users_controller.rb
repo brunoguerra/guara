@@ -1,6 +1,7 @@
 module Guara
   class UsersController < BaseController
-    load_and_authorize_resource class: Guara::User
+    load_and_authorize_resource class: Guara::User, :except => [:sign_out]
+    skip_authorization_check :only => [:sign_out]
     before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
     before_filter :correct_user,   only: [:edit, :update]
     before_filter :admin_user,     only: :destroy
@@ -47,6 +48,11 @@ module Guara
       User.find(params[:id]).destroy
       flash[:success] = "User destroyed."
       redirect_to users_path
+    end
+
+    def sign_out
+      reset_session
+      redirect_to new_user_session_path
     end
     
     

@@ -15,10 +15,10 @@ module Guara
   
     it { should be_valid }
   
-    describe "when emailable is not present" do
-      before { @email.emailable_id = nil }
-      it { should_not be_valid }
-    end
+    #describe "when emailable is not present" do
+    #  before { @email.emailable_id = nil }
+    #  it { should_not be_valid }
+    #end
   
   
   

@@ -17,8 +17,9 @@ module Guara
   
     #attr_readonly :admin
     attr_accessible :name, :email, :password, :password_confirmation, :admin, :remember_me, :users_has_groups, 
-                    :primary_group, :primary_group_id, :secundary_groups, :secundary_group_ids, :primary_company_business, :primary_company_business_id,
-                    :type_id, :primary_company_branch_id, :primary_company_branch, :company_branch_ids
+                    :primary_group, :primary_group_id, :secundary_groups, :secundary_group_ids, 
+                    :primary_company_business, :primary_company_business_id,  :type_id, 
+                    :primary_company_branch_id, :primary_company_branch, :company_branch_ids
   
     # Include default devise modules. Others available are:
     # :confirmable,

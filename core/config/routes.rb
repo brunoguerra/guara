@@ -6,7 +6,6 @@ Guara::Core::Engine.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :system_extensions
-
   resources :company_businesses
 
   resources :districts
@@ -33,6 +32,7 @@ Guara::Core::Engine.routes.draw do
   #resources
   resources :users do
   #  resources :sessions
+    get :sign_out, on: :collection
     resources :abilities, controller: "UsersAbilities"
   end
 

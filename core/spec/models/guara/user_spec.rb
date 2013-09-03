@@ -258,6 +258,7 @@ module Guara
   
     describe "user able?" do
       before do
+        @user.save
         able(@user, :create, :city)
         able(@user, :read, :user)
       end

@@ -175,7 +175,6 @@ GEM
     faker (1.1.2)
       i18n (~> 0.5)
     fastercsv (1.5.5)
-    ffaker (1.16.1)
     ffi (1.9.0)
     formatador (0.2.4)
     formtastic (2.2.1)
@@ -373,7 +372,6 @@ DEPENDENCIES
   email_spec (~> 1.2.1)
   factory_girl_rails (= 1.7.0)
   faker
-  ffaker
   growl (= 1.0.3)
   guara_core!
   guard

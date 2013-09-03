@@ -21,11 +21,11 @@ module Guara
         visit user_path(user)
       end    
   
-      it { should have_link(I18n.t("users.abilities.link")) }
+      it { should have_link(I18n.t("abilities.link")) }
     
       describe "when click, go to user abilities pages" do
-        before { click_link I18n.t("users.abilities.link") }
-        it { should have_selector("h1", text: I18n.t("users.abilities.title", :user => user.name)) }
+        before { click_link I18n.t("abilities.link") }
+        it { should have_selector("h1", text: I18n.t("abilities.title", :user => user.name)) }
         it { should on_path(user_abilities_path(user)) }
       end
     
@@ -38,7 +38,7 @@ module Guara
          visit user_abilities_path(user)
       end
       
-      it { should have_content(I18n.t("users.abilities.title", :user => user.name)) }
+      it { should have_content(I18n.t("abilities.title", :user => user.name)) }
     
       it { should have_content(I18n.t("system.modules.%s" % SystemModule.USER.name.downcase)) }
     
