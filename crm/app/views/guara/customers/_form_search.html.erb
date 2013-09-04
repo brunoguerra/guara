@@ -7,9 +7,9 @@
 <!--fieldset-->
 	<div class="container">
 		<div class="control-group">
-			<%= f.label :name_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
+			<%= f.label :name_or_name_sec_contains, t("helpers.label.customers.search.names"), :class => "control-label" %>
 			<div class="controls">
-				<%= f.text_field :name_contains, :class => "span3" %>
+				<%= f.text_field :name_or_name_sec_contains, :class => "span3" %>
 			</div>
 		</div>
 		<% if (mode == :advanced) then %>

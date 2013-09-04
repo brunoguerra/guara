@@ -14,13 +14,18 @@ module Guara
     		search_params = prepare_filter_search(params[:search], @group)
     		
     		@search = @group.to_contact
-        @customers_to_register = paginate(@search, params[:page], 40).reorder("guara_people.id asc")
+        @customers_to_register = paginate(@search, params[:page], 40)
 
         @customers_scheduled = @group.scheduled_contacts.order('scheduled_at asc')
         @ignored_customers = paginate(@group.ignored.order('created_at desc'), params[:ignored_page], 40)
         @deals = @group.deals
 
     	end
+
+      def customers
+
+        @customers = Guara::Customer.joins('LEFT JOIN #{Scheduled::Deal.table_name} ON #{Scheduled::Deal.table_name}.customer_id=')
+      end
 
       def new
           @contact = Guara::Contact.find(params[:contact_id])
