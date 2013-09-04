@@ -62,7 +62,7 @@ module Guara
       end
 
       def denieds_totals 
-       Scheduled::Contact.joins({ :deal => :scheduled}, :classified).select("count(#{Scheduled::Contact.table_name}.id) total, #{Scheduled::Classified.table_name}.name").where("#{Scheduled::Deal.table_name}" => {scheduled_id: self.id}, result: Scheduled::Contact::DENIED).group("#{Scheduled::Classified.table_name}.name")
+        Scheduled::Contact.joins({ :deal => :scheduled}, :classified).select("count(#{Scheduled::Contact.table_name}.id) total, #{Scheduled::Classified.table_name}.id classified_id, #{Scheduled::Classified.table_name}.name").where("#{Scheduled::Deal.table_name}" => {scheduled_id: self.id}, result: Scheduled::Contact::DENIED).group("#{Scheduled::Classified.table_name}.name", "#{Scheduled::Classified.table_name}.id")
       end
 
     end

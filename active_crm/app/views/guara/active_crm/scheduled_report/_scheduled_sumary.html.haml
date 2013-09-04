@@ -21,18 +21,18 @@
             %td{ "colspan" => 2 }
               %strong= t('scheduleds.sumary.interested')
               \:
-              = scheduled.accepteds.count+scheduled.interested.count
+              %a.pull-right{ "href" => scheduled_customers_path(scheduled.id, :search => { "deals_contacts_result_in" => [1,2] })}= scheduled.accepteds.count+scheduled.interested.count
           %tr#accepted
             %td
               = t('scheduleds.contacts.result.accepted')
             %td
-              = scheduled.accepteds.count
+              %a.pull-right{ "href" => scheduled_customers_path(scheduled.id, :search => { "deals_contacts_result_in" => [1] })}= scheduled.accepteds.count
 
           %tr#interested_change
             %td
               = t('scheduleds.sumary.interested_change')
             %td
-              = scheduled.interesteds_change.count
+              %a.pull-right{ "href" => scheduled_customers_path(scheduled.id, :search => { "deals_contacts_result_in" => [2] })}= scheduled.interesteds_change.count
 
       .span6.well
         %table#customer-deals.table.table-bordered.table-striped.scheduled_sumary.negative
@@ -40,10 +40,12 @@
             %td{ "colspan" => 2 }
               %strong= t('scheduleds.contacts.result.denied')
               \:
-              = scheduled.denieds.count
+              %a.pull-right{ "href" => scheduled_customers_path(scheduled.id, :search => { "deals_contacts_result_in" => [Guara::ActiveCrm::Scheduled::Contact::DENIED] })}
+                = scheduled.denieds.count
           - scheduled.denieds_totals.each do |denied_total|
             %tr
               %td
                 %strong= denied_total.name
               %td
-                = denied_total.total
+                %a.pull-right{ "href" => scheduled_customers_path(scheduled.id, :search => { "deals_contacts_result_in" => [Guara::ActiveCrm::Scheduled::Contact::DENIED], "deals_contacts_classified_id_eq" => denied_total.classified_id })}
+                  = denied_total.total

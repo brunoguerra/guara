@@ -1,0 +1,13 @@
+%h1= t 'customers.link'
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th
+        = t 'customers.name'
+  - @customers.each do |customer|
+    %tbody
+      %tr
+        %td
+          %a{ "href" => customer_path(customer.id) }=customer.name
+          %small=customer.name_sec

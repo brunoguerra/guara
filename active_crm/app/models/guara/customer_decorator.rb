@@ -1,5 +1,7 @@
 Guara::Customer.class_eval do 
+	has_many :deals, :class_name => Guara::ActiveCrm::Scheduled::Deal
 
+=begin
 	 scope :customer_scheduled, lambda { |group| 
 		 	deals    = Guara::ActiveCrm::Scheduled::Deal.table_name
 		 	customer = Guara::Customer.table_name
@@ -21,4 +23,5 @@ Guara::Customer.class_eval do
 				#{Guara::Contact.table_name}.person_id = #{self.id} AND 
 				result = #{Guara::ActiveCrm::Scheduled::Contact.results()[:scheduling]} AND enabled = TRUE ") || [])
 	end
+=end
 end

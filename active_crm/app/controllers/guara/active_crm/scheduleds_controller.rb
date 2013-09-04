@@ -32,6 +32,15 @@ module Guara
 
         authorize! :read, @active_crm_scheduleds
       end
+
+      def customers
+        @customers = Guara::Customer
+          .joins(:deals => [{ group: :scheduled}, :contacts])
+          .where(Guara::ActiveCrm::Scheduled.table_name => {id: params[:scheduled_id]} )
+          .search(params[:search])
+
+        authorize! :read, @customers
+      end
           
       def show
         @active_crm_scheduled = ActiveCrm::Scheduled.find(params[:id])

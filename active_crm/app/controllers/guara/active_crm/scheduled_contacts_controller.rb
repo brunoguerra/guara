@@ -1,7 +1,7 @@
 module Guara
   module ActiveCrm
   	class ScheduledContactsController < Guara::BaseController
-    	load_and_authorize_resource :class => "Guara::ActiveCrm::Scheduled::Contact", :except => [:close_negociation, :next_customer, :ignore_customer]
+    	load_and_authorize_resource :class => "Guara::ActiveCrm::Scheduled::Contact", :except => [:close_negociation, :next_customer, :ignore_customer, :update_activity]
 
     	include ScheduledsHelper
       include ScheduledContactsHelper
@@ -21,11 +21,6 @@ module Guara
         @deals = @group.deals
 
     	end
-
-      def customers
-
-        @customers = Guara::Customer.joins('LEFT JOIN #{Scheduled::Deal.table_name} ON #{Scheduled::Deal.table_name}.customer_id=')
-      end
 
       def new
           @contact = Guara::Contact.find(params[:contact_id])
@@ -89,6 +84,7 @@ module Guara
         @scheduled_contact = Scheduled::Contact.find params[:scheduled_contact_id]
         @scheduled_contact.update_attribute(:activity, params[:activity])
         render :json => @scheduled_contact.as_json(:only => [:id, :activity]).merge({:success => true})
+        authorize! :read, Guara::ActiveCrm::Scheduled::Group
       end
 
       private
