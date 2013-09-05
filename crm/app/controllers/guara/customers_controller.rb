@@ -122,6 +122,7 @@ module Guara
       if save_customer
         flash[:success] = t("helpers.forms.new_sucess")
         redirect_to customer_path(@customer)
+        render :formats => [:js] if params[:remote] == "true"
       else
         valid = @customer.valid? && @person.valid?
         params_restore
@@ -164,9 +165,17 @@ module Guara
       
       if save_customer && @person.save
         flash[:success] = t("helpers.forms.new_sucess")
-        redirect_to customer_path(@customer)
+        if params[:remote] == "true"
+          render :formats => [:js]
+        else
+          redirect_to customer_path(@customer)
+        end
       else
-        render 'edit'
+        if params[:remote] == "true"
+          render :json => { error: true, errors: @customer.errors }
+        else
+          render 'edit'
+        end
       end
     end
   
@@ -175,6 +184,8 @@ module Guara
       @person = @customer.customer 
       load_customer_type()
       @customer.emails.build
+
+      render layout: false if params[:remote] == "true"
     end
     
     def filter_before_changes

@@ -1,10 +1,10 @@
-<%= semantic_form_for @customer, :html => {:class => "well"}  do |f| %>
+<%= semantic_form_for @customer, :html => {:class => (params[:remote]=="true" ? "well remote_form" : "well")}, :remote => (params[:remote]=="true")  do |f| %>
 <%= f.semantic_fields_for @customer.customer do |person_f| %>
 <%= render 'shared/guara/error_messages', object: f.object %>
 <fieldset>
 	<legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
 	<div class="row">
-
+		<%= hidden_field_tag :remote, "true" %> 
 		<%= f.input :complete, :label => false %>
 
 		<div class="span4">

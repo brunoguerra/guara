@@ -177,6 +177,12 @@ function applyMultiSelect(selector) {
   });
 }
 
+function applyNavTabs(selector) {
+  $(selector).click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+})
+}
 
 
 jQuery(function() {
@@ -243,3 +249,4 @@ function hogan_template(template_name, params, partials) {
 function alert_warning_template(title, description) {
   return hogan_template("alert_warning", {title: title, description: description}, {});
 }
+

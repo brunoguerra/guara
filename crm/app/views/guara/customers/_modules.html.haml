@@ -1,0 +1,17 @@
+%h2.modules= @customer.name
+%legend
+  %small= @customer.name_sec || t("customers.show.title")
+%ul#customer_nav_modules.nav.nav-tabs
+  %li{ "class" => (active == :general ? 'active' : '' )}= link_to t("customers.general"), ( local_assigns[:edit_live]==true ? '#pane_customer_show' : customer_path(@customer) ), id: "customer_edit_show", "data-toggle" => (local_assigns[:edit_live]==true ? "tab" : "none" )
+  - if can? :edit, Guara::Customer
+    %li{ "class" => (active == :edit ? 'active' : '' )}= link_to t("customers.edit.link"), ( local_assigns[:edit_live]==true ? '#pane_customer_edit' : edit_customer_path(@customer) ), id: "customer_edit_link", "data-toggle" => (local_assigns[:edit_live]==true ? "tab" : "none" )
+  - if can? :read, Guara::Contact
+    %li{ "class" => (active == :contacts ? 'active' : '' )}= link_to t("contacts.index.link"), customer_contacts_path(@customer)
+  - if can? :read, Guara::Task
+    %li{ "class" => (active == :tasks ? 'active' : '' )}= link_to t("tasks.index.link"), customer_tasks_path(@customer)
+  - if can? :read, Guara::CustomerFinancial
+    %li{ "class" => (active == :financial ? 'active' : '' )}
+      %a{:href => "#"} Dados de Cobrança
+  - if @customer_type == "pj"
+    %li{ "class" => (active == :customer_association ? 'active' : '' )}= link_to t("customer_association.index.link"), customer_association_customer_path(@customer)
+  = customer_nav_modules_build_tabs(@customer, active)

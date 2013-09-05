@@ -137,7 +137,7 @@ module Guara
         def next_to_contact
             if (params[:index].to_i>-1)
               index = params[:index].to_i + 1
-              @group.to_contact.paginate(page: index, per_page: 1).reorder("guara_people.id asc").first
+              @group.to_contact.paginate(page: index, per_page: 1).first
             else
               @group.to_contact.first
             end

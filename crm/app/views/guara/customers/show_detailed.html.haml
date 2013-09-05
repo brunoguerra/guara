@@ -1,0 +1,76 @@
+= stylesheet_link_tag "guara/customers"
+%section#customer_show.show
+  = render :partial => "navbar", :locals => { :active => :view}
+  = render :partial => "modules", :locals => { :active => :general, :edit_live => true}
+  .tab-content
+    #pane_customer_show.tab-pane.active
+      %ul.thumbnails.container-thumbnails
+        %li.container.container-customer
+          .thumbnail
+            = render :partial => @customer
+        - if can? :read, Guara::Contact
+          %li.container.container-contacts
+            = render :partial => "guara/contacts/list_contacts"
+        - if can? :read, Guara::Task
+          %li.container.container-tasks
+            %ul#tasks_tab.nav.nav-tabs
+              %li.active
+                %a{"data-toggle" => "tab", :href => "#index"}= t("tasks.side.title")
+            .tab-content
+              .tab-pane.active.thumbnail
+                .content
+                  = render :partial => "guara/tasks/side_panel"
+    #pane_customer_edit.tab-pane
+      .content
+:javascript
+  $(function(){
+  
+    $("input.cnpj").mask("99.999.999/9999-99");
+    $("input.cpf").mask("999.999.999-99");
+  
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+      e.target // activated tab
+      e.relatedTarget // previous tab
+    })
+  
+    $('#state').change(function(){
+      if( $(this).val() ) {
+        $('#cod_cidades').hide();
+        $('.carregando').show();
+        $.getJSON('#{districts_path()}.json?search=',{cod_estados: $(this).val(), ajax: 'true'}, function(j){
+          var options = '<option value="">[Escolha um estado]</option>';  
+          for (var i = 0; i < j.length; i++) {
+            options += '<option value="' + j[i].cod_cidades + '">' + j[i].nome + '</option>';
+          } 
+          $('#cod_cidades').html(options).show();
+          $('.carregando').hide();
+        });
+      } else {
+        $('#cod_cidades').html('<option value="">[Escolha um estado]</option>');
+      }
+    });
+  
+  
+    $('.notes').mouseenter(function(){
+      $('.notes .complete').fadeIn();
+    }).mouseleave(function(){
+      $('.notes .complete').fadeOut();    
+    })
+    
+    
+    $('.activities').mouseenter(function(){
+      $('.activities .complete').fadeIn();
+    }).mouseleave(function(){
+      $('.activities .complete').fadeOut();   
+    });
+    
+    $('a#customer_edit_link[data-toggle="tab"]').on('shown', function (e) {
+      $('#pane_customer_edit .content').html('<div class="loader>...</div>').load("#{edit_customer_path(@customer.id, remote: true)}", function() {
+        applyMultiSelect('#pane_customer_edit .content .multiselect');
+        $('#pane_customer_edit .content .remote_form').bind('ajax:complete', function(data) {
+          
+        });
+      });
+    });
+
+  });

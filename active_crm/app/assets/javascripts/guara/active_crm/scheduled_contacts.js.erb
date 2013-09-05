@@ -371,6 +371,7 @@ var ScheduledContacts = {
       $txt.attr('scheduled_contact-id', scheduled_contact_id);
       $txt.attr('id', 'textarea_activity_'+scheduled_contact_id);
       $(td_activity).append($txt);
+      setTimeout(function() { $txt.focus(); }, 200);
       
       /*btn save*/
       $btn = $('button', $('#scheduled_contact_form')).clone();

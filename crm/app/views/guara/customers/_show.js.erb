@@ -1,0 +1,5 @@
+$('.container-customer .thumbnail').html('<%= escape_javascript(render partial: @customer) %>');
+$('.nav.nav-tabs a#customer_edit_show').tab("show");
+$('html, body').animate({
+   scrollTop: $('.nav.nav-tabs a#customer_edit_show').offset().top - 100
+}, 600);
