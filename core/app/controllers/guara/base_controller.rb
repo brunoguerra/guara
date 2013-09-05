@@ -2,10 +2,21 @@ module Guara
   class BaseController < ActionController::Base
     protect_from_forgery
     check_authorization :unless => :devise_controller? #cancan
+    around_filter :set_time_zone
     
     include BaseHelper
     include SessionsHelper
     helper CrudHelper
+
+
+    def set_time_zone
+      old_time_zone = Time.zone
+      Time.zone = current_user.time_zone if user_signed_in?
+      yield
+    ensure
+      Time.zone = old_time_zone
+    end
+
 
     def paginate(search, page=1, per_page=10)
       if class_exists?("Ransack")

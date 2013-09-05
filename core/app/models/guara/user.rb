@@ -108,6 +108,10 @@ module Guara
         abilities << self.groups.collect { |g| g.abilities } if (self.groups)
         abilities.flatten.flatten.uniq
       end
+
+      def time_zone
+        -3
+      end
   
     private
 
