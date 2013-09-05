@@ -4,7 +4,7 @@
 %ul#customer_nav_modules.nav.nav-tabs
   %li{ "class" => (active == :general ? 'active' : '' )}= link_to t("customers.general"), ( local_assigns[:edit_live]==true ? '#pane_customer_show' : customer_path(@customer) ), id: "customer_edit_show", "data-toggle" => (local_assigns[:edit_live]==true ? "tab" : "none" )
   - if can? :edit, Guara::Customer
-    %li{ "class" => (active == :edit ? 'active' : '' )}= link_to t("customers.edit.link"), ( local_assigns[:edit_live]==true ? '#pane_customer_edit' : edit_customer_path(@customer) ), id: "customer_edit_link", "data-toggle" => (local_assigns[:edit_live]==true ? "tab" : "none" )
+    %li{ "class" => (active == :edit ? 'active' : '' )}= link_to t("customers.edit.link"), ( local_assigns[:edit_live]==true ? '#pane_customer_edit' : edit_customer_path(@customer) ), id: "customer_edit_edit", "data-toggle" => (local_assigns[:edit_live]==true ? "tab" : "none" )
   - if can? :read, Guara::Contact
     %li{ "class" => (active == :contacts ? 'active' : '' )}= link_to t("contacts.index.link"), customer_contacts_path(@customer)
   - if can? :read, Guara::Task

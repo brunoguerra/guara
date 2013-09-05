@@ -64,7 +64,7 @@
       $('.activities .complete').fadeOut();   
     });
     
-    $('a#customer_edit_link[data-toggle="tab"]').on('shown', function (e) {
+    $('a#customer_edit_edit[data-toggle="tab"]').on('shown', function (e) {
       $('#pane_customer_edit .content').html('<div class="loader>...</div>').load("#{edit_customer_path(@customer.id, remote: true)}", function() {
         applyMultiSelect('#pane_customer_edit .content .multiselect');
         $('#pane_customer_edit .content .remote_form').bind('ajax:complete', function(data) {
