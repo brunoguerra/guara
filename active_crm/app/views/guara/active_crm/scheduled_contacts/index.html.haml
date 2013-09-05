@@ -23,6 +23,7 @@
           .tab-content
             #container_table.tab-pane.active
               = render :partial => 'customers_to_register'
+              = will_paginate(@customers_to_register)
               %hr/
               .scheduled_contacts.thumbnail.content
                 %h2.black.text-left
@@ -35,6 +36,7 @@
                 .details
             #ignored_customers.tab-pane
               = render :partial => 'ignored_customers'
+              = will_paginate(@ignored_customers)
         #customer_show.list.span12
 #dialog-modal-customer.no-close{:title => "Cliente a Contactar"}
 #dialog-confirm{:title => "Deseja Encerrar Negociação?"}
