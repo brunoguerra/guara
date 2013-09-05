@@ -36,7 +36,7 @@ module Guara
 	    						 :through => :deals,
 	    						 :source => :scheduled_contacts,
 	    						 :class_name => "Contact",
-	    						 :conditions => ["scheduled_at < ?", Time.now]
+	    						 :conditions => ["scheduled_at < ?", Time.zone.now]
 
 
 	    		def registered
