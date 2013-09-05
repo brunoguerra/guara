@@ -303,9 +303,10 @@ var ScheduledContacts = {
   },
 
   list_to_contact_setup: function(){
+    var me = this;
     $('#customer-to-register tbody tr, #ignored-customers tbody tr').on('click', function(){
       //me.open_dialog_customer($(this));
-      this.slide_customer_by_tr($(this));
+      me.slide_customer_by_tr($(this));
     });
     list_to_contact_paginate_setup();
   },
