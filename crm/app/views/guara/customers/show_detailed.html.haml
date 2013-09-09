@@ -23,8 +23,8 @@
     #pane_customer_edit.tab-pane
       .content
 :javascript
-  $(function(){
-  
+  function setup_customer_show() {
+
     $("input.cnpj").mask("99.999.999/9999-99");
     $("input.cpf").mask("999.999.999-99");
   
@@ -73,4 +73,9 @@
       });
     });
 
+    $('.container-customer .new-link').attr('href', null).on('click', function() { $('.nav.nav-tabs a#customer_edit_edit').tab("show"); });
+  }
+
+  $(function(){
+    setup_customer_show();
   });

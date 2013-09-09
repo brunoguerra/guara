@@ -8,7 +8,7 @@ var ajax_form_commons_functions = {
     var $form = $(this),
         errors,
         errorText;
-
+    evt.stopPropagation();
     try {
       // Populate errorText with the comment errors
       errors = $.parseJSON(xhr.responseText);
@@ -31,12 +31,9 @@ var ajax_form_commons_functions = {
     // Insert error list into form
     $form.find('div.validation-error').html(errorText);
   },
-};
 
-
-$(document).ready(function(){
-
-  $('.remote_form')
+  applyBinds: function(selector) {
+    $(selector)
     .bind("ajax:beforeSend", function(evt, xhr, settings){
       var $submitButton = $(this).find('input[name="commit"]');
 
@@ -64,9 +61,15 @@ $(document).ready(function(){
       $submitButton.text( $(this).data('origText') );
     })
     .bind("ajax:error", ajax_form_commons_functions.error);
+  }
+};
 
+
+$(document).ready(function(){
+  ajax_form_commons_functions.applyBinds('.remote_form');
 });
 
+/** search ajax **/
 
 var formSearchAjax = (function($){
     return function(form, assgin_val_to, param_options) {

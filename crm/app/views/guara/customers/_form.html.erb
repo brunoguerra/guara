@@ -4,7 +4,7 @@
 <fieldset>
 	<legend><%= @customer.new_record? ? t("customers.new.title") : t("customers.edit.title") %></legend>
 	<div class="row">
-		<%= hidden_field_tag :remote, "true" %> 
+		<%= hidden_field_tag :remote, "true" if params[:remote]=="true" %> 
 		<%= f.input :complete, :label => false %>
 
 		<div class="span4">
@@ -192,7 +192,8 @@ $(function(){
 
 	$("form.customer").submit(function() {
 		$("input.postal").val($("input.postal").val().replace(/\D/g, "")).unmask();
-	})
+	});
+  ajax_form_commons_functions.applyBinds('.remote_form.guara_customer');
 });
 
 </script>

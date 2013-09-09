@@ -66,11 +66,11 @@ module Guara
       @selected_department = params[:department]
       @contacts = @customer.contacts
       @contacts = Contact.search_by_params @contacts, department_id: @selected_department if @selected_department
-        
-      if params[:format] == 'json'
-        render "show_detailed", layout: false, :formats => [:html]
-      else
-        render "show_detailed"
+      
+      respond_to do |format|
+        format.html { render "show_detailed", layout: (params[:layout]!="false"), :formats => [:html] }
+        format.json { render "show_detailed", layout: false, :formats => [:html] }
+        format.js { render "show_detailed", :formats => [:js] }
       end
     end
   
@@ -172,7 +172,7 @@ module Guara
         end
       else
         if params[:remote] == "true"
-          render :json => { error: true, errors: @customer.errors }
+          render :json => @customer.errors, :status => 422
         else
           render 'edit'
         end
