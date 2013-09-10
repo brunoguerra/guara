@@ -32,11 +32,9 @@ module Guara
 	    						 :through => :deals,
 	    						 :class_name => "Contact"
 
-	    		has_many :expired_contacts,
-	    						 :through => :deals,
-	    						 :source => :scheduled_contacts,
-	    						 :class_name => "Contact",
-	    						 :conditions => ["scheduled_at < ?", Time.zone.now]
+	    		def expired_contacts 
+						self.scheduled_contacts(true).where("scheduled_at < ?", Time.zone.now)
+	    		end
 
 
 	    		def registered

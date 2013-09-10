@@ -9,6 +9,7 @@ FactoryGirl.define do
     sequence(:subject) { |n|   "#{Faker::Name.name} -1- #{n}" }
     date_start 1.years.ago
     date_finish { Date.today + 1.day }
+    user
   end
 
   factory :scheduled_group, :class => Guara::ActiveCrm::Scheduled::Group do

@@ -8,6 +8,7 @@ gem 'sqlite3'
 gem 'pg'
 gem 'multi_json', "1.2.0"
 gem 'activeadmin'
+gem 'simple_enum', "1.6.6"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

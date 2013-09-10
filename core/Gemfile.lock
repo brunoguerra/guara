@@ -328,6 +328,8 @@ GEM
       rubyzip
       websocket (~> 1.0.4)
     shoulda-matchers (1.0.0)
+    simple_enum (1.6.6)
+      activesupport (>= 3.0.0)
     slop (3.4.5)
     spork (0.9.0)
     spreadsheet (0.8.5)
@@ -389,6 +391,7 @@ DEPENDENCIES
   ruby-debug19
   sass-rails (~> 3.2)
   shoulda-matchers (~> 1.0.0)
+  simple_enum (= 1.6.6)
   spork (= 0.9.0)
   sqlite3
   uglifier (= 1.2.3)

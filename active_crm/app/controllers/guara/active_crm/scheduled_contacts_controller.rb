@@ -57,7 +57,7 @@ module Guara
       def next_customer
         @group.deals.reset
         @group.expired_contacts.reset
-        scheduled = @group.expired_contacts(true).order(:scheduled_at).first
+        scheduled = @group.expired_contacts.order(:scheduled_at).first
         @data = { index: params[:index].to_i+1 }
         #
         if (scheduled.nil?)
