@@ -91,6 +91,15 @@ var formSearchAjax = (function($){
           me.wait_idle_query();
         },
 
+        set_params: function(params) {
+          me.params = params;
+          me.wait_idle_query();
+        },        
+
+        params: function() {
+          return me.params;
+        },
+
         wait_idle_query: function() {
           clearTimeout(me.interval);
           me.interval = setTimeout(function() {
@@ -112,7 +121,6 @@ var formSearchAjax = (function($){
             data: me.params,
             type: (me.params["http_method"] || "GET"),
           }).done(function(data) {
-            console.log(data);
             me.search_result(data);
           })
         },
@@ -171,11 +179,14 @@ var formSearchAjax = (function($){
 
         selected_index: function(index) {
           if (isFunction(options["onSelectedItem"])) {
-            options["onSelectedItem"](me.last_result[index], index, $form, me);
-          } else {
-            $(assgin_val_to).val(item);
+            if (!options["onSelectedItem"](me.last_result[index], index, $form, me)) return;
           }
 
+          if (isFunction(options["selectedValue"])) {
+            if (!options["selectedValue"](me.last_result[index], index, $form, me)) return;
+          } else {
+            $(assgin_val_to).val(me.last_result[index]);
+          }
           me.close();
         },
 

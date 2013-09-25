@@ -9,6 +9,7 @@ require 'bootstrap-will_paginate'
 require 'jquery-rails'
 require 'rails-i18n'
 require 'activeadmin'
+require 'simple_enum'
 require 'guara/rake'
 
 #require 'i18n-js'

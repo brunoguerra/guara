@@ -21,6 +21,5 @@ Gem::Specification.new do |s|
   
   s.add_development_dependency 'pg', '~> 0.12.2'
   s.add_development_dependency 'rspec'
-  s.add_dependency 'paperclip', '~> 2.7'
   
 end

@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '~> 2.3.0.0'
   s.add_dependency 'formtastic', '2.2.1'
   s.add_dependency 'formtastic-bootstrap', '2.0.0'
+  s.add_dependency 'paperclip', '~> 2.7'
   
   s.add_dependency "pg"
   s.add_dependency 'active_extend', '~> 0.0.3'

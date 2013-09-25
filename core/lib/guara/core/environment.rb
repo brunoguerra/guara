@@ -9,6 +9,15 @@ module Guara
       
       def initialize()
         @partials = Guara::Core::Partials.new
+        @modules = {}
+      end
+
+      def module(_module, _value)
+        @modules[_module] = _value
+      end
+
+      def update_module(_module, _value)
+        @modules[_module] = _value
       end
 
       def routes_home_path(local=false)
