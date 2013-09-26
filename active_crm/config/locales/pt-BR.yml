@@ -101,6 +101,7 @@ pt-BR:
       ending_deal_text: "Ao fechar a negociação, o cliente sairá da lista de 'à contactar'."
       alert_scheduled_title: "Atenção: Agendamento vencido"
       alert_scheduled_description: "O prazo agendado já passou, favor verificar os detalhes. É possível re-agendar."
+      transfer_to: "Transferir para"
 
       result:
         accepted: "Negócio Fechado"

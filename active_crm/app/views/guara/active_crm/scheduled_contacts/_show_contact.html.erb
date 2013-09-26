@@ -4,8 +4,8 @@
 </div>
 
 <div class="control-group">
-    <%= show_label_tag t('contacts.business_function') %>
-    <%= @contact.business_function %>
+    <%= show_label_tag t('contacts.department') +'/'+ t('contacts.business_function') %>
+    <%= name_or_nothing @contact.department %> / <%= @contact.business_function %>
 </div>
 
 <div class="control-group">
@@ -19,7 +19,7 @@
 	<%= @contact.cell %>
 </div>
 
-<div class="control-group">
+<div class="control-group autoscroll">
 	<%= show_label_tag t('contacts.emails') %>
 	<%= concat_emails(@contact.emails) %>
 </div>

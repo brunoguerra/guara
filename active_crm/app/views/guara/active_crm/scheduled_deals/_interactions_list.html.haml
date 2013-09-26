@@ -8,6 +8,7 @@
     %tr
       %th= t("contacts.title")
       %th= t("scheduleds.scheduled_at")
+      %th= t("scheduleds.created_at")
       %th= t("scheduleds.activity")
       %th= t("scheduleds.situation")
   %tbody
@@ -15,5 +16,6 @@
       %tr
         %td.contact_name= interaction.contact.name
         %td.scheduled_at= interaction.scheduled_at
+        %td.scheduled_at= interaction.created_at
         %td.activity{ "scheduled_contact-id" => interaction.id }= interaction.activity
         %td.status= prepare_span_status(interaction).html_safe

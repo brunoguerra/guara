@@ -245,12 +245,12 @@ module Guara
   
     def multiselect_customers_pj
       authorize! :read, Guara::CustomerPj
-      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
+      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", '%'+params[:search]+"%", '%'+params[:search]+"%"] ).collect { |c| { :id => c.id.to_s, :name => c.person.name } }
     end
 
     def multiselect_customers_pj_customer_id
       authorize! :read, Guara::CustomerPj
-      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", params[:search]+"%", params[:search]+"%"] ).collect { |c| { :id => c.person.id, :name => c.person.name } }
+      render :json => CustomerPj.includes(:person).where(["(guara_people.name ilike ?  or guara_people.name_sec ilike ?)", '%'+params[:search]+"%", '%'+params[:search]+"%"] ).collect { |c| { :id => c.person.id, :name => c.person.name } }
     end
 
     def load_cities

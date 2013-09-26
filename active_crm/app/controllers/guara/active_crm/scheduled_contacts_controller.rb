@@ -31,13 +31,25 @@ module Guara
       end
 
       def create
-          @contact = Guara::Contact.find(params[:active_crm_scheduled_contact][:contact_id])
-          @deal = @group.find_or_create_deal(@contact.person)
-          @scheduled_contact = Scheduled::Contact.new(params[:active_crm_scheduled_contact])
-          @scheduled_contact.deal = @deal
+        @contact = Guara::Contact.find(params[:active_crm_scheduled_contact][:contact_id])
+        @contact_to_transfer = Guara::Contact.find_by_id(params[:transfer_to_id])
+        @deal = @group.find_or_create_deal(@contact.person)
+        #transfer to
+        transfer_to_contact if (!@contact_to_transfer.nil?) && (@contact_to_transfer.id != @contact.id)
 
-          success = @scheduled_contact.save
-          render :json => {success: success, data: prepare_data_json(), errors: @scheduled_contact.errors }
+        @scheduled_contact = Scheduled::Contact.new(params[:active_crm_scheduled_contact])
+        @scheduled_contact.deal = @deal
+
+        success = @scheduled_contact.save
+        render :json => {success: success, data: prepare_data_json(), errors: @scheduled_contact.errors }
+      end
+
+      def transfer_to_contact
+        @deal.scheduled_contacts.where( contact_id: @contact.id ).each do |contact|
+          contact.close_scheduled!
+        end
+        params[:active_crm_scheduled_contact][:contact_id] = @contact_to_transfer.id
+        @contact = @contact_to_transfer.id
       end
 
       def ignore_customer_session

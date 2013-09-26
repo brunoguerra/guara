@@ -107,6 +107,22 @@ module Guara
             self.result = ACCEPTED
           end
 
+          def close_scheduled
+            case self.result
+            when SCHEDULED
+              result = SCHEDULED_REALIZED
+            when NOT_CONTACTED
+              result = NOT_CONTACTED_REALIZED
+            when INTERESTED
+              result = INTERESTED_CHANGE
+            end
+          end
+
+          def close_scheduled!
+            close_scheduled
+            save!
+          end
+
           def self.results
             {
               :not_contacted => -25,

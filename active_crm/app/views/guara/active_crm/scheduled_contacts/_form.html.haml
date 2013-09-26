@@ -22,8 +22,7 @@
       = f.input :result, :as=> :hidden
       = f.input :contact_id, :as=> :hidden
       = f.input :classified_id, :as=> :hidden
-      = f.input :user_id, :as=> :hidden
-
+      = f.input :user_id, :as=> :hidden      
 
       .btn-group
         %a.btn.btn-success.plus +
@@ -63,6 +62,8 @@
                 %i.icon-hand-right
               = I18n.t("scheduleds.contacts.result.not_contacted")
 
+      = label_tag :transfer_to_id, t('scheduleds.contacts.transfer_to')
+      = select_tag :transfer_to_id, options_from_collection_for_select(@scheduled_contact.contact.customer.contacts, 'id', 'name', @scheduled_contact.contact_id)
     #active_crm_scheduled_contact_status_label_panel.span3.hide
       %span.badge.badge-success.hide
         %i.icon-thumbs-up
@@ -78,5 +79,6 @@
       .controls{:style => "margin-top:10px;"}
         = text_field_tag "hour", Time.now.strftime('%H:%M')
     %div= f.button t('helpers.forms.save'), class: "btn btn-primary btn-submit pull-right", :type => :button, :onclick => "return scheduled_contact_submit($('#scheduled_contact_form'));"
+    
 :javascript
   scheduled_contacts_form_js_init();

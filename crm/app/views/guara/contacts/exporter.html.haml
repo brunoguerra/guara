@@ -1,0 +1,39 @@
+- provide(:title, t("contacts.exporter.title"))
+
+.row
+  .span9.search_fast9
+    %section#index
+      .page-header
+        = t("search.results")
+      %table.table.table-bordered.table-striped
+        %thead
+          %tr
+            %th.span1= t("contacts.code")
+            %th= t("contacts.name")
+            %th.span1= t("contacts.customer")
+            %th.span1= t("customers.is_customer")
+            %th.span1= t("customers.enabled")
+            %th.span1= t("customers.complete")
+            %th.span1= t("contacts.phone")
+            %th.span1= t("helpers.forms.actions")
+        %tbody
+          - @contacts.each do |c|
+            %tr
+              %td= c.id
+              %td= c.name
+              %td= c.customer.name
+              %td
+                %span{class: "badge #{c.customer.is_customer ? "badge-success" : "badge-important"}"}= format_boolean c.customer.is_customer
+              %td
+                %span{class: "badge #{c.allow_marketing ? "badge-success" : "badge-important"}"}= format_boolean c.allow_marketing
+              %td
+                %span{class: "badge #{c.customer.complete? ? "badge-success" : "badge-important"}"}= format_boolean c.customer.complete?
+              %td
+                = c.phone
+                - #inline_list c.phones, :phone
+              %td= index_btn_view customer_path(c), "Exibir Contato"
+  .span3.search_fast3
+    = render :partial => "form_search_geral", :locals => { :mode => (params[:search][:mode_advanced] ? :advanced : :simple)  }
+  .span12
+    .text-center
+      = will_paginate

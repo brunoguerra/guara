@@ -29,7 +29,8 @@ Guara::Core::Engine.routes.prepend do
     resources :tasks do
       resources :feedbacks
     end
+
   end
 
-  
+  match '/exporter/contacts', :to => 'contacts#exporter'
 end

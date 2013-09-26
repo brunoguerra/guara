@@ -1,10 +1,12 @@
 module Guara
   class ContactsController < BaseController
-    load_and_authorize_resource :customer, :class => Guara::Customer, :except => :multi
-    load_and_authorize_resource :through => :customer, :class => Guara::Contact, :except => :multi
+    load_and_authorize_resource :customer, :class => Guara::Customer, :except => [:multi, :exporter]
+    load_and_authorize_resource :through => :customer, :class => Guara::Contact, :except => [:multi, :exporter]
   
     helper CustomersHelper
     helper CrudHelper
+
+    include Select2Helper
 
     # GET customers/1/contacts
     # GET customers/1/contacts.json
@@ -110,6 +112,23 @@ module Guara
         format.html { redirect_to customer_contacts_url(customer) }
         format.json { head :ok }
       end
+    end
+
+    def exporter
+
+      if !params[:search].nil? && params[:search].size>0 
+        filter_multiselect params[:search], :customer_customer_guara_customer_pj_type_activities_business_segment_id_in
+        filter_multiselect params[:search], :customer_customer_guara_customer_pj_type_activities_id_in
+      end
+
+      @search = Guara::Contact.search(params[:search])
+      if can? :manage, @contacts
+        @contacts = @search.paginate(:page => params[:page], :per_page => 50)
+      else
+        @contacts = @search.paginate(:page => 1, :per_page => 5)
+      end
+      authorize! :read, @contacts
+      params[:search] = {} if params[:search].nil?
     end
 
   end
