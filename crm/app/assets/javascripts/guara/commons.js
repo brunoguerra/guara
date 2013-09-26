@@ -164,8 +164,8 @@ function applyMultiSelect(selector) {
         }
       });
       
-      select.on("change", function(e) { if (e.removed) { $('option[value="'+e.removed.id+'"]', select).attr('selected', false); } })
-
+      console.log(select);
+      $(inp).on("change", function(e) { console.log(e); if (e.removed) { $('option[value="'+e.removed.id+'"]', select).attr('selected', false); } })
       return $(this).hide();
     } else {
       return $(this).select2({
