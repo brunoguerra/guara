@@ -129,6 +129,7 @@ module Guara
 
       if params[:search].nil?
         params[:search] = { :allow_marketing_is_true => 1 }
+        @search = OpenStruct.new(:allow_marketing_is_true => 1)
       end
 
       #export_cvs if (params[:export] == 'true') &&  can?( :export, @contacts )
@@ -162,7 +163,8 @@ module Guara
           emails_line.split(';').each do |email|
             contact = Guara::Contact.search({:emails_email_eq => email}).first
             if contact
-              contact.update_attribute(:allow_marketing, false)
+              contact_record = Guara::Contact.find contact.id
+              contact_record.update_attribute(:allow_marketing, false)
               @totals +=1
             else
               @not_matched << email

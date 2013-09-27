@@ -75,8 +75,13 @@ pt-BR:
     phone: "Fone"
     cell: "Celular"
     birthday: "Aniversário"
+    ignored_total: "Ignorado Total"
+    not_matched: "Não encontrado"
+    not_matched_total: "Não encontrados total"
     emails: "E-mails"
     emails_concat: "E-mails"
+    allow_marketing: "Autoriza recebimento de e-mail"
+    customer: "Cliente"
     side:
       title: "Contatos"
     edit:
