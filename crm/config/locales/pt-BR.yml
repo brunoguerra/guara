@@ -95,6 +95,15 @@ pt-BR:
         title: "Pesquisar Contato"
     all:
         title: "Todos os Contatos"
+    exporter:
+      title: "Exportação"
+      link: "Exportar"
+      sumary: "Resumo"
+    manager:
+      title: "Gerenciador de Contatos"
+      link: "Gerenciador"
+      sumary: "Resumo"
+
 
   searches:
       advanced: "Avançado"

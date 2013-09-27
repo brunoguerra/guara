@@ -1,0 +1,6 @@
+%h3= t('contacts.manager.title')
+.hero-unit
+  = semantic_form_for :bulk_action do |f|
+    = f.input :ignore_emails, :as => :text, :label => t('contacts.manager.ignore_emails')
+    .actions
+      = f.actions

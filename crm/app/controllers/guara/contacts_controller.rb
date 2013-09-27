@@ -1,7 +1,7 @@
 module Guara
   class ContactsController < BaseController
-    load_and_authorize_resource :customer, :class => Guara::Customer, :except => [:multi, :exporter]
-    load_and_authorize_resource :through => :customer, :class => Guara::Contact, :except => [:multi, :exporter]
+    load_and_authorize_resource :customer, :class => Guara::Customer, :except => [:multi, :exporter, :manager]
+    load_and_authorize_resource :through => :customer, :class => Guara::Contact, :except => [:multi, :exporter, :manager]
   
     helper CustomersHelper
     helper CrudHelper
@@ -115,21 +115,60 @@ module Guara
     end
 
     def exporter
-
       if !params[:search].nil? && params[:search].size>0 
         filter_multiselect params[:search], :customer_customer_guara_customer_pj_type_activities_business_segment_id_in
         filter_multiselect params[:search], :customer_customer_guara_customer_pj_type_activities_id_in
       end
 
       @search = Guara::Contact.search(params[:search])
-      if can? :manage, @contacts
+      if can? :export, @contacts
         @contacts = @search.paginate(:page => params[:page], :per_page => 50)
       else
         @contacts = @search.paginate(:page => 1, :per_page => 5)
       end
+
+      if params[:search].nil?
+        params[:search] = { :allow_marketing_is_true => 1 }
+      end
+
+      #export_cvs if (params[:export] == 'true') &&  can?( :export, @contacts )
+      respond_to do |format|
+        format.html
+        format.csv { export_cvs }
+      end
       authorize! :read, @contacts
-      params[:search] = {} if params[:search].nil?
     end
 
+    def manager
+      authorize! :exporter, Guara::Contact
+      @bulk_action = OpenStruct.new(params[:bulk_action])
+      if @bulk_action && !@bulk_action.ignore_emails.to_s.empty?
+        ignore_emails @bulk_action.ignore_emails
+        render :manager_ignored_emails
+      end
+    end
+
+    private
+
+      def export_cvs
+        puts @contacts.to_yaml
+        send_data Guara::Contact.to_csv(@contacts, [:emails])
+      end
+
+      def ignore_emails(emails)
+        @totals = 0
+        @not_matched = []
+        emails.split('\n').each do |emails_line|
+          emails_line.split(';').each do |email|
+            contact = Guara::Contact.search({:emails_email_eq => email}).first
+            if contact
+              contact.update_attribute(:allow_marketing, false)
+              @totals +=1
+            else
+              @not_matched << email
+            end
+          end
+        end 
+      end
   end
 end

@@ -14,17 +14,30 @@
           <ul class="nav">
 	          <li <%= 'class=active' if active == :search %> ><%= link_to t("customers.index.title"), customers_path %></li>
 						<li class="dropdown <%= 'active' if active == :new %>">
-						    <a class="dropdown-toggle"
-						       data-toggle="dropdown"
-						       href="#">
-						        <%= t("customers.new.link") %>
-						        <b class="caret"></b>
-						      </a>
-						    <ul class="dropdown-menu">
-						      <% if can? :create, Guara::CustomerPj %><li><%= link_to t("customer_pjs.new.link"), new_customer_path(:type => :com) %></li><% end %>
-						      <% if can? :create, Guara::CustomerPf %><li><%= link_to t("customer_pfs.new.link"), new_customer_path(:type => :per) %></li><% end %>
-						    </ul>
-						  </li>
+					    <a class="dropdown-toggle"
+					       data-toggle="dropdown"
+					       href="#">
+					        <%= t("customers.new.link") %>
+					        <b class="caret"></b>
+					      </a>
+					    <ul class="dropdown-menu">
+					      <% if can? :create, Guara::CustomerPj %><li><%= link_to t("customer_pjs.new.link"), new_customer_path(:type => :com) %></li><% end %>
+					      <% if can? :create, Guara::CustomerPf %><li><%= link_to t("customer_pfs.new.link"), new_customer_path(:type => :per) %></li><% end %>
+					    </ul>
+					  </li>
+
+            <li class="dropdown <%= 'active' if active == :contacts %>">
+              <a class="dropdown-toggle"
+                 data-toggle="dropdown"
+                 href="#">
+                  <%= t("contacts.index.link") %>
+                  <b class="caret"></b>
+                </a>
+              <ul class="dropdown-menu">
+                <% if can? :read, Guara::Contact %><li><%= link_to t("contacts.exporter.link"), exporter_contacts_path() %></li><% end %>
+                <% if can? :export, Guara::Contact %><li><%= link_to t("contacts.manager.link"), manager_contacts_path() %></li><% end %>
+              </ul>
+            </li>
 
 	          <!--%= customer_nav_modules_build_tabs(@customer, active) %-->
         	</ul>

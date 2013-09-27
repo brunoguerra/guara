@@ -1,4 +1,17 @@
+= render :partial => "guara/customers/navbar", :locals => { :active => :contacts }
 - provide(:title, t("contacts.exporter.title"))
+
+.row
+  .span8
+    .well
+      .caption
+        %h3= t('contacts.exporter.sumary')
+        %p
+          = t('commons.totals')
+          = @contacts.count
+      - if can? :exporter, @contacts
+        = semantic_form_for :exporter do
+          %a.btn.btn-primary.large{ "href" => exporter_contacts_path(params.merge({:format => :csv}))}= t('contacts.exporter.link')
 
 .row
   .span9.search_fast9
@@ -34,6 +47,8 @@
               %td= index_btn_view customer_path(c), "Exibir Contato"
   .span3.search_fast3
     = render :partial => "form_search_geral", :locals => { :mode => (params[:search][:mode_advanced] ? :advanced : :simple)  }
-  .span12
-    .text-center
-      = will_paginate
+  
+  - if can? :exporter, @contacts
+    .span12
+      .text-center
+        = will_paginate

@@ -27,6 +27,18 @@ module Guara
       select('id, concat(guara_business_departments.name, " - ", guara_contacts.name) as name')
     }
   
+    def self.to_csv(records = nil, attributes = nil, options = {})
+      records ||= all
+      columns = (attributes.map(&:to_s) || column_names)
+      CSV.generate(options) do |csv|
+        csv << (options[:titles] || columns) if options[:with_title]
+        records.each do |contact|
+          values = contact.attributes.values_at(*columns)
+          values[columns.index("emails")] = contact.emails.all.map(&:email).join(";") if columns.include? "emails"
+          csv << values
+        end
+      end
+    end
   
     def self.search_by_name(results, name)
       conditions = []

@@ -1,3 +1,4 @@
+require 'csv'
 require 'devise'
 require 'cancan'
 require 'active_admin'

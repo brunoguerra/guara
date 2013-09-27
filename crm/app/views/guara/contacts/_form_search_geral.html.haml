@@ -61,6 +61,11 @@
         .controls
           = f.check_box :customer_enabled_is_false
 
+      .control-group
+        = label_tag :allow_marketing_is_true, t("contacts.allow_marketing"), :class => "control-label"
+        .controls
+          = f.check_box :allow_marketing_is_true
+
     .form-actions.span3
       = submit_tag t("helpers.forms.search"), :class => "btn btn-primary"
       - if (mode == :advanced) then

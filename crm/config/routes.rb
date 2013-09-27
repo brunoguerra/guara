@@ -32,5 +32,6 @@ Guara::Core::Engine.routes.prepend do
 
   end
 
-  match '/exporter/contacts', :to => 'contacts#exporter'
+  match '/exporter/contacts', :to => 'contacts#exporter', :as => :exporter_contacts
+  match '/exporter/manager', :to => 'contacts#manager', :as => :manager_contacts
 end

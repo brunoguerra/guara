@@ -1,0 +1,13 @@
+%h3= t('contacts.manager.title')
+.hero-unit
+  %h3
+    = t('contacts.manager.ignored_total')
+    \:
+    = @totals
+  %h6
+    = t('contacts.manager.not_matched_total')
+    \:
+    = @not_matched.count
+  %pre
+    - @not_matched.each do |email|
+      %strong= email
