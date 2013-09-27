@@ -159,9 +159,9 @@ module Guara
       def ignore_emails(emails)
         @totals = 0
         @not_matched = []
-        emails.split('\n').each do |emails_line|
+        emails.split("\n").each do |emails_line|
           emails_line.split(';').each do |email|
-            contact = Guara::Contact.search({:emails_email_eq => email}).first
+            contact = Guara::Contact.search({:emails_email_eq => email.strip}).first
             if contact
               contact_record = Guara::Contact.find contact.id
               contact_record.update_attribute(:allow_marketing, false)

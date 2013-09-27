@@ -78,6 +78,7 @@ pt-BR:
     ignored_total: "Ignorado Total"
     not_matched: "Não encontrado"
     not_matched_total: "Não encontrados total"
+    ignore_emails: "Ignorar os emails"
     emails: "E-mails"
     emails_concat: "E-mails"
     allow_marketing: "Autoriza recebimento de e-mail"
