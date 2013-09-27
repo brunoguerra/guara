@@ -161,7 +161,7 @@ module Guara
         @not_matched = []
         emails.split("\n").each do |emails_line|
           emails_line.split(';').each do |email|
-            contact = Guara::Contact.search({:emails_email_eq => email.strip}).first
+            contact = Guara::Contact.joins(:emails).where( "guara_emails.email ilike '"+ email.strip+"'" ).first
             if contact
               contact_record = Guara::Contact.find contact.id
               contact_record.update_attribute(:allow_marketing, false)
