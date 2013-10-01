@@ -5,8 +5,10 @@ function isFunction(object) {
 
 
 function formatDateTimeSql(date_str) {
-  return Date(date_str).toLocaleString();
+  if (date_str==null) return null;
+  return new Date(date_str.replace('T', ' ')).toLocaleString();
 }
+
 
 //first, checks if it isn't implemented yet
 if (!String.prototype.format) {

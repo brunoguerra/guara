@@ -41,6 +41,14 @@ module Guara
       end
     end
 
+    def icon_title(icon, title)
+      unless icon.nil?
+         ('<i class="'+icon+'" ></i> &nbsp;'+title).html_safe
+      else 
+        title
+      end
+    end
+
 
     def select_ajax_tag(name, url, options_to_select = {}, options={})
       options[:'data-json-url'] = url

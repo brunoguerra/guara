@@ -466,6 +466,12 @@ pt-BR:
   
   # ========================== Components >
 
+  time:
+    formats:
+      short: "%d/%m/%y %H:%M:%S"
+
+      compact: "%d/%m/%y %H:%M:%S"
+
   activerecord:
     errors:
       messages:

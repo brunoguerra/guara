@@ -4,7 +4,7 @@
     <ul class="nav">
 			<% options.each do |option| %>
       	<li class="<%= "active" if active == option[:name] %>">
-					<%= link_to option[:title], option[:link], :class => "link_#{option[:name].gsub(/\s/,'')}" %>
+					<%= link_to icon_title(option[:icon], option[:title]), option[:link], :class => "link_#{option[:name].gsub(/\s/,'')}" %>
 				</li>
 			<% end %>
     </ul>
