@@ -20,7 +20,7 @@ module Guara
 
     def paginate(search, page=nil, per_page=10)
       page = page || params[:page] || 1
-      raise params.to_yaml
+      
       if class_exists?("Ransack")
         return search.result().paginate(page: page, :per_page => per_page)
       else
