@@ -9,10 +9,11 @@
       %th= t("scheduleds.situation")
   %tbody
     - (@customers_scheduled || []).each do |interaction|
-      %tr{"contact-id" => interaction.contact_id, "customer-id" => interaction.deal.customer.id}
-        %td#customer_name= interaction.contact.customer.name
-        %td#contact_name= interaction.contact.name
-        %td#scheduled_at= interaction.scheduled_at.in_time_zone
-        %td#scheduled_at= interaction.created_at.in_time_zone
-        %td#activity= interaction.activity
-        %td#status= prepare_span_status(interaction).html_safe
+      - unless interaction.contact.nil?
+        %tr{"contact-id" => interaction.contact_id, "customer-id" => interaction.deal.customer.id}
+          %td#customer_name= interaction.contact.customer.name
+          %td#contact_name= interaction.contact.name
+          %td#scheduled_at= interaction.scheduled_at.in_time_zone
+          %td#scheduled_at= interaction.created_at.in_time_zone
+          %td#activity= interaction.activity
+          %td#status= prepare_span_status(interaction).html_safe

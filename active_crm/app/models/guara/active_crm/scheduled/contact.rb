@@ -41,7 +41,7 @@ module Guara
                                 NOT_CONTACTED
                               ]
 
-          RESULTS = [           
+          RESULTS = [
                       NOT_CONTACTED,
                       NOT_CONTACTED_REALIZED,
                       ##positive
@@ -57,7 +57,6 @@ module Guara
                       SCHEDULED_REALIZED
                     ]
 
-
           #Associations
           belongs_to :classified
       		belongs_to :contact, class_name: "Guara::Contact"
@@ -67,9 +66,17 @@ module Guara
           validates_presence_of :result, :activity, :deal, :contact
 
           validates_each :scheduled_at do |record, attr, value|
+            unless value.to_s.empty?
+              begin
+                date = Date.parse(value.to_s)
+              rescue
+                date = nil
+              end
+            end
+
             if (
-                ((SCHEDULED_RESULTS.include? record.result )) && 
-                ((Date.parse(value.to_s) < Date.today) || (value.to_s.empty?))
+                ((SCHEDULED_RESULTS.include? record.result)) && 
+                (value.to_s.empty?) || (date!=nil && (date < Date.today))
             )
               record.errors.add attr, I18n.t('activerecord.errors.messages.less_than_of', :of => Date.today.to_s) 
             end
