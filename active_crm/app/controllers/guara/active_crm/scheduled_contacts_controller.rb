@@ -76,6 +76,14 @@ module Guara
             c_next = next_to_contact
             @data[:next] = { customer_id: c_next.id } unless c_next.nil?
         else
+            @c_contact = Guara::Contact.find_by_id scheduled.contact_id
+            if @c_contact.nil?
+              begin
+                scheduled.update_attribute(contact_id: scheduled.deal.customer.contacts.first.id)
+              rescue
+                scheduled.delete
+              end
+            end
             @data[:scheduled] = {
                 customer_id: scheduled.deal.customer_id,
                 contact_id: scheduled.contact_id,
