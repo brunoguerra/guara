@@ -28,12 +28,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '~> 2.3.0.0'
   s.add_dependency 'formtastic', '2.2.1'
   s.add_dependency 'formtastic-bootstrap', '2.0.0'
-  s.add_dependency 'paperclip', '~> 2.7'
+  s.add_dependency 'paperclip', '~> 2.0'
   
   s.add_dependency "pg"
   s.add_dependency 'active_extend', '~> 0.0.3'
   s.add_dependency 'activeadmin', '~> 0.5.0'
-  s.add_dependency 'simple_enum', '1.6.6'
+  s.add_dependency 'simple_enum', '~> 1.6'
   s.add_dependency 'inherited_resources', '1.3.1'
   
   s.add_dependency  'bootstrap-will_paginate', '0.0.6'
