@@ -2,7 +2,7 @@ class CreateGuaraUserFavorites < ActiveRecord::Migration
   def change
     create_table :guara_user_favorites do |t|
       t.references :user
-      t.references :thing
+      t.references :thing, :polymorphic => true
 
       t.timestamps
     end
