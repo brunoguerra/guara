@@ -12,6 +12,7 @@ require 'rails-i18n'
 require 'activeadmin'
 require 'simple_enum'
 require 'guara/rake'
+require 'devise_fb_api_strategy'
 
 #require 'i18n-js'
 require 'hogan_assets'
