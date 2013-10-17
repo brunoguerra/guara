@@ -3,6 +3,11 @@ Guara::Core::Engine.routes.draw do
   devise_for :users, :class_name => 'Guara::User', :module => :devise
   root to: Guara::Core::Environment.new.routes_home_path(true)
 
+  authenticate :user do
+    get 'users/connect/:network', :to => redirect("/users/auth/%{network}")
+  end
+
+
   ActiveAdmin.routes(self)
 
   resources :system_extensions

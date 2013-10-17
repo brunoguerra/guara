@@ -12,7 +12,6 @@ require 'rails-i18n'
 require 'activeadmin'
 require 'simple_enum'
 require 'guara/rake'
-require 'devise_fb_api_strategy'
 
 #require 'i18n-js'
 require 'hogan_assets'
@@ -26,6 +25,10 @@ module Guara
 
       initializer "guara.activeadmin" do |app|
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../admin']
+      end
+
+      initializer "auth.fb" do |app|
+        require 'guara/core/devise_fb_api_strategy'
       end
             
       initializer "guara.environment", :before => :load_config_initializers do |app|

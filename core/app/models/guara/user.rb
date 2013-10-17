@@ -19,7 +19,7 @@ module Guara
     attr_accessible :name, :email, :password, :password_confirmation, :admin, :remember_me, :users_has_groups, 
                     :primary_group, :primary_group_id, :secundary_groups, :secundary_group_ids, 
                     :primary_company_business, :primary_company_business_id,  :type_id, 
-                    :primary_company_branch_id, :primary_company_branch, :company_branch_ids
+                    :primary_company_branch_id, :primary_company_branch, :company_branch_ids, :omniauthable
   
     # Include default devise modules. Others available are:
     # :confirmable,
@@ -111,6 +111,24 @@ module Guara
 
       def time_zone
         -3
+      end
+
+      def self.find_for_email_client(email)
+        if user = User.where(:email => email).first
+          user
+        else
+          name = email.split('@').first
+          name = name.gsub(/[^\w\d]/, ' ').strip
+          begin
+            password = Devise.friendly_token[0,20]
+            user = User.new(:name => name, :email => email, :password => password, :password_confirmation => password)
+            user.save!
+          rescue Exception => e
+            Rails.logger.error(e.message)
+            Rails.logger.error(user.errors.to_yaml)
+            Rails.logger.error(e.backtrace.to_yaml)
+          end
+        end
       end
   
     private

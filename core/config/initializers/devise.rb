@@ -19,6 +19,13 @@ Devise.setup do |config|
   config.reset_password_within = 6.hours
   config.sign_out_via = Rails.env.test? ? :get : :delete
 
+  begin
+    require 'fb_graph'
+    config.warden do |manager|
+      manager.default_strategies(:scope => :user).unshift :fb_database_authenticatable
+    end
+  rescue
+  end
 end
 
 ActionView::Base.send :include, Guara::BaseHelper
