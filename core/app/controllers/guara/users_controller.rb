@@ -54,6 +54,14 @@ module Guara
       reset_session
       redirect_to new_user_session_path
     end
+
+    def init
+      unless current_user.nil?
+        render :json => { suceess: true, :user => user.as_json(only: [:id, :name, :enabled]) }
+      else
+        render :json => { suceess: false, :user => nil }
+      end
+    end
     
     
     private

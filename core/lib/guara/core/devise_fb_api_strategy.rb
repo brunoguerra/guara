@@ -19,7 +19,13 @@ begin
           fbuser = FbGraph::User.me(token)
           fbuser = fbuser.fetch
 
-          user = User.find_for_email_client(fbuser.email)
+          facebook_data = {
+            :identifier  => fbuser.identifier,
+            :picture     => fbuser.picture,
+            :link        => fbuser.link,
+            :token       => token
+          }
+          user = User::Facebook.find_for_email_or_create(fbuser.email, {name: fbuser.name, email: fbuser.email}, facebook_data)
 
           # this either creates a new user for the valid FB account, or attaches
           # this session to an existing user that has the same email as the FB account

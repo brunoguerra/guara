@@ -24,7 +24,9 @@ Devise.setup do |config|
     config.warden do |manager|
       manager.default_strategies(:scope => :user).unshift :fb_database_authenticatable
     end
-  rescue
+  rescue Exception => e
+    Rails.logger.error(e.message)
+    Rails.logger.error(e.backtrace.to_yaml)
   end
 end
 

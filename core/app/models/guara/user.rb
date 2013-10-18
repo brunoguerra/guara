@@ -112,24 +112,6 @@ module Guara
       def time_zone
         -3
       end
-
-      def self.find_for_email_client(email)
-        if user = User.where(:email => email).first
-          user
-        else
-          name = email.split('@').first
-          name = name.gsub(/[^\w\d]/, ' ').strip
-          begin
-            password = Devise.friendly_token[0,20]
-            user = User.new(:name => name, :email => email, :password => password, :password_confirmation => password)
-            user.save!
-          rescue Exception => e
-            Rails.logger.error(e.message)
-            Rails.logger.error(user.errors.to_yaml)
-            Rails.logger.error(e.backtrace.to_yaml)
-          end
-        end
-      end
   
     private
 
