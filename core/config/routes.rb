@@ -1,5 +1,6 @@
 Guara::Core::Engine.routes.draw do
 
+  match "/users/init", :to => 'users#init'
   devise_for :users, :class_name => 'Guara::User', :module => :devise
   root to: Guara::Core::Environment.new.routes_home_path(true)
 

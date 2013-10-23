@@ -1,16 +1,21 @@
 # encoding: UTF-8
 class AddStepCustomerValidation < ActiveRecord::Migration
   	def up
-	  	@custom_process = Guara::Jobs::CustomProcess.find_by_name('vacancy')
-	  	@step_init = @custom_process.step
-	  	@new_step = @custom_process.create_step(
-	  		:name=> 'Validar com Cliente', 
-	  		:next=> @step_init.next,
-	  		:custom_process_id=> @custom_process.id
-	  	)
+  		begin
+		  	@custom_process = Guara::Jobs::CustomProcess.find_by_name('vacancy')
+		  	unless @custom_process.nil?
+			  	@step_init = @custom_process.step
+			  	@new_step = @custom_process.create_step(
+			  		:name=> 'Validar com Cliente', 
+			  		:next=> @step_init.next,
+			  		:custom_process_id=> @custom_process.id
+			  	)
 
-	  	update_levels()
-	  	create_step_attrs()
+			  	update_levels()
+			  	create_step_attrs()
+			  end
+		  rescue
+		  end
   	end
 
   	def update_levels()

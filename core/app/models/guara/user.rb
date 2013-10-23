@@ -19,7 +19,8 @@ module Guara
     attr_accessible :name, :email, :password, :password_confirmation, :admin, :remember_me, :users_has_groups, 
                     :primary_group, :primary_group_id, :secundary_groups, :secundary_group_ids, 
                     :primary_company_business, :primary_company_business_id,  :type_id, 
-                    :primary_company_branch_id, :primary_company_branch, :company_branch_ids, :omniauthable
+                    :primary_company_branch_id, :primary_company_branch, :company_branch_ids, :omniauthable,
+                    :complete
   
     # Include default devise modules. Others available are:
     # :confirmable,

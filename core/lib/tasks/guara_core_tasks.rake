@@ -21,6 +21,25 @@ namespace :guara do
     execute_task 'guara:migrate'
     Guara::Core::Engine.load_seed
   end
+
+  desc "Install Basic Users to access - administrator and tester"      
+  task install_users: :environment do
+    if Guara::User.where(name: 'Administrador').count==0
+      Guara::User.create!(
+        name: "Administrador",
+        email: "adm@adm.com",
+        admin: true,
+        password: "admini",
+        password_confirmation: "admini"
+      )
+      Guara::User.create!(
+        name: "Testador",
+        email: "test@test.com",
+        password: "testes",
+        password_confirmation: "testes"
+      )
+    end
+  end
   
   namespace :db do
     

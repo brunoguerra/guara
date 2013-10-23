@@ -1,7 +1,7 @@
 module Guara
   class UsersController < BaseController
-    load_and_authorize_resource class: Guara::User, :except => [:sign_out]
-    skip_authorization_check :only => [:sign_out]
+    load_and_authorize_resource class: Guara::User, :except => [:sign_out, :init]
+    skip_authorization_check :only => [:sign_out, :init]
     before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
     before_filter :correct_user,   only: [:edit, :update]
     before_filter :admin_user,     only: :destroy
@@ -57,9 +57,9 @@ module Guara
 
     def init
       unless current_user.nil?
-        render :json => { suceess: true, :user => user.as_json(only: [:id, :name, :enabled]) }
+        render :json => { success: true, :user => current_user.as_json(only: [:id, :name, :enabled]) }
       else
-        render :json => { suceess: false, :user => nil }
+        render :json => { success: false, :user => nil }
       end
     end
     

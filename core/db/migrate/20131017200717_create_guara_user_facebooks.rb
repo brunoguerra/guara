@@ -6,7 +6,7 @@ class CreateGuaraUserFacebooks < ActiveRecord::Migration
       t.string :identifier
       t.string :picture
       t.string :link
-      t.string :token
+      t.text :token
       t.string :description
 
       t.timestamps

@@ -27,7 +27,7 @@ module Guara
     end
     
     def puts_on_file(file, string=nil)
-      aFile = File.new(file, "w")
+      aFile = File.new(file, "wb")
       aFile.write(string || yield)
       aFile.close
     end
