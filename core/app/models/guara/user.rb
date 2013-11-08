@@ -50,6 +50,8 @@ module Guara
     has_many :followers, through: :reverse_relationships, source: :follower
   
     has_many :abilities, class_name: "UserAbility", :as => :skilled
+
+    has_many :favorites, class_name: Guara::User::Favorite
   
     has_many :tasks
   

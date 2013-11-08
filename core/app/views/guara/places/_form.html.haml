@@ -1,0 +1,49 @@
+= javascript_include_tag 'guara/places'
+= javascript_include_tag 'guara/gmaps_utils'
+:css
+  #iframe-map-canvas{
+    height:250px;
+    width: 100%;
+    overflow: hidden;
+    border: gray 1px solid;
+    margin-top: 15px;
+  }
+.row-fluid
+  %ul.thumbnails
+    %li.thumbnail.span6
+      = semantic_form_for @place do |f|
+        = f.input :name
+        = f.input :enabled, :label => false
+        = f.fields_for :geo do |f_geo|
+          = f_geo.input :lat
+          = f_geo.input :long
+    %li.span6
+      .row-fluid
+        .span12
+          = text_field_tag :lat_lng, '', class: 'text_get_lat_lng'
+          = link_to t('helpers.forms.search'), 'javascript:void(0);', id: :get_lat_lng, class: 'btn'
+      .row-fluid
+        .span12
+          %iframe#iframe-map-canvas{frameborder: "0", name: "gmaps", src: gmaps_path }
+
+:javascript
+  $('#get_lat_lng').click(function(){
+    var win_js = top.frames['gmaps'];
+    var map = win_js.google_maps;
+
+    var value = $('.text_get_lat_lng').val();
+    if(!value.trim()==''){
+      set_lat_lng(win_js, map, value);
+    }
+  });
+
+
+  Places.init({
+    new_path: '<%= new_place_path( :format => :json ) %>'
+  });
+
+  jQuery(function(){
+    var win_js = top.frames['gmaps'];
+    var map = win_js.google_maps;
+    map_set_marker(win_js, map, new win_js.google.maps.LatLng(#{ @place.geo.lat || 0 }, #{ @place.geo.long || 0 } ));
+  });

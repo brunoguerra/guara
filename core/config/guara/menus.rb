@@ -34,6 +34,7 @@ module Guara
                     { name: :cities, resource: Guara::City, path: "guara.maintence_guara_cities_path()" },
                     { name: :states, resource: Guara::State, path: "guara.maintence_guara_states_path()" },
                     { name: :company_branches, resource: Guara::CompanyBranch, path: "guara.maintence_guara_company_branches_path()" },
+                    { name: :places, resource: Guara::Place, path: "guara.places_path()" },
                   ]
        }
   end

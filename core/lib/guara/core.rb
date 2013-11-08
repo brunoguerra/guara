@@ -16,6 +16,7 @@ module Guara
 
 end
 
+require "guara/core/routes"
 require "guara/core/partials"
 require "guara/core/environment"
 require "guara/core/engine"

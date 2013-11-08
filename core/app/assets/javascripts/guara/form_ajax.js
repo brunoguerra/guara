@@ -8,7 +8,10 @@ var ajax_form_commons_functions = {
     var $form = $(this),
         errors,
         errorText;
-    evt.stopPropagation();
+    
+    if (evt) {
+      evt.stopPropagation();
+    }
     try {
       // Populate errorText with the comment errors
       errors = $.parseJSON(xhr.responseText);

@@ -1,0 +1,24 @@
+.row-fluid
+  .span12
+    = render :partial => 'navbar'
+
+.row-fluid
+  .span12
+    - provide(:title, I18n.t('users.index.title'))
+    %table.table.table-bordered.table-striped
+      %thead
+        %tr
+          %th= t("place.name")
+      %tbody
+        - @places.each do |place|
+          %tr
+            %td
+              = link_to t place.name, place_path(place)
+
+.row-fluid
+  .span12
+    .thumbnails
+      .thumbnail
+        = render :partial => 'foursquare/places'
+
+= javascript_include_tag 'foursquare/foursquare'

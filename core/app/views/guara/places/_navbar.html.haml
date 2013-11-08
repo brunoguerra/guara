@@ -1,0 +1,11 @@
+%section#navbar
+  .navbar
+    .navbar-inner
+      .container{style: "width: auto;"}
+        = link_to navbar_title==nil ? t("places.title") : navbar_title, "#", :class => "brand"
+        .nav-collapse
+          %ul.nav
+            %li{ class: local_assigns[:active] == :search ? 'active' : ''}
+              =link_to t('places.index.link'), places_path
+            %li{ class: local_assigns[:active] == :new ? 'active' : ''}
+              =link_to t('places.new.link'), new_place_path

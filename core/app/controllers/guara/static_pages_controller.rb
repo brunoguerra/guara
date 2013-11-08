@@ -5,7 +5,7 @@ module Guara
     before_filter :set_view_controller
 
     #before_filter :authenticate_user!, only: [:home, :edit, :update, :destroy]  #devise
-    skip_authorization_check :only => [:home]
+    skip_authorization_check :only => [:home, :gmaps]
         
     def home
       if user_signed_in?
@@ -23,6 +23,11 @@ module Guara
     end
     
     def contact
+    end
+
+    def gmaps
+      render 'shared/gmaps', formats: [:html], layout: false
+
     end
 
     private
