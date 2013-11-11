@@ -1,3 +1,5 @@
+= stylesheet_link_tag 'bootstrap-responsive'
+= stylesheet_link_tag 'foursquare'
 .row-fluid
   .span12
     = render :partial => 'navbar'
@@ -19,6 +21,38 @@
   .span12
     .thumbnails
       .thumbnail
-        = render :partial => 'foursquare/places'
+        .row-fluid
+          .span6
+            %iframe#iframe-map-canvas{frameborder: "0", name: "gmaps", style: 'width: 100%; min-height: 340px;', src: gmaps_path }
+          .span6
+            = render :partial => 'foursquare/places'
 
 = javascript_include_tag 'foursquare/foursquare'
+
+:javascript
+  jQuery(function(){ 
+    $('#get_lat_lng').click(function(){
+      var win_js = top.frames['gmaps'];
+      var map = win_js.google_maps;
+
+      var value = $('.text_get_lat_lng').val();
+      if(!value.trim()==''){
+        set_lat_lng(win_js, map, value);
+      }
+    });
+  });
+
+  function GMaps_afterIntialLocation(window, map) {
+    GuaraFoursquare.setCenter(window.marker_location.lat() + ', '+window.marker_location.lng());
+  }
+
+  function GMaps_afterSetLocation(window, map) {
+    GuaraFoursquare.setCenter(window.marker_location.lat() + ', '+window.marker_location.lng());
+  }
+
+  GuaraFoursquare.callback_renderResult = function(gf, items) {
+    $('.foursquare.search .results li').on('click', function(event) {
+      var id = $(this).attr('data-id');
+      window.location = '/places/new?fq_venue='+id;
+    });
+  }

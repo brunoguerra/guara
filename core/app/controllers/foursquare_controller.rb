@@ -6,7 +6,8 @@ class FoursquareController < ActionController::Base
 
   def places
     places_search = params[:places_search]
-    @places = client.search_venues(:ll => '3.7375798,-38.503387', :query => places_search)
+    places_search_center = params[:places_search_center]
+    @places = client.search_venues(:ll => places_search_center, :query => places_search)
     render :json => @places
   end
 

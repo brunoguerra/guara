@@ -1,4 +1,6 @@
 .foursquare.search
   .control
     = text_field_tag :places_search
+    = hidden_field_tag :places_search_center
     = button_tag :places_search_submit, :class => 'btn btn-primary'
+  .results

@@ -1,15 +1,61 @@
-function initialize() {
-  var myLatlng = new google.maps.LatLng(-3,-38);
+function gmaps_initialize() {
+  var myDefault = new google.maps.LatLng(-3,-38);
+  var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
   var mapOptions = {
-    zoom: 4,
-    center: myLatlng,
+    zoom: 6,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   }
+  var initialLocation = myDefault;
+
   window.google_maps = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  if(typeof add_markers=='function') {
-    add_markers();
+  if(navigator.geolocation) {
+    browserSupportFlag = true;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      setInitialLocation();
+    }, function() {
+      handleNoGeolocation(browserSupportFlag);
+    });
+  }
+  // Browser doesn't support Geolocation
+  else {
+    browserSupportFlag = false;
+    handleNoGeolocation(browserSupportFlag);
+  }
+
+  function handleNoGeolocation(errorFlag) {
+    if (errorFlag == true) {
+      alert("Geolocation service failed.");
+      initialLocation = newyork;
+    } else {
+      alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+      initialLocation = myDefault;
+    }
+    setInitialLocation();
+  }
+
+  function setInitialLocation() {
+    window.google_maps.setCenter(initialLocation);
+    if(typeof add_markers=='function') {
+      add_markers();
+    } else if (typeof window.parent.add_markers == 'function') {
+      window.parent.add_markers();
+    } else if (typeof map_set_marker == 'function') {
+      map_set_marker(window, window.google_maps, initialLocation, true);
+    }
+
+    if(typeof GMaps_afterIntialLocation=='function') {
+      GMaps_afterIntialLocation(window, window.google_maps);
+    } else if (typeof window.parent.GMaps_afterIntialLocation == 'function') {
+      window.parent.GMaps_afterIntialLocation(window, window.google_maps);
+    }
   }
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+function GMaps_loadScript() {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDDmtCzTQa38qSzlNq1l7m-kTEbB4fv-3E&sensor=true&callback=gmaps_initialize";
+  document.body.appendChild(script);
+}

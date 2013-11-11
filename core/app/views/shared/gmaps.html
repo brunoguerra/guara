@@ -1,9 +1,9 @@
 <style type="text/css">
-  *{
+  #map-canvas *{
     margin: 0;
     padding: 0;
   }
-  #map-canvas{
+  #map-canvas {
     margin: auto;
     margin-top: 0.4%;
     height:98%;
@@ -11,6 +11,21 @@
     width: 99%;
   }
 </style>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<%= javascript_include_tag 'guara/gmaps' %>
+
 <div id="map-canvas"></div>
+<%= javascript_include_tag 'guara/gmaps' %>
+<%= javascript_include_tag 'guara/gmaps_utils' %>
+<script type="text/javascript">
+
+  function document_loaded() {
+    GMaps_loadScript();
+  }
+  if (typeof jQuery == 'function') {
+    jQuery(function() {
+      GMaps_loadScript();
+      asfadsfdfs
+    });
+  } else {
+    window.onload = document_loaded;
+  }
+</script>

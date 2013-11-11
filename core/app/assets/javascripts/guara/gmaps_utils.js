@@ -9,7 +9,7 @@ function set_lat_lng(win_js, map, address){
       lat_lng = results[0].geometry.location;
 
       map_set_marker(win_js, map, lat_lng, true);
-      alter_lat_lng(lat_lng.lat(), lat_lng.lng());
+      alter_lat_lng(lat_lng);
     } else {
       return false;
     }
@@ -17,6 +17,7 @@ function set_lat_lng(win_js, map, address){
 }
 
 var marker = false;
+var marker_location = { lat: 0,long: 0 };
 
 function map_set_marker(win_js, map, lat_lng, draggable){
   if(typeof draggable == 'null'){
@@ -36,7 +37,7 @@ function map_set_marker(win_js, map, lat_lng, draggable){
         });
 
         win_js.google.maps.event.addDomListener(marker, 'dragend', function(event){
-          alter_lat_lng(event.latLng.lat(), event.latLng.lng());
+          alter_lat_lng(event.latLng);
         }); 
   }
   else{
@@ -46,11 +47,20 @@ function map_set_marker(win_js, map, lat_lng, draggable){
 
   }
 
+  marker_location = lat_lng;
+
   return marker;
 }
 
-function alter_lat_lng(lat, lng){
-  $('#place_geo_lat').val(lat);
-  $('#place_geo_long').val(lng);
-  $('.guara_place input[type=submit]').removeClass('hidden');
+function alter_lat_lng(latLng){
+  marker_location = latLng;
+  if(typeof GMaps_afterSetLocation=='function') {
+    GMaps_afterSetLocation(window, window.google_maps);
+  } else if (typeof window.parent.GMaps_afterSetLocation == 'function') {
+    window.parent.GMaps_afterSetLocation(window, window.google_maps);
+  } else {
+    $('#place_geo_lat').val(lat);
+    $('#place_geo_long').val(lng);
+    $('.guara_place input[type=submit]').removeClass('hidden');
+  }
 }

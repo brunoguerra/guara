@@ -1,0 +1,14 @@
+<ul>
+  {{#items}}
+  <li data-id="{{id}}">
+    <div class="name">{{name}}</div>
+    <div class="cateogry">{{#categories}}{{name}}, {{/categories}}</div>
+    <div class="location">
+      {{#location}}
+      <div class="address">{{address}}</div>
+      <div class="address">{{distance}} m</div>
+      {{/location}}
+    </div>
+  </li>
+  {{/items}}
+</ul>
