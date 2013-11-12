@@ -1,22 +1,27 @@
 .foursquare.search {
   .results {
     padding: 10px;
-    li {
-      margin-bottom: 10px;
-      border-bottom: 2px solid #f1f1f1;
-      &:hover {
-        background-color: #f1f1f1;
-      }
-      .name {
-        font-size: 16px;
-        font-weight: bolder;
-      }
-      .category {
-        font-size: 9px;
-      }
+    ul {
 
-      .location {
-        font-size: 11px;
+      margin: 0;
+      
+      li {
+        margin-bottom: 10px;
+        border-bottom: 2px solid #f1f1f1;
+        &:hover {
+          background-color: #f1f1f1;
+        }
+        .name {
+          font-size: 16px;
+          font-weight: bolder;
+        }
+        .category {
+          font-size: 9px;
+        }
+
+        .location {
+          font-size: 11px;
+        }
       }
     }
   }

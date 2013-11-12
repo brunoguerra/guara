@@ -1,3 +1,5 @@
+var gmaps_initialLocation;
+
 function gmaps_initialize() {
   var myDefault = new google.maps.LatLng(-3,-38);
   var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
@@ -5,14 +7,14 @@ function gmaps_initialize() {
     zoom: 6,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   }
-  var initialLocation = myDefault;
+  gmaps_initialLocation = myDefault;
 
   window.google_maps = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   if(navigator.geolocation) {
     browserSupportFlag = true;
     navigator.geolocation.getCurrentPosition(function(position) {
-      initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      gmaps_initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
       setInitialLocation();
     }, function() {
       handleNoGeolocation(browserSupportFlag);
@@ -27,22 +29,22 @@ function gmaps_initialize() {
   function handleNoGeolocation(errorFlag) {
     if (errorFlag == true) {
       alert("Geolocation service failed.");
-      initialLocation = newyork;
+      gmaps_initialLocation = newyork;
     } else {
       alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-      initialLocation = myDefault;
+      gmaps_initialLocation = myDefault;
     }
     setInitialLocation();
   }
 
   function setInitialLocation() {
-    window.google_maps.setCenter(initialLocation);
+    window.google_maps.setCenter(gmaps_initialLocation);
     if(typeof add_markers=='function') {
-      add_markers();
+      add_markers(window, window.google_maps);
     } else if (typeof window.parent.add_markers == 'function') {
-      window.parent.add_markers();
+      window.parent.add_markers(window, window.google_maps);
     } else if (typeof map_set_marker == 'function') {
-      map_set_marker(window, window.google_maps, initialLocation, true);
+      map_set_marker(window, window.google_maps, gmaps_initialLocation, true);
     }
 
     if(typeof GMaps_afterIntialLocation=='function') {

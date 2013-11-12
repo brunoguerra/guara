@@ -13,10 +13,16 @@
     %li.thumbnail.span6
       = semantic_form_for @place do |f|
         = f.input :name
-        = f.input :enabled, :label => false
+        = f.input :external_id
+        = f.input :enabled, :label => false, :default => true
+        = f.fields_for :address do |f_address|
+          = f_address.input :address
+          = f_address.input :complement
+          = f_address.input :city
         = f.fields_for :geo do |f_geo|
           = f_geo.input :lat
           = f_geo.input :long
+        = f.actions
     %li.span6
       .row-fluid
         .span12
@@ -32,18 +38,31 @@
     var map = win_js.google_maps;
 
     var value = $('.text_get_lat_lng').val();
+
     if(!value.trim()==''){
-      set_lat_lng(win_js, map, value);
+      win_js.set_lat_lng(win_js, map, value);
     }
   });
 
+  function GMaps_afterSetLocation(window, map) {
+    $('#place_geo_lat').val(window.marker_location.lat());
+    $('#place_geo_long').val(window.marker_location.lng());
+    $('.guara_place input[type=submit]').removeClass('hidden');
+  }
 
   Places.init({
     new_path: '<%= new_place_path( :format => :json ) %>'
   });
 
-  jQuery(function(){
+  function add_markers() {
     var win_js = top.frames['gmaps'];
     var map = win_js.google_maps;
-    map_set_marker(win_js, map, new win_js.google.maps.LatLng(#{ @place.geo.lat || 0 }, #{ @place.geo.long || 0 } ));
-  });
+    var lat = #{ @place.geo.lat || 0 };
+    var long = #{ @place.geo.long || 0 };
+
+    if (lat==0) {
+      lat = win_js.gmaps_initialLocation.lat();
+      long = win_js.gmaps_initialLocation.lng();
+    }
+    win_js.map_set_marker(win_js, map, new win_js.google.maps.LatLng(lat,  long), true);
+  }

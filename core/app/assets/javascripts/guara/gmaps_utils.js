@@ -41,10 +41,10 @@ function map_set_marker(win_js, map, lat_lng, draggable){
         }); 
   }
   else{
+    marker.setAnimation(win_js.google.maps.Animation.DROP);
     marker.setPosition(lat_lng);
     marker.setDraggable(draggable);
-    //marker.setAnimation(win_js.google.maps.Animation.DROP);
-
+    console.log(marker);
   }
 
   marker_location = lat_lng;
@@ -58,9 +58,5 @@ function alter_lat_lng(latLng){
     GMaps_afterSetLocation(window, window.google_maps);
   } else if (typeof window.parent.GMaps_afterSetLocation == 'function') {
     window.parent.GMaps_afterSetLocation(window, window.google_maps);
-  } else {
-    $('#place_geo_lat').val(lat);
-    $('#place_geo_long').val(lng);
-    $('.guara_place input[type=submit]').removeClass('hidden');
   }
 }

@@ -15,7 +15,7 @@
         - @places.each do |place|
           %tr
             %td
-              = link_to t place.name, place_path(place)
+              = link_to place.name, place_path(place)
 
 .row-fluid
   .span12
@@ -26,6 +26,8 @@
             %iframe#iframe-map-canvas{frameborder: "0", name: "gmaps", style: 'width: 100%; min-height: 340px;', src: gmaps_path }
           .span6
             = render :partial => 'foursquare/places'
+
+= will_paginate @places
 
 = javascript_include_tag 'foursquare/foursquare'
 
