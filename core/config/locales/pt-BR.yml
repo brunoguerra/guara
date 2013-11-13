@@ -312,6 +312,11 @@ pt-BR:
     title: "Tipos de Tarefas"
     created_at: "Criado em"
     updated_at: "Atualizado em"
+
+  places: &attr_places
+    link: "Lugares"
+    title: "Lugares"
+    name: "Nome"
     
   #SECTIONS <===================================
   

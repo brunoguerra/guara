@@ -4,6 +4,7 @@
  * DataTables
  */
 function applyDataTable(selector, options) {
+
   params = {
     "sDom": "<'row-fluid'<'span6'T><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 
@@ -29,9 +30,12 @@ function applyDataTable(selector, options) {
 
   }
   params = jQuery.extend(params, options);
-  $(selector).dataTable(params);
+  if (typeof $(selector).dataTable == 'function') {
+    $(selector).dataTable(params);
+  }
 }
 
+if (typeof jQuery.fn.dataTableExt == 'function') {
 jQuery.extend( jQuery.fn.dataTableExt.oSort, {
     "date-euro-pre": function ( a ) {
         if ($.trim(a) != '') {
@@ -54,7 +58,7 @@ jQuery.extend( jQuery.fn.dataTableExt.oSort, {
         return b - a;
     }
 } );
-
+}
 
 function applyMultiSelect(selector) {
     $(selector).each(function(i) {
@@ -168,11 +172,13 @@ function applyMultiSelect(selector) {
       $(inp).on("change", function(e) { console.log(e); if (e.removed) { $('option[value="'+e.removed.id+'"]', select).attr('selected', false); } })
       return $(this).hide();
     } else {
+      if (typeof $(this).select2 == 'function') {
       return $(this).select2({
         maximumInputLength: 20,
         allowClear: true,
         placeholder: placeholder
       });
+      }
     }
   });
 }

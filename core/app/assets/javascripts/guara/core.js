@@ -10,7 +10,6 @@
 //= require jquery.price_format.min.js
 //= require jquery-numeric.js
 //= require select2/select2
-//= require active_admin
 //= #require i18n
 //= #require i18n/translations
 //= require guara/core/pt-BR
