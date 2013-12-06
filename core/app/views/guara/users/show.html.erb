@@ -11,6 +11,13 @@
 	  <%= link_to t("abilities.link", skilled: @user.name), user_abilities_path(@user), class: "btn btn-primary"  %>
 	<% end %>
     </section>
+    <div class='row-fluid'>
+      <div class='span12'>
+        <% if can?( :update, @user) %>
+        <%= index_btn_edit edit_user_path(@user) %>
+        <% end %>
+      </div>
+    </div>
   </aside>
 
 	<div class="span8">

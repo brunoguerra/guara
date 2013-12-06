@@ -4,18 +4,24 @@ var ajax_form_commons_functions = {
    * parse error and show bootstrap error alert
    * needs a div.validation-error to display error
    */
-  error: function(evt, xhr, status, error){
-    var $form = $(this),
+  error: function(evt, xhr, status, error, scope){
+    var $form = scope || $(this),
         errors,
         errorText;
     
     if (evt) {
       evt.stopPropagation();
     }
+
     try {
-      // Populate errorText with the comment errors
-      errors = $.parseJSON(xhr.responseText);
+      if ((typeof xhr == 'object') && (typeof xhr.errors == 'object')) {
+        errors = xhr.errors;
+      } else {
+        // Populate errorText with the comment errors
+        errors = $.parseJSON(xhr.responseText);
+      }
     } catch(err) {
+      console.log(err);
       // If the responseText is not valid JSON (like if a 500 exception was thrown), populate errors with a generic error message.
       errors = {message: "Por favor, ocorreu um erro ao tratar a resposta do servidor, tente mais tarde."};
     }

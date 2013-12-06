@@ -21,6 +21,10 @@ module Guara
                     :primary_company_business, :primary_company_business_id,  :type_id, 
                     :primary_company_branch_id, :primary_company_branch, :company_branch_ids, :omniauthable,
                     :complete
+
+    attr_accessor :extras
+
+    after_initialize :load_extras
   
     # Include default devise modules. Others available are:
     # :confirmable,
@@ -125,7 +129,10 @@ module Guara
       def need_password?
         return self.new_record? || (password.to_s.strip.length != 0) || (password_confirmation.to_s.strip.length != 0)
       end
-  
+
+      def load_extras
+        @extras = {}
+      end
   
   end
   
