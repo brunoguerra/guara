@@ -53,14 +53,17 @@ var ajax_form_commons_functions = {
 
     })
     .bind("ajax:success", function(evt, data, status, xhr){
-      var $form = $(this);
+      if (data.success !== false) {
+        var $form = $(this);
 
-      // Reset fields and any validation errors, so form can be used again, but leave hidden_field values intact.
-      $form.find('textarea,input[type="text"],input[type="file"]').val("");
-      $form.find('div.validation-error').empty();
+        // Reset fields and any validation errors, so form can be used again, but leave hidden_field values intact.
+        console.log($form);
+        $form.find('textarea,input[type="text"],input[type="file"]').val("");
+        $form.find('div.validation-error').empty();
 
-      // Insert response partial into page below the form.
-      $('#comments').append(xhr.responseText);
+        // Insert response partial into page below the form.
+        $('#comments').append(xhr.responseText);
+      }
 
     })
     .bind('ajax:complete', function(evt, xhr, status){
