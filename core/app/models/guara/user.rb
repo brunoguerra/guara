@@ -119,6 +119,9 @@ module Guara
       def time_zone
         -3
       end
+
+      def basic_abilities
+      end
   
     private
 

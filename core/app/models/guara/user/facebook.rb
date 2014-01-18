@@ -10,16 +10,14 @@ module Guara
         else
           begin
             password = Devise.friendly_token[0,20]
+
             user_data.merge!({:password => password, :password_confirmation => password, :complete => false})
             user = User.new(user_data)
             user_facebook = User::Facebook.create(facebook_data)
             user_facebook.user = user
             user_facebook.save!
-            user.reload
 
-            @user_ability = UserAbility.create!(:skilled => user, 
-                                      :ability => SystemAbility.READ,
-                                      :module => "Guara::Product")
+            user.basic_abilities
 
             user
           rescue Exception => e

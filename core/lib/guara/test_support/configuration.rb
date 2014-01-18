@@ -9,15 +9,19 @@ module Guara
   module TestSupport
    
 
-   EXCEPTED_TABLES =  %w[SystemAbility SystemModule SystemTaskStatus SystemTaskResolution State City BusinessSegment BusinessActivity].collect { |e| "guara_"+pluralize_without_count(2, e.underscore) }
+   @@excepted_tables =  %w[SystemAbility SystemModule SystemTaskStatus SystemTaskResolution State City BusinessSegment BusinessActivity].collect { |e| "guara_"+pluralize_without_count(2, e.underscore) }
     
+    def self.excepted_tables_add(tables)
+      @@excepted_tables += tables
+    end
+
     def self.config_transactional(config)
 
       config.before :each do
         if Capybara.current_driver == :rack_test
-          DatabaseCleaner.strategy = :transaction, {:except => Guara::TestSupport::EXCEPTED_TABLES }
+          DatabaseCleaner.strategy = :transaction, {:except => @@excepted_tables }
         else
-          DatabaseCleaner.strategy = :truncation, { :except => Guara::TestSupport::EXCEPTED_TABLES }
+          DatabaseCleaner.strategy = :truncation, { :except => @@excepted_tables }
         end
         DatabaseCleaner.start
       end
