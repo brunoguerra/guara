@@ -73,6 +73,11 @@ FactoryGirl.define do
     name { Faker::Name.first_name }
   end
 
+  factory :geo, :class => Guara::Geo do
+    lat { -3.123 + Random.rand }
+    long { -38.123 + Random.rand }
+  end
+
 end
 
 puts "core/factories loaded!"

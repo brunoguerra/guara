@@ -19,7 +19,8 @@ module Guara
 
         unless place.address.city
           state = Guara::State.where("acronym ilike '#{fq_venue[:location][:state].downcase}'").first
-          place.address.city = Guara::City.create(name: fq_venue[:location][:city], state: state)
+          state = Guara::State.create(name: fq_venue[:location][:state].downcase) unless state
+          place.address.city = Guara::City.create(name: fq_venue[:location][:city], state_id: state.id)
         end
 
         place.build_geo

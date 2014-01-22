@@ -405,4 +405,4 @@ DEPENDENCIES
   simple_enum (= 1.6.6)
   spork (= 0.9.0)
   sqlite3
-  uglifier (= 1.2.3)
+  uglifier

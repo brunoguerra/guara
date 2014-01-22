@@ -6,7 +6,6 @@ eval(File.read(File.dirname(__FILE__) + '/../common_dependencies.rb'))
 gemspec
 	
 group :assets do
-  gem 'uglifier', '1.2.3'
   gem "jquery-rails"
 end
 
