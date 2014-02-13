@@ -16,9 +16,11 @@ module Guara
         place = self.new
         place.build_address
         place.address.address = fq_venue[:location][:address]
-        place.address.city = Guara::City.where("name ilike '#{fq_venue[:location][:city].downcase}'").first
+        if (fq_venue[:location][:city])
+          place.address.city = Guara::City.where("name ilike '#{fq_venue[:location][:city].downcase}'").first
+        end
 
-        unless place.address.city
+        if !place.address.city && (fq_venue[:location][:state])
           state = Guara::State.where("acronym ilike '#{fq_venue[:location][:state].downcase}'").first
           state = Guara::State.create(name: fq_venue[:location][:state].downcase) unless state
           place.address.city = Guara::City.create(name: fq_venue[:location][:city], state_id: state.id)
