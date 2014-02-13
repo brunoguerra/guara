@@ -34,6 +34,8 @@ module Guara
             can [:index, :show], resource
           elsif (t_ability.to_sym == :create)
             can [:new], resource
+          elsif (t_ability.to_sym == :delete)
+            can [:destroy], resource
           end
         end 
       end

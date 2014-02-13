@@ -12,7 +12,7 @@ module Guara
     end
 
     def client
-      @client ||= Foursquare2::Client.new(:client_id => Guara::Settings.value('foursquare.client_id'), :client_secret => Guara::Settings.value('foursquare.secret'))
+      @client ||= Foursquare2::Client.new(:api_version => '20140110', :client_id => Guara::Settings.value('foursquare.client_id'), :client_secret => Guara::Settings.value('foursquare.secret'))
     end
 
   end

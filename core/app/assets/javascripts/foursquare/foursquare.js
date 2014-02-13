@@ -26,14 +26,18 @@ GuaraFoursquare = {
       data: $('.foursquare.search input'),
       dataType: "json",
     }).done(function(data) {
-      me.renderResults(data.groups[0]);
+      console.log(data);
+      me.renderResults(data);
     }).fail(function(jqXHR, textStatus, errorThrown) {
       ajax_form_commons_functions.error(null, jqXHR, textStatus, errorThrown);
     });
   },
 
   renderResults: function(items) {
-    $('.foursquare.search .results').empty().append(HoganTemplates['foursquare_results'].render(items));
+    console.log(items);
+    var contents = HoganTemplates['foursquare_results'].render(items);
+    console.log(contents);
+    $('.foursquare.search .results').empty(contents).append(contents);
     if (this.callback_renderResult!=null) {
       this.callback_renderResult(this, items);
     }

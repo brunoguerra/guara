@@ -10,6 +10,7 @@ module Guara
 
 
     def self.find_by_foursquare_venue(fq_venue)
+      puts fq_venue[:id].to_yaml
       place = find_by_external_id fq_venue[:id]
       unless place 
         place = self.new
