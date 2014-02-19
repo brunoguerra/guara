@@ -155,7 +155,7 @@ module Guara
     private
 
       def export_cvs
-        send_data Guara::Contact.to_csv(@contacts, [:id, :name, :department_id, :business_function, :phone, :cell, :birthday, :created_at, :updated_at, :allow_marketing, :person])
+        send_data Guara::Contact.to_csv(@contacts, [:id, :name, :emails, :department_id, :business_function, :phone, :cell, :birthday, :created_at, :updated_at, :allow_marketing, :person])
       end
 
       def ignore_emails(emails)
