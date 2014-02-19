@@ -27,9 +27,9 @@ module Guara
       select('id, concat(guara_business_departments.name, " - ", guara_contacts.name) as name')
     }
   
-    def self.to_csv(records = nil, attributes = nil, options = {col_sep: ';', encoding: "UTF-8"})
+    def self.to_csv(records = nil, attributes = nil, options = {col_sep: ';', encoding: "cp1258"})
 
-      person_columns = [:id, :name, :doc, :doc_rg, :name_sec, :address, :district_id, :city_id, :state_id, :postal, :notes, :birthday, :phone, :social_link, :site, :is_customer, :parent_id, :enabled, :customer_id, :customer_type, :complete, :annual_revenue, :external_key, :created_at, :updated_at, :other_contacts, :number]
+      person_columns = [:id, :name, :name_sec, :emails, :doc, :doc_rg, :address, :district_id, :city_id, :state_id, :postal, :notes, :birthday, :phone, :social_link, :site, :is_customer, :parent_id, :enabled, :customer_id, :customer_type, :complete, :annual_revenue, :external_key, :created_at, :updated_at, :other_contacts, :number]
 
       records ||= all
       columns = (attributes.map(&:to_s) || column_names)
