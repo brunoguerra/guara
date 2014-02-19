@@ -1,5 +1,5 @@
 .page-header= t("customers.index.title")
-= form_for :search, :html => { :class => "well form-search", :method => :get } do |f|
+= form_for :search, :object => @search, :html => { :class => "well form-search", :method => :get } do |f|
   / fieldset
   .container
     .control-group
@@ -15,7 +15,7 @@
         = label_tag :customer_customer_segment, t("helpers.label.customers.search.segment"), :class => "control-label"
         .controls
           = f.select(:customer_customer_guara_customer_pj_type_activities_business_segment_id_in,                                                                                          |
-            options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:customer_guara_customer_pj_type_activities_business_segment_id_in]), |
+            options_from_collection_for_select([] + Guara::BusinessSegment.all, :id, :name, params[:search][:customer_customer_guara_customer_pj_type_activities_business_segment_id_in]), |
             {},                                                                                                                                                                   |
             { :multiple => true,                                                                                                                                                  |
             :style => "width: 206px;",                                                                                                                                            |
@@ -30,7 +30,7 @@
             options_from_collection_for_select(Guara::BusinessActivity.all,      |
             :id,                                                                 |
             :name,                                                               |
-            params[:search][:customer_guara_customer_pj_type_activities_id_in]), |
+            params[:search][:customer_customer_guara_customer_pj_type_activities_id_in]), |
             {},                                                                  |
             { :multiple => true,                                                 |
             :style => "width: 206px;",                                           |

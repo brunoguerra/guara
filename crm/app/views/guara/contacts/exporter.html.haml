@@ -44,7 +44,7 @@
               %td
                 = c.phone
                 - #inline_list c.phones, :phone
-              %td= index_btn_view customer_path(c), "Exibir Contato"
+              %td= index_btn_view customer_contact_path(c.person, c), "Exibir Contato"
   .span3.search_fast3
     = render :partial => "form_search_geral", :locals => { :mode => (params[:search][:mode_advanced] ? :advanced : :simple)  }
   

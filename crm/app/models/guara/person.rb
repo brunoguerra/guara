@@ -151,6 +151,8 @@ module Guara
         values = self.attributes.values_at(*columns)
         values[columns.index("emails")] = emails.all.map(&:email).join(",") if columns.include? "emails"
         values[columns.index("customer_type")] = values[columns.index("customer_type")][-2..-1] if columns.include? "customer_type"
+        values[columns.index("notes")] = values[columns.index("notes")].gsub("\n", "\t") if columns.include? "notes"
+        
         values
       end
   
