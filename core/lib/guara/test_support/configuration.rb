@@ -52,7 +52,7 @@ module Guara
         #Warden.test_mode!
 
         self.config_transactional config
-        config.infer_base_class_for_anonymous_controllers = false
+        #config.infer_base_class_for_anonymous_controllers = false
         config.order = "random"
 
         config.before(:each) do

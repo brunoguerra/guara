@@ -135,7 +135,10 @@ module Guara
       #export_cvs if (params[:export] == 'true') &&  can?( :export, @contacts )
       respond_to do |format|
         format.html
-        format.csv { export_cvs }
+        format.csv do
+          @contacts = @search.all
+          export_cvs 
+        end
       end
       authorize! :read, @contacts
     end
@@ -152,8 +155,7 @@ module Guara
     private
 
       def export_cvs
-        puts @contacts.to_yaml
-        send_data Guara::Contact.to_csv(@contacts, [:emails])
+        send_data Guara::Contact.to_csv(@contacts, [:id, :name, :department_id, :business_function, :phone, :cell, :birthday, :created_at, :updated_at, :allow_marketing, :person])
       end
 
       def ignore_emails(emails)

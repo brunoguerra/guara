@@ -145,6 +145,14 @@ module Guara
       def base_uri
         customer_path(self)
       end
+
+      def to_csv(attributes = nil, options = {})
+        columns = attributes ? attributes.map(&:to_s) : Person.column_names
+        values = self.attributes.values_at(*columns)
+        values[columns.index("emails")] = emails.all.map(&:email).join(",") if columns.include? "emails"
+        values[columns.index("customer_type")] = values[columns.index("customer_type")][-2..-1] if columns.include? "customer_type"
+        values
+      end
   
     private
   

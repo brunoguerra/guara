@@ -27,14 +27,23 @@ module Guara
       select('id, concat(guara_business_departments.name, " - ", guara_contacts.name) as name')
     }
   
-    def self.to_csv(records = nil, attributes = nil, options = {})
+    def self.to_csv(records = nil, attributes = nil, options = {col_sep: ';'})
+
+      person_columns = [:id, :name, :doc, :doc_rg, :name_sec, :address, :district_id, :city_id, :state_id, :postal, :notes, :birthday, :phone, :social_link, :site, :is_customer, :parent_id, :enabled, :customer_id, :customer_type, :complete, :annual_revenue, :external_key, :created_at, :updated_at, :other_contacts, :number]
+
       records ||= all
       columns = (attributes.map(&:to_s) || column_names)
       CSV.generate(options) do |csv|
-        csv << (options[:titles] || columns) if options[:with_title]
+        if options[:with_title]
+          titles = (options[:titles] || columns)
+          titles << person_columns if (columns.include? "person")
+          csv <<  titles
+        end
+
         records.each do |contact|
           values = contact.attributes.values_at(*columns)
-          values[columns.index("emails")] = contact.emails.all.map(&:email).join(";") if columns.include? "emails"
+          values[columns.index("emails")] = contact.emails.all.map(&:email).join(",") if columns.include? "emails"
+          values += contact.person.to_csv(person_columns) if columns.include? "person"
           csv << values
         end
       end
