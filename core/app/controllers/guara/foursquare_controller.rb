@@ -8,9 +8,9 @@ module Guara
       places_search = params[:places_search]
       places_search_center = params[:places_search_center]
       if (places_search || "").length == 0
-        @places = client.search_venues_by_tip(:ll => places_search_center, :categoryId => params[:categories])
+        @places = client.search_venues_by_tip(:ll => places_search_center, :categoryId => params[:categories], :section => params[:section])
       else
-        @places = client.search_venues(:ll => places_search_center, :query => places_search, :categoryId => params[:categories], :section => params[:section])
+        @places = client.search_venues(:ll => places_search_center, :query => places_search, :categoryId => params[:categories])
       end
       render :json => @places
     end
