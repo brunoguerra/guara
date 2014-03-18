@@ -7,7 +7,11 @@ module Guara
     def places
       places_search = params[:places_search]
       places_search_center = params[:places_search_center]
-      @places = client.search_venues(:ll => places_search_center, :query => places_search)
+      if (places_search || "").length == 0
+        @places = client.search_venues_by_tip(:ll => places_search_center, :categoryId => params[:categories])
+      else
+        @places = client.search_venues(:ll => places_search_center, :query => places_search, :categoryId => params[:categories], :section => params[:section])
+      end
       render :json => @places
     end
 
