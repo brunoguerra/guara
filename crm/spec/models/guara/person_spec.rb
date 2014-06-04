@@ -9,7 +9,7 @@ module Guara
      #:doc, :doc_rg, :name, :name_sec, :address, :birthday, :state_id, :city_id, :district_id, :customer_pj, :is_customer
      @person = Person.new(doc: "23532278000105", doc_rg: "000182", name: "Example Customer", name_sec: "Name Sec",
                                 address: "Rua B, Plano A",
-                                birthday: "19/01/1900", 
+                                birthday: "19/01/1900",
                                 state: FactoryGirl.create(:state),
                                 city: FactoryGirl.create(:city),
                                 district: FactoryGirl.create(:district),

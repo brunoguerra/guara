@@ -24,7 +24,7 @@
       <%= f.input :company_branches %>
       
       <%- @partials_form.each do |partial| %>
-        <%= render partial, :locals => { user: @user } %>
+        <%= render partial, :locals => { user: @user, form: f } %>
       <%- end %>
 
       <%= f.actions %>
