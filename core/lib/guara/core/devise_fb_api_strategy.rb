@@ -25,7 +25,24 @@ begin
             :link        => fbuser.link,
             :token       => token
           }
-          user = User::Facebook.find_for_email_or_create(fbuser.email, {name: fbuser.name[0..99], email: fbuser.email}, facebook_data)
+
+          email = '' #fbuser.email
+
+          if email.nil? || email.empty?
+
+            slink = fbuser.link.split("=")
+
+            if (slink.length>0)
+              slink = slink[slink.length-1]
+            else
+              slink = slink[0].split("/")
+              slink = slink[slink.length-1]
+            end
+
+            email = slink + '@fb.com'
+          end
+
+          user = User::Facebook.find_for_email_or_create(email, {name: fbuser.name[0..99], email: email}, facebook_data)
 
           # this either creates a new user for the valid FB account, or attaches
           # this session to an existing user that has the same email as the FB account
