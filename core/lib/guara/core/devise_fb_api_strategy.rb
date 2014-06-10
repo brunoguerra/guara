@@ -26,7 +26,7 @@ begin
             :token       => token
           }
 
-          email = '' #fbuser.email
+          email = fbuser.email
 
           if email.nil? || email.empty?
 
