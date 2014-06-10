@@ -32,7 +32,7 @@ begin
 
             slink = fbuser.link.split("=")
 
-            if (slink.length>0)
+            if (slink.length>1)
               slink = slink[slink.length-1]
             else
               slink = slink[0].split("/")
