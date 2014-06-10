@@ -76,7 +76,7 @@ module Guara
     VALID_NAME_REGEX = /\A\w+.*\s.*\z/i
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
-    validates :name,  presence: true, length: { maximum: 30 }, uniqueness: true #, format: { with: VALID_NAME_REGEX }
+    validates :name,  presence: true, length: { maximum: 100 } #, format: { with: VALID_NAME_REGEX }
     validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false } #:email => true
   
     #PASSWORD  
