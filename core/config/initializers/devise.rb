@@ -15,7 +15,7 @@ Devise.setup do |config|
   config.skip_session_storage = [:http_auth]
   config.stretches = Rails.env.test? ? 1 : 10
   config.reconfirmable = true
-  config.timeout_in = 4.hours
+  config.timeout_in = 1.minute
   config.reset_password_within = 6.hours
   config.sign_out_via = Rails.env.test? ? :get : :delete
 
@@ -23,6 +23,7 @@ Devise.setup do |config|
     require 'fb_graph'
     config.warden do |manager|
       manager.default_strategies(:scope => :user).unshift :fb_database_authenticatable
+      manager.default_strategies(:scope => :user).unshift :google_database_authenticatable
     end
   rescue Exception => e
     Rails.logger.error(e.message)

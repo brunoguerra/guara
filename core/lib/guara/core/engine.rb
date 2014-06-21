@@ -27,7 +27,8 @@ module Guara
         ActiveAdmin.application.load_paths += Dir[File.dirname(__FILE__) + '/../admin']
       end
 
-      initializer "auth.fb" do |app|
+      initializer "auth.strategies" do |app|
+        require 'guara/core/devise_google_api_strategy'
         require 'guara/core/devise_fb_api_strategy'
       end
             

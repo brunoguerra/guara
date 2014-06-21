@@ -1,0 +1,40 @@
+:tokeninfo:
+  issued_to: 761866144670-7skatfbm8mboj2vkqp52if500d1ib53g.apps.googleusercontent.com
+  audience: 761866144670-7skatfbm8mboj2vkqp52if500d1ib53g.apps.googleusercontent.com
+  user_id: '114014677648716886439'
+  scope: https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me
+    https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.moments.write
+    https://www.googleapis.com/auth/plus.profile.agerange.read https://www.googleapis.com/auth/plus.profile.language.read
+    https://www.googleapis.com/auth/plus.circles.members.read
+  expires_in: 3594
+  email: bruno.guerra@gotosunrise.com
+  verified_email: true
+  access_type: offline
+:userinfo:
+  id: '114014677648716886439'
+  email: bruno.guerra@gotosunrise.com
+  verified_email: true
+  name: Bruno Guerra
+  given_name: Bruno
+  family_name: Guerra
+  link: https://plus.google.com/114014677648716886439
+  picture: https://lh3.googleusercontent.com/-DFPPIe1JXqA/AAAAAAAAAAI/AAAAAAAAABI/ubFatgjao5I/photo.jpg
+  gender: male
+  locale: pt-BR
+  hd: gotosunrise.com
+:token_status:
+  id_token_status:
+    valid: true
+    gplus_id: '114014677648716886439'
+    message: Valid ID Token.
+  access_token_status:
+    valid: true
+    gplus_id: '114014677648716886439'
+    message: Valid Access Token.
+
+
+:userinfo
+  :email
+  :link
+  :picture
+  :gender
