@@ -74,7 +74,7 @@ module Guara
     #VALIDATIONS<============================================================
     #BASICS
     VALID_NAME_REGEX = /\A\w+.*\s.*\z/i
-    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+    VALID_EMAIL_REGEX = /\A[\w+\-._]+@[a-z\d\-.]+\.[a-z]+\z/i
   
     validates :name,  presence: true, length: { maximum: 100 } #, format: { with: VALID_NAME_REGEX }
     validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false } #:email => true
@@ -121,6 +121,42 @@ module Guara
       end
 
       def basic_abilities
+      end
+
+      ##
+      #Registration System
+      #
+      #
+
+      def self.registration
+        User
+      end
+
+      ##
+      #Registration System
+      #
+      #
+
+      def self.registry(params)
+        User.new(params).save!
+      end
+
+      ##
+      #Registration System
+      #
+      #
+
+      def errors_as_json
+        errors
+      end
+
+      ##
+      #Registration System
+      #
+      #
+
+      def user
+        self
       end
   
     private

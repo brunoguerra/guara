@@ -69,11 +69,54 @@ module Guara
     end
 
     def init
+      if params[:user_registration]
+        unless register_new_user
+          render :json => { success: false, :errors => @user_new_reg.errors_as_json }
+          return 
+        end
+
+        sign_in @user_new_reg.user
+      else
+        manual_login if current_user.nil? && params[:user]
+      end
+
       unless current_user.nil?
-        render :json => { success: true, :user => current_user.as_json(only: [:id, :name, :enabled]) }
+        render :json => { success: true, :user => current_user.as_json(only: [:id, :name, :enabled]).merge({
+            :remember_token_expires => (30.days.from_now),
+            :remember_token => get_remember_user_token_cookie
+          })
+      }
       else
         render :json => { success: false, :user => nil }
       end
+    end
+
+    def register_new_user
+      @user_new_reg = User.registration.registry(params[:user])
+      !@user_new_reg.new_record?
+    end
+
+    def manual_login
+      user = Guara::User.where(email: params[:user][:email]).first
+      puts "User manual sign_in "+user.id.to_s if user
+      sign_in(:user, user) if user && user.valid_password?(params[:user][:password])
+    end
+
+    def get_remember_user_token_cookie
+      current_user.remember_me!
+
+
+      cookies.signed["remember_user_token"] = {
+        :value => current_user.class.serialize_into_cookie(current_user.reload),
+        :expires => 3.months.from_now,
+        :domain => request.host || "www.gotosunrise.com",
+      }
+
+
+      data = Rack::Session::Cookie::Base64::Marshal.new.encode(cookies.signed["remember_user_token"])
+      data.gsub!(/\n/, '')
+      digest = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.const_get('SHA1').new, Rails.application.config.secret_token, data)
+      data + '--' + digest
     end
 
     # extensible

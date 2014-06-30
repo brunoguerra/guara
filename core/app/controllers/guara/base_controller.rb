@@ -1,6 +1,6 @@
 module Guara
   class BaseController < ActionController::Base
-    protect_from_forgery
+    protect_from_forgery with: :null_session, :if => Proc.new { |c| c.request.format == 'application/json' }
     check_authorization :unless => :devise_controller? #cancan
     around_filter :set_time_zone
     

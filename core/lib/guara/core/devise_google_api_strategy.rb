@@ -38,11 +38,6 @@ begin
             return false
           end
 
-
-          puts "="*200
-          puts google_data.to_yaml
-          puts "="*200
-
           email = google_data[:userinfo]["email"]
 
           if email.nil? || email.empty?

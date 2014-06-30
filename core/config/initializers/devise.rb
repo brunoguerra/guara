@@ -15,9 +15,10 @@ Devise.setup do |config|
   config.skip_session_storage = [:http_auth]
   config.stretches = Rails.env.test? ? 1 : 10
   config.reconfirmable = true
-  config.timeout_in = 1.minute
-  config.reset_password_within = 6.hours
+  config.timeout_in = 12.days
+  config.reset_password_within = 30.seconds
   config.sign_out_via = Rails.env.test? ? :get : :delete
+  config.token_authentication_key = :auth_token
 
   begin
     require 'fb_graph'
