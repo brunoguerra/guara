@@ -1,7 +1,7 @@
 module Guara
   class UsersController < BaseController
-    load_and_authorize_resource class: Guara::User, :except => [:sign_out, :init]
-    skip_authorization_check :only => [:sign_out, :init]
+    load_and_authorize_resource class: Guara::User, :except => [:sign_out, :init, :remember_password]
+    skip_authorization_check :only => [:sign_out, :init, :remember_password]
     before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
     before_filter :correct_user,   only: [:edit, :update]
     before_filter :admin_user,     only: :destroy
@@ -94,6 +94,20 @@ module Guara
     def register_new_user
       @user_new_reg = User.registration.registry(params[:user])
       !@user_new_reg.new_record?
+    end
+
+    def remember_password
+      email = params[:email]
+
+      user = Guara::User.where(:email => email).first
+
+      if user
+        render :json => { success: true }
+      else
+        render :json => { success: false }
+      end
+
+
     end
 
     def manual_login

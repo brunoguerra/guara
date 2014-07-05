@@ -4,6 +4,8 @@ module Guara
     def self.routes router
       router.instance_exec :guara do
         match "/users/init", :to => 'users#init'
+        match "/users/remember_password", :to => 'users#remember_password'
+        
         devise_for :users, :class_name => 'Guara::User', :module => :devise
         root to: Guara::Core::Environment.new.routes_home_path(true)
 
